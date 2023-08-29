@@ -29,8 +29,10 @@ module.exports = (userId, { districts, category, features }) => {
 
         if (districtQuery.$or.length > 0) {
             filteredDistrictResults = await Workspot.find(districtQuery).lean()
-                .select('-__v -features.wifi._id -features.plugs._id -features.noise._id -features.otherFeatures._id -location._id -location.districts._id -location.mapLocation._id')
+                .select('-__v -features.wifi._id -features.plugs._id -features.noise._id -features.otherFeatures._id -location._id -location.districts._id -location.mapLocation._id -reviews._id -reviews.__v')
                 .populate('author', 'name avatar')
+                .populate('reviews.author', 'name avatar')
+
                 .lean()
 
             filteredDistrictResults.forEach(workspot => {
@@ -46,12 +48,23 @@ module.exports = (userId, { districts, category, features }) => {
                     delete workspot.author._id
                 }
 
+                if (workspot.reviews) {
+                    workspot.reviews.forEach(review => {
+                        if (review.author._id) {
+                            review.author.id = review.author._id.toString()
+
+                            delete review.author._id
+                        }
+                    })
+                }
             })
 
         } else {
             filteredDistrictResults = await Workspot.find().lean()
-                .select('-__v -features.wifi._id -features.plugs._id -features.noise._id -features.otherFeatures._id -location._id -location.districts._id -location.mapLocation._id')
+                .select('-__v -features.wifi._id -features.plugs._id -features.noise._id -features.otherFeatures._id -location._id -location.districts._id -location.mapLocation._id -reviews._id -reviews.__v')
                 .populate('author', 'name avatar')
+                .populate('reviews.author', 'name avatar')
+
                 .lean()
 
             filteredDistrictResults.forEach(workspot => {
@@ -67,6 +80,13 @@ module.exports = (userId, { districts, category, features }) => {
                     delete workspot.author._id
                 }
 
+                workspot.reviews.forEach(review => {
+                    if (review.author._id) {
+                        review.author.id = review.author._id.toString()
+
+                        delete review.author._id
+                    }
+                })
             })
         }
 
@@ -119,7 +139,7 @@ module.exports = (userId, { districts, category, features }) => {
                 })
             })
         }
-        
+
         return filteredOtherFeaturesResults
 
     })()

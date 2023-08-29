@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useAppContext, useHandleErrors } from '../hooks'
 import { Container, Form, Input, Button } from '../library'
 
-export default function WorkspotsSearchedByName({ user, nameSearched, lastWorkspotsUpdate, onEditWorkspot }) {
+export default function WorkspotsSearchedByName({ user, nameSearched, lastWorkspotsUpdate, onEditWorkspot, onAddReview }) {
     const handleErrors = useHandleErrors()
 
     const [searchedWorkspots, setSearchedWorkspots] = useState([])
@@ -35,6 +35,7 @@ export default function WorkspotsSearchedByName({ user, nameSearched, lastWorksp
                 key={workspot.id}
                 workspot={workspot}
                 onEditWorkspot={onEditWorkspot}
+                onAddReview={onAddReview}
                 onToggledLikeWorkspot={handleNameSearchedResults}
                 onToggledSavedWorkspot={handleNameSearchedResults}
                 onWorkspotDeleted={handleNameSearchedResults}

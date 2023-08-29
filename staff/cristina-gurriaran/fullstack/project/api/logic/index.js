@@ -13,6 +13,7 @@ module.exports = {
     deleteWorkspot: require('./workspots/deleteWorkspot'),
     toggleLikeWorkspot: require('./workspots/toggleLikeWorkspot'),
     toggleFavWorkspot: require('./workspots/toggleFavWorkspot'),
-    retrieveFavWorkspots: require('./workspots/retrieveFavWorkspots')
+    retrieveFavWorkspots: require('./workspots/retrieveFavWorkspots'),
+    addReviewToWorkspot: require('./workspots/addReviewToWorkspot')
 
 }

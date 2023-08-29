@@ -118,9 +118,10 @@ export default function EditWorkspotModal({ onCancel, workspotId, onWorkspotEdit
             updatedNoise[noiseOption] = event.target[`noise[${noiseOption}]`].checked;
         }
 
+     
         const updatedOtherFeatures = {};
         for (const otherFeaturesOption in otherFeatures) {
-            updatedOtherFeatures[otherFeaturesOption] = event.target[`otherFeatures[${otherFeaturesOption}]`].checked;
+            updatedOtherFeatures[otherFeaturesOption] = event.target.elements[`otherFeatures[${otherFeaturesOption}]`].checked;
         }
 
         const features = {

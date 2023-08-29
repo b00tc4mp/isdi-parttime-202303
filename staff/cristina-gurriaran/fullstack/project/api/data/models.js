@@ -118,6 +118,30 @@ const location = new Schema({
     }
 })
 
+const review = new Schema({
+    workspot: {
+        type: ObjectId,
+        ref: 'Workspot',
+        required: true
+    },
+    author: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
+    text: {
+        type: String,
+        required: true,
+        trim: true,
+        minLength: 1
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    }
+})
+
 const workspot = new Schema({
     author: {
         type: ObjectId,
@@ -154,7 +178,9 @@ const workspot = new Schema({
         noise: noise,
         otherFeatures: otherFeatures
     },
-    reviews: [String],
+    reviews: {
+        type: review
+    },
     likes: {
         type: [ObjectId],
         ref: 'User'
@@ -163,8 +189,10 @@ const workspot = new Schema({
 
 const User = model('User', user)
 const Workspot = model('Workspot', workspot)
+const Review = model('review', review)
 
 module.exports = {
     User,
-    Workspot
+    Workspot,
+    Review
 }

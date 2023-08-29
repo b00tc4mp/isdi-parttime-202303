@@ -14,7 +14,7 @@ import isCurrentUser from '../../logic/isCurrentUser'
 const API_KEY = 'AIzaSyAHtNeBELo0YBI0lmCVbd0lQ9BGTVd_fhQ'
 
 export default function Workspot({ workspot : {
-    id, image, name, location, description, category, features, reviews, likes, author, fav }, onEditWorkspot, onWorkspotDeleted, onToggledLikeWorkspot, onToggledSavedWorkspot }){
+    id, image, name, location, description, category, features, likes, reviews, author, fav }, onEditWorkspot, onWorkspotDeleted, onToggledLikeWorkspot, onToggledSavedWorkspot, onAddReview }){
     
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: API_KEY,
@@ -29,6 +29,8 @@ export default function Workspot({ workspot : {
 
 
     const handleEditWorkspot = () => onEditWorkspot(id)
+
+    const handleAddReview = () => onAddReview(id)
 
     const handleDeleteWorkspot = () => {
         try{
@@ -63,6 +65,7 @@ export default function Workspot({ workspot : {
             alert(error.message)
         }
     }
+
 
     const isCurrentUserPost = isCurrentUser(author.id)
 
@@ -115,14 +118,23 @@ export default function Workspot({ workspot : {
                             )
                         )}
                     </li>
-
                 </ul>
-            <p className="font-semibold">Reviews:</p>
-            <ul className="list-disc pl-6">
-                {reviews.map((review, index) => (
-                    <li key={index}>{review}</li>
-                ))}
-            </ul>
+
+                {reviews && <div>
+                    <p>Reviews:</p>
+                    <div>
+                        {reviews.map(review => (
+                            <div key={review.id}>
+                                <p>Author: {review.author.name}           
+                                <img className="w-8 h-8 mr-2 rounded-full" src={review.author.avatar} alt={`${author.name}'s Avatar`} /> </p>
+                                <p>Text: {review.text}</p>
+                                <p>Date: {review.date}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                }
+
             <div className="w-full h-96 rounded-lg">
             {!isLoaded ? (
                 <h1>Loading...</h1>
@@ -136,6 +148,7 @@ export default function Workspot({ workspot : {
             
             {isCurrentUser && <Button onClick={handleEditWorkspot}>📝</Button>}
             {isCurrentUser && <Button onClick={handleDeleteWorkspot}>🗑</Button>}
+            <Button onClick={handleAddReview}>Add review </Button>
             <button  onClick={handleToggleLikeWorkspot}>{likes.includes(getUserId()) ? '❤️' : '🤍'} ({likes ? likes.length : 0})</button>
             <button onClick={handleToggleSaveWorkspot}>{fav ? '⭐️' : '✩'}</button>
 

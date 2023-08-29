@@ -2,6 +2,7 @@ import Workspots from '../components/Workspots'
 import WorkspotsSearchedByName from '../components/WorkspotsSearchedByName'
 import AddWorkspotModal from '../components/AddWorkspotModal'
 import EditWorkspotModal from '../components/EditWorkspotModal'
+import AddReviewModal from '../components/AddReviewModal'
 import FilterModal from '../components/FiltersModal'
 import FilteredWorkspots from '../components/FilteredWorkspots'
 import { Container, Form, Input, Button } from '../library'
@@ -37,6 +38,11 @@ export default function Home() {
 
     const handleOpenEditWorkspotModal = (workspotId) => {
         setModal('edit-workspot')
+        setworkspotId(workspotId)
+    }
+
+    const handleAddReviewModal = (workspotId) => {
+        setModal('add-review')
         setworkspotId(workspotId)
     }
 
@@ -130,12 +136,14 @@ export default function Home() {
         <div>
             {view === 'workspots' && <Workspots
                 onEditWorkspot={handleOpenEditWorkspotModal}
+                onAddReview={handleAddReviewModal}
                 lastWorkspotsUpdate={lastWorkspotsUpdate}
             />}
 
             {view === 'workspots-searched-by-name' && <WorkspotsSearchedByName 
                 nameSearched={nameSearched}
                 onEditWorkspot={handleOpenEditWorkspotModal}
+                onAddReview={handleAddReviewModal}
                 lastWorkspotsUpdate={lastWorkspotsUpdate}
             />}
 
@@ -144,6 +152,7 @@ export default function Home() {
                 category={filteredData.category}
                 features={filteredData.features}
                 onEditWorkspot={handleOpenEditWorkspotModal}
+                onAddReview={handleAddReviewModal}
                 lastWorkspotsUpdate={lastWorkspotsUpdate}
 
             />}
@@ -170,6 +179,13 @@ export default function Home() {
                     onCancel={handleCloseModal}
                     onWorkspotEdited={handleWorkspotUpdated}
                     workspotId = {workspotId}
+                />}
+
+            {modal === 'add-review' &&
+                <AddReviewModal
+                    onCancel={handleCloseModal}
+                    onReviewAdded={handleWorkspotUpdated}
+                    workspotId={workspotId}
                 />}
 
         </div>

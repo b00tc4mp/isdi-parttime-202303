@@ -18,7 +18,7 @@ module.exports = (userId, workspotId) => {
 
         if (!workspot) throw new ExistenceError(`Workspot with id ${workspot} not found`)
 
-        if (userId !== workspot.author.toString()) throw new PermitError(`Post with id ${workspotId} does not belong to user with id ${userId} `)
+        if (userId !== workspot.author.toString()) throw new PermitError(`Workpost with id ${workspotId} does not belong to user with id ${userId} `)
 
         const users = await User.find({ favs: workspotId })
 

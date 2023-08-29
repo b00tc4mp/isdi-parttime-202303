@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useAppContext, useHandleErrors } from '../hooks'
 import { Container, Form, Input, Button } from '../library'
 
-export default function FilteredWorkspots({ districts, category, features, lastWorkspotsUpdate, user, onEditWorkspot }) {
+export default function FilteredWorkspots({ districts, category, features, lastWorkspotsUpdate, user, onEditWorkspot, onAddReview }) {
     const handleErrors = useHandleErrors()
 
     const [filteredWorkspots, setFilteredWorkspots] = useState([])
@@ -35,6 +35,7 @@ export default function FilteredWorkspots({ districts, category, features, lastW
                 key={workspot.id} 
                 workspot={workspot}
                 onEditWorkspot={onEditWorkspot}
+                onAddReview={onAddReview}
                 onToggledLikeWorkspot={handleFilteredSearchResults}
                 onToggledSavedWorkspot={handleFilteredSearchResults}
                 onWorkspotDeleted={handleFilteredSearchResults}

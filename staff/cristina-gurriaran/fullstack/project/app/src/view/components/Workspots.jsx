@@ -5,7 +5,7 @@ import { useAppContext, useHandleErrors } from '../hooks'
 import { Container, Form, Input, Button } from '../library'
 
 
-export default function Workspots({ onEditWorkspot, lastWorkspotsUpdate, user }){
+export default function Workspots({ onEditWorkspot, onAddReview, lastWorkspotsUpdate, user }){
     const handleErrors = useHandleErrors()
 
     const [workspots, setWorkspots] = useState()
@@ -34,9 +34,11 @@ export default function Workspots({ onEditWorkspot, lastWorkspotsUpdate, user })
             key={workspot.id}
             workspot={workspot}
             onEditWorkspot={onEditWorkspot}
+            onAddReview={onAddReview}
             onToggledLikeWorkspot={handleRefresWorkspots}
             onToggledSavedWorkspot={handleRefresWorkspots}
             onWorkspotDeleted={handleRefresWorkspots}
+            onReviewAdded={handleRefresWorkspots}
             user={user}
         />)}
     </div>   
