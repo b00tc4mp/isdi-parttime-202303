@@ -13,19 +13,19 @@ const {
  * @returns {Promise<array>} The array of posts
  * 
  * @throws {TypeError} On non-string user id or text to search
- * @throws {ContentError} On user id length not equal to 24 characters, or empty text to search
+ * @throws {ContentError} On user id not equal to 24 characters of length or not hexadecimal, or empty text to search
  * @throws {ExistenceError} On non-existing user
  */
   
   module.exports = (userId, textToSearch) => {
     validateId(userId, 'user id')
-    validateText(textToSearch, 'tex to search')
+    validateText(textToSearch, 'text to search')
   
     return (async () => {
       const user = await User.findById(userId)
       if(!user) throw new ExistenceError('User not found.')
       
-      const posts = await Post.find({ title: {$regex: textToSearch, $options: 'i'} }).populate('author', '-favs -__v').sort({ likes: -1 }).lean()
+      const posts = await Post.find({ title: {$regex: textToSearch, $options: 'i'} }).populate('author', 'name avatar').sort({ likes: -1 }).lean()
   
       posts.forEach(post => {
         post.id = post._id.toString()

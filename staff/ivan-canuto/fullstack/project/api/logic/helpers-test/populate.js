@@ -1,6 +1,6 @@
 const { User, Post } = require('../../data/models')
 
-module.exports = (_users, _posts) => {
+module.exports = async (_users, _posts) => {
 
     const promises = []
 
@@ -10,5 +10,5 @@ module.exports = (_users, _posts) => {
         promises.push(Post.insertMany(_posts))
     }
 
-    return Promise.all(promises)
+    await Promise.all(promises)
 }

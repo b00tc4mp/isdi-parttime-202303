@@ -15,7 +15,7 @@ const { User, Post } = require('../data/models')
  * @returns {Promise} A Promise that resolves when a comment is deleted successfully, or rejects with an error message if deletion fails
  * 
  * @throws {TypeError} On non-string user id, post id or comment id
- * @throws {ContentError} On user id, post id or comment id length not equal to 24 characters,
+ * @throws {ContentError} On user id, post id or comment id not equal to 24 characters of length or not hexadecimal
  * @throws {ExistenceError} On non-existing user or post
  */
 

@@ -13,7 +13,7 @@ const { User, Suggestion } = require("../data/models")
  * @returns {Promise<object>} The suggestion object
  * 
  * @throws {TypeError} On non-string user id or suggestion id
- * @throws {ContentError} On user id or suggestion id length not equal to 24 characters
+ * @throws {ContentError} On user id or suggestion id not equal to 24 characters of length or not hexadecimal
  * @throws {ExistenceError} On non-existing user or suggestion
  */
 

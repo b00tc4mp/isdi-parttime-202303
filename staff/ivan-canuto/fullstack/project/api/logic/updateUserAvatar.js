@@ -16,7 +16,7 @@ const bcrypt = require('bcryptjs')
  * @returns {Promise} A Promise that resolves when the user avatar is updated successfully, or rejects with an error message if the operation fails
  * 
  * @throws {TypeError} On non-string user id, new avatar url or password
- * @throws {ContentError} On user id length not equal to 24 characters, empty new avatar url or the new avatar url is the same as the old one.
+ * @throws {ContentError} On user id not equal to 24 characters of length or not hexadecimal, empty new avatar url or the new avatar url is the same as the old one.
  * @throws {RangeError} On password length lower than 6 characters
  * @throws {ExistenceError} On non-existing user
  * @throws {AuthError} On wrong credentials

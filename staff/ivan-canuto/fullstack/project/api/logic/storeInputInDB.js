@@ -1,4 +1,4 @@
-const { validators: { validateId, validateObject }, errors: { ExistenceError } } = require('com')
+const { validators: { validateId, validateUserInputObject }, errors: { ExistenceError } } = require('com')
 const { User, Conversation } = require('../data/models')
 
 /**
@@ -11,14 +11,14 @@ const { User, Conversation } = require('../data/models')
  * @returns {Promise} A Promise that resolves when a user input is stored in database successfully, or rejects with an error message if the operation fails
  * 
  * @throws {TypeError} On non-string user id or conversation id, or non-object user input
- * @throws {ContentError} On user id or conversation id length not equal to 24 characters
+ * @throws {ContentError} On user id or conversation id not equal to 24 characters of length or not hexadecimal
  * @throws {ExistenceError} On non-existing user or conversation
  */
 
 module.exports = function storeInputInDB(userId, conversationId, userInput) {
     validateId(userId, 'user id')
     validateId(conversationId, 'conversation id')
-    validateObject(userInput, 'user input')
+    validateUserInputObject(userInput, 'user input')
 
     return (async () => {
         const user = await User.findById(userId)

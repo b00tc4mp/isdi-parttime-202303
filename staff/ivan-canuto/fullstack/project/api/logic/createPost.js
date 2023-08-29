@@ -14,7 +14,7 @@ const { User, Post, Conversation } = require('../data/models')
  * @returns {Promise} A Promise that resolves when a post is created successfully, or rejects with an error message if the post creation fails
  * 
  * @throws {TypeError} On non-string user id, conversation id or summary text
- * @throws {ContentError} On user id or conversation id length not equal to 24 characters, or empty summary text
+ * @throws {ContentError} On user id or conversation id not equal to 24 characters of length or not hexadecimal or not hexadecimal, or empty summary text
  * @throws {ExistenceError} On non-existing user or conversation
  */
 
@@ -25,7 +25,7 @@ module.exports = (userId, conversationId, summary) => {
 
   return (async () => {
     const user = await User.findById(userId)
-    if(!user) throw new ExistenceError(`User with id ${userId} not found.`)
+    if(!user) throw new ExistenceError(`User not found.`)
     
     const conversation = await Conversation.findById(conversationId).lean()
     if(!conversation) throw new ExistenceError(`Conversation not found.`)

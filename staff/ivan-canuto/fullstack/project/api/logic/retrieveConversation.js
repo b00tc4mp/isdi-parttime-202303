@@ -10,7 +10,7 @@ const { User, Conversation } = require('../data/models')
  * @returns {Promise<object>} The conversation object
  * 
  * @throws {TypeError} On non-string user id or conversation id
- * @throws {ContentError} On user id or conversation id length not equal to 24 characters
+ * @throws {ContentError} On user id or conversation id not equal to 24 characters of length or not hexadecimal
  * @throws {ExistenceError} On non-existing user or conversation
  */
 

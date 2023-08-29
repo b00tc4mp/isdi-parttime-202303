@@ -12,7 +12,7 @@ const { User, Suggestion } = require("../data/models")
  * @returns {Promise<array>} The array of suggestions
  * 
  * @throws {TypeError} On non-string user id
- * @throws {ContentError} On user id length not equal to 24 characters
+ * @throws {ContentError} On user id not equal to 24 characters of length or not hexadecimal
  * @throws {ExistenceError} On non-existing user
  */
   
@@ -30,8 +30,12 @@ const { User, Suggestion } = require("../data/models")
         delete suggestion._id
 
         suggestion.post = suggestion.post.toString()
-        suggestion.postAuthor = suggestion.postAuthor.toString()
         suggestion.author = suggestion.author.toString()
+        
+        if(suggestion.postAuthor._id) {
+          suggestion.postAuthor.id = suggestion.postAuthor._id.toString()
+          delete suggestion.postAuthor._id
+        }
       })
   
       return suggestions

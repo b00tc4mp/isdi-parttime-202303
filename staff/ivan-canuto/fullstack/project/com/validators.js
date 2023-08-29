@@ -1,9 +1,9 @@
-const { ContentError } = require("./errors")
+const { ContentError, ExistenceError } = require("./errors")
 const EMAIL_REGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 
 function validateName(name) {
-  if (typeof name !== 'string') throw new TypeError('Name is not a string.')
-  if (!name.trim().length) throw new ContentError('Name field is empty.')
+  if (typeof name !== 'string') throw new TypeError('The name is not a string.')
+  if (!name.trim().length) throw new ContentError('The name field is empty.')
 }
 
 function validateEmail(email, explanation = 'email') {
@@ -59,13 +59,13 @@ function validateArray(array, explanation = 'array') {
 function validateComment(comment, explanation = 'comment') {
   if (typeof comment !=='string') throw new TypeError(`The ${explanation} is not a string.`)
   if (!comment.trim().length) throw new ContentError(`The ${explanation} field is empty.`)
-  if (comment.trim().length > 200) throw new ContentError(`The text of the ${explanation} is too long.`)
+  if (comment.trim().length > 200) throw new ContentError(`The ${explanation} is too long.`)
 }
 
 function validateSuggestionTitle(title) {
-  if (typeof text !=='string') throw new TypeError(`The suggestion title is not a string.`)
-  if (!text.trim().length) throw new ContentError(`The suggestion title field is empty.`)
-  if (title.length > 30) throw new ContentError('The tsuggestion title is too long.')
+  if (typeof title !=='string') throw new TypeError(`The suggestion title is not a string.`)
+  if (!title.trim().length) throw new ContentError(`The suggestion title field is empty.`)
+  if (title.length > 30) throw new ContentError('The suggestion title is too long.')
 }
 
 function validateSuggestionContent(content) {
@@ -75,8 +75,11 @@ function validateSuggestionContent(content) {
   if(content.length > 500) throw new ContentError('The suggestion content is too long.')
 }
 
-function validateObject(object, explanation = 'object') {
-  if(typeof object !== 'object') throw new TypeError(`The ${explanation} is not an object.`)
+function validateUserInputObject(object) {
+  if(typeof object !== 'object' || Array.isArray(object)) throw new TypeError(`The user input is not an object.`)
+  if(!object.role || typeof object.role !== 'string') throw new ContentError('The "role" property in user input does not exist or is not a string.')
+  if(object.role !== 'user') throw new ContentError('The input does not have a user role.')
+  if(!object.content || typeof object.content !== 'string') throw new ContentError('The "content" property in user input does not exist or is not a string.')
 }
 
 module.exports = {
@@ -92,5 +95,5 @@ module.exports = {
   validateComment,
   validateSuggestionTitle,
   validateSuggestionContent,
-  validateObject
+  validateUserInputObject
 }

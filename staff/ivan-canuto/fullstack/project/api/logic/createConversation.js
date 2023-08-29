@@ -15,11 +15,11 @@ const { mongoose: { Types: { ObjectId } } } = mongoose
  * @returns {Promise<string>} The conversation id
  * 
  * @throws {TypeError} On non-string user id or user input
- * @throws {ContentError} On user id length not equal to 24 characters, or empty user input
+ * @throws {ContentError} On user id not equal to 24 characters of length or not hexadecimal or not hexadecimal, or empty user input
  * @throws {ExistenceError} On non-existing user
  */
 
-module.exports = function generateConversation(userId, userInput) {
+module.exports = function createConversation(userId, userInput) {
     validateId(userId, 'user id')
     validateText(userInput, 'user input')
 

@@ -85,15 +85,18 @@ const suggestion = new Schema({
     },
     postAuthor: {
         type: ObjectId,
+        ref: 'User',
         required: true
     },
     title: {
         type: String,
-        requried: true
+        requried: true,
+        trim: true
     },
     content: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     checked: {
         type: Boolean,
@@ -115,14 +118,13 @@ const post = new Schema({
     },
     title: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     text: {
         type: String,
-        require: true
-    },
-    image: {
-        type: String
+        require: true,
+        trim: true
     },
     date: {
         type: String,

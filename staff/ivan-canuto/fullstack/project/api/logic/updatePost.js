@@ -15,7 +15,7 @@ const { User, Post } = require('../data/models')
  * @returns {Promise} A Promise that resolves when a post is updated successfully, or rejects with an error message if the operation fails
  * 
  * @throws {TypeError} On non-string user id, post id, title or content
- * @throws {ContentError} On user id or post id length not equal to 24 characters, or empty title or content
+ * @throws {ContentError} On user id or post id not equal to 24 characters of length or not hexadecimal, or empty title or content
  * @throws {ExistenceError} On non-existing user or post
  * @throws {Error} On current user is not the post owner
  */

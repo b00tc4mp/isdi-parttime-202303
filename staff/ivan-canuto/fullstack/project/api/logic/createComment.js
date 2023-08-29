@@ -16,7 +16,7 @@ const { User, Post } = require('../data/models')
  * @returns {promise} A Promise that resolves when the comment is created, or rejects with an error message if the comment creation fails
  * 
  * @throws {TypeError} On non-string user id, post id or comment text
- * @throws {ContentError} On user id or post id length not equal to 24 characters, empty comment text, or comment text longer than 200 characters.
+ * @throws {ContentError} On user id or post id not equal to 24 characters of length or not hexadecimal or not hexadecimal, empty comment text, or comment text longer than 200 characters.
  * @throws {ExistenceError} On non-existing user or post
  */
 

@@ -14,7 +14,7 @@ const { User, Suggestion } = require('../data/models')
  * @returns {Promise} A Promise that resolves when a suggestion is created successfully, or rejects with an error message if suggestion creation fails
  * 
  * @throws {TypeError} On non-string user id, suggestion id, suggestion title or suggestion content
- * @throws {ContentError} On user id or suggestion id length not equal to 24 characters, or empty suggestion title or length longer tha 30 characters, or empty suggestion content or length not being between 50 and 500 characters
+ * @throws {ContentError} On user id or suggestion id not equal to 24 characters of length or not hexadecimal, or empty suggestion title or length longer tha 30 characters, or empty suggestion content or length not being between 50 and 500 characters
  * @throws {ExistenceError} On non-existing user or suggestion
  */
 
