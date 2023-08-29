@@ -56,7 +56,7 @@
 
 /* START: Footer styles */
 .footer {
-  @apply grid grid-cols-1 sm:flex sm:flex-col text-black-100 border-t border-gray-100 max-w-[1440px] w-full mx-auto navbar-bg justify-center h-fit;
+  @apply grid grid-cols-1 sm:flex sm:flex-col text-black-100 max-w-[1440px] w-full mx-auto navbar-bg justify-center h-fit;
 }
 
 .footer__elements{

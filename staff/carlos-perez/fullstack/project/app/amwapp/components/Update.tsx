@@ -10,23 +10,28 @@ interface UpdatesHomeProps {
 const Update = ({ update }: UpdatesHomeProps) => {
 
     const { title, image, text, date } = update;
-
+    const dateToDate= new Date(date);
+    const dateFormatted = dateToDate.toLocaleString('es-ES');
 
     return (
-        <div className="max-w-[1440px] w-full update-home-container flex flex-col">
-            <div className="flex flex-col justify-between content-center border-solid border-2 border-blue-100 cursor-pointer">
-                <h1 className="font-bold justify-self-center text-xl p-4">{title}</h1>
-                <div className="relative w-full h-60 sm:h-80 object-contain">
-                    <Image
-                        src={image}
-                        alt='update image'
-                        fill
-                        priority
-                        className='object-cover'
-                    />
+        <div className="max-w-[1440px] w-full flex flex-col">
+            <div className="flex flex-col content-center">
+                <h1 className="font-bold justify-self-center text-xl p-4 bg-slate-700 text-white">{title}</h1>
+                <div className="flex flex-col xl:grid xl:grid-flow-row xl:grid-cols-2 xl:h-full items-center">
+                    <div className="relative w-full h-[400px] xl:h-[600px] object-contain items-center bg-blue-100">
+                        <Image
+                            src={image}
+                            alt='update image'
+                            fill
+                            priority
+                            className='object-contain'
+                        />
+                    </div>
+                    <div className="w-full p-6 justify-center flex flex-col gap-4">
+                        <p className="text-justify">{text}</p>
+                        <p>{dateFormatted}</p>
+                    </div>
                 </div>
-                <p>{text}</p>
-                <p>{date.toString()}</p>
             </div>
         </div>
     )
