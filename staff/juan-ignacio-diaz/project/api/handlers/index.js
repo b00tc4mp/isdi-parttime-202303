@@ -19,6 +19,7 @@ module.exports = {
     reviewListsGuestHandler: require('./lists/reviewListsGuestHandler'),
     copyToNewListHandler: require('./lists/copyToNewListHandler'),
     retrieveUsersListHandler: require('./lists/retrieveUsersListHandler'),
+    retrieveListHandler: require('./lists/retrieveListHandler'),
 
     addMessageHandler: require('./lists/messages/addMessageHandler'),
     reviewMessagesHandler: require('./lists/messages/reviewMessagesHandler'),
@@ -31,6 +32,7 @@ module.exports = {
     deleteProductToListHandler: require('./lists/products/deleteProductToListHandler'),
     editProductToListHandler: require('./lists/products/editProductToListHandler'),
     toggleProductToCartHandler: require('./lists/products/toggleProductToCartHandler'),
+    toggleLikeProductHandler: require('./lists/products/toggleLikeProductHandler'), 
     markProductAsPurchasedHandler: require('./lists/products/markProductAsPurchasedHandler'),
     reviewFilteredProductsHandler: require('./lists/products/reviewFilteredProductsHandler')
 }

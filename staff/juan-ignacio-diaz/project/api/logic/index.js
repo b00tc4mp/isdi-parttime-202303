@@ -32,6 +32,7 @@ module.exports = {
     deleteProductToList: require('./lists/products/deleteProductToList'),
     editProductToList: require('./lists/products/editProductToList'),
     toggleProductToCart: require('./lists/products/toggleProductToCart'),
+    toggleLikeProduct: require('./lists/products/toggleLikeProduct'),
     markProductAsPurchased: require('./lists/products/markProductAsPurchased'),
     reviewFilteredProducts: require('./lists/products/reviewFilteredProducts')
 }

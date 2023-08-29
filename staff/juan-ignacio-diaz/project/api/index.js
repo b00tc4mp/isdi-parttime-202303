@@ -43,7 +43,8 @@ const {
     editProductToListHandler,
     markProductAsPurchasedHandler,
     reviewFilteredProductsHandler,
-    toggleProductToCartHandler
+    toggleProductToCartHandler,
+    toggleLikeProductHandler
 
 } = require('./handlers')
 
@@ -89,7 +90,7 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/lists/:listId', retrieveListHandler)
 
         api.post('/lists/:listId/message', jsonBodyParser, addMessageHandler)
-        api.get('/lists/:listId/message', reviewMessagesHandler)
+        api.get('/lists/:listId/messages', reviewMessagesHandler)
 
         api.post('/lists/:listId/store', jsonBodyParser, addStoreHandler)
         api.get('/lists/:listId/stores', reviewStoresHandler)
@@ -101,6 +102,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/lists/:listId/products/filter', jsonBodyParser, reviewFilteredProductsHandler)
         api.get('/lists/:listId/productTypes', reviewProductTypesHandler)
         api.get('/lists/:listId/products/:productId/cart', toggleProductToCartHandler)
+        api.get('/lists/:listId/products/:productId/like',     toggleLikeProductHandler
+        )
         
 //
 
