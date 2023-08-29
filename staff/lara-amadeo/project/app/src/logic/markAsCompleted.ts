@@ -17,6 +17,7 @@ export default function markAsCompleted(userId: string, serial: string, chefId: 
 
         //@ts-ignore
         const { message, type } = await res.json()
+        throw message
         //@ts-ignore
         const clazz = errors[type]
 
