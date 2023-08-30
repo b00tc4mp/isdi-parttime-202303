@@ -68,7 +68,7 @@ export default function Home() {
         <Topbar level={'first'} firstLevel={{ onChatClick: () => alert('🛠️ Feature coming soon! Please, be patient') }} />
         <div className="page-first-level">
             {/* <Header text={`Welcome to Yupper`} /> */}
-            <FakeSearchBar onBarClick={onFilterClick} />
+            <FakeSearchBar onBarClick={() => navigate('/search')} />
 
             {user && user.availability.length === 0 && <NavigationRow className="home-navigation-row" label={"Complete your profile"} trailingIcon={<ChevronRightIcon className='icon-s primary-color' />} onClick={onCompleteProfile} container="border" />}
 

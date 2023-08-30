@@ -1,7 +1,9 @@
 import Avatar from '../components/Avatar'
+import Button from '../components/Button'
 import Chip from '../components/Chip'
 import Container from '../components/Container'
 import Divider from '../components/Divider'
+import Link from '../components/Link'
 import './PendingOrderCard.css'
 
 type Props = {
@@ -11,10 +13,11 @@ type Props = {
     quantity: number,
     total: number,
     serial: string,
-    date: string
+    date: string,
+    onCompletedLink: () => void
 }
 
-export default function PendingOrderCard({ image, chefName, chip, quantity, total, serial, date }: Props) {
+export default function PendingOrderCard({ image, chefName, chip, quantity, total, serial, date, onCompletedLink }: Props) {
 
     return <>
         <div className='pending-order-container'>
@@ -33,12 +36,15 @@ export default function PendingOrderCard({ image, chefName, chip, quantity, tota
                         </div>
 
                         <div className='pending-order-third-row'>
-                            <p className='small-text grey-400 pending-order-serial'>{serial}</p>
+                            {/* <p className='small-text grey-400 pending-order-serial'>{serial}</p> */}
                             <p className='small-text grey-400'>{date}</p>
+
                         </div>
                     </div>
                 </div>
             </>
+            <Button type={'secondary'} size={'extrasmall'} label={'Mark as completed'} onClick={onCompletedLink} />
+
         </div>
     </>
 }

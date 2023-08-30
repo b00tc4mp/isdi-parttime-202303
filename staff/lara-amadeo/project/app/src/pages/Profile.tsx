@@ -128,7 +128,7 @@ export default function Profile(): JSX.Element {
     }
 
     return <>
-        {user ? <Topbar level={'first'} firstLevel={{ label: `@${user?.username}`, onChatClick: () => alert('🛠️ Feature coming soon! Please, be patient') }} /> : <Skeleton width={'250px'} count={1} height={'16px'} className="profile-topbar-skeleton" />}
+        {user ? <Topbar level={'first'} firstLevel={{ label: `@${user?.username}`, chat: true, onChatClick: () => alert('🛠️ Feature coming soon! Please, be patient') }} /> : <Skeleton width={'250px'} count={1} height={'16px'} className="profile-topbar-skeleton" />}
         <div className="page-first-level">
             <div className="profile-first-part">
                 {user ? <Avatar image={user.avatar} width={"60px"} /> : <Skeleton width={'60px'} height={'60px'} baseColor="#f4f4f4" highlightColor="#eeeeee" />}

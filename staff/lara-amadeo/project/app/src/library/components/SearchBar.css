@@ -9,6 +9,7 @@
     border: 1px solid var(--grey-200);
     border-radius: 12px;
     padding-right: 12px;
+    padding-left: 12px;
 }
 
 .searchBar-icon {

@@ -1,10 +1,11 @@
 import { context } from "./context"
-import errors from "./helpers/errors"
 
-export default function markAsCompleted(serial: string, chefId: string) {
-    const data = { serial, chefId }
+export default function searchMeals(title: string | undefined, categories: string[]) {
+    if (title === "") title = undefined
+    const data = { title, categories }
+
     return (async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_KEY}/meals/complete`, {
+        const res = await fetch(`${import.meta.env.VITE_API_KEY}/meals/search`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -13,16 +14,18 @@ export default function markAsCompleted(serial: string, chefId: string) {
             body: JSON.stringify(data)
         })
 
-        if (res.status === 204) return
+        if (res.status === 200) {
+            const meals = await res.json()
+            return meals
+        }
 
         //@ts-ignore
         const { message, type } = await res.json()
-        throw message
+
         //@ts-ignore
         const clazz = errors[type]
 
         //@ts-ignore
         throw new clazz(message)
-
     })()
 }

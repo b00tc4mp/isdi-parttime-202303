@@ -90,7 +90,7 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/meals/waiting/pickUp', retrieveWaitingClientToPickUpHandler)
 
         //search meals and retrieve results
-        api.get('/meals/search', jsonBodyParser, searchMealsHandler)
+        api.post('/meals/search', jsonBodyParser, searchMealsHandler)
 
         api.get('/IKAuth', (req, res) => {
             const result = imagekit.getAuthenticationParameters()

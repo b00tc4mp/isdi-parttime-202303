@@ -20,6 +20,11 @@ import formatDate from '../logic/formatDate'
 import useAppContext from '../logic/hooks/useAppContext'
 import PaymentSummary from '../modals/PaymentSummary'
 import Header from '../library/components/Header'
+import markAsCompleted from '../logic/markAsCompleted'
+import ContextualModalMenu from '../library/modules/ContextualModalMenu'
+import CompleteOrderModal from '../modals/CompleteOrderModal'
+import Button from '../library/components/Button'
+
 
 
 type Order = {
@@ -86,10 +91,16 @@ type PendingToPickUp = {
 }
 
 
+type ContextualParams = {
+    serial: string,
+    chefId: string
+}
+
+
 
 export default function Cart() {
 
-    const { navigate, loaderOn, loaderOff } = useAppContext()
+    const { navigate, loaderOn, loaderOff, toast } = useAppContext()
 
     const [meals, setMeals] = useState<Order[]>()
     const [lastQuantity, setLastQuantity] = useState()
@@ -102,6 +113,8 @@ export default function Cart() {
 
     const [paymentModal, setPaymentModal] = useState(false)
     const [paymentDone, setPaymentDone] = useState<boolean>()
+
+    const [completedContextualModal, setCompletedContextualModal] = useState<ContextualParams | null>(null)
 
     const handleErrors = useHandleError()
 
@@ -117,9 +130,9 @@ export default function Cart() {
                 calculateTotal(meals)
 
                 const _pendingMeals = await retrievePendingToPickUp()
-                const pendingMeals = calculatePendingOrderTotal(_pendingMeals).toReversed()
+                const pendingMealsFiltered = _pendingMeals.filter((meal: PendingToPickUp) => meal.status !== 'complete')
+                const pendingMeals = calculatePendingOrderTotal(pendingMealsFiltered).toReversed()
                 setPendingMeals(pendingMeals)
-
             } catch (error: any) {
                 handleErrors(error)
             }
@@ -147,6 +160,32 @@ export default function Cart() {
         setTotal(total)
     }
 
+
+    const onComplete = (serial: string, chefId: string) => {
+        setCompletedContextualModal({ serial, chefId })
+    }
+
+    const handleConfirmComplete = () => {
+        (async () => {
+            try {
+                loaderOn()
+                //@ts-ignore
+                const { serial: _serial, chefId: _chefId } = completedContextualModal
+
+                await markAsCompleted(_serial, _chefId)
+
+                setCompletedContextualModal(null)
+
+                setTimeout(() => {
+                    loaderOff()
+                    toast('Order completed successfully', 'success')
+                }, 600)
+            } catch (error: any) {
+                handleErrors(error)
+            }
+        })()
+    }
+
     const handleAddOneMore = (id: string) => {
         const foundMeal = findMealById(id, meals!)
         //@ts-ignore
@@ -168,8 +207,8 @@ export default function Cart() {
                     handleErrors(error)
                 }
             })()
-
         }, 500)
+
         setTimeoutId(newTimeoutId)
     }
 
@@ -184,7 +223,6 @@ export default function Cart() {
                 return
             }
         })
-
         return foundMeal
     }
 
@@ -193,7 +231,7 @@ export default function Cart() {
         //@ts-ignore
         if (foundMeal) foundMeal.quantity -= 1
 
-        setMeals(meals);
+        setMeals(meals)
 
         if (timeoutId) {
             clearTimeout(timeoutId)
@@ -240,19 +278,33 @@ export default function Cart() {
                 item.total = itemTotal
                 total += itemTotal
             }
-
             obj.total = total
-
         }
         return pendingMeals
     }
 
     return <>
+        {completedContextualModal && <>
+            <div className='contextualModal-overlay' onClick={() => setCompletedContextualModal(null)}></div>
+            <ContextualModalMenu >
+                <>
+                    <div className="delete-modal-text">
+                        <p className="title grey-700">Have you picked up your order?</p>
+                        <p className="body-text grey-500"> Check that everything in your order is as expected. If not, please conteact with the chef.</p>
+                    </div>
+                    <div className="delete-modal-button-bar">
+                        <Button type={"primary"} size={"medium"} label={"All good"} onClick={handleConfirmComplete} />
+                        <Button type={"secondary"} size={"medium"} label={"Cancel"} onClick={() => setCompletedContextualModal(null)} />
+                    </div>
+                </>
+            </ContextualModalMenu>
+        </>
+        }
         {paymentModal && !paymentDone && <Payment onPaymentClose={() => setPaymentModal(false)} onPayClick={handlePayFromModal} />}
         {!paymentModal && !paymentDone && <>
             <Topbar level={'first'} firstLevel={{ onChatClick: () => alert('🛠️ Feature coming soon! Please, be patient') }} />
 
-            <div className="page-first-level" >
+            <div className="page-first-level" onDragEnd={() => window.location.reload()} >
                 <Tabs items={[
                     {
                         label: "Your order",
@@ -302,11 +354,7 @@ export default function Cart() {
                 {/* PENDING TAB */}
                 {!cartView &&
                     <>
-                        {pendingMeals?.length === 0 && <>
-                            <div className='cart-empty-state-container'>
-                                <EmptyState src='/illustrations/beach-girl.gif' title='No orders in process!' description='Start paying some meals!!!' width='80%' />
-                            </div>
-                        </>}
+
                         {pendingMeals &&
                             <>
                                 <div className='pending-cart-instructions'>
@@ -335,13 +383,19 @@ export default function Cart() {
                                                 quantity={_quantity}
                                                 total={_total}
                                                 serial={_serial}
-                                                date={_date} />
+                                                date={_date}
+                                                onCompletedLink={() => onComplete(_serial, item.author._id)} />
                                                 {index !== pendingMeals.length - 1 && <Divider width='100%' className='pending-cart-divider' />}
                                             </>
                                         })
                                     })}
                                 </div>
                             </>}
+                        {pendingMeals?.length === 0 && <>
+                            <div className='cart-empty-state-container'>
+                                <EmptyState src='/illustrations/beach-girl.gif' title='No orders in process!' description='Start paying some meals!!!' width='80%' />
+                            </div>
+                        </>}
                     </>}
             </div>
             {/* CART - BUTTON BAR */}

@@ -62,8 +62,7 @@ export default function Tabbar({ home, search, add, cart, profile }: Props): JSX
     }
 
     const onSearch = () => {
-        alert('🛠️ Feature coming soon! Please, be patient')
-        // navigate('/search')
+        navigate('/search')
     }
 
     return <>
