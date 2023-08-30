@@ -49,3 +49,23 @@ export function youTubeGetID(url: any){
 export function youtubeGetThumbnail(id: string){
   return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
 }
+
+export async function fetchEvents()
+{
+  const res = await fetch(`${process.env.API_BASE_URL}events/`, {cache: 'no-store'})
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
+
+export async function fetchEvent(id: string) {
+  const res = await fetch(`${process.env.API_BASE_URL}events/${id}`, {cache: 'no-store'})
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+
+  return res.json()
+}
