@@ -23,32 +23,17 @@ module.exports = (userId, postId) => {
   validateId(postId, 'post id')
 
   return (async () => {
-    const users = await User.find()
-
-    const user = users.find(user => user.id === userId)
+    const user = await User.findById(userId)
     if(!user) throw new ExistenceError('User not found.')
 
     const post = await Post.findById(postId)
     if(!post) throw new ExistenceError('Post not found.')
 
-    const modifiedUsers = []
+    await User.updateMany(
+      { favs: { $in: postId }},
+      { $pull: { favs: postId }}
+    )
 
-    users.forEach(user => {
-      if(user.favs.length) {
-        const favsPost = user.favs.map(fav => fav.toString())
-
-        if(favsPost.includes(post._id)) {
-          let index = favsPost.findIndex(post._id)
-
-          user.favs.splice(index, 1)
-
-          modifiedUsers.push(user)
-        }
-      }
-    })
-
-    const updatedUsers = modifiedUsers.map(user => user.save())
-
-    await Promise.all([...updatedUsers, Post.deleteOne({ _id: postId })])
+    await Post.deleteOne({ _id: postId })
   })()
 }

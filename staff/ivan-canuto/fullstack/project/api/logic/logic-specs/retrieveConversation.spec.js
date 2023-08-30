@@ -24,7 +24,6 @@ describe('retrieveConversation', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
 
     it('succeeds on rtrieving the requested conversation', async () => {
@@ -33,7 +32,7 @@ describe('retrieveConversation', () => {
             const userId = _user._id.toString()
 
             const conversationTitle = 'Test Conversation'
-            const conversationMessages = [{ role: 'user', content: '¿Quién es Juan Carlos I?' }, { role: 'assistant', content: 'Juan Carlos I de Borbon, es el padre del actual rey de la monarquía española, Felipe IV. Juan Carlos también fue rey de España hasta que en 2014 abdicó cediendole el trono a su hijo Felipe.' }]
+            const conversationMessages = [{ role: 'user', content: '¿Quién es Juan Carlos I?' }, { role: 'assistant', content: 'Juan Carlos I de Borbon, es el padre del actual rey de la monarquía española, Felipe IV. Juan Carlos también fue rey de España hasta que en 2014 abdicó cediendole el trono a su hijo Felipe VI.' }]
             
             await Conversation.create({ author: new ObjectId(userId), title: conversationTitle, messages: conversationMessages })
 

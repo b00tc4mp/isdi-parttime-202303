@@ -53,7 +53,6 @@ describe('storeInputInDB', () => {
             expect(_conversation.messages[0].content).to.equal('Hola, ¿cómo estás?')
 
         } catch (error) {
-            console.log(error)
             expect(error).to.be.null
         }
     })

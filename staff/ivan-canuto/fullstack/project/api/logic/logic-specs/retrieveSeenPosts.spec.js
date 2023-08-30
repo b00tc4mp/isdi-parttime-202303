@@ -25,7 +25,6 @@ describe('retrieveSeenPosts', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
 
     it('succeeds on rtrieving seen posts', async () => {

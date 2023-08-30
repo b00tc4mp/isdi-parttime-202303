@@ -24,7 +24,6 @@ describe('retrieveConversations', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
 
     it('succeeds on rtrieving all conversations', async () => {

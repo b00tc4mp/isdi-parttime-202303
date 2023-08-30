@@ -24,7 +24,6 @@ describe('generateSummary', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
 
     it('succeeds on recieving summary text', async () => {

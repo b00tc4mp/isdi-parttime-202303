@@ -25,7 +25,6 @@ describe('deleteComment', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
 
     it('succeeds on deleting comment', async () => {

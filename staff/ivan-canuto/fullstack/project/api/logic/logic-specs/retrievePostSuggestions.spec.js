@@ -25,7 +25,6 @@ describe('retrievePostSuggestions', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
 
     it('succeeds on rtrieving the suggestions of a post', async () => {

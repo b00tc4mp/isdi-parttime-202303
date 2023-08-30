@@ -25,7 +25,6 @@ describe('retrievePost', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
 
     it('succeeds on rtrieving the requested post', async () => {

@@ -25,7 +25,6 @@ describe('savePostAsSeen', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
     
     it('succeeds on saving the post as seen with empty seenLately array', async () => {

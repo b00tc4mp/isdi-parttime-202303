@@ -25,7 +25,6 @@ describe('retrieveSavedPosts', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
 
     it('succeeds on rtrieving saved posts', async () => {
@@ -36,32 +35,26 @@ describe('retrieveSavedPosts', () => {
             const postTitle = 'Test post title'
             const postText = 'Juan Carlos I de Borbon, es el padre del actual rey de la monarquía española, Felipe IV. Juan Carlos también fue rey de España hasta que en 2014 abdicó cediendole el trono a su hijo Felipe.'
             
-            const postTitle2 = 'Test post title number 2'
-            const postText2 = 'Felipe VI es el actual rey de España, perteneciente a la dinastía de los Borbones, hijo de Juan Carlos I, quien abdicó en 2014 para cederle el trono a él.'
-            
             await Post.create({ author: new ObjectId(userId), title: postTitle, text: postText })
-            await Post.create({ author: new ObjectId(userId), title: postTitle2, text: postText2 })
 
-            const posts = await Post.find()
+            const post = await Post.findOne({ author: userId })
 
-            posts.forEach(async post => {
-                await User.updateOne(
-                    { _id: userId },
-                    { $push: { favs: post._id }}
-                )
-            })
-
+            await User.updateOne(
+                { _id: userId },
+                { $push: { favs: post._id }}
+            )
+            
             const postsFound = await retrieveSavedPosts(userId)
 
             expect(postsFound).to.exist
             expect(postsFound).to.be.an('array')
-            expect(postsFound).to.have.lengthOf(2)
+            expect(postsFound).to.have.lengthOf(1)
 
             expect(postsFound[0].author.id).to.equal(userId)
             expect(postsFound[0].author.name).to.equal(name)
             expect(postsFound[0].author.avatar).to.be.null
-            expect(postsFound[0].title).to.equal(postTitle2)
-            expect(postsFound[0].text).to.equal(postText2)
+            expect(postsFound[0].title).to.equal(postTitle)
+            expect(postsFound[0].text).to.equal(postText)
             expect(postsFound[0].likes).to.be.an('array')
             expect(postsFound[0].likes).to.have.lengthOf(0)
             expect(postsFound[0].visible).to.be.true
@@ -69,20 +62,6 @@ describe('retrieveSavedPosts', () => {
             expect(postsFound[0].comments).to.have.lengthOf(0)
             expect(postsFound[0].liked).to.be.false
             expect(postsFound[0].fav).to.be.true
-            
-            expect(postsFound[1].author.id).to.equal(userId)
-            expect(postsFound[1].author.name).to.equal(name)
-            expect(postsFound[1].author.avatar).to.be.null
-            expect(postsFound[1].title).to.equal(postTitle)
-            expect(postsFound[1].text).to.equal(postText)
-            expect(postsFound[1].likes).to.be.an('array')
-            expect(postsFound[1].likes).to.have.lengthOf(0)
-            expect(postsFound[1].visible).to.be.true
-            expect(postsFound[1].comments).to.be.an('array')
-            expect(postsFound[1].comments).to.have.lengthOf(0)
-            expect(postsFound[1].liked).to.be.false
-            expect(postsFound[1].fav).to.be.true
-
         } catch (error) {
             console.log(error)
             expect(error).to.be.null

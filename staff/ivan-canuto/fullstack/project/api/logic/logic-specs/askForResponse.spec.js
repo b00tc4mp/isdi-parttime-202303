@@ -24,7 +24,6 @@ describe('askFroResponse', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
 
     it('succeeds on recieving response', async () => {

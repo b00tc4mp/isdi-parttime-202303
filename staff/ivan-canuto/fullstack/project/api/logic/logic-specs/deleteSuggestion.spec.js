@@ -25,7 +25,6 @@ describe('deleteSuggestion', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
 
     it('succeeds on deleting suggestion', async () => {
@@ -54,7 +53,6 @@ describe('deleteSuggestion', () => {
             expect(suggestions).to.have.lengthOf(0)
 
         } catch (error) {
-            console.log(error)
             expect(error).to.be.null
         }
     })

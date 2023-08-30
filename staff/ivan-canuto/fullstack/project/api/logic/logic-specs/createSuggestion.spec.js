@@ -47,7 +47,6 @@ describe('createSuggestion', () => {
             expect(suggestion).to.exist
 
         } catch (error) {
-            console.log(error)
             expect(error).to.be.null
         }
     })

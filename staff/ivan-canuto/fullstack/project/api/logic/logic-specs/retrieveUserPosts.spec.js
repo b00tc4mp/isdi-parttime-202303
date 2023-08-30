@@ -25,7 +25,6 @@ describe('retrieveUserPosts', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
 
     it('succeeds on rtrieving posts created by user', async () => {

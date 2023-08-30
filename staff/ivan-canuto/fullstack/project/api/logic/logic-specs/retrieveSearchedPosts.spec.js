@@ -25,7 +25,6 @@ describe('retrieveSearchedPosts', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
 
     it('succeeds on rtrieving searched posts', async () => {
@@ -77,7 +76,6 @@ describe('retrieveSearchedPosts', () => {
             expect(postsFound[1].fav).to.be.false
 
         } catch (error) {
-            console.log(error)
             expect(error).to.be.null
         }
     })

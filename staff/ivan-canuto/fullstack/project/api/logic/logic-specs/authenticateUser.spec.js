@@ -27,7 +27,6 @@ describe('authenticateUser', () => {
         } catch (error) {
             throw new Error(error.message)
         }
-
     })
 
     it('succeeds on existing user', async () => {

@@ -37,15 +37,26 @@ describe('deletePost', () => {
             const post = await Post.findOne({ author: userId })
             const postId = post._id.toString()
 
-            expect(post).to.exist
+            _user.favs.push(new ObjectId(postId))
+
+            await _user.save()
+        
+            const _user2 = await User.findOne({ email: user.email })
+
+            expect(_user2.favs).to.have.lengthOf(1)
+            expect(_user2.favs[0].toString()).to.equal(postId)
 
             await deletePost(userId, postId)
 
             const posts = await Post.find()
 
+            const _user3 = await User.findOne({ email: user.email })
+
             expect(posts).to.have.lengthOf(0)
+            expect(_user3.favs).to.have.lengthOf(0)
 
         } catch (error) {
+            console.log(error)
             expect(error).to.be.null
         }
     })
