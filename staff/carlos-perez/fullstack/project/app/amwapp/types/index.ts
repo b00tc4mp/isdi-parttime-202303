@@ -22,3 +22,13 @@ export interface CustomButtonProps {
     text: string;
     date: Date;
   }
+
+  export interface SongProps{
+    _id: string;
+    author: string;
+    title: string;
+    media: string;
+    text: string;
+    songInfo: string;
+    date: Date;
+  }

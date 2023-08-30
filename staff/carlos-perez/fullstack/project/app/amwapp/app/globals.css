@@ -83,12 +83,12 @@
 /* START: Banner styles*/
 
 .banner-welcome-container{
-  @apply grid grid-cols-1 sm:flex sm:flex-row text-black-100 max-w-[1440px] w-full justify-center sm:justify-between h-fit bg-slate-100;
+  @apply grid grid-cols-1 md:flex md:flex-row text-black-100 max-w-[1440px] w-full justify-center md:justify-between h-fit bg-slate-100;
 }
 
 
 .banner-container{
- @apply max-w-[600px] h-auto object-contain
+ @apply max-w-[600px] h-auto object-contain justify-self-center
 }
 
 /* END: Banner styles*/
