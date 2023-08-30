@@ -32,30 +32,34 @@ module.exports = (listId, userId) => {
 
         const { messages } = list
 
-        let reviewed = false
+        if(messages.length>0) {
+            messages.forEach(message => {                        
+                message.id = message._id.toString()
+                delete message._id
 
-        messages.forEach(message => {                        
-            message.id = message._id.toString()
-            delete message._id
+                if (message.author._id) {
+                    message.author.id = message.author._id.toString()
+                    delete message.author._id
+                }
 
-            if (message.author._id) {
-                message.author.id = message.author._id.toString()
-                delete message.author._id
-            }
+                const reviewed = false
 
-            if (message.view.some(tmpUser => tmpUser._id.toString() === userId)) 
-                reviewed = true
+                if (message.view.some(tmpUser => tmpUser._id.toString() === userId)) 
+                    reviewed = true
 
-            delete message.view
-            message.reviewed = reviewed
-        })
-
-        await List.findByIdAndUpdate(listId, { messages: {$pullAll: {view: [userId]} } })
-
-        return messages.sort((a,b) =>{
-                if(a.date > b.date) return -1
-                if(a.date < b.date) return 1
-                return 0
+                delete message.view
+                message.reviewed = reviewed
             })
+
+            await List.findByIdAndUpdate(listId, { messages: {$pullAll: {view: [userId]} } })
+
+            messages.sort((a,b) =>{
+                    if(a.date > b.date) return -1
+                    if(a.date < b.date) return 1
+                    return 0
+                })
+        }
+        return messages
+
     })()
 }

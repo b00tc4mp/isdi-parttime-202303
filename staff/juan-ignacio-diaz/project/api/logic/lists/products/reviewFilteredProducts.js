@@ -31,43 +31,44 @@ module.exports = (listId, userId, filter, order) => {
         if (!list) throw new ExistenceError('list not found')
 
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
-//listamos, filtramos yyy limpiamos
        
         const tmpList = await List.find(filter, 'products._id products.name products.howMany products.state products.type products.stores products.comment products.view')
             .populate('products.likes', 'name avatar').lean()
 
+            
         const products = tmpList[0].products
-        products.forEach(product => {                        
-            product.id = product._id.toString()
-            delete product._id
+        if(products.length>0) {
+            products.forEach(product => {                        
+                product.id = product._id.toString()
+                delete product._id
 
-            if (product.likes.length>0) {
-                product.likes.forEach(like => {
-                    if (like._id) {
-                        like.id = like._id.toString()
-                        delete like._id
-                    }
-                })
-            } 
+                if (product.likes.length>0) {
+                    product.likes.forEach(like => {
+                        if (like._id) {
+                            like.id = like._id.toString()
+                            delete like._id
+                        }
+                    })
+                } 
 
-            if (product.view) {
-                product.untried = product.view.some(user => user._id.toString() === userId)
-                delete product.view
-            }
-        })
-
-        await List.updateMany(filter, { products: {$pullAll: {view: [userId]} } })
-
-        if(order !== '') {
-            const orderField = order
-
-            products.sort((a,b) =>{
-                if(a[orderField] > b[orderField]) return -1
-                if(a[orderField] < b[orderField]) return 1
-                return 0
+                if (product.view) {
+                    product.untried = product.view.some(user => user._id.toString() === userId)
+                    delete product.view
+                }
             })
-        }
 
+            await List.updateMany(filter, { products: {$pullAll: {view: [userId]} } })
+
+            if(order !== '') {
+                const orderField = order
+
+                products.sort((a,b) =>{
+                    if(a[orderField] > b[orderField]) return -1
+                    if(a[orderField] < b[orderField]) return 1
+                    return 0
+                })
+            }
+        }
         return products
     })()
 }

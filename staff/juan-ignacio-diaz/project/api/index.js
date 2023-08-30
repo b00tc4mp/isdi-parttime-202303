@@ -99,10 +99,10 @@ mongoose.connect(process.env.MONGODB_URL)
         api.delete('/lists/:listId/products/:productId/delete', deleteProductToListHandler)
         api.patch('/lists/:listId/products/:productId/edit', jsonBodyParser, editProductToListHandler)
         api.patch('/lists/:listId/products/:productId/mark', jsonBodyParser, markProductAsPurchasedHandler)
-        api.get('/lists/:listId/products/filter', jsonBodyParser, reviewFilteredProductsHandler)
+        api.post('/lists/:listId/products/filter', jsonBodyParser, reviewFilteredProductsHandler)
         api.get('/lists/:listId/productTypes', reviewProductTypesHandler)
         api.get('/lists/:listId/products/:productId/cart', toggleProductToCartHandler)
-        api.get('/lists/:listId/products/:productId/like',     toggleLikeProductHandler
+        api.get('/lists/:listId/products/:productId/like', toggleLikeProductHandler
         )
         
 //
