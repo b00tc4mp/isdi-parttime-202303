@@ -28,7 +28,7 @@ module.exports = handleErrors((req, res,) => {
         department,
         salaryLevel,
         centerAttached,
-        // superiorHierarchicalManager,
+        superiorHierarchicalManager,
 
         // permissionsArea:
         roll,
@@ -61,7 +61,7 @@ module.exports = handleErrors((req, res,) => {
         department,
         salaryLevel,
         centerAttached,
-        // superiorHierarchicalManager,
+        superiorHierarchicalManager,
 
         // permissionsArea:
         roll,

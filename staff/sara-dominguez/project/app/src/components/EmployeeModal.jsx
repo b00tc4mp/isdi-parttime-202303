@@ -7,6 +7,7 @@ export default function EmployeeModal({ employeeId, onEmployeeModalClose }) {
 
     const [modal, setModal] = useState(null)
     const [employee, setEmployee] = useState(null)
+    const [superiorHierarchicalManagerDataCompleted, setSuperiorHierarchicalManagerDataCompleted] = useState(null)
 
     useEffect(() => {
         async function fetchEmployee() {
@@ -17,6 +18,13 @@ export default function EmployeeModal({ employeeId, onEmployeeModalClose }) {
             }
             setEmployee(employee)
 
+            const superiorHierarchicalManagerData = await retrieveEmployee(employee.superiorHierarchicalManager)
+            if (superiorHierarchicalManagerData === undefined) {
+                const superiorHierarchicalManagerDataCompleted = "Not specified"
+                setSuperiorHierarchicalManagerDataCompleted(superiorHierarchicalManagerDataCompleted)
+            }
+            const superiorHierarchicalManagerDataCompleted = { superiorHierchicalName: superiorHierarchicalManagerData.name, superiorHierachicalFirstSurname: superiorHierarchicalManagerData.firstSurname, superiorHierachicalSecondSurname: superiorHierarchicalManagerData.secondSurname, superiorHierachicalEmployeeNumber: superiorHierarchicalManagerData.employeeNumber }
+            setSuperiorHierarchicalManagerDataCompleted(superiorHierarchicalManagerDataCompleted)
         }
         fetchEmployee()
     }, [])
@@ -28,8 +36,11 @@ export default function EmployeeModal({ employeeId, onEmployeeModalClose }) {
         onEmployeeModalClose()
     }
 
-    const { name, firstSurname, secondSurname, employeeNumber, idCardNumber, tssNumber, address, avatar, typeOfContract, jobPosition, personalPhoneNumber, professionalEmail, professionalPhoneNumber, centerAttached, roll, department, salaryLevel, accessPermissions } = employee ?? {}
+    const { name, firstSurname, secondSurname, employeeNumber, idCardNumber, tssNumber, address, avatar, typeOfContract, jobPosition, personalPhoneNumber, professionalEmail, professionalPhoneNumber, centerAttached, superiorHierarchicalManager, roll, department, salaryLevel, accessPermissions } = employee ?? {}
 
+
+
+    const { superiorHierchicalName, superiorHierachicalFirstSurname, superiorHierachicalSecondSurname, superiorHierachicalEmployeeNumber } = superiorHierarchicalManagerDataCompleted ?? {}
 
     return <Container className="w-full h-screen overflow-auto">
         <div className="w-full h-screen bg-slate-50 flex flex-col mb-2 p-3 rounded-[7px] shadow-md items-center block">
@@ -42,7 +53,7 @@ export default function EmployeeModal({ employeeId, onEmployeeModalClose }) {
                         <div className="w-full pl-2 text-lg font-bold">{name} {firstSurname} {secondSurname}</div>
                     </div>
                     <div>
-                        <div className="w-11/12 pl-2 text-sm">Employee Number: {(employeeNumber)}</div>
+                        <div className="w-11/12 pl-2 text-sm">Employee Number: {employeeNumber}</div>
                     </div>
                 </div>
                 <div className="flex flex-wrap w-2/12 ml-[30%]">
@@ -115,6 +126,9 @@ export default function EmployeeModal({ employeeId, onEmployeeModalClose }) {
                         <h4 className="text-xs">Job position: {jobPosition}</h4>
                     </div>
                     <div className="w-full">
+                        <div className="w-full">
+                            <h4 className="text-xs">Superior Hierachical Manager:  {superiorHierchicalName} {superiorHierachicalFirstSurname} {superiorHierachicalSecondSurname}-{superiorHierachicalEmployeeNumber}</h4>
+                        </div>
                         <h4 className="text-xs">Salary level: {salaryLevel}</h4>
                     </div>
                     <div className="w-full">

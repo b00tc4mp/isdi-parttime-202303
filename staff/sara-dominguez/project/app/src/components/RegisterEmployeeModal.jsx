@@ -1,12 +1,15 @@
 import useAppContext from '../hooks/useAppContext'
+import { useState } from 'react'
 import Header from './Header.jsx'
 import { Input, InputForm, Container, Button, FormButton } from '../library'
 import registerEmployee from '../logic/registerEmployee'
 
-export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, onEmployeeDatabaseMenuModalLogout }) {
+export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, onEmployeeDatabaseMenuModalLogout, onCloseRegisterEmployeeModal }) {
     console.log('EmployeeDatabaseMenu --> open')
 
     const { alert } = useAppContext()
+    const [modal, setModal] = useState(null)
+
 
     const handleRegisterEmployee = (event) => {
         event.preventDefault()
@@ -24,23 +27,25 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
         const avatar = event.target.avatar.value
 
         //  PROFESIONAL DATA
-        const employeeNumber = parseInt(event.target.employeeNumber.value)
+        const employeeNumber = event.target.employeeNumber.value
+
+
         // const startOfEmploymentData = event.target.startOfEmploymentData.value
         // const endOfEmploymentData = event.target.endOfEmploymentData.value
         // const lengthOfEmployment = event.target.lengthOfEmployment.value
         const typeOfContract = event.target.typeOfContract.value
         const jobPosition = event.target.jobPosition.value
         const department = event.target.department.value
-        const salaryLevel = event.target.salaryLevel.value
+        const salaryLevel = Number(event.target.salaryLevel.value)
         const centerAttached = event.target.centerAttached.value
-        // const superiorHierachicalManager = event.target.superiorHierachicalManager.value
+        const superiorHierarchicalManager = event.target.superiorHierarchicalManager.value
 
         //  PERMISSIONS AREA
         const roll = event.target.roll.value
         const professionalPhoneNumber = Number((event.target.professionalPhoneNumber.value).replace(/\s+/g, ''))
         const professionalEmail = event.target.professionalEmail.value
         const accessPermissions = event.target.accessPermissions.value
-        const employeePasssword = event.target.employeePasssword.value
+
 
         try {
             registerEmployee(name,
@@ -62,12 +67,12 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
                 department,
                 salaryLevel,
                 centerAttached,
-                // superiorHierachicalManager,
+                superiorHierarchicalManager,
                 roll,
                 professionalPhoneNumber,
                 professionalEmail,
                 accessPermissions,
-                employeePasssword
+
             )
                 .then(() => {
                     onEmployeeRegistered()
@@ -77,11 +82,11 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
             alert(error.message)
         }
     }
-    function handleEmployeeDatabaseMenuModalLogout(event) {
-        event.preventDefault()
-
-        onEmployeeDatabaseMenuModalLogout()
+    const handleCloseRegisterEmployeeModal = () => {
+        setModal(null)
+        onCloseRegisterEmployeeModal()
     }
+
     return <section className="registerEmployee">
         <div className="h-full flex  pl-4 pr-12 mt-1 space-y-4 w-full">
             <form className="" onSubmit={handleRegisterEmployee}>
@@ -119,11 +124,11 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
                 <h5 className="mt-7">Professional data</h5>
                 <div className="flex flex-wrap">
                     <div className="w-2/6">
-                        <label>Employee number:<Input className="placeholder:text-xs" type="number" name="employeeNumber" placeholder="NNNNN" /></label>
+                        <label>Employee number:<Input className="placeholder:text-xs" type="string" name="employeeNumber" placeholder="NNNNN" /></label>
                     </div>
                     {/* <label>Start of employment data:<input className="input" type="date" name="startOfEmploymentData" /></label>
                         <label>End of employment data:<input className="input" type="date" name="endOfEmploymentData" /></label>
-                        <label>Length of employment:<input className="input" type="number" name="lengthOfEmployment" /></label> */}
+                    <label>Length of employment:<input className="input" type="number" name="lengthOfEmployment" /></label> */}
                     <div className="w-2/6">
                         <label>Type of contract:<Input className="placeholder:text-xs" type="text" name="typeOfContract" placeholder="Temporal / Permanent" /></label>
                     </div>
@@ -133,14 +138,18 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
                     <div className="w-2/6 ">
                         <label>Center attached:<Input className="placeholder:text-xs" type="text" name="centerAttached" placeholder="Barcelona / Madrid / Malaga" /></label>
                     </div>
-                    <div className="w-7/12">
-                        <label>Department:<Input className="w-full placeholder:text-xs" type="text" name="department" placeholder="Development / Design / Financial / Human Resources" /></label>
-                    </div>
-                    <div className="w-7/12">
-                        <label>Job position:<Input className="w-full placeholder:text-xs" type="text" name="jobPosition" placeholder="Executive / Manager / Developer / Financial Controller / Assistant" /></label>
+
+                    <div className="w-3/6 ">
+                        <label>superiorHierarchicalManager:<Input className="placeholder:text-xs" type="text" name="superiorHierarchicalManager" placeholder="id" /></label>
                     </div>
 
-                    {/* <label>Superior hierarchical manager:<input className="input" type="text" name="superiorHierachicalManager" /></label> */}
+                    <div className="w-7/12">
+                        <label>Department:<Input className="w-full placeholder:text-xs" type="text" name="department" placeholder="C-Suite / Development / Design / Financial / Human Resources" /></label>
+                    </div>
+                    <div className="w-7/12">
+                        <label>Job position:<Input className="w-full placeholder:text-xs" type="text" name="jobPosition" placeholder="CEO / CFO / CTO / Executive / Manager / Developer / Financial Controller / Assistant" /></label>
+                    </div>
+
 
                     <h5 className="w-3/6 mt-7">Permissions area</h5>
                     <div className="flex flex-wrap mt-2 pb-3">
@@ -151,18 +160,15 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
                             <label>Access permissions<Input className="placeholder:text-xs" type="text" name="accessPermissions" placeholder="Authorized / Denied" /></label>
                         </div>
                         <div className="w-2/6 ">
-                            <label>Employee password<Input className="placeholder:text-xs" type="text" name="employeePasssword" placeholder="Be-NNNNN" />
-                            </label>
-                        </div>
-                        <div className="w-2/6 ">
                             <label>Profess. phone number:<Input className="placeholder:text-xs" type="text" name="professionalPhoneNumber" placeholder="NNN NN NN NN" /></label>
                         </div>
                         <div className="w-7/12 ">
                             <label>Professional email:<Input className="w-full placeholder:text-xs" type="email" name="professionalEmail" placeholder="name.firstSurname@b-elevezsd.es" /></label>
                         </div>
                     </div >
-                    <div className="w-full pt-3 sticky bottom-0 z-10 bg-slate-200">
-                        <Button className="w-7/12" type="submit" >Register</Button>
+                    <div className="w-full pt-3 flex mr-auto ml-auto sticky bottom-0 z-10 bg-slate-200">
+                        <Button className="w-[45%] ml-6 mr-5 mt-4" type="submit" >Register</Button>
+                        <FormButton className=" w-[20%] mr-[4%] bg-slate-500 text-xs  mt-4" onClick={handleCloseRegisterEmployeeModal}>Back</FormButton>
                     </div>
                 </div>
             </form>

@@ -17,7 +17,7 @@ const {
         validateCenterAttached,
         validateRoll,
         validateProfessionalPhoneNumber,
-        // validateProfessionalEmail,
+        validateEmail,
         validateAccessPermissions,
         validateEmployeePassword
     },
@@ -70,8 +70,7 @@ const { Employee } = require('../data/models')
 *   -  name or firstSurname or secondSurname length lower than 3 characters or upper than 15 characterspassword 
 *   - non an integer between 1 and 5 salaryLevel 
 *   - password length lower than 6 characters or upper than 12
-* @throws {DuplicityError} On existing employee
-
+* @throws {DuplicityError} On existing employee or params are already asigned to another employee
 */
 
 module.exports = function registerEmployee(
@@ -96,14 +95,13 @@ module.exports = function registerEmployee(
     department,
     salaryLevel,
     centerAttached,
-    // superiorHierarchicalManager,
+    superiorHierarchicalManager,
 
     // permissionsArea:
     roll,
     professionalPhoneNumber,
     professionalEmail,
     accessPermissions,
-    employeePassword,
 ) {
     validateName(name)
     validateFirstSurname(firstSurname)
@@ -122,9 +120,12 @@ module.exports = function registerEmployee(
     validateCenterAttached(centerAttached)
     validateRoll(roll)
     validateProfessionalPhoneNumber(professionalPhoneNumber)
-    // validateProfessionalEmail(professionalEmail)
+    validateEmail(professionalEmail)
     validateAccessPermissions(accessPermissions)
-    validateEmployeePassword(employeePassword)
+
+
+
+    const employeePassword = `Be-${employeeNumber}`
 
     return (async () => {
         try {
@@ -150,7 +151,7 @@ module.exports = function registerEmployee(
                 department,
                 salaryLevel,
                 centerAttached,
-                // superiorHierarchicalManager,
+                superiorHierarchicalManager,
 
                 // // permissionsArea:
                 roll,

@@ -4,10 +4,11 @@ import { useState, useRef } from 'react'
 import Employee from './Employee'
 import retrieveEmployeesBySalaryLevel from '../logic/retrieveEmployeesBySalaryLevel'
 import createEmployeePayrollMonth from '../logic/createEmployeePayrollMonth'
-import { Input, Container, Button, Select } from '../library'
+import { Input, Container, Button, FormButton, Select } from '../library'
 import useAppContext from '../hooks/useAppContext'
 
-export default function CreatePayrollMonthModal({ onPayrollCreated }) {
+
+export default function CreatePayrollMonthModal({ onPayrollCreated, onCloseCreatePayrollMonthModal }) {
     console.log("createPayrollMonthModal --> open")
 
     const [employeeList, setEmployeeList] = useState(null)
@@ -17,6 +18,8 @@ export default function CreatePayrollMonthModal({ onPayrollCreated }) {
     const [selectedMonth, setSelectedMonth] = useState(1)
     const [selectedSalaryLevel, setSelectedSalaryLevel] = useState(1)
     const { alert } = useAppContext()
+
+
 
     const handleGenerateEmployeeList = () => {
         setView('EmployeeListRetrieved')
@@ -48,6 +51,17 @@ export default function CreatePayrollMonthModal({ onPayrollCreated }) {
         } catch (error) {
             alert(error.message)
         }
+    }
+
+    const handleCloseCreatePayrollsMonthModal = () => {
+        setModal(null)
+        onCloseCreatePayrollMonthModal()
+    }
+
+    const handleCloseEmployeeListRetrieved = () => {
+        setView(null)
+        setEmployeeList(null)
+        setModal('createPayrollMonthModal')
     }
 
     return <section className="w-7/12 mr-8 bg-slate-200 rounded-[7px]">
@@ -86,19 +100,24 @@ export default function CreatePayrollMonthModal({ onPayrollCreated }) {
                     <option value="1">Level 1</option>
                 </Select>
             </div>
-            <Button className="w-5/12 ml-auto mr-auto mt-4 mb-10" onClick={handleGenerateEmployeeList}>Generate Employee List</Button>
+            <div className="w-full flex mr-auto ml-auto ">
+                <Button className="w-[75%] ml-6 mr-5 mt-4 mb-10" onClick={handleGenerateEmployeeList}>Generate Employee List</Button>
+                <FormButton className="w-[20%] mr-[4%] bg-slate-500 text-xs mb-10 mt-4" onClick={handleCloseCreatePayrollsMonthModal}>Back</FormButton>
+            </div>
         </div>
         <div className="flex flex-col">
             {view === 'EmployeeListRetrieved' && employeeList && employeeList.map((employee) => <Employee
-                key={employee.id}
+                key={employee._id}
                 employee={employee}
             />)}
             {employeeList ? (
                 // <>
-                <div className="ml-20 pt-2 sticky bottom-0 bg-slate-200 z-10">
-                    <label className="flex italic font-semibold justify-start">Total Payrolls to create:<h5 className="pl-2">{employeeList.length}</h5></label>
-
-                    <Button className="w-2/5 mt-2" onClick={handleCreateNewPayrollsMonth}>Confirm create payrolls month</Button>
+                <div className="ml-10 pt-2 sticky bottom-0 bg-slate-200 z-10 ">
+                    <label className="flex italic font-semibold justify-start text-sm">Total Payrolls to create:<h5 className="pl-2">{employeeList.length}</h5></label>
+                    <div className="w-full flex mr-auto ml-auto ">
+                        <Button className="w-[75%] mr-5 mt-2 mb-1" onClick={handleCreateNewPayrollsMonth}>Confirm create payrolls month</Button>
+                        <Button className="w-[20%] mr-[4%] bg-slate-500 text-xs mb-1 mt-2" onClick={handleCloseEmployeeListRetrieved}>Close</Button>
+                    </div>
                 </div>
                 // </>
             ) : (

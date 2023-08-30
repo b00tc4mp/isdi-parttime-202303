@@ -39,21 +39,23 @@ export default function EmployeeFoundeModal({ employee: { _id, name, firstSurnam
                     </div>
                 </div>
                 <div className="flex flex-wrap w-2/12">
-                    <button className="w-10/12 text-xs rounded-md bg-amber-500 px-3 py-1 mb-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 drop-shadow-md text-cente" onClick={handleEmployeeModal}>Check</button>
-                    <button className="w-10/12 text-xs rounded-md bg-amber-500 px-3 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 drop-shadow-md text-center" onClick={handleUpdateEmployeeModal}>Update</button>
-                </div>
+                    <button className="w-10/12 text-xs rounded-md bg-amber-500 px-3 py-1 mb-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 drop-shadow-md text-cente" onClick={handleEmployeeModal}>Upper Level</button>
+                    <button className="w-10/12 text-xs rounded-md bg-amber-500 px-3 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 drop-shadow-md text-center" onClick={handleUpdateEmployeeModal}>LowerLevel</button>
+                </div >
             </div>
-        </div >
+        </div>
         {modal === 'employeeModal' && < EmployeeModal
             key={_id}
             employeeId={_id}
             onEmployeeModalClose={handleCloseModal}
         />}
-        {modal === 'updateEmployeeModal' && < UpdateEmployeeModal
-            key={_id}
-            employeeId={_id}
-            onUpdateEmployeeModalClose={handleCloseModal}
-            onEmployeeUpdated={handleCloseModal}
-        />}
+        {
+            modal === 'updateEmployeeModal' && < UpdateEmployeeModal
+                key={_id}
+                employeeId={_id}
+                onUpdateEmployeeModalClose={handleCloseModal}
+                onEmployeeUpdated={handleCloseModal}
+            />
+        }
     </section>
 }

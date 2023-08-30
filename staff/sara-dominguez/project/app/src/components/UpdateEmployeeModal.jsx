@@ -61,7 +61,7 @@ export default function RegisterEmployeeModal({ employeeId, onUpdateEmployeeModa
         let department = event.target.department.value
         let salaryLevel = Number(event.target.salaryLevel.value)
         let centerAttached = event.target.centerAttached.value
-        // let superiorHierachicalManager = event.target.superiorHierachicalManager.value
+        let superiorHierachicalManager = event.target.superiorHierachicalManager.value
 
         //  PERMISSIONS AREA
         let roll = event.target.roll.value
@@ -92,7 +92,7 @@ export default function RegisterEmployeeModal({ employeeId, onUpdateEmployeeModa
                 department,
                 salaryLevel,
                 centerAttached,
-                // superiorHierachicalManager,
+                superiorHierachicalManager,
                 roll,
                 professionalPhoneNumber,
                 professionalEmail,
@@ -164,14 +164,14 @@ export default function RegisterEmployeeModal({ employeeId, onUpdateEmployeeModa
                         <label>Center attached:<Input className="placeholder:text-xs" type="text" name="centerAttached" placeholder="Barcelona / Madrid / Malaga" defaultValue={centerAttached} /></label>
                     </div>
                     <div className="w-7/12">
-                        <label>Department:<Input className="w-full placeholder:text-xs" type="text" name="department" placeholder="Development / Design / Financial / Human Resources" defaultValue={department} /></label>
+                        <label>Department:<Input className="w-full placeholder:text-xs" type="text" name="department" placeholder="C-Suite /Development / Design / Financial / Human Resources" defaultValue={department} /></label>
                     </div>
                     <div className="w-7/12">
-                        <label>Job position:<Input className="w-full placeholder:text-xs" type="text" name="jobPosition" placeholder="Executive / Manager / Developer / Financial Controller / Assistant" defaultValue={jobPosition} /></label>
+                        <label>Job position:<Input className="w-full placeholder:text-xs" type="text" name="jobPosition" placeholder="CEO / CFO / CTO / Executive / Manager / Developer / Financial Controller / Assistant" defaultValue={jobPosition} /></label>
                     </div>
-
-                    {/* <label>Superior hierarchical manager:<input className="input" type="text" name="superiorHierachicalManager" /></label> */}
-
+                    <div className="w-7/12">
+                        <label>Superior hierarchical manager:<Input className="input w-full" type="text" name="superiorHierachicalManager" placeholder="Id" /></label>
+                    </div>
                     <h5 className="w-3/6 mt-7">Permissions area</h5>
                     <div className="flex flex-wrap mt-2 pb-3">
                         <div className="w-2/6 ">
@@ -180,10 +180,7 @@ export default function RegisterEmployeeModal({ employeeId, onUpdateEmployeeModa
                         <div className="w-2/6 ">
                             <label>Access permissions<Input className="placeholder:text-xs" type="text" name="accessPermissions" placeholder="Authorized / Denied" defaultValue={accessPermissions} /></label>
                         </div>
-                        {/* <div className="w-2/6 ">
-                            <label>Employee password<Input className="placeholder:text-xs" type="text" name="employeePasssword" placeholder="Be-NNNNN" defaultValue={employeePasssword} />
-                            </label>
-                        </div> */}
+
                         <div className="w-2/6 ">
                             <label>Profess. phone number:<Input className="placeholder:text-xs" type="text" name="professionalPhoneNumber" placeholder="NNN NN NN NN" defaultValue={professionalPhoneNumber} /></label>
                         </div>
@@ -196,7 +193,7 @@ export default function RegisterEmployeeModal({ employeeId, onUpdateEmployeeModa
                             <Button className="w-7/12" type="submit" >Update </Button>
                         </div>
                         <div className="w-3/12 pt-3 pb-4 sticky bottom-0 z-10 bg-slate-200">
-                            <Button className="w-7/12" onClick={handleUpdateEmployeeModalClose}>Cancel</Button>
+                            <Button className="w-7/12 bg-slate-500" onClick={handleUpdateEmployeeModalClose}>Cancel</Button>
                         </div>
                     </div>
                 </div>

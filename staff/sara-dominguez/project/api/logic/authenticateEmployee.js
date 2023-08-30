@@ -24,9 +24,14 @@ module.exports = function authenticateEmployee(employeeNumber, employeePassword)
 
     return (async () => {
         const employee = await Employee.findOne({ employeeNumber })
+
         if (!employee) throw new ExistenceError('employee not found')
         if (employee.accessPermissions !== "Authorized") throw new AuthError("You don't have permission to continue, please contact HR (Human Resources)")
         if (employee.employeePassword !== employeePassword) throw new AuthError('Error credentials')
+        if (employeePassword === `Be-${employeeNumber}`) {
+            employee.employeePasswordToChange = true
+            employee.save()
+        }
 
         return employee.id
     })()

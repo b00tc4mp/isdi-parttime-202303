@@ -34,16 +34,16 @@ module.exports = function updateEmployeePassword(employeeId, employeePassword, e
 
         if (!employee) throw new ExistenceError('employee not found')
 
-        if (!employee) throw new ExistenceError('employee not found')
-
         if (employeePassword !== employee.employeePassword) throw new AuthError('wrong actual password')
 
         if (employeePassword === employeeNewPassword) throw new PropertyError('new password equals password')
 
         if (employeeNewPassword !== employeeConfirmNewPassword) throw new PropertyError('new password is not the same as confirmed')
 
-        employee.employeePassword = employeeNewPassword
 
-        return Employee.updateOne({ _id: employee.id }, { $set: { employeePassword: employee.employeePassword } })
+        employee.employeePassword = employeeNewPassword
+        employee.employeePasswordToChange = false
+
+        return Employee.updateOne({ _id: employee.id }, { $set: { employeePassword: employee.employeePassword, employeePasswordToChange: employee.employeePasswordToChange } })
     })()
 }

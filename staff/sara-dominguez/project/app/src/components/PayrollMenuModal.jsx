@@ -51,6 +51,12 @@ export default function PayrollMenuModal({ employee, onPayrollMenuModalLogout })
             alert(error.message)
         }
     }
+    const handleClosePayrollMonthModal = () => {
+        setView(null)
+    }
+    const handleClosePayrollAnnualAggregateModal = () => {
+        setView(null)
+    }
 
     const handlePayrollMenuModalLogout = event => {
         event.preventDefault()
@@ -66,7 +72,7 @@ export default function PayrollMenuModal({ employee, onPayrollMenuModalLogout })
             <div className="w-2/12 ml-4 pt-2 sticky top-0 bg-slate-200 z-10 drop-shadow-none">
                 <h4 className="w-2/12 italic text-ml">Payroll Menu</h4>
                 <div className="flex flex-col mt-20">
-                    <h5 className="text-sm" onClick={handleCheckAnnualAggregate}>Annual Aggregate</h5>
+                    <h5 className="text-sm cursor-pointer" onClick={handleCheckAnnualAggregate}>Annual Aggregate</h5>
                 </div>
             </div >
             <div className="pl-8 pr-12 pt-2 space-y-4 w-full h-full">
@@ -99,14 +105,19 @@ export default function PayrollMenuModal({ employee, onPayrollMenuModalLogout })
                         <Button className="h-5/6 pb-2" onClick={handleCheckPayrollMonth}>Check payroll</Button>
                     </div>
                 </div>
-                {view === 'PayrollMonth' && <PayrollMonth employee={employee}
-                    payrollMonthRetrieved={payrollMonthRetrieved} />}
+                {view === 'PayrollMonth' && <PayrollMonth
+                    employee={employee}
+                    payrollMonthRetrieved={payrollMonthRetrieved}
+                    onClosePayrollMonthModal={handleClosePayrollMonthModal}
+                />}
                 {view === 'PayrollAnnualAggregate' && <PayrollAnnualAggregate employee={employee}
-                    payrollAnnualAggregate={payrollAnnualAggregate} />}
+                    payrollAnnualAggregate={payrollAnnualAggregate}
+                    onClosePayrollAnnualAggregateModal={handleClosePayrollAnnualAggregateModal}
+                />}
             </div>
         </main>
         <footer className="ml-3 mt-2 mb-1 sticky bottom-0 bg-slate-200 z-10">
-            <h5 className="ml-4 mt-2 pb-0.5 sticky bottom-0 bg-slate-200 z-10 italic" onClick={handlePayrollMenuModalLogout}>Logout</h5>
+            <h5 className="ml-4 mt-2 pb-0.5 sticky bottom-0 bg-slate-200 z-10 italic cursor-pointer" onClick={handlePayrollMenuModalLogout}>Logout</h5>
         </footer>
     </Container >
 

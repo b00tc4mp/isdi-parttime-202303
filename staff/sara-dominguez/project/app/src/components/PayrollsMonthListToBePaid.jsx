@@ -27,7 +27,7 @@ export default function PayrollsMonthListToBePaid({
     const { name, firstSurname, secondSurname, avatar, salaryLevel, bankAccountNumber } = employeeRetrieved ?? {}
 
     return (
-        <div className="bg-neutral-50 flex flex-wrap ml-1 mb-1 mr-1 border border-black shadow-sm p-2 rounded-[7px] justify-end">
+        <div className="w-[80%] bg-neutral-50 flex flex-wrap ml-1 mb-1 mr-1 border border-black shadow-sm p-2 rounded-[7px]  items-center justify-end">
             <div key={_id}></div>
             <img className="rounded-[25px]" src={avatar} width="25px" />
             <div className="w-4/12 pl-2 text-xs">{name} {firstSurname} {secondSurname}</div>

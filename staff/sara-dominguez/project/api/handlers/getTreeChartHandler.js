@@ -1,4 +1,4 @@
-const { searchEmployees } = require('../logic')
+const { getTreeChart } = require('../logic')
 const { extractEmployeeId } = require('./helpers')
 const { handleErrors } = require('./helpers')
 
@@ -7,7 +7,7 @@ module.exports = handleErrors((req, res) => {
 
     const { searchPattern } = req.params
 
-    const promise = searchEmployees(employeeLoggedId, searchPattern)
+    const promise = getTreeChart(employeeLoggedId, searchPattern)
     return (async () => {
         await promise
 

@@ -7,10 +7,10 @@ import PayrollsMonthListToBePaid from './PayrollsMonthListToBePaid'
 import retrievePayrollsToBePaid from '../logic/retrievePayrollsMonthToBePaid'
 import calculateTotalAmount from '../logic/calculateTotalAmount.js'
 import updatePayrollStatusToPaid from '../logic/updatePayrollStatusToPaid'
-import { Input, Container, Button, Select } from '../library'
+import { Input, Container, Button, FormButton, Select } from '../library'
 import useAppContext from '../hooks/useAppContext'
 
-export default function ProcessPayrollsMonthPayments({ employee, onPayrollsMonthPaid }) {
+export default function ProcessPayrollsMonthPayments({ employee, onPayrollsMonthPaid, onCloseProcessPayrollsMonthPaymentsModal }) {
     console.log("processPayrollMonthPayments --> open")
 
     const [payrollsMonthList, setPayrollMonthList] = useState(null)
@@ -53,10 +53,19 @@ export default function ProcessPayrollsMonthPayments({ employee, onPayrollsMonth
             alert(error.message)
         }
     }
+    const handleCloseProcessPayrollsMonthPaymentsModal = () => {
+        setModal(null)
+        onCloseProcessPayrollsMonthPaymentsModal()
+    }
+    const handleCloseEmployeeListRetrieved = () => {
+        setView(null)
+        setPayrollMonthList(null)
+        setModal('createPayrollMonthModal')
+    }
 
     return <section className="w-9/12 mr-7 bg-slate-200 rounded-[7px] ">
         <div className="selectToProcessPayrollsPayment bg-slate-200 mb-3 flex flex-wrap sticky top-0 bg-slate-200 z-10">
-            <div className="w-3/12 h-1/6 ml-3  flex">
+            <div className="w-3/12 h-1/6 ml-[10%]  flex">
                 <label className="mr-2">Year:</label>
                 <Select value={selectedYear} onChange={event => setSelectedYear(event.target.value)}>
                     <option value="2023">2023</option>
@@ -80,8 +89,13 @@ export default function ProcessPayrollsMonthPayments({ employee, onPayrollsMonth
                     <option value="12">December</option>
                 </Select>
             </div>
-            <Button className="w-5/12 h-1/6 mt-2 mb-3" onClick={handleGeneratePayrollsMonthListToPaid}>Generate payrolls month list to paid</Button>
+            <div className="w-full flex mr-auto ml-auto mb-2">
+                <Button className="w-[45%] ml- mr-5 mt-4 mb-1" onClick={handleGeneratePayrollsMonthListToPaid}>Generate payrolls month list to paid</Button>
+                <FormButton className=" w-[20%] mr-[4%] bg-slate-500 text-xs mb-1 mt-4" onClick={handleCloseProcessPayrollsMonthPaymentsModal}>Back</FormButton>
+            </div>
+
         </div>
+
         <div className="flex flex-col">
             {view === 'payrollsMonthListRetrievedTopPaid' && payrollsMonthList && payrollsMonthList.map((payroll) => <PayrollsMonthListToBePaid
                 key={payroll._id}
@@ -90,11 +104,14 @@ export default function ProcessPayrollsMonthPayments({ employee, onPayrollsMonth
             {payrollsMonthList ? (
                 // <>
                 <div className="mt-5 sticky bottom-0 bg-slate-200 z-10">
-                    <label className="flex italic font-semibold justify-start pt-3">Total payrolls month to paid: <h5 className="pl-2">{payrollsMonthList.length}</h5></label>
+                    <label className="flex italic font-semibold justify-start pt-3 text-sm">Total payrolls month to paid: <h5 className="pl-2">{payrollsMonthList.length}</h5></label>
 
-                    <label className="flex italic font-semibold justify-start">Total amount payrolls month to paid: <h5 className="pl-2">{sum.toLocaleString('de-DE')} Eur.</h5></label>
+                    <label className="flex italic font-semibold justify-start text-sm">Total amount payrolls month to paid: <h5 className="pl-2">{sum.toLocaleString('de-DE')} Eur.</h5></label>
 
-                    <Button className="mt-2" onClick={handlePayPayrollsMonth}>Pay payrolls month</Button>
+                    <div className="w-full flex mr-auto ml-auto ">
+                        <Button className="w-[45%] mr-5 mt-2 mb-1" onClick={handlePayPayrollsMonth}>Pay payrolls month</Button>
+                        <Button className="w-[20%] mr-[4%] bg-slate-500 text-xs mb-1 mt-2" onClick={handleCloseEmployeeListRetrieved}>Close</Button>
+                    </div>
                 </div>
                 // </>
             )

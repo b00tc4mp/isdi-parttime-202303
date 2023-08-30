@@ -160,7 +160,7 @@ export default function PersonalInformationModal({ employee, onEmployeeAvatarUpd
                 </div>
             </div>
         </main>
-        <footer className="ml-4 mt-2 pb-0.5 sticky bottom-0 bg-slate-200 z-10 italic">
+        <footer className="ml-4 mt-2 pb-0.5 sticky bottom-0 bg-slate-200 z-10 italic cursor-pointer">
             <h5 onClick={handlePersonalInformationModalLogout}>Logout</h5>
         </footer>
     </Container >

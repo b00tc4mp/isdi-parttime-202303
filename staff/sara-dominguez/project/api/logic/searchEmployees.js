@@ -6,25 +6,23 @@ const {
 } = require('com')
 
 /**
-* Retrieve payroll month to be paid
+* Search Employees by name, firstSurname and SecondSurname
 * 
-* @param {string} employeeId  The employee id
-* @param {number} payrollYear  The payroll's year to retrieve
-* @param {number} payrollMonth  The payroll's month to retrieve
+* @param {string} employeeLoggedId - employee logged in
+* @param {string} name  employee name
+* @param {string} firstSurname   employee firstSurname
+* @param {string} secondSurname   employee secondSurname
 *
-* @returns {Promise}  Object with payrolls data for a year and month to process
+* @returns {Promise}  Array of objects with each employee founded
 *
-* @throws {TypeError} On non-string employeeId or non-number payrollYear or payrollMonth 
-* @throws {ContentError} On employeeId is not hexadecimal or doesn't have 24 characters or payrollYear or payrlollMonth are empty
-* @throws {RangeError} On non-integer payrollyear or non-integer between 1 and 12 payrollMonth
-* @throws {ExistenceError} On non-existing employee
- */
+@throws {TypeError} On non-string employeeLoggedId, name or firstSurname or secondSurname
+* @throws {ContentError} On invalid format name or firstSurname or secondSurname or employeeId doesn't have 24 characters or not hexadecimal
+* @throws {RangeError} On name or firstSurname or secondSurname length lower than 3 characters or upper than 15 characterspassword 
+* @throws {Existence} On employee not found
+*/
 
-module.exports = async (employeeLoggedId, name, firstSurname, secondSurname) => {
+module.exports = async (employeeLoggedId, searchPattern) => {
     validateId(employeeLoggedId)
-    validateName(name)
-    validateFirstSurname(firstSurname)
-    validateSecondSurname(secondSurname)
 
     const employee = await Employee.findById(employeeLoggedId).lean()
 
@@ -32,24 +30,33 @@ module.exports = async (employeeLoggedId, name, firstSurname, secondSurname) => 
         throw new ExistenceError(`User with id ${employeeLoggedId} not found`)
     }
 
-    const searchConditions = []
 
-    if (name) {
-        searchConditions.push({ name: { $regex: name, $options: 'i' } })
-    }
-    if (firstSurname) {
-        searchConditions.push({ firstSurname: { $regex: firstSurname, $options: 'i' } })
-    }
-    if (secondSurname) {
-        searchConditions.push({ secondSurname: { $regex: secondSurname, $options: 'i' } })
-    }
 
     const employees = await Employee.find({
-        $or: searchConditions
-    })
+        $or: [
+            { name: { $regex: searchPattern, $options: 'i' } },
+            { firstSurname: { $regex: searchPattern, $options: 'i' } },
+            { secondSurname: { $regex: searchPattern, $options: 'i' } },
+            { idCardNumber: { $regex: searchPattern, $options: 'i' } },
+            { tssNumber: { $regex: searchPattern, $options: 'i' } },
+            { address: { $regex: searchPattern, $options: 'i' } },
+            { typeOfContract: { $regex: searchPattern, $options: 'i' } },
+            { jobPosition: { $regex: searchPattern, $options: 'i' } },
+            { department: { $regex: searchPattern, $options: 'i' } },
+            { centerAttached: { $regex: searchPattern, $options: 'i' } },
+            { roll: { $regex: searchPattern, $options: 'i' } },
+            { professionalEmail: { $regex: searchPattern, $options: 'i' } },
+            { accessPermissions: { $regex: searchPattern, $options: 'i' } },
+
+        ],
+    }, '-__v')
+
     if (!employees || employees.length === 0) {
-        throw new ExistenceError('Payrolls not found')
+        throw new ExistenceError('employee not found')
     }
+
+    employees.sort((a, b) => a.name.localeCompare(b.name))
+
 
     return employees
 }

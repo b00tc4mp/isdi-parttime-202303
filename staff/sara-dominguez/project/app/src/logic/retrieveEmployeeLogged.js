@@ -9,7 +9,7 @@ import { errors } from 'com'
 
 export default () => {
     return (async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/employees/retrieve`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/employees/retrieveEmployeeLogged`, {
             headers: {
                 authorization: `Bearer ${context.token}`
             }

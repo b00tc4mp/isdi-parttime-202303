@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Header from './Header.jsx'
 import { Input, InputForm, Container, Button, FormButton } from '../library'
 import RegisterEmployeeModal from './RegisterEmployeeModal'
-import UpdateEmployeeModal from './UpdateEmployeeModal'
+import ResetPasswordModal from './ResetPasswordModal'
 import SearchEmployeesModal from './SearchEmployeesModal'
 
 
@@ -20,9 +20,10 @@ export default function EmployeeDatabaseMenuModal({ employee, onEmployeeDatabase
     const handleOpenRegisterEmployeeModal = () => {
         setModal('registerEmployeeModal')
     }
-    // const handleOpenUpdateEmployeeModal = () => {
-    //     setModal('updateEmployeeModal')
-    // }
+
+    const handleOpenResetPasswordModal = () => {
+        setModal('resetPasswordModal')
+    }
 
     const handleCloseModal = () => {
         setModal(null)
@@ -44,30 +45,32 @@ export default function EmployeeDatabaseMenuModal({ employee, onEmployeeDatabase
                     <h4 className="w-2/12 italic text-ml">Personal Database Menu</h4>
                 </div>
                 <div className="w-11/12 flex flex-col mt-20">
-                    <h5 className="w-11/12 ml-3 mt-1 text-sm" onClick={handleOpenSearchEmployeesModal}>Search employees</h5>
+                    <h5 className="w-11/12 ml-3 mt-1 text-sm cursor-pointer" onClick={handleOpenSearchEmployeesModal}>Search employees</h5>
                 </div>
                 <div className="w-11/12 flex flex-col mt-3">
-                    <h5 className="w-11/12 ml-3 mt-1 text-sm" onClick={handleOpenRegisterEmployeeModal}>Register employee</h5>
+                    <h5 className="w-11/12 ml-3 mt-1 text-sm cursor-pointer" onClick={handleOpenRegisterEmployeeModal}>Register employee</h5>
                 </div>
-                {/* <div className="w-11/12 flex flex-col mt-3">
-                    <h5 className="w-11/12 ml-3 mt-1 text-sm" onClick={handleOpenUpdateEmployeeModal}>Update employee</h5>
-                </div> */}
+                <div className="w-11/12 flex flex-col mt-3">
+                    <h5 className="w-11/12 ml-3 mt-1 text-sm" onClick={handleOpenResetPasswordModal}>Reset Password</h5>
+                </div>
             </div>
 
             {modal === 'searchEmployeesModal' && < SearchEmployeesModal
                 employee={employee}
-            // onEmployeeRegistered={handleCloseModal}
+                onCloseSearchEmployeesModal={handleCloseModal}
             />}
             {modal === 'registerEmployeeModal' && < RegisterEmployeeModal
                 employee={employee}
                 onEmployeeRegistered={handleCloseModal}
+                onCloseRegisterEmployeeModal={handleCloseModal}
             />}
-            {/* {modal === 'updateEmployeeModal' && < UpdateEmployeeModal
+            {modal === 'resetPasswordModal' && < ResetPasswordModal
                 employee={employee}
-                onEmployeeUpdate={handleCloseModal}
-            />} */}
+                onPasswordReset={handleCloseModal}
+                onCloseResetPasswordModal={handleCloseModal}
+            />}
         </main>
-        <footer className="ml-4 mt-2 pb-0.5 sticky bottom-0 bg-slate-200 z-10 italic">
+        <footer className="ml-4 mt-2 pb-0.5 sticky bottom-0 bg-slate-200 z-10 italic cursor-pointer">
             <h5 onClick={handleEmployeeDatabaseMenuModalLogout}>Logout</h5>
         </footer>
     </Container >

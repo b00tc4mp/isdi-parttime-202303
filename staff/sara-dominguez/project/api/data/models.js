@@ -134,7 +134,7 @@ const employee = new Schema({
     //     //  professionalData:
     //     // //index
     employeeNumber: {
-        type: Number,
+        type: String,
         required: true,
         trim: true,
         unique: true
@@ -175,11 +175,11 @@ const employee = new Schema({
         required: true,
         trim: true
     },
-    //     superiorHierarchicalManager: {
-    //         type: ObjectId,
-    //         ref: 'Employee',
-    //         default: null
-    //     },
+    superiorHierarchicalManager: {
+        type: ObjectId,
+        ref: 'Employee',
+        default: null
+    },
     // permissionsArea: 
     roll: {
         type: String,
@@ -209,6 +209,10 @@ const employee = new Schema({
     employeePassword: {
         type: String,
         trim: true,
+    },
+    employeePasswordToChange: {
+        type: Boolean,
+        default: true,
     },
 
 })

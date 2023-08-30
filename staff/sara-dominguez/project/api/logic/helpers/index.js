@@ -3,4 +3,5 @@ module.exports = {
     checkSalaryScale: require('./checkSalaryScale'),
     findLastMonthAggregated: require('./findLastMonthAggregated'),
     getMonthNameFromMonthNumber: require('./getMonthNameFromMonthNumber'),
+    orderEmployeeThreeChart: require('./orderEmployeeTreeChart'),
 }

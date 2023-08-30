@@ -21,7 +21,7 @@ import { errors } from 'com'
 
 export default (searchPattern) => {
     return (async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/employees/searchEmployees/${searchPattern}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/employees/getTreeChart/${searchPattern}`, {
             headers: {
                 authorization: `Bearer ${context.token}`
             }

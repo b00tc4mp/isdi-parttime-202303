@@ -18,5 +18,7 @@ module.exports = {
     retrievePayrollAnnualAggregate: require('./retrievePayrollAnnualAggregate'),
     retrievePayrollsMonthToBePaid: require('./retrievePayrollsMonthToBePaid'),
     updatePayrollStatusToPaid: require('./updatePayrollStatusToPaid'),
+    getTreeChart: require('./getTreeChart'),
+    resetPassword: require('./resetPassword'),
 
 }

@@ -28,7 +28,7 @@ module.exports = function retrieveEmployeesBySalaryLevel(employeeId, salaryLevel
 
         if (!employee) throw new ExistenceError('employee not found')
 
-        const employeeListRetrieved = await Employee.find({ salaryLevel: salaryLevel }, 'avatar name firstSurname secondSurname salaryLevel').lean()
+        const employeeListRetrieved = await Employee.find({ salaryLevel: salaryLevel }, '_id avatar name firstSurname secondSurname salaryLevel').lean()
 
         for (i = 0; i < employeeListRetrieved.length; i++)
             delete employeeListRetrieved[i].__v

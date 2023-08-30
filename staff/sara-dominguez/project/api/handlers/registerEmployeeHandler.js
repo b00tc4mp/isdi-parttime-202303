@@ -23,12 +23,12 @@ module.exports = handleErrors((req, res) => {
         department,
         salaryLevel,
         centerAttached,
-        // superiorHierarchicalManager,
+        superiorHierarchicalManager,
         roll,
         professionalPhoneNumber,
         professionalEmail,
         accessPermissions,
-        employeePassword
+        // employeePassword
     } = req.body
 
     const promise = registerEmployee(
@@ -51,12 +51,12 @@ module.exports = handleErrors((req, res) => {
         department,
         salaryLevel,
         centerAttached,
-        // superiorHierarchicalManager,
+        superiorHierarchicalManager,
         roll,
         professionalPhoneNumber,
         professionalEmail,
         accessPermissions,
-        employeePassword
+        // employeePassword
     )
     return (async () => {
         await promise

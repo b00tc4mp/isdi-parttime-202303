@@ -22,6 +22,8 @@ const { helloApiHandler,
     retrieveEmployeeHandler,
     updatePayrollStatusToPaidHandler,
     searchEmployeesHandler,
+    getTreeChartHandler,
+    resetPasswordHandler,
 } = require('./handlers')
 
 
@@ -37,11 +39,12 @@ mongoose.connect(process.env.MONGODB_URL)
         const jsonBodyParser = bodyParser.json()
 
         api.get('/', helloApiHandler)
-        api.get('/employees/retrieve', retrieveEmployeeLoggedHandler)
+        api.get('/employees/retrieveEmployeeLogged', retrieveEmployeeLoggedHandler)
         api.get('/employees/retrieveEmployeePayrollData', retrieveEmployeePayrollDataHandler)
         api.get('/employees/retrieveEmployeePayrollToBePaid/:id', retrieveEmployeePayrollToBePaidHandler)
         api.get('/employees/retrieveEmployee/:id', retrieveEmployeeHandler)
-        api.get('/employees/searchEmployees/:name/:firstSurname/:secondSurname', searchEmployeesHandler)
+        api.get('/employees/searchEmployees/:searchPattern', searchEmployeesHandler)
+        api.get('/employees/getTreeChart/:searchPattern', getTreeChartHandler)
         api.get('/payrollMonth/retrieveEmployeePayrollMonth/:payrollYear/:payrollMonth', retrievePayrollMonthHandler)
         api.get('/payrollMonth/retrievePayrollsMonthToBePaid/:payrollYear/:payrollMonth', retrievePayrollsMonthToBePaidHandler)
         api.get('/employees/retrieveEmployeesBySalaryLevel/:salaryLevel', retrieveEmployeesBySalaryLevelHandler)
@@ -57,6 +60,7 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/employees/updateAddress', jsonBodyParser, updateEmployeeAddressHandler)
         api.patch('/employees/updateBankAccountNumber', jsonBodyParser, updateEmployeeBankAccountNumberHandler)
         api.patch('/payrollMonths/updatePayrollStatusToPaid', jsonBodyParser, updatePayrollStatusToPaidHandler)
+        api.patch('/employees/resetPassword', jsonBodyParser, resetPasswordHandler)
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
     })

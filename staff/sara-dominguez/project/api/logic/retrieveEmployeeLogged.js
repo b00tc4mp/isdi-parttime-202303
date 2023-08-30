@@ -22,7 +22,7 @@ module.exports = function retrieveEmployee(employeeId) {
     const { Employee } = require('../data/models')
 
     return (async () => {
-        const employee = await Employee.findById(employeeId, 'name firstSurname secondSurname avatar centerAttached professionalPhoneNumber professionalEmail roll ').lean()
+        const employee = await Employee.findById(employeeId, 'name firstSurname secondSurname avatar centerAttached professionalPhoneNumber professionalEmail roll employeePasswordToChange').lean()
 
         if (!employee) throw new ExistenceError('employee not found')
 

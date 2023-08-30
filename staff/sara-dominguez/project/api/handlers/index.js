@@ -18,8 +18,9 @@ module.exports = {
     retrieveEmployeeHandler: require('./retrieveEmployeeHandler'),
     retrievePayrollAnnualAggregateHandler: require('./retrievePayrollAnnualAggregateHandler'),
     retrievePayrollsMonthToBePaidHandler: require('./retrievePayrollsMonthToBePaidHandler'),
-
-    updatePayrollStatusToPaidHandler: require('./updatePayrollStatusToPaidHandler')
+    updatePayrollStatusToPaidHandler: require('./updatePayrollStatusToPaidHandler'),
+    getTreeChartHandler: require('./getTreeChartHandler'),
+    resetPasswordHandler: require('./resetPasswordHandler'),
 
 
 }

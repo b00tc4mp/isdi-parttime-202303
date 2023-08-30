@@ -73,11 +73,15 @@ function validateUrl(newAvatar, explain = 'url') {
 }
 
 function validateEmployeeNumber(employeeNumber, explain = "employeeNumber") {
-    if (typeof employeeNumber !== 'number') throw new TypeError(`${explain} is not a number`)
+    if (typeof employeeNumber !== 'string') throw new TypeError(`${explain} is not a string`)
 
-    const employeeNumberToString = employeeNumber.toString()
-    if (!employeeNumberToString.trim().length) throw new ContentError(`${explain}  is empty`)
-    if (employeeNumberToString.trim().length !== 5) throw new ContentError(`${explain}  does not have 5 characters`)
+    if (!employeeNumber.trim().length) throw new ContentError(`${explain}  is empty`)
+    if (employeeNumber.trim().length !== 5) throw new ContentError(`${explain}  does not have 5 characters`)
+
+    // if (typeof employeeNumber !== 'number') throw new TypeError(`${explain} is not a number`)
+    // const employeeNumberToString = employeeNumber.toString()
+    // if (!employeeNumberToString.trim().length) throw new ContentError(`${explain}  is empty`)
+    // if (employeeNumberToString.trim().length !== 5) throw new ContentError(`${explain}  does not have 5 characters`)
 }
 
 function validateTypeOfContract(typeOfContract, explain = 'typeOfContract') {
@@ -88,13 +92,13 @@ function validateTypeOfContract(typeOfContract, explain = 'typeOfContract') {
 function validateJobPosition(jobPosition, explain = 'jobPosition') {
     if (typeof jobPosition !== 'string') throw new TypeError(`${explain} is not a string`);
     if (!jobPosition.trim().length) throw new ContentError(`${explain} is empty`)
-    if (jobPosition !== "Executive" && jobPosition !== "Manager" && jobPosition !== "Developer" && jobPosition !== "Financial Controller" && jobPosition !== "Assistant ") throw new ContentError(`Invalid value for ${explain}`)
+    if (jobPosition !== "CEO" && jobPosition !== "CFO" && jobPosition !== "CTO" && jobPosition !== "Executive" && jobPosition !== "Manager" && jobPosition !== "Developer" && jobPosition !== "Financial Controller" && jobPosition !== "Assistant") throw new ContentError(`Invalid value for ${explain}`)
 }
 
 function validateDepartment(department, explain = 'department') {
     if (typeof department !== 'string') throw new TypeError(`${explain} is not a string`);
     if (!department.trim().length) throw new ContentError(`${explain} is empty`)
-    if (department !== "Development" && department !== "Design" && department !== "Financial" && department !== "Human Resources") throw new ContentError(`Invalid value for ${explain}`)
+    if (department !== "Development" && department !== "Design" && department !== "Financial" && department !== "Human Resources" && department !== "C-Suite") throw new ContentError(`Invalid value for ${explain}`)
 }
 
 function validateSalaryLevel(salaryLevel, explain = 'salary level') {
@@ -129,7 +133,8 @@ function validateAccessPermissions(accessPermissions, explain = 'accessPermissio
 }
 
 function validateEmail(email, explain = "email") {
-    const emailRegex = /^[\w-.]+@[\w-]+(\.[a-zA-Z]{2,4}){1,2}$/
+    // const emailRegex = /^[\w-.]+@[\w-]+(\.[a-zA-Z]{2,4}){1,2}$/
+    const emailRegex = /^[\w-.]+@b-elevenzsd.es/
 
     if (typeof email !== 'string') throw new TypeError(`${explain}  is not a string`)
     if (!email.trim().length) throw new ContentError(`${explain}  is empty`)

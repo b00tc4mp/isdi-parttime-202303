@@ -3,6 +3,8 @@ import PersonalInformationModal from '../components/PersonalInformationModal.jsx
 import PayrollMenuModal from '../components/PayrollMenuModal.jsx'
 import ManagePayrollMenuModal from '../components/ManagePayrollMenuModal.jsx'
 import EmployeeDatabaseMenuModal from '../components/EmployeeDatabaseMenuModal.jsx'
+import ChartMenuModal from '../components/ChartMenuModal.jsx'
+import UpdatePasswordModal from '../components/UpdatePasswordModal.jsx'
 import retrieveEmployeeLogged from '../logic/retrieveEmployeeLogged'
 import isLoggedIn from '../logic/isLoggedIn'
 import logoutEmployee from '../logic/logoutEmployee.js'
@@ -24,7 +26,12 @@ export default function Home() {
         try {
 
             retrieveEmployeeLogged(context.token)
-                .then(employee => setEmployee(employee))
+                .then(employee => {
+                    setEmployee(employee)
+                    if (employee.employeePasswordToChange === true) {
+                        setModal('UpdatePassword')
+                    }
+                })
                 .catch(error => alert(error.message))
         } catch (error) {
             alert(error.message)
@@ -40,6 +47,12 @@ export default function Home() {
         event.preventDefault()
         setModal('PayrollMenu')
     }
+
+    const handleGoToChartMenu = (event) => {
+        event.preventDefault()
+        setModal('ChartMenu')
+    }
+
 
     const handleGoToManagePayrollMenu = (event) => {
         event.preventDefault()
@@ -91,6 +104,8 @@ export default function Home() {
                         <p className="personalInformation-menu mb-4"><a href="" className="personalInformation" onClick={handleGoToPersonalInformatioMenu}>Personal Information</a></p>
                         <p className="payroll-menu mb-4" onClick={handleGoToPayrollMenu}><a href="" className="payrollMenu" >Payroll menu</a></p>
 
+                        <p className="payroll-menu mb-4" onClick={handleGoToChartMenu}><a href="" className="payrollMenu" >Chart menu</a></p>
+
                         {employee && employee.roll === "Admin" && (
                             <>
                                 <p className="manage-payroll-menu mb-4" onClick={handleGoToManagePayrollMenu}><a href="" className="ManagePayrollMenu" >Manage Payroll menu</a></p>
@@ -98,7 +113,7 @@ export default function Home() {
                             </>
                         )}
                     </div>
-                    <h5 className=" text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mt-36 mb-10" onClick={handleLogOut}>Logout</h5>
+                    <h5 className=" text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mt-20 mb-10 cursor-pointer" onClick={handleLogOut}>Logout</h5>
                 </div>
                 {modal === 'PersonalInformation' && < PersonalInformationModal
                     employee={employee}
@@ -107,6 +122,12 @@ export default function Home() {
                     onEmployeeAddressUpdated={handleCloseModal}
                     onEmployeeBankAccountNumberUpdated={handleCloseModal}
                     onPersonalInformationModalLogout={handleCloseModal}
+                    onClick={
+                        modal === 'UpdatePassword'
+                            ? (event) => event.preventDefault()
+                            : handleGoToPersonalInformatioMenu
+                    }
+
                 />}
                 {modal === 'PayrollMenu' && < PayrollMenuModal
                     employee={employee}
@@ -120,6 +141,15 @@ export default function Home() {
                     employee={employee}
                     onEmployeeRegistered={handleCloseModal}
                     onEmployeeDatabaseMenuModalLogout={handleCloseModal} />}
+
+                {modal === 'ChartMenu' && < ChartMenuModal
+                    employee={employee}
+                    onCloseEmployeeChartMenuModal={handleCloseModal}
+                />}
+                {modal === 'UpdatePassword' && < UpdatePasswordModal
+                    employee={employee}
+                    onEmployeePasswordUpdated={handleCloseModal}
+                />}
             </main>
             <footer>
                 {/* <h5 className=" text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mt-10 mb-10 ml-4" onClick={handleLogOut}>Logout</h5> */}
