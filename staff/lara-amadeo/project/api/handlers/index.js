@@ -20,5 +20,6 @@ module.exports = {
     markAsReadyHandler: require('./markAsReadyHandler'),
     retrieveWaitingClientToPickUpHandler: require('./retrieveWaitingClientToPickUpHandler'),
     serverStatusHandler: require('./serverStatusHandler'),
-    markAsCompletedHandler: require('./markAsCompletedHandler')
+    markAsCompletedHandler: require('./markAsCompletedHandler'),
+    searchMealsHandler: require('./searchMealsHandler')
 }

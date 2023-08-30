@@ -19,5 +19,6 @@ module.exports = {
     retrievePendingToDeliver: require('./retrievePendingToDeliver'),
     markAsReady: require('./markAsReady'),
     retrieveWaitingClientToPickUp: require('./retrieveWaitingClientToPickUp'),
-    markAsCompleted: require('./markAsCompleted')
+    markAsCompleted: require('./markAsCompleted'),
+    searchMeals: require('./searchMeals')
 }
