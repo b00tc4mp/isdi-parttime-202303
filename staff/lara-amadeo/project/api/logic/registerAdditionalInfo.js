@@ -1,7 +1,7 @@
 const { validators: { validateText }, errors: { DuplicityError, ExistanceError } } = require('../../com')
 const { User } = require('../data/models')
 
-module.exports = function registerAdditionalInfo(userId, description, tags, location, availability) {
+module.exports = function registerAdditionalInfo(userId, avatar, description, tags, location, availability) {
 
     validateText(description)
     validateText(location)
@@ -11,7 +11,7 @@ module.exports = function registerAdditionalInfo(userId, description, tags, loca
         const user = await User.findById(userId)
         if (!user) throw new ExistanceError(`User with id ${userId} not found`)
 
-        await User.updateOne({ _id: userId }, { description, tags, location, availability })
+        await User.updateOne({ _id: userId }, { avatar, description, tags, location, availability })
     })()
 }
 /*

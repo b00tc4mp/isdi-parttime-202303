@@ -99,6 +99,13 @@ body {
   stroke-width: 1.6;
 }
 
+.icon-m {
+  width: 32px;
+  height: 32px;
+  stroke-width: 1.8;
+}
+
+
 .body-text {
   font-family: "Inter";
   font-size: 16px;

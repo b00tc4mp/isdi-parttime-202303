@@ -14,6 +14,14 @@ import useAppContext from '../logic/hooks/useAppContext'
 import useHandleError from '../logic/hooks/useHandleError'
 import retrieveUser from '../logic/retrieveUser'
 import FeedbackNotification from '../library/components/FeedbackNotification'
+import EmptyPhoto from '../library/components/EmptyPhoto'
+
+import { IKImage, IKContext, IKUpload } from "imagekitio-react"
+import ChooseFile from '../library/components/ChooseFile'
+
+const urlEndpoint = 'https://ik.imagekit.io/6zeyr5rgu/yuperApp/'
+const publicKey = 'public_9DujXADbFrwoOkNd+rUmvTbT/+U='
+const authenticationEndpoint = `${import.meta.env.VITE_API_KEY}/IKAuth`
 
 type User = {
     name: string,
@@ -34,6 +42,11 @@ export default function AdditionalInfo() {
     const [user, setUser] = useState<User>()
 
     const days = ['1', '2', '3', '4', '5', '6', '7']
+
+    const inputRefTest = useRef(null)
+    const ikUploadRefTest = useRef(null)
+    const [avatarImage, setAvatarImage] = useState<string>()
+
 
     useEffect(() => {
         (async () => {
@@ -61,7 +74,7 @@ export default function AdditionalInfo() {
         (async () => {
             loaderOn()
             try {
-                await registerAdditionalInfo(description, tags, location, availability)
+                await registerAdditionalInfo(avatarImage!, description, tags, location, availability)
 
                 setTimeout(() => {
                     loaderOff()
@@ -94,6 +107,25 @@ export default function AdditionalInfo() {
         navigate('/')
     }
 
+    const onImageUploadError = (error: object) => {
+        alert('There has been an error uploading your file. Please try again.')
+    }
+    //@ts-ignore
+    const onValidateFile = (res) => {
+        if (res.type === 'image/png' || res.type === 'image/jpeg' || res.type === 'image/webp' || res.type === 'image/heic' || res.type === 'image/heif' && res.size < 500000) return true
+
+        else { alert('File format or size not permitted') }
+    }
+    //@ts-ignore
+    const onImageUploadSuccess = (res) => {
+        loaderOff()
+        setAvatarImage(res.url)
+    }
+    //@ts-ignore
+    const onUploadStart = evt => {
+        loaderOn()
+    }
+
     return <>
         <div className="page-first-level">
             <div className='additional-container'>
@@ -106,6 +138,20 @@ export default function AdditionalInfo() {
                 <FeedbackNotification title='Complete your profile' content='Please fullfill additional info for creating your meals.' state='warning' style={{ marginBottom: '24px' }} />
 
                 <form className='additional-form' ref={formRef}>
+
+                    {/* AVATAR */}
+                    <div className='additional-form-avatar'>
+
+                        <p className='body-text grey-700'>Avatar</p>
+                        {/*//@ts-ignore*/}
+                        {inputRefTest && <ChooseFile url={avatarImage} onAddClick={() => inputRefTest.current!.click()} />}
+                        {/*//@ts-ignore*/}
+                        <IKContext publicKey={publicKey} urlEndpoint={urlEndpoint} authenticationEndpoint={authenticationEndpoint}>
+                            {/*//@ts-ignore*/}
+                            <IKUpload style={{ display: 'none' }} inputRef={inputRefTest} ref={ikUploadRefTest} className="ik-upload-button" fileName={'meal_'} accept=".jpg, .jpeg, .png, .heic, .webp" validateFile={onValidateFile} onError={onImageUploadError} onUploadStart={onUploadStart} onSuccess={onImageUploadSuccess} />
+                        </IKContext>
+                    </div>
+
                     <TextArea name={'description'} label={'Description'} placeholder={'Start by writing a bit about yourself, this helps other users to get to know you.'} />
                     <TextField type={'text'} label={'Tags'} name={'tags'} placeholder={'Write some tags about your lifestyle. p.e. Healthy, Sporty, Diet...'} />
                     <TextField type={'text'} label={'Pick-up location'} name={'location'} />

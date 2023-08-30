@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import Link from "../library/components/Link";
 import logoutUser from "../logic/logoutUser";
 import './Profile.css'
 import Topbar from "../library/modules/Topbar";
 import Tabbar from "../library/modules/Tabbar";
 import Avatar from "../library/components/Avatar";
-import { ArrowRightOnRectangleIcon, ChevronRightIcon, Cog6ToothIcon, CubeIcon, HeartIcon, UserIcon } from "../library/icons";
+import { ArrowRightOnRectangleIcon, ChevronRightIcon, Cog6ToothIcon, CubeIcon, HeartIcon, PencilIcon, PencilSquareIcon, UserIcon } from "../library/icons";
 import Divider from "../library/components/Divider";
 import Tabs from "../library/components/Tabs";
 import retrieveUser from "../logic/retrieveUser";
@@ -131,7 +130,7 @@ export default function Profile(): JSX.Element {
         {user ? <Topbar level={'first'} firstLevel={{ label: `@${user?.username}`, chat: true, onChatClick: () => alert('🛠️ Feature coming soon! Please, be patient') }} /> : <Skeleton width={'250px'} count={1} height={'16px'} className="profile-topbar-skeleton" />}
         <div className="page-first-level">
             <div className="profile-first-part">
-                {user ? <Avatar image={user.avatar} width={"60px"} /> : <Skeleton width={'60px'} height={'60px'} baseColor="#f4f4f4" highlightColor="#eeeeee" />}
+                {user ? <Avatar image={user.avatar} width={"60px"} className="profile-avatar" /> : <Skeleton width={'60px'} height={'60px'} baseColor="#f4f4f4" highlightColor="#eeeeee" />}
                 {user ? <div className="profile-info">
                     <p className="title gre-700">{user.name}</p>
                     <p className="tiny-text grey-400">{user.description}</p>
@@ -160,8 +159,8 @@ export default function Profile(): JSX.Element {
 
                 <div className="profile-opt" onClick={() => alert('🛠️ Feature coming soon! Please, be patient')}>
                     <div className="profile-opt-label">
-                        <UserIcon className="icon-xs grey-700" />
-                        <p className="body-text grey-700">My account</p>
+                        <PencilSquareIcon className="icon-xs grey-700" />
+                        <p className="body-text grey-700">Edit profile</p>
                     </div>
                     <ChevronRightIcon className="icon-xs grey-700" />
                 </div>

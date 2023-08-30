@@ -11,12 +11,12 @@ import errors from './helpers/errors'
 
 import { context } from "./context"
 
-export const registerAdditionalInfo = (description: string, tags: Array<string>, location: string, availability: Array<object>) => {
+export const registerAdditionalInfo = (avatar: string, description: string, tags: Array<string>, location: string, availability: Array<object>) => {
 
     // validateEmail(email)
     // validatePassword(password)
 
-    const info = { description, tags, location, availability }
+    const info = { avatar, description, tags, location, availability }
 
     return (async () => {
         const res = await fetch(`${import.meta.env.VITE_API_KEY}/users/info`, {
