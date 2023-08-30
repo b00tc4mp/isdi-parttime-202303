@@ -3,11 +3,11 @@ import context from "./context"
 /**
  * Retrieve the list
  * 
-* @returns {list} The context listid
+* @returns {messages} The messages to list
  */
 export default async () => {   
     
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/lists/${context.listId}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/lists/${context.listId}/messages`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${context.token}`

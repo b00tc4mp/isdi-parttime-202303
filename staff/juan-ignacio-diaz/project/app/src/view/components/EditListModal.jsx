@@ -5,7 +5,7 @@ import { useAppContext } from '../../hooks'
 import { Container, Button, Label } from '../library'
 import { EditListGuest, EditListInvited, EditListContact } from '../components'
 
-import { retrieveList, retrieveUserContacts } from '../../logic'
+import { retrieveUsersList, retrieveUserContacts } from '../../logic'
 
 export default ({ listId, onAccept }) => {
     const { alert, freeze, unfreeze } = useAppContext()
@@ -17,12 +17,10 @@ export default ({ listId, onAccept }) => {
     const handleRefreshEditList = async () => {
         try {
             freeze()
-            const [tmpList, tmpContacs] = await Promise.all([ retrieveList(listId), retrieveUserContacts()])
-            setList(tmpList)  
-            setContacts(tmpContacs)
+            const [list, constacts] = await Promise.all([ retrieveUsersList(listId), retrieveUserContacts()])
+            setList(list)  
+            setContacts(contacts)
 
-            //setList( await retrieveList(listId))
-            //setContacts(await retrieveUserContacts())
             unfreeze()
         } catch(error) {
             unfreeze()
@@ -41,8 +39,8 @@ export default ({ listId, onAccept }) => {
     }, [])
 
     return <>
-        <Container tag="section" className="modal">
-            <Container tag="div">
+        <Container className="modal">
+            <Container tag="section">
                 {list && <>
                     <Label htmlFor="nameRegister">Name:</Label>
                     <Label type="text" name="name" placeholder="name">{list.name}</Label>
@@ -56,7 +54,7 @@ export default ({ listId, onAccept }) => {
                     <Label type="date" name="date" />
                 </>}
             </Container>
-            <Container tag="div">
+            <Container tag="section">
                 <h2>Guest</h2>
                 {list && list.guests && list.guests.map(contact => <EditListGuest 
                     key={contact.id} 
@@ -65,7 +63,7 @@ export default ({ listId, onAccept }) => {
                 }
 
             </Container>
-            <Container tag="article">
+            <Container tag="section">
                 <h2>Invited</h2>
                 {list && list.invited && list.invited.map(contact => <EditListInvited 
                     key={contact.id} 

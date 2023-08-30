@@ -10,7 +10,7 @@ export default ({ contact: { name, avatar}}) => {
     console.log('Edit List Guest -> render')
 
     return <>
-        <Container type="row">
+        <Container tag="article" type="row">
             <img className="home-header-avatar" src={avatar? avatar : DEFAULT_AVATAR_URL} alt=""/>
             <h1 className="name">{name}</h1>
         </Container>

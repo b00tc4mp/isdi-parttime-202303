@@ -13,6 +13,7 @@ import updateUserAvatar from './updateUserAvatar'
 import updateUserMode from './updateUserMode'
 import updateUserPassword from './updateUserPassword'
 import retrieveUserContacts from './retrieveUserContacts'
+import retrieveUsersList from './retrieveUsersList'
 import searchUser from './searchUser'
 import addUserContact from './addUserContact'
 import retrieveListsInvited from './retrieveListsInvited'
@@ -20,7 +21,13 @@ import retrieveListsGuest from './retrieveListsGuest'
 import acceptGuestList from './acceptGuestList'
 import createList from './createList'
 import retrieveList from './retrieveList'
-import gotoList from './gotoList'
+import openList from './openList'
+import closeList from './closeList'
+import retrieveFilteredProducts from './retrieveFilteredProducts'
+import retrieveMessages from './retrieveMessages'
+import toggleProductToCart from './toggleProductToCart'
+import toggleLikeProduct from './toggleLikeProduct'
+import isOpenList from './isOpenList'
 
 export {
     isCurrentUser,
@@ -38,6 +45,7 @@ export {
     updateUserMode,
     updateUserPassword,
     retrieveUserContacts,
+    retrieveUsersList,
     searchUser,
     addUserContact,
     retrieveListsInvited,
@@ -45,5 +53,11 @@ export {
     acceptGuestList,
     createList,
     retrieveList,
-    gotoList
+    openList,
+    closeList,
+    retrieveFilteredProducts,
+    retrieveMessages,
+    toggleProductToCart,
+    toggleLikeProduct,
+    isOpenList
 }

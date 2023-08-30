@@ -2,19 +2,20 @@ import { useAppContext } from '../../hooks'
 
 import { Container, Button } from '../library'
 
-import { isCurrentUser, gotoList } from '../../logic'
+import { isCurrentUser, openList } from '../../logic'
 
-export default ({ list: { id, owner, name, date}, onEditList, onGotoList }) => {
+export default ({ list: { id, owner, name, date}, onEditList, OnOpenList }) => {
     console.log('ListGuest -> render')
 
-    const { alert } = useAppContext()
+    const { alert, navigate } = useAppContext()
 
     const handleEditList = () => onEditList(id)
 
-    const handleGotoList = () => {
+    const handleOpenList = () => {
         try {
-            gotoList(id)
-            onGotoList()
+            openList(id)
+
+            navigate('/list')
         }
         catch(error){
             alert(error.message)
@@ -24,11 +25,11 @@ export default ({ list: { id, owner, name, date}, onEditList, onGotoList }) => {
     const isCurrentUserList = isCurrentUser(owner.id)
 
     return <>
-        <Container type="row">
+        <Container tag="article" type="row">
             <p>{name}</p>
             <time>📎 {date.toLocaleString()}</time>   
             {isCurrentUserList ? <Button onClick={handleEditList}>🖍</Button> : ''} 
-            <Button onClick={handleGotoList}>🛒</Button> 
+            <Button onClick={handleOpenList}>🛒</Button> 
         </Container>
     </>
 }

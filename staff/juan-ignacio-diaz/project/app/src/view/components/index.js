@@ -6,10 +6,14 @@ import EditListContact from './EditListContact'
 import AlertModal from './AlertModal'
 import Contact from './Contact'
 import Lists from './Lists'
-import ListGuest from './ListGuest'
-import ListInvited from './ListInvited'
+import ListsGuest from './ListsGuest'
+import ListsInvited from './ListsInvited'
 import Profile from './Profile'
 import SearchUserModal from './SearchUserModal'
+
+import List from './List'
+import Product from './Product'
+import Message from './Message'
 
 export {
     AddListModal,
@@ -22,6 +26,9 @@ export {
     Contact,
     Lists,
     Profile,
-    ListGuest,
-    ListInvited
+    ListsGuest,
+    ListsInvited,
+    List,
+    Product,
+    Message
 }

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { useAppContext } from '../../hooks'
 
-import { Container, Button, Label } from '../library'
+import { Container, Button } from '../library'
 import { Profile, Lists, SearchUserModal, AddListModal, EditListModal } from '../components'
 
 import { logoutUser, retrieveUser } from '../../logic'
@@ -94,8 +94,6 @@ export default function HomeUser() {
 
     const handleGoToLists = () => setView('lists') 
 
-    const handleGotoList = () => navigate('/list') 
-       
     return <>
         <div className="home">
             <header className="home-header">
@@ -115,7 +113,6 @@ export default function HomeUser() {
                     onModifyedList={handleGoToLists}
                     onCreatedList={handleOpenNewList}
                     onEditedList={handleOpenEditList}
-                    onGotoList={handleGotoList}
                     lastUpdate={lastUpdate}
                 />} 
 

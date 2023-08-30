@@ -42,7 +42,7 @@ export default ({ list, onModifyList}) => {
     }
 
     return <>
-        <Container type="row">
+        <Container tag="article" type="row">
             <p>{list.name}</p>
             <time>📎 {list.date.toLocaleString()}</time>   
             <Button onClick={handleAcceptGuestList}>📌</Button>

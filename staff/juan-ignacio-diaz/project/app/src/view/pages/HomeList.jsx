@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react'
 import { useAppContext } from '../../hooks'
 
 import { Container, Button, Label } from '../library'
-import { Profile, Lists, SearchUserModal, AddListModal } from '../components'
+import { List, AddListModal } from '../components'
 
-import { logoutUser, retrieveUser } from '../../logic'
+import { retrieveUser, retrieveList, closeList } from '../../logic'
 
 import './Home.css'
 
@@ -17,28 +17,21 @@ export default function HomeList() {
     const { alert, freeze, unfreeze, navigate } = useAppContext()
 
     const [user, setUser] = useState()
-    const [view, setView] = useState('lists')
+    const [list, setList] = useState()
+    const [view, setView] = useState('list')
     const [modal, setModal] = useState(null)
-    const [listId, setListId] = useState(null)
+    const [productId, setProductId] = useState(null)
     const [lastUpdate, setLastUpdate] = useState(null)
-
-    function changeMode(mode){
-        if (mode) {
-            if (mode === 'dark') document.querySelector(':root').classList.add('dark')
-            else document.querySelector(':root').classList.remove('dark')
-        }
-        else document.querySelector(':root').classList.remove('dark')
-    }
 
     useEffect(() => {
         ;(async () => {
             try{     
                 freeze()     
-                const user = await retrieveUser()
+                const [user, list] = await Promise.all([retrieveUser(), retrieveList()])
                 unfreeze()
 
                 setUser(user)
-                changeMode(user.mode)
+                setList(list)
             } 
             catch (error) {
                 unfreeze()
@@ -47,31 +40,10 @@ export default function HomeList() {
         })()
     }, [])
 
-    const handleLogout = () => {
-        logoutUser()
+    const handleGoToHome = () => {
+        closeList()
 
-        navigate('/login')
-    }
-
-    const handleGoToProfile = (event) => {
-        event.preventDefault()
-
-        setView(view === 'lists' ? 'profile' : 'lists')
-    }
-
-    const handledEditedProfile = async () => {
-        try{
-            freeze()
-            const user = await retrieveUser()
-            unfreeze()
-
-            setUser(user)
-            changeMode(user.mode)       
-        } 
-        catch (error) {
-            alert(error.message)
-        }
-        setView('profile')
+        navigate('/')
     }
 
     const handleCloseModal = () => {
@@ -79,88 +51,75 @@ export default function HomeList() {
         setLastUpdate(Date.now())
     }
 
-    const handleOpenSearchUser = () => {
-        setModal('SearchUser')
+    const handleOpenAddProduct = (id) => {
+        setProductId(id)
+        setModal('add-product')
     }
 
-    const handleOpenNewList = (id) => {
-        setModal('new-list')
+    const handleOpenEditProduct = (id) => {
+        setProductId(id)
+        setModal('edit-product')
     }
 
-    const handleOpenEditList = (id) => {
-        setListId(id)
-        setModal('edit-list')
+    const handleOpenFilterProducts = () => {
+        setModal('filter-products')
     }
 
-    // const handleOpenAddPriceToList = (id) => {
-    //     setListId(id)
-    //     setModal('addPrice-list')
-    // }
+    const handleGoToList = () => setView('list') 
 
-    //const handleOpenAddList = () => setModal('add-list')
-
-    const handleGoToLists = () => setView('lists') 
-
-    const handleGoToList = () => navigate('/list') 
-       
     return <>
-        <div className="home">
+        <Container className="home">
             <header className="home-header">
-                <h1 className="title" onClick={handleGoToLists}>Home</h1>
+                <h1 className="title" onClick={handleGoToList}>List</h1>
 
                 <nav className="home-header-nav"> 
                     {user && <>
                         <img className="home-header-avatar" src={user.avatar? user.avatar : DEFAULT_AVATAR_URL} alt=""/>
-                        <a className = "name" href="" onClick={handleGoToProfile}>{user.name}</a>
+                        <Label type="text" name="name" placeholder="name">{user.name}</Label>
                     </>}
+
+                    {list && <>
+                    <Label htmlFor="nameRegister">Name:</Label>
+                    <Label type="text" name="name" placeholder="name">{list.name}</Label>
+                    <Label htmlFor="emailRegister">Date End:</Label>
+                    <Label type="date" name="date">{list.dateToEnd}</Label>
+                </>
+                || <>
+                    <Label htmlFor="nameRegister">Name:</Label>
+                    <Label type="text" name="name" placeholder="name" />
+                    <Label htmlFor="emailRegister">Date End:</Label>
+                    <Label type="date" name="date" />
+                </>}
                 </nav>
-                <Button name = "logout" onClick={handleLogout}>Logout</Button>   
+                <Button name = "home" onClick={handleGoToHome}>Home</Button>   
             </header>
 
             <Container tag="main">               
-                {view === 'lists' && <Lists 
-                    onModifyedList={handleGoToLists}
-                    onCreatedList={handleOpenNewList}
-                    onEditedList={handleOpenEditList}
-                    onGotoList={handleGotoList}
+                {view === 'list' && <List
+                    onModifyedList={handleGoToList}
+                    onAddedProduct={handleOpenAddProduct}
+                    onEditedProduct={handleOpenEditProduct}
+                    onFilteredProducts={handleOpenFilterProducts}
                     lastUpdate={lastUpdate}
                 />} 
 
-                {view === 'profile' && <Profile 
-                    onEditedProfile={handledEditedProfile}
-                    onSearchUser={handleOpenSearchUser} 
-                    user={user}
-                    lastUpdate={lastUpdate}
-                />}
-                
-                {modal === 'SearchUser' && <SearchUserModal 
+                {modal === 'add-product' && <AddListModal 
                     onCancel={handleCloseModal}
-                    onModifyContact={handleCloseModal}
+                    onModifiedList={handleCloseModal}
                 />}
 
-                {modal === 'new-list' && <AddListModal 
+                {modal === 'edit-product' && <AddListModal 
                     onCancel={handleCloseModal}
-                    onCreatedList={handleCloseModal}
+                    onModifiedList={handleCloseModal}
                 />}
 
-                {/*
-                {modal === 'addPrice-list' && <AddPriceToListModal 
-                    onCancel={handleCloseModalList}
-                    onAddedPriceToList={handleCloseModalList}
-                    listId={listId}
-                />}                
+                {modal === 'filter-products' && <AddListModal 
+                    onCancel={handleCloseModal}
+                    onModifiedList={handleCloseModal}
+                />}
 
-                {modal === 'add-list' && <AddListModal 
-                    onCancel={handleCloseModalList}
-                    onCreatedList={handleCloseModalList}
-                />} 
-                */}
-            </Container>
-
-            <footer className="home-footer">
-
-            </footer>
-        </div>
+            </Container>          
+        </Container>
     </>
 
 }

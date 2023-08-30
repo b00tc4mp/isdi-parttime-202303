@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react'
 
 import { useAppContext } from '../../hooks'
 
-import { ListGuest, ListInvited } from '.'
+import { ListsGuest, ListsInvited } from '.'
 import { Container, Button, Label } from '../library'
 
-import { retrieveListsInvited, retrieveListsGuest, acceptGuestList } from '../../logic'
+import { retrieveListsInvited, retrieveListsGuest } from '../../logic'
 
-export default ({ onEditedList, onCreatedList, onGotoList, lastUpdate }) => {
+export default ({ onEditedList, onCreatedList, lastUpdate }) => {
     console.log('Lists -> render')
 
     const { alert, freeze, unfreeze } = useAppContext()
@@ -30,7 +30,7 @@ export default ({ onEditedList, onCreatedList, onGotoList, lastUpdate }) => {
 
     const handleNewList = () => onCreatedList()
 
-    const handleGotoList = (id) => onGotoList(id)
+    const handleGotoList = (id) => OnOpenList()
 
     useEffect(() => {      
         handleRefreshLists()
@@ -41,11 +41,10 @@ export default ({ onEditedList, onCreatedList, onGotoList, lastUpdate }) => {
             <Button onClick={handleNewList}>New list</Button>
             <Label >Guest of the lists:</Label>
             <section>
-                {listsGuest && listsGuest.map(list => <ListGuest
+                {listsGuest && listsGuest.map(list => <ListsGuest
                         key={list.id} 
                         list={list} 
                         onEditList={onEditedList}
-                        onGotoList={handleGotoList}
                     />)
                 }
             </section>
@@ -53,7 +52,7 @@ export default ({ onEditedList, onCreatedList, onGotoList, lastUpdate }) => {
         <Container tag="section">
             <Label >Invitation to the lists:</Label>
             <section>
-                {listsInvited && listsInvited.map(list => <ListInvited 
+                {listsInvited && listsInvited.map(list => <ListsInvited 
                         key={list.id} 
                         list={list} 
                         onModifyList={handleRefreshLists}
