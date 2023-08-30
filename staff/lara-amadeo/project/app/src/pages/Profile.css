@@ -3,7 +3,7 @@
     width: 100%;
     gap: 16px;
     flex-direction: row;
-    align-items: start;
+    align-items: flex-start;
     margin-bottom: 32px;
 }
 

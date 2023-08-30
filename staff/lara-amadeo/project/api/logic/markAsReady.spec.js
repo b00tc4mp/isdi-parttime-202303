@@ -13,7 +13,7 @@ const { errors: { AuthError, ExistanceError } } = require('../../com')
 
 describe('markAsReady function', () => {
     before(async () => {
-        await mongoose.connect(`${process.env.MONGODB_URL}/project-data-test`)
+        await mongoose.connect(process.env.MONGODB_URL)
     })
 
     beforeEach(async () => {
