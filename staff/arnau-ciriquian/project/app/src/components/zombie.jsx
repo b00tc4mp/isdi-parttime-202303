@@ -85,8 +85,7 @@ export default function Zombie(props) {
 
 
         if (mesh.current.position.z === -5 && mesh.current.visible === true)
-            if (time % (5 * 60) === 0) {
-                console.log('zombie', props.zombieId, 'attacked')
+            if (time % (1 * 60) === 0) {
                 props.onDamagePlayer()
             }
 

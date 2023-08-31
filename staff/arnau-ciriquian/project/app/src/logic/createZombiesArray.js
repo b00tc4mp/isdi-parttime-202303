@@ -7,10 +7,9 @@ export default function createZombiesArray(numberOfZombies) {
 
         const newZombie = {
             id: `ZB${i}`,
-            position: [(newPositionX), 0, -30],
+            position: [(newPositionX), 0, -200],
             visible: false,
-            //time: 60 + (Math.floor(Math.random() * (60*60)) + 1)
-            time: 60 
+            time: 60 + (Math.floor(Math.random() * (2*60)) + 1)
         }
 
         zombies.push(newZombie)

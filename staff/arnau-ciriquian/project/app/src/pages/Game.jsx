@@ -3,11 +3,11 @@ import { useState, useEffect, Suspense } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import { useAnimatedSensor, SensorType } from 'react-native-reanimated'
 import { Canvas } from '@react-three/fiber'
-import Zombie from '../components/zombie'
+import Zombie from '../components/Zombie'
 import createZombiesArray from '../logic/createZombiesArray'
 import HealthBar from '../components/HealthBar'
 
-export default function Game({ onFinishGame, zombiesToKill }) {
+export default function Game({ onWinGame, onLoseGame, zombiesToKill }) {
   //const zombies = createZombiesArray(zombiesToKill)
   const [zombies] = useState(createZombiesArray(zombiesToKill))
   const [playerHealth, setPlayerHealth] = useState(50)
@@ -17,11 +17,11 @@ export default function Game({ onFinishGame, zombiesToKill }) {
   const handleDeadZombies = () => {
     setDeadZombies(deadZombies + 1)
 
-    console.log(zombiesToKill, deadZombies)
+    console.log(zombiesToKill, (deadZombies + 1))
 
-    if (deadZombies === zombiesToKill) {
+    if ((deadZombies + 1) === zombiesToKill) {
       console.log('zombies killed')
-      onFinishGame()
+      onWinGame()
     }
   }
 
@@ -34,11 +34,9 @@ export default function Game({ onFinishGame, zombiesToKill }) {
   const handlePlayersHealth = () => {
     if (playerHealth <= 0) {
       console.log('player killed');
-      onFinishGame();
+      onLoseGame();
     } else {
-      console.log('player -5hp')
       setPlayerHealth(playerHealth - 5)
-      console.log(playerHealth)
     }
   }
 

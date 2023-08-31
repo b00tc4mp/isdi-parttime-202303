@@ -42,16 +42,6 @@ export default function App() {
     }
   }
 
-  const handleStartGame = () => {
-    setHome(false)
-    setGame(true)
-  }
-
-  const handleFinishGame = () => {
-    setHome(true)
-    setGame(false)
-  }
-
   return <>
     {login && <Login
       onRegisterClick={handleGoToRegister}
@@ -67,11 +57,6 @@ export default function App() {
     />}
     {home && <Home
       onLogoutSession={handleLogoutSession}
-      onStartGame={handleStartGame}
-    />}
-    {game && <Game
-      onFinishGame={handleFinishGame}
-      zombiesToKill={5}
     />}
   </>
 }
