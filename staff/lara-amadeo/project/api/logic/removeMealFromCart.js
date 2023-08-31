@@ -1,6 +1,12 @@
 const { User, Meal, Item } = require('../data/models')
 const { errors: { ExistanceError } } = require('../../com')
 
+/**
+ * Removes a meal from the cart replacing the quantity or deleting it
+ * @param {string} userId user's id
+ * @param {string} mealId meal's id
+ * @param {number} quantity  meal's quantity
+ */
 module.exports = function removeMealFromCart(userId, mealId, quantity) {
     return (async () => {
         const user = await User.findById(userId)

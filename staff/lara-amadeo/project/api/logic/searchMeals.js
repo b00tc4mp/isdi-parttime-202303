@@ -1,7 +1,14 @@
 const { User, Meal } = require('../data/models')
 const { errors: { ExistanceError, AuthError } } = require('../../com')
 
+/**
+ * Returns an array with the meals that match the searching criteria
+ * @param {string} userId user's id
+ * @param {string} title meal's title
+ * @param {string[]} categories meal's categories
 
+ * @returns {object} the founded meals
+ */
 module.exports = function searchMeals(userId, title, categories) {
     return (async () => {
         const user = await User.findById(userId)

@@ -40,9 +40,11 @@ describe('registerAdditionalInfo', () => {
         const description = 'Sample description'
         const tags = ['tag1', 'tag2']
         const location = 'Sample location'
+        const avatar = 'avatarImage'
+
         const availability = []
 
-        await registerAdditionalInfo(userId, description, tags, location, availability)
+        await registerAdditionalInfo(userId, avatar, description, tags, location, availability)
 
         const updatedUser = await User.findById(userId)
 
@@ -53,10 +55,10 @@ describe('registerAdditionalInfo', () => {
     })
 
     it('should throw an error when user does not exist', async () => {
-        const nonExistentUserId = '6151c81b825b5819b99e9999' // A non-existent user ID
+        const nonExistentUserId = '6151c81b825b5819b99e9999'
 
         try {
-            await registerAdditionalInfo(nonExistentUserId, 'Sample description', ["a,b"], 'Sample location', ["a", "b"])
+            await registerAdditionalInfo(nonExistentUserId, 'avatarImage', 'Sample description', ["a,b"], 'Sample location', ["a", "b"])
         } catch (error) {
             expect(error).to.be.instanceOf(ExistanceError)
             expect(error.message).to.equal(`User with id ${nonExistentUserId} not found`)

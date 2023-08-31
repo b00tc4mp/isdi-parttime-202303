@@ -10,19 +10,23 @@ In the days we live in, people tend to have less and less time. Yet, there has b
 
 ### Use cases
 
-- See my profile
  - Create a new meal
  - See meal detail
  - See meals of other users
- - See Chef detail page
  - Add meals to my cart
  - Pay meals
  - See ordered meals to me in my profile
+ - Mark a meal as prepared as a Chef
+ - Mark an order as done as a client
+ - Search for a meal
+
+ ### Coming soon
+ - See Chef detail page
  - Set a Chef as favourite
  - See my favourites chefs
  - See reviews in Chef detail page
  - Add a review
- - Search for a meal
+
 
 ## Technical description
 
@@ -31,14 +35,19 @@ In the days we live in, people tend to have less and less time. Yet, there has b
 Users
 - id (oid)
 - name (string)
-- Username (string)
+- username (string)
 - email (string)
 - password (string)
+- description(string)
 - avatar (string)
+- tags(string array)
 - availability(array of obj)
+- location (string)
 - likedChefs (oid array, refers to user id)
-- reviews? (array of obj)
-- meals (array of obj(meal id, status(string(cart, pending, completed, cancelled)), amount))
+- reviews (array of obj)
+- cart (array of items)
+- order (array of order)
+- selledMeals (array of chefOrder)
 
 Meals
 - id (string)
@@ -46,14 +55,16 @@ Meals
 - images (img/imgs)
 - title (string)
 - description (string)
-- category (string || array of strings)
-- ingridients (array of strings)
-- batchDuration (string)
+- categories (array of strings)
+- ingredients (array of strings)
+- bestBefore (string)
 - price (number)
+- date(string)
+
 
 ### Test Coverage
 
-![](https://wac-cdn.atlassian.com/dam/jcr:f29e7890-4a7a-4590-bc8b-c4c775ec301d/CDmicro-600x338-retina2x-A_11-58-7.png?cdnVersion=1077)
+![](https://res.cloudinary.com/dbn2zybcu/image/upload/v1693500988/Captura_de_pantalla_2023-08-31_a_las_18.56.16_bphc6t.png)
 
 ## Planning
 

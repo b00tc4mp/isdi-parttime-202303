@@ -29,9 +29,9 @@ describe('retrieveMeal', () => {
 
     it('should retrieve a meal for a valid meal ID', async () => {
         const author = await User.create(user)
-        const mealData = generateMeal()
-        mealData.author = author._id
-        const meal = await Meal.create(mealData)
+        const meal = await Meal.create(generateMeal())
+        meal.author = author._id
+        await meal.save()
 
         const retrievedMeal = await retrieveMeal(meal._id.toString())
 
@@ -41,14 +41,14 @@ describe('retrieveMeal', () => {
         expect(retrievedMeal.author.id).to.be.an('string')
 
         expect(retrievedMeal).to.be.an('object')
-        expect(retrievedMeal.title).to.equal(mealData.title)
-        expect(retrievedMeal.images).to.deep.equal(mealData.images)
-        expect(retrievedMeal.description).to.equal(mealData.description)
-        expect(retrievedMeal.categories).to.deep.equal(mealData.categories)
-        expect(retrievedMeal.ingredients).to.deep.equal(mealData.ingredients)
-        expect(retrievedMeal.quantity).to.equal(mealData.quantity.toString())
-        expect(retrievedMeal.bestBefore).to.equal(mealData.bestBefore.toString())
-        expect(retrievedMeal.price).to.equal(mealData.price.toString())
+        expect(retrievedMeal.title).to.equal(meal.title)
+        expect(retrievedMeal.images).to.deep.equal(meal.images)
+        expect(retrievedMeal.description).to.equal(meal.description)
+        expect(retrievedMeal.categories).to.deep.equal(meal.categories)
+        expect(retrievedMeal.ingredients).to.deep.equal(meal.ingredients)
+        expect(retrievedMeal.quantity).to.equal(meal.quantity.toString())
+        expect(retrievedMeal.bestBefore).to.equal(meal.bestBefore.toString())
+        expect(retrievedMeal.price).to.equal(meal.price.toString())
 
 
         //author object

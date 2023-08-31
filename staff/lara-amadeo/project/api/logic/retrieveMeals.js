@@ -1,6 +1,11 @@
 const { User, Meal } = require('../data/models')
 const { errors: { ExistanceError } } = require('../../com')
 
+/**
+ * Returns a all meals
+ * @param {string} userId user's id
+ * @returns {object} the founded meals
+ */
 module.exports = async function retrieveMeals(userId) {
 
     const user = await User.findById(userId)

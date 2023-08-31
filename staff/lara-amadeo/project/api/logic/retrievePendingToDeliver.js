@@ -1,6 +1,11 @@
 const { User, Meal } = require('../data/models')
 const { errors: { ExistanceError } } = require('../../com')
 
+/**
+ * Returns pending to deliver meals
+ * @param {string} userId user's id
+ * @returns {object} the founded meals
+ */
 module.exports = async function retrievePendingToDeliver(userId) {
 
     const user = await User.findOne({ _id: userId }).populate({

@@ -1,6 +1,13 @@
 const { User, Meal, Item } = require('../data/models')
 const { errors: { ExistanceError } } = require('../../com')
 
+/**
+ * Increments meal in cart replacing quantity for the quantity given
+ * @param {string} userId user's id
+ * @param {string} mealId meal's id
+ * @param {number}  quantity post's cart quantity
+ */
+
 module.exports = function incrementMealsInCart(userId, mealId, quantity) {
     return (async () => {
         const user = await User.findById(userId)

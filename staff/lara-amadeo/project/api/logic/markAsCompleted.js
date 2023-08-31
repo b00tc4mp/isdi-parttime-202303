@@ -1,6 +1,12 @@
 const { User, Meal, Item } = require('../data/models')
 const { errors: { ExistanceError } } = require('../../com')
 
+/**
+ * Marks an order as completed
+ * @param {string} userId user's id
+ * @param {string} serial order's serial number
+ * @param {string} chefId chef's id
+ */
 module.exports = function markAsCompleted(userId, serial, chefId) {
     return (async () => {
         const user = await User.findById(userId)

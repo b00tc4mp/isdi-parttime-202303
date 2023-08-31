@@ -1,6 +1,11 @@
 const { User } = require('../data/models')
 const { errors: { ExistanceError } } = require('../../com')
 
+/**
+ * Returns meals that are pending to pick it up by the you
+ * @param {string} userId user's id
+ * @returns {object} the founded meals
+ */
 module.exports = async function retrievePendingToPickUp(userId) {
 
     const user = await User.findById({ _id: userId }).populate('order.items.meal').populate('order.items.author').lean()

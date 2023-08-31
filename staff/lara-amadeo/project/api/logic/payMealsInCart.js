@@ -3,6 +3,10 @@ const { errors: { ExistanceError } } = require('../../com')
 const { generateSerialNumbers } = require('../helpers')
 const { Types: { ObjectId } } = require('mongoose')
 
+/**
+ * Makes the process of pay the meals in cart
+ * @param {string} userId user's id
+ */
 module.exports = function payMealsinCart(userId) {
     return (async () => {
         const user = await User.findById(userId)

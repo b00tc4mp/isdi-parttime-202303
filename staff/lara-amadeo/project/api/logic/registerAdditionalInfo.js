@@ -1,6 +1,15 @@
 const { validators: { validateText }, errors: { DuplicityError, ExistanceError } } = require('../../com')
 const { User } = require('../data/models')
 
+/**
+ * Returns a post searched by id
+ * @param {string} userId user's id
+ * @param {string} avatar user's avatar
+ * @param {string} description user's description
+ * @param {string[]} tags user's tags
+ * @param {string} location user's location
+ * @param {object[]} availability user's availability
+ */
 module.exports = function registerAdditionalInfo(userId, avatar, description, tags, location, availability) {
 
     validateText(description)
@@ -14,11 +23,3 @@ module.exports = function registerAdditionalInfo(userId, avatar, description, ta
         await User.updateOne({ _id: userId }, { avatar, description, tags, location, availability })
     })()
 }
-/*
-return User.findById(userId)
-        .then(user => {
-            if (!user) throw new ExistanceError(`User with id ${userId} not found`)
-
-            return User.updateOne({ _id: userId }, { description, tags, location, availability })
-        })
-*/

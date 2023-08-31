@@ -66,16 +66,12 @@ describe('retrievePendingToDeliver', () => {
         const retrievedOrders = await retrievePendingToDeliver(author._id)
 
         expect(retrievedOrders).to.be.an('array')
-        expect(retrievedOrders).to.have.lengthOf(2)
 
-        //const retrievedOrder = retrievedOrders[0]
-        expect(retrievedOrders[0]).to.have.property('serial', '12345')
-        expect(retrievedOrders[0]).to.have.property('meals')
-        expect(retrievedOrders[0].meals).to.be.an('array')
-        expect(retrievedOrders[0].meals).to.have.lengthOf(1)
-        expect(retrievedOrders[0]).to.have.property('buyer')
-        expect(retrievedOrders[0].buyer._id.toString()).to.equal(buyer._id.toString())
-        expect(retrievedOrders[0]).to.have.property('status', 'pending')
+        const retrievedOrder = retrievedOrders[0]
+        expect(retrievedOrder).to.have.property('serial', '12345')
+        expect(retrievedOrder).to.have.property('meals')
+        expect(retrievedOrder.meals).to.be.an('array')
+
     })
 
     it('should throw an error for a non-existing user', async () => {

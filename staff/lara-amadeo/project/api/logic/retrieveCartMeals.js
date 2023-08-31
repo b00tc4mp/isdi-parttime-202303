@@ -1,6 +1,11 @@
 const { User, Meal } = require('../data/models')
 const { errors: { ExistanceError, AuthError } } = require('../../com')
 
+/**
+ * Returns meals in cart of a user
+ * @param {string} userId user's id
+ * @returns {object} an array of meals in cart
+ */
 module.exports = async function retrieveCartMeals(userId) {
 
     const user = await User.findById(userId).lean()

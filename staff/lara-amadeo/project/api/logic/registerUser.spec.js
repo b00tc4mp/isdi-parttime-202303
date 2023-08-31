@@ -130,6 +130,7 @@ describe('registerUser', () => {
         }
     })
 
+
     it('should throw an error for non-string name', async () => {
         try {
             await registerUser(

@@ -1,7 +1,11 @@
 const { User, Meal } = require('../data/models')
 const { errors: { ExistanceError, AuthError } } = require('../../com')
 
-
+/**
+ * Deletes a meal from db
+ * @param {string} userId user's id
+ * @param {string} mealId meal's id
+ */
 module.exports = function deleteMeal(userId, mealId) {
 
     return (async () => {

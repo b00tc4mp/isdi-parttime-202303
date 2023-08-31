@@ -1,7 +1,19 @@
 const { User, Meal } = require('../data/models')
 const { errors: { ExistanceError, AuthError } } = require('../../com')
 
-
+/**
+ * Updates the data of a meal
+ * @param {string} userId user's id
+ * @param {string} mealId meal's id
+ * @param {string[]} images post's images
+ * @param {string} title post's images
+ * @param {string} description post's images
+ * @param {string[]} ingredients post's images
+ * @param {string[]} categories post's images
+ * @param {number} bestBefore post's images
+ * @param {number} quantity post's images
+ * @param {number} price post's images
+ */
 module.exports = function updateMeal(userId, mealId, images, title, description, categories, ingredients, bestBefore, price) {
 
     return (async () => {

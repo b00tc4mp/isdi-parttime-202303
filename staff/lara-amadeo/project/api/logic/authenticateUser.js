@@ -2,6 +2,13 @@ const { errors: { ExistanceError, AuthError } } = require('../../com')
 const { validateEmail, validatePassword } = require('../../com/validators')
 const { User } = require('../data/models')
 
+/**
+ * Authenticates a user
+ * @param {string} email user's id
+ * @param {string} password post's id
+ * @returns {string} user's id
+ */
+
 module.exports = function authenticateUser(email, password) {
     validateEmail(email)
     validatePassword(password)
