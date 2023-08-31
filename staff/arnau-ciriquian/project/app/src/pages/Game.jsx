@@ -7,7 +7,7 @@ import Zombie from '../components/Zombie'
 import createZombiesArray from '../logic/createZombiesArray'
 import HealthBar from '../components/HealthBar'
 
-export default function Game({ onWinGame, onLoseGame, zombiesToKill }) {
+export default function Game({ character, onWinGame, onLoseGame, zombiesToKill }) {
   //const zombies = createZombiesArray(zombiesToKill)
   const [zombies] = useState(createZombiesArray(zombiesToKill))
   const [playerHealth, setPlayerHealth] = useState(50)
@@ -66,11 +66,11 @@ export default function Game({ onWinGame, onLoseGame, zombiesToKill }) {
       <View className="h-20 top-10 w-full flex-row items-center ">
         <View className="absolute bg-white h-full w-full rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg shadow-md shadow-black opacity-50"></View>
         <View className="h-16 w-16 m-2">
-          {/* {character && <Image source={characterAvatar} className="bg-slate-200 h-16 w-16 rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg"></Image>} */}
+          {character && <Image source={character.avatar} className="bg-slate-200 h-16 w-16 rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg"></Image>}
         </View>
         <View className="w-2/4 h-20 justify-center items-center">
-          <View className="justify-center items-center h-10 w-2/4">
-            <Text className=" text-2xl font-semibold">Ellie {/* {character?.characterName} */}</Text>
+          <View className="justify-center items-center h-10 w-full">
+            <Text className=" text-2xl font-semibold">{character?.characterName}</Text>
           </View>
           <View className="justify-center items-center h-10 w-full">
             <HealthBar health={playerHealth} />

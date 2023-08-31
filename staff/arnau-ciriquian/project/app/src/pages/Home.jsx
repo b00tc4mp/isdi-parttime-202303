@@ -90,9 +90,13 @@ const Home = ({ onLogoutSession }) => {
     }
 
     const handleStartTutorialGame = () => {
-        setModal('tutorialMission')
-        setMain(false)
-        setGame(true)
+        getUserCharacter()
+            .then(character => {
+                setCharacter(character)
+                setModal('tutorialMission')
+                setMain(false)
+                setGame(true)
+            })
     }
 
     const handleFinishGame = () => {
@@ -193,11 +197,13 @@ const Home = ({ onLogoutSession }) => {
             </View>}
         </View>}
         {game && modal === 'tutorialMission' && <Game
+            character={character}
             onWinGame={handleWinTutorialGame}
             onLoseGame={handleRepeatTutorial}
             zombiesToKill={1}
         />}
         {game && modal === 'gameMission' && <Game
+            character={character}
             onWinGame={handleFinishGame}
             onLoseGame={handleFinishGame}
             zombiesToKill={1}
