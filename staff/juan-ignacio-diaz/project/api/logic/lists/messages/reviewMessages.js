@@ -30,7 +30,7 @@ module.exports = (listId, userId) => {
 
         if (!list) throw new ExistenceError('list not found')
 
-        const { messages } = list
+        const  messages  = list.messages
 
         if(messages.length>0) {
             messages.forEach(message => {                        
@@ -46,13 +46,20 @@ module.exports = (listId, userId) => {
                 delete message.view
             })
 
-            await List.findByIdAndUpdate(listId, {$pullAll: {view: [userId]} } )
-
             messages.sort((a,b) =>{
                     if(a.date > b.date) return -1
                     if(a.date < b.date) return 1
                     return 0
                 })
+
+            //?? await List.findByIdAndUpdate(listId, {messages: {$pull: {view: [userId]}} })
+
+            const listView = await List.findById(listId, 'messages')
+            const messagesView = listView.messages
+            messagesView.forEach(message => {  
+                message.view = message.view.filter(tmpUser => tmpUser._id.toString() !== userId)
+            })
+            listView.save()
         }
         return messages
 

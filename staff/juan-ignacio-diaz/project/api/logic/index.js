@@ -34,5 +34,6 @@ module.exports = {
     toggleProductToCart: require('./lists/products/toggleProductToCart'),
     toggleLikeProduct: require('./lists/products/toggleLikeProduct'),
     markProductAsPurchased: require('./lists/products/markProductAsPurchased'),
-    reviewFilteredProducts: require('./lists/products/reviewFilteredProducts')
+    reviewFilteredProducts: require('./lists/products/reviewFilteredProducts'),
+    reviewProduct: require('./lists/products/reviewProduct')
 }
