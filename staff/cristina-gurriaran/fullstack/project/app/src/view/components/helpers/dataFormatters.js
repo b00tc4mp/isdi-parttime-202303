@@ -40,8 +40,8 @@ export const formatDistrict = (district) => {
     }
 }
 
-export const formatWifi = (wifi) => {
-    switch (wifi) {
+export const formatWifi = (wifiOption) => {
+    switch (wifiOption) {
         case "unlimitedFree": return "Unlimited free"
         case "timeLimited": return "Time limited"
         case "timeLimitedWithPurchase": return "Time limited with purchase"
@@ -49,19 +49,19 @@ export const formatWifi = (wifi) => {
         case "unavailable": return "Unavailable"
     }
 }
-
-export const formatPlugs = (plugs) => {
-    switch (plugs) {
+export const formatPlugs = (plugOption) => {
+    switch (plugOption) {
         case "none": return "None"
         case "few": return "Few"
         case "plenty": return "Plenty"
     }
 }
 
-export const formatNoise = (noise) => {
-    switch (noise) {
+export const formatNoise = (noiseOption) => {
+    switch (noiseOption) {
         case "quiet": return "Quiet"
         case "moderate": return "Moderate"
         case "loud": return "Loud"
     }
 }
+

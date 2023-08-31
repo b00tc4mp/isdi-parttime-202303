@@ -2,7 +2,6 @@ const { ContentError } = require('./errors')
 const EMAIL_REGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 
 
-
 function validateEmail(email){
     if(typeof email !== 'string') throw new TypeError ('email is not a string')
     if (!email.trim().length) throw new ContentError ('email is empty')

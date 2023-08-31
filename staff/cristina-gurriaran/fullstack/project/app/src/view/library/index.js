@@ -5,6 +5,7 @@ import Input from './Input'
 import Loader from './Loader'
 import TextArea from './TextArea'
 import Label from'./Label'
+import SearchInput from './SearchInput'
 
 export {
     Container,
@@ -13,5 +14,6 @@ export {
     Input,
     Loader,
     TextArea,
-    Label
+    Label,
+    SearchInput
 }

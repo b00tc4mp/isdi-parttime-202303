@@ -5,14 +5,13 @@ import EditWorkspotModal from '../components/EditWorkspotModal'
 import AddReviewModal from '../components/AddReviewModal'
 import FilterModal from '../components/FiltersModal'
 import FilteredWorkspots from '../components/FilteredWorkspots'
-import { Container, Form, Input, Button } from '../library'
+import { SearchInput, Form, Input, Button } from '../library'
 import { useEffect, useState, useRef } from 'react'
 import Profile from '../components/Profile'
 import retrieveUser from '../../logic/retrieveUser'
-import './Home.css'
 import { LOGO_URL } from "../../data.js"
 import { useAppContext, useHandleErrors } from '../hooks'
-import logoutUser from '../../logic/logoutUser'
+import { ProfileIcon, ExploreIcon, AddIcon, FavFooterIcon } from '../library/Icons'
 
 
 export default function Home() {
@@ -34,7 +33,10 @@ export default function Home() {
         })
     }, [])
 
-    const handleOpenAddWorkspotModal = () => setModal('add-workspot')
+    const handleOpenAddWorkspotModal = event => {
+        event.preventDefault()
+        setModal('add-workspot')
+    }
 
     const handleOpenEditWorkspotModal = (workspotId) => {
         setModal('edit-workspot')
@@ -54,17 +56,14 @@ export default function Home() {
         setView('profile')
     }
 
-    const handleGoToWorkSpots = () => setView('workspots')
+    const handleGoToWorkSpots = event =>{
+        event.preventDefault()
+        setView('workspots')
+    } 
 
     const handleWorkspotUpdated = () => {
         setModal(null)
         setLastWorkspotsUpdate(Date.now())        
-    }
-
-    const handleLogout = () => {
-        logoutUser()
-
-        navigate('/login')
     }
 
     const handleUserAvatarUpdated = () => {
@@ -108,93 +107,126 @@ export default function Home() {
 
     console.log('Home -> render')
 
-    return <div>
+    return (
+        <div>
+            {/* {view === "workspots" || view === "workspots-searched-by-name" || view === "filtered-workspots" ? ( <header
+                className="bg-white fixed w-full z-20 top-0 left-0 border-gray-light">
+                <div className="bg-indigo-light mx-auto max-w-screen xl:px-4 py-16 sm:px-6 lg:px-8">
+                    <form onSubmit={handleSearchWorkspotsByName}>
+                        <div className="relative max-w-lg container mx-auto">
+                                <Input
+                                    type="text"
+                                    name="nameSearched"
+                                    placeholder="Got a name to look up?"
+                                />
+                                <button
+                                    type="submit"
+                                    className=" absolute end-1 top-1/2 -translate-y-1/2 rounded-lg bg-indigo-dark px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-mid"
+                                >   Let's find that workspot!
+                                </button>
+                            </div>
+                        </form>
+                </div>
+            </header>
+            ) : null} */}
 
-        <header className="home-header">
-            <div className='home-logo-container'>
-                <img className="home-logo-img" src={LOGO_URL} onClick={handleGoToWorkSpots}></img>
+            <div>
+                {view === 'workspots' && <Workspots
+                    onEditWorkspot={handleOpenEditWorkspotModal}
+                    onAddReview={handleAddReviewModal}
+                    lastWorkspotsUpdate={lastWorkspotsUpdate}
+                />}
+
+                {view === 'workspots-searched-by-name' && <WorkspotsSearchedByName 
+                    nameSearched={nameSearched}
+                    onEditWorkspot={handleOpenEditWorkspotModal}
+                    onAddReview={handleAddReviewModal}
+                    lastWorkspotsUpdate={lastWorkspotsUpdate}
+                />}
+
+                {view === 'filtered-workspots' && <FilteredWorkspots
+                    districts={filteredData.districts}
+                    category={filteredData.category}
+                    features={filteredData.features}
+                    onEditWorkspot={handleOpenEditWorkspotModal}
+                    onAddReview={handleAddReviewModal}
+                    lastWorkspotsUpdate={lastWorkspotsUpdate}
+
+                />}
+        
+                {view === 'profile' && <Profile
+                    onUserAvatarUpdated={handleUserAvatarUpdated}
+                    onUpdatedUserPassword={handleUserPasswordUpdated}
+                />}
+
+                {modal === 'add-workspot' && 
+                    <AddWorkspotModal
+                        onCancel={handleCloseModal}
+                        onWorkspotCreated={handleWorkspotUpdated}
+                    />}
+
+                {modal === 'filter' &&
+                    <FilterModal
+                        onCancel={handleCloseModal}
+                        onFilteredSearch={handleFilteredSearch}
+                    />}
+
+                {modal === 'edit-workspot' &&
+                    <EditWorkspotModal
+                        onCancel={handleCloseModal}
+                        onWorkspotEdited={handleWorkspotUpdated}
+                        workspotId = {workspotId}
+                    />}
+
+                {modal === 'add-review' &&
+                    <AddReviewModal
+                        onCancel={handleCloseModal}
+                        onReviewAdded={handleWorkspotUpdated}
+                        workspotId={workspotId}
+                    />} 
             </div>
 
-            <Form onSubmit={handleSearchWorkspotsByName}>
-                <Input type="text" name="nameSearched" placeholder="Search" />
-                <Button type="submit"> Search </Button>
-            </Form>
+        <footer className="fixed bottom-0 left-0 right-0 bg-white">
+            <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 flex flex-row justify-around">
+                <a href=""
+                    onClick={handleGoToWorkSpots}
+                        className="text-gray-dark transition hover:opacity-75 transition hover:text-indigo-dark flex flex-col items-center"
+                >
+                    <ExploreIcon />
+                    <p>Explore</p>
+                </a>
 
-            <nav className="home-header-nav">
+                <a href=""
+                    onClick={handleOpenAddWorkspotModal}
+                        className="text-gray-dark transition hover:opacity-75 transition hover:text-indigo-dark flex flex-col items-center"
+                >
+                    <AddIcon />
+                    <p>New Workspot</p>
+                </a>
+
                 {user && <>
-                    <div className='home-header-profile'>
-                        <img className="home-header-avatar" src={user.avatar} alt="" />
-                        <a href="" onClick={handleGoToProfile}>{user.name}</a>
-                    </div>
+                    <a href=""
+                        onClick={handleGoToProfile}
+                            className="text-gray-dark transition hover:opacity-75 transition hover:text-indigo-dark flex flex-col items-center"
+                    >
+                        <FavFooterIcon />
+                        <p>Favorites</p>
+                    </a>
                 </>}
 
-                <Button onClick={handleLogout} className='home-button'>Logout</Button>
-            </nav>
-
-        </header>
-
-        <div>
-            {view === 'workspots' && <Workspots
-                onEditWorkspot={handleOpenEditWorkspotModal}
-                onAddReview={handleAddReviewModal}
-                lastWorkspotsUpdate={lastWorkspotsUpdate}
-            />}
-
-            {view === 'workspots-searched-by-name' && <WorkspotsSearchedByName 
-                nameSearched={nameSearched}
-                onEditWorkspot={handleOpenEditWorkspotModal}
-                onAddReview={handleAddReviewModal}
-                lastWorkspotsUpdate={lastWorkspotsUpdate}
-            />}
-
-            {view === 'filtered-workspots' && <FilteredWorkspots
-                districts={filteredData.districts}
-                category={filteredData.category}
-                features={filteredData.features}
-                onEditWorkspot={handleOpenEditWorkspotModal}
-                onAddReview={handleAddReviewModal}
-                lastWorkspotsUpdate={lastWorkspotsUpdate}
-
-            />}
-     
-            {view === 'profile' && <Profile
-                onUserAvatarUpdated={handleUserAvatarUpdated}
-                onUpdatedUserPassword={handleUserPasswordUpdated}
-            />}
-
-            {modal === 'add-workspot' && 
-                <AddWorkspotModal
-                    onCancel={handleCloseModal}
-                    onWorkspotCreated={handleWorkspotUpdated}
-                />}
-
-            {modal === 'filter' &&
-                <FilterModal
-                    onCancel={handleCloseModal}
-                    onFilteredSearch={handleFilteredSearch}
-                />}
-
-            {modal === 'edit-workspot' &&
-                <EditWorkspotModal
-                    onCancel={handleCloseModal}
-                    onWorkspotEdited={handleWorkspotUpdated}
-                    workspotId = {workspotId}
-                />}
-
-            {modal === 'add-review' &&
-                <AddReviewModal
-                    onCancel={handleCloseModal}
-                    onReviewAdded={handleWorkspotUpdated}
-                    workspotId={workspotId}
-                />}
-
-        </div>
-
-        <footer className="home-footer">
-            <Button onClick={handleOpenFilterModal}>Filters</Button>
-
-            <Button onClick={handleOpenAddWorkspotModal}>+</Button>
+                {user && <>
+                     <a href="" 
+                        onClick={handleGoToProfile}
+                            className="text-gray-dark transition hover:opacity-75 transition hover:text-indigo-dark flex flex-col items-center"
+                        >
+                        <ProfileIcon />
+                        <p>Profile</p>
+                    </a>
+                </>}
+            </div>
         </footer>
     </div>
+    )
 
 }
+

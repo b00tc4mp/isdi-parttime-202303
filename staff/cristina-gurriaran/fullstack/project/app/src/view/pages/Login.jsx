@@ -1,9 +1,5 @@
 import loginUser from '../../logic/loginUser'
-import { Container, Form, Input, Button } from '../library'
-import { useAppContext , useHandleErrors }from '../hooks'
-import { Link } from 'react-router-dom'
-
-
+import { useAppContext, useHandleErrors } from '../hooks'
 
 export default function Login() {
     console.debug('Login -> render')
@@ -14,7 +10,7 @@ export default function Login() {
 
     const handleLogin = event => {
         event.preventDefault()
-        
+
         const email = event.target.email.value
         const password = event.target.password.value
 
@@ -25,16 +21,54 @@ export default function Login() {
         })
     }
 
-    return <Container tag="main">
-        <h1> Log in</h1>
-        
-        <h2> New to myApp?  <Link to="/register" className="text-blue-500 hover:underline"> Sign up </Link></h2>
+    return <div tag="main" className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
 
-        <Form onSubmit={handleLogin}>
-            <Input  type="email" name="email" placeholder="Email address*"/>
-            <Input  type="password" name="password" placeholder="Password (8+ characters)*"/>
-            <Button type="submit"> Log in </Button>
-        </Form>
+        <div className="mx-auto max-w-lg flex flex-col items-center gap-2">
+            <h1 className="text-2xl font-bold sm:text-3xl"> Welcome</h1>
 
-    </Container>
+            <div className="flex flex-row gap-2">
+                <h2 className="text-md text-gray"> New to RoamDesk?</h2>
+                <a className="underline font-bold" href="/register">Sign up</a>
+            </div>
+        </div>
+
+        <form onSubmit={handleLogin} className="mx-auto mb-0 mt-8 max-w-md space-y-4" >
+
+            <div className="relative">
+                <input
+                    className="w-full rounded-lg border-gray-light p-4 pe-12 text-sm shadow-sm"
+                    type="email"
+                    name="email"
+                    placeholder="Email address*"
+                />
+            </div>
+
+            <div className="relative">
+                <input
+                    className="w-full rounded-lg border-gray-light p-4 pe-12 text-sm shadow-sm"
+                    type="password"
+                    name="password"
+                    placeholder="Password (8+ characters)*"
+                />
+            </div>
+
+            <button type="submit" className="block w-full rounded-lg bg-indigo-dark px-5 py-3 text-sm font-medium text-white"> Log in </button>
+
+        </form>
+    </div>
+
+    // return (
+    //     <div className="flex flex-row gap-4 justify-center">
+    //         <div className="border indigo-dark w-40 h-40 flex flex-row gap-10">
+    //             <div className="bg-indigo-light w-5 h-10"></div>
+    //             <div className="bg-indigo-light w-5 h-10"></div>
+    //             <div className="bg-indigo-light w-5 h-10"></div>
+    //             <div className="bg-indigo-light w-5 h-10"></div>
+
+    //         </div>
+    //         <div className="border indigo-dark w-40 h-40"></div>
+    //         <div className="border indigo-dark w-40 h-40"></div>
+    //         <div className="border indigo-dark w-40 h-40"></div>            
+    //     </div>
+    // )
 }
