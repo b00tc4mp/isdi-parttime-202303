@@ -73,13 +73,13 @@ export default function CreateMeal(): JSX.Element {
                 loaderOn()
                 try {
                     const images = mealImages
-                    await createMeal({ images, title, description, ingredients, categories, bestBefore, quantity, price })
+                    //await createMeal({ images, title, description, ingredients, categories, bestBefore, quantity, price })
 
                     setTimeout(() => {
                         loaderOff()
                         navigate('/')
                         toast('Meal created!', 'success')
-                    }, 1000)
+                    }, 100000)
                 } catch (error: any) {
                     loaderOff()
                     handleErrors(error)
@@ -115,14 +115,6 @@ export default function CreateMeal(): JSX.Element {
         const limit = 5
         setPrice(e.target.value)
     }
-
-    // const handleBestBeforeChange = (e: any) => {
-    //     setBestBefore(e.target.value)
-    // }
-
-    // const handleQuantityChange = (e: any) => {
-    //     setQuantity(e.target.value)
-    // }
 
     //TODO, review issue with imageKit & Typescript https://github.com/imagekit-developer/imagekit-react/issues/121
     return <>
@@ -185,8 +177,6 @@ export default function CreateMeal(): JSX.Element {
 
                     <TextField type="number" label="Best before" name="bestBefore" maxlength={4} suffix="days" />
                     <TextField type="number" label="Stock" name="quantity" maxlength={4} suffix="meals" />
-                    {/* <NumericFormat label="Best before" name="bestBefore" value={bestBefore} min={1} customInput={TextField} maxLength={4} onChange={handleBestBeforeChange} />
-                    <NumericFormat label="Stock" name="stock" value={quantity} min={1} customInput={TextField} maxLength={4} onChange={handleQuantityChange} /> */}
                     <NumericFormat label="Price" name="price" value={price} customInput={TextField} maxLength={4} allowedDecimalSeparators={[',']} decimalScale={2} fixedDecimalScale decimalSeparator="," onChange={handlePriceLength} />
 
 

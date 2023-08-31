@@ -28,6 +28,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .tabbar-selected {
@@ -37,4 +38,14 @@
     background-color: var(--primary-color);
     position: absolute;
     top: 44px;
+}
+
+.tabbar-item-notification-badge {
+    width: 8px;
+    height: 8px;
+    background-color: var(--red-200);
+    border-radius: 50%;
+    position: absolute;
+    top: -2px;
+    right: -4px;
 }

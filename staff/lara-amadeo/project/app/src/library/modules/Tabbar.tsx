@@ -21,6 +21,7 @@ type User = {
     username: string,
     description: string,
     tags: string[],
+    cart: object[]
 }
 
 export default function Tabbar({ home, search, add, cart, profile }: Props): JSX.Element {
@@ -67,50 +68,39 @@ export default function Tabbar({ home, search, add, cart, profile }: Props): JSX
 
     return <>
         <div className={`${context.os === 'ios' ? 'tabbar-container-ios' : 'tabbar-container'}`}>
-            <div className='tabbar-item' onClick={onHome}>
 
+            <div className='tabbar-item' onClick={onHome}>
                 {home ? <SolidHomeIcon className='icon-s grey-700' /> : <HomeIcon className='icon-s grey-700' />}
             </div>
-            <div className='tabbar-item' onClick={onSearch}>
 
+            <div className='tabbar-item' onClick={onSearch}>
                 {search ? <SolidMagnifyingGlassCircleIcon className='icon-s grey-700' /> : <MagnifyingGlassIcon className='icon-s grey-700' />}
             </div>
-            <div className='tabbar-item' onClick={onAddMeal}>
 
+            <div className='tabbar-item' onClick={onAddMeal}>
                 {add ? <SolidPlusIcon className='icon-s grey-700' /> : <PlusIcon className='icon-s grey-700' />}
             </div>
+
             <div className='tabbar-item'>
-
-                {cart ? <SolidShoppingBagIcon className='icon-s grey-700' /> : <ShoppingBagIcon className='icon-s grey-700' onClick={onCart} />}
+                {cart ?
+                    <>
+                        {user && user.cart.length > 0 && <div className='tabbar-item-notification-badge'></div>}
+                        <SolidShoppingBagIcon className='icon-s grey-700' />
+                    </>
+                    :
+                    <>
+                        {user && user.cart.length > 0 && <div className='tabbar-item-notification-badge'></div>}
+                        <ShoppingBagIcon className='icon-s grey-700' onClick={onCart} />
+                    </>
+                }
             </div>
-            <div className='tabbar-item' onClick={onProfile}>
 
+            <div className='tabbar-item' onClick={onProfile}>
                 {profile ? <SolidUserIcon className='icon-s grey-700' /> : <UserIcon className='icon-s grey-700' />}
             </div>
+
         </div>
 
     </>
 }
 
-{/* <div className='tabbar-container'>
-<div className='tabbar-item' onClick={onHome}>
-    <HomeIcon className='icon-s grey-700' />
-    {home && <div className='tabbar-selected'></div>}
-</div>
-<div className='tabbar-item' onClick={onSearch}>
-    <MagnifyingGlassIcon className='icon-s grey-700' />
-    {search && <div className='tabbar-selected'></div>}
-</div>
-<div className='tabbar-item' onClick={onAddMeal}>
-    <PlusIcon className='icon-s grey-700' />
-    {add && <div className='tabbar-selected'></div>}
-</div>
-<div className='tabbar-item'>
-    <ShoppingBagIcon className='icon-s grey-700' onClick={onCart} />
-    {cart && <div className='tabbar-selected'></div>}
-</div>
-<div className='tabbar-item' onClick={onProfile}>
-    <UserIcon className='icon-s grey-700' />
-    {profile && <div className='tabbar-selected'></div>}
-</div>
-</div> */}
