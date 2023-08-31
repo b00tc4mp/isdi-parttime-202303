@@ -26,12 +26,14 @@ module.exports = (listId, userId, text) => {
 
         if (!user) throw new ExistenceError('user not found')
 
-        if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new ExistenceError('invalid user')
+        const guests = list.guests
+
+        if (!(guests.some(tmpId => tmpId.toString() === userId))) throw new ExistenceError('invalid user')
 
         const message  = new Message({
             text,
             author: userId,
-            view: list.guests.filter(tmpUser => tmpUser._id.toString() !== userId)
+            view: guests.filter(tmpUser => tmpUser._id.toString() !== userId)
         })
 
         await List.findByIdAndUpdate(listId, { $push: { messages: [message] } }) 

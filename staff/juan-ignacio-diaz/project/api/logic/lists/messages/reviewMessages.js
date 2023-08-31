@@ -42,16 +42,11 @@ module.exports = (listId, userId) => {
                     delete message.author._id
                 }
 
-                const reviewed = false
-
-                if (message.view.some(tmpUser => tmpUser._id.toString() === userId)) 
-                    reviewed = true
-
+                message.reviewed = message.view.some(tmpUser => tmpUser._id.toString() === userId)
                 delete message.view
-                message.reviewed = reviewed
             })
 
-            await List.findByIdAndUpdate(listId, { messages: {$pullAll: {view: [userId]} } })
+            await List.findByIdAndUpdate(listId, {$pullAll: {view: [userId]} } )
 
             messages.sort((a,b) =>{
                     if(a.date > b.date) return -1
