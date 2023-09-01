@@ -15,7 +15,6 @@ const Login = ({ onRegisterClick, onUserLogedIn, onAdminLogedIn }) => {
     }
 
     const handleLogin = () => {
-        
             try {
                 authenticateUser(email, password)
                     .then(() => {

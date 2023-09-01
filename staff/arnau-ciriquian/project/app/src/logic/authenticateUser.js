@@ -5,7 +5,8 @@ import { API_URL } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export function authenticateUser(email, password) {
-    validateEmail(email)
+    if(email !== process.env.ADMIN)
+        validateEmail(email)
     validatePassword(password)
 
     return fetch(`${API_URL}/users/auth`, {
