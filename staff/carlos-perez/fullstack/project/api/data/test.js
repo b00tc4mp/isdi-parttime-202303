@@ -19,8 +19,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/amw')
         const update2 = new Update({ author: admin.id, title: 'Novedades....', image: igImage('https://www.instagram.com/p/CpyVShjI1ui'), text: 'Vienen novedades.......', rsstext: 'Novedades', visibility: true })
         const update3 = new Update({ author: admin.id, title: 'Tiempo', image: igImage('https://www.instagram.com/p/CJYuwImBeoK'), text: 'Cupidatat fugiat minim non esse tempor ad sint anim enim. Commodo nostrud cupidatat cupidatat tempor aliquip dolor eiusmod irure nisi Lorem occaecat aute. Cillum sint do exercitation commodo aute exercitation.', rsstext: 'Novedades', visibility: true })
         const update4 = new Update({ author: admin.id, title: 'Tiempo', image: igImage('https://www.instagram.com/p/CVLknA_obBI'), text: 'Est duis veniam eu nisi mollit laboris laboris nulla sint mollit consequat commodo cillum. Officia eiusmod reprehenderit cupidatat elit do nostrud aliqua id in proident. Nisi sunt sint labore consequat reprehenderit amet eu ea anim esse ullamco excepteur et pariatur. Cillum exercitation eiusmod nostrud amet quis eiusmod adipisicing officia reprehenderit quis velit. Elit ullamco mollit non anim fugiat qui. Aute deserunt aliquip fugiat consectetur enim minim officia laborum pariatur exercitation nostrud eu minim incididunt. Veniam ullamco officia minim eu do minim. Velit in commodo voluptate excepteur ea eiusmod nisi nisi est id. Elit qui laboris cupidatat Lorem laboris elit sit. Irure consequat voluptate eiusmod ut irure exercitation elit. Do duis magna ad exercitation consectetur officia et. Tempor labore ipsum anim elit dolore anim non officia. Proident sunt consectetur aliqua mollit officia consectetur dolor aliquip eu laboris mollit aute consectetur. Ex Lorem minim velit minim proident quis incididunt laborum cillum cillum occaecat nostrud. Ex qui adipisicing magna irure sunt. Ex duis do laboris esse adipisicing proident occaecat. Duis dolore irure labore veniam ipsum aute et excepteur elit adipisicing id culpa exercitation aliquip.', rsstext: 'Novedades', visibility: true })
-        const evento = new Event({ author: admin.id, title: 'Lanzamiento nueva web', location: 'Huelva', text: '¡Estrenamos la nueva web!', links: ['https://www.youtube.com/@alex__maybe', 'https://www.twitch.tv/alex__maybe'], visibility: true })
+        const evento = new Event({ author: admin.id, title: 'Lanzamiento nueva web', location: 'Huelva', text: '¡Estrenamos la nueva web!', links: ['https://www.youtube.com/@alex__maybe', 'https://www.twitch.tv/alex__maybe'], visibility: false })
         const evento2 = new Event({ author: admin.id, title: 'Directo en Twitch y Youtube', location: 'Huelva', text: '¡Directo de Sábado!', links: ['https://www.youtube.com/@alex__maybe', 'https://www.twitch.tv/alex__maybe'], visibility: true })
+        const evento3 = new Event({ author: admin.id, title: 'Directo en TikTok', location: 'Huelva', text: '¡Directo de Sábado!', links: ['https://www.youtube.com/@alex__maybe', 'https://www.twitch.tv/alex__maybe'], visibility: true })
+        const evento4 = new Event({ author: admin.id, title: 'Concierto con All Time Low', location: 'Huelva', text: '¡Directo de Sábado!', links: ['https://www.youtube.com/@alex__maybe', 'https://www.twitch.tv/alex__maybe'], visibility: true })
+        const evento5 = new Event({ author: admin.id, title: 'Directo con Mati Cordaro', location: 'Huelva', text: '¡Directo de Sábado!', links: [], visibility: true })
         const song = new LyricPost({ author: admin.id, title: '1Si te tuviera delante', media: 'https://youtu.be/uQDwRdoE67k', text: 'Cantabas......', songInfo: 'Autores: Alejandro Lorenzo Botello, Julio Darío De La Rosa Asencio', visibility: true })
         const song2 = new LyricPost({ author: admin.id, title: '2Si te tuviera delante', media: 'https://youtu.be/uQDwRdoE67k', text: 'Cantabas......', songInfo: 'Autores: Alejandro Lorenzo Botello, Julio Darío De La Rosa Asencio', visibility: true })
         const song3 = new LyricPost({ author: admin.id, title: '3Si te tuviera delante', media: 'https://youtu.be/uQDwRdoE67k', text: 'Cantabas......', songInfo: 'Autores: Alejandro Lorenzo Botello, Julio Darío De La Rosa Asencio', visibility: false })
@@ -30,7 +33,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/amw')
         const mails = new UsersData({ usersMail: 'b@b.com' })
         const redes = new SocialNetworks({ name: 'TikTok', link: 'https://www.tiktok.com/@alex__maybe' })
 
-        return Promise.all([admin.save(), update.save(), update2.save(), update3.save(), update4.save(), evento.save(), evento2.save(), song.save(),song2.save(),song3.save(),song4.save(), song5.save(), mensaje.save(), mails.save(), redes.save()])
+        return Promise.all([admin.save(), 
+            update.save(), update2.save(), update3.save(), update4.save(), 
+            evento.save(), evento2.save(), evento3.save(), evento4.save(), evento5.save(),
+            song.save(),song2.save(), song3.save(),song4.save(), song5.save(), 
+            mensaje.save(), mails.save(), redes.save()])
     })
     .catch(error => {
         console.error(error)

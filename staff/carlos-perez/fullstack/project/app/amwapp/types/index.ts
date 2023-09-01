@@ -32,3 +32,20 @@ export interface CustomButtonProps {
     songInfo: string;
     date: Date;
   }
+
+  export interface EventProps{
+    _id: string;
+    author: string;
+    title: string;
+    eventDate: Date;
+    location: string;
+    text: string;
+    links: string[];
+    date: Date;
+  }
+
+  export interface CalendarDayProps{
+   day: string;
+   month: string;
+   dayNumber: number;
+  }

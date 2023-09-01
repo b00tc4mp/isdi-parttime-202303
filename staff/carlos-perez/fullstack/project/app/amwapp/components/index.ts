@@ -8,7 +8,10 @@ import UpdatesHome from './UpdatesHome';
 import Update from './Update';
 import Song from './Song';
 import Songs from './Songs';
+import Event from './Event';
+import Events from './Events';
+import CalendarDay from './CalendarDay';
 export {
    CustomButton, NavBar, Footer, Banner, Welcome, BannerAndWelcome, UpdatesHome, Update,
-   Song, Songs
+   Song, Songs, Event, Events, CalendarDay
 };
