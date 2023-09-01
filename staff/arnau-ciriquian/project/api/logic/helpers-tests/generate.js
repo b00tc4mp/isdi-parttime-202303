@@ -12,7 +12,7 @@ module.exports = {
     }),
 
     mission: () => ({
-        image: `image-${Math.random()}`,
+        image: Math.random(),
         tittle: `tittle-${Math.random()}`,
         info: `info-${Math.random()}`,
         level: `${Math.random()}`,

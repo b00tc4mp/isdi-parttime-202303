@@ -31,7 +31,7 @@ describe('createNewMission Function', () => {
         const mission2 = await Mission.findOne({ image: mission.image })
 
         expect(mission2).to.exist
-        expect(mission2.image).to.equal(mission.image)
+        expect(parseFloat(mission2.image)).to.equal(mission.image)
         expect(mission2.tittle).to.equal(mission.tittle)
         expect(mission2.info).to.equal(mission.info)
         expect(mission2.level).to.equal(mission.level)

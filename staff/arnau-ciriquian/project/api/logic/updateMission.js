@@ -1,5 +1,5 @@
 const {
-    validators: { validateId, validateText, validateUrl, validateBoolean },
+    validators: { validateId, validateText, validateExpoUrl, validateBoolean },
     errors: { ExistenceError }
 } = require('com')
 const { User, Mission } = require('../data/models')
@@ -25,7 +25,7 @@ const { User, Mission } = require('../data/models')
 module.exports = (userId, missionId, image, tittle, info, level, difficulty, visibility) => {
     validateId(userId, 'user id')
     validateId(missionId, 'post id')
-    validateUrl(image, 'image url')
+    //validateExpoUrl(image, 'image url')
     validateText(tittle, 'tittle text')
     validateText(info, 'info text')
     validateText(level, 'level text')

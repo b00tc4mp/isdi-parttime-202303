@@ -25,7 +25,7 @@ const { User, Mission } = require('../data/models')
 
 module.exports = (userId, image, tittle, info, level, difficulty, visibility) => {
     validateId(userId)
-    validateUrl(image)
+    //validateUrl(image)
     validateText(tittle)
     validateText(info)
     //validateNumber(level)

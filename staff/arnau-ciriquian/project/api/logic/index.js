@@ -16,5 +16,6 @@ module.exports = {
     updateUserEmail: require('./updateUserEmail'),
     updateUserPassword: require('./updateUserPassword'),
     createNewCharacter: require('./createNewCharacter'),
-    getUserCharacter:require('./getUserCharacter')
+    getUserCharacter:require('./getUserCharacter'),
+    registerCompletedMission: require('./registerCompletedMission')
 }

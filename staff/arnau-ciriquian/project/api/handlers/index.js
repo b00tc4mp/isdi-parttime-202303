@@ -17,5 +17,6 @@ module.exports = {
     updateUserEmailHandler: require('./updateUserEmailHandler'),
     updateUserPasswordHandler: require('./updateUserPasswordHandler'),
     createNewCharacterHandler: require('./createNewCharacterHandler'),
-    getUserCharacterHandler: require('./getUserCharacterHandler')
+    getUserCharacterHandler: require('./getUserCharacterHandler'),
+    registerCompletedMissionHandler: require('./registerCompletedMissionHandler')
 }

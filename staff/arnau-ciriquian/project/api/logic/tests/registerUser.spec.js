@@ -28,7 +28,7 @@ describe('registerUser Function', () => {
         expect(user2.name).to.equal(user.name)
         expect(user2.email).to.equal(user.email)
         expect(user2.password).to.equal(user.password)
-        expect(user2.character).to.be.null
+        expect(user2.character).to.equal('')
     })
 
     it('succeeds on other existing user', async () => {
@@ -45,7 +45,7 @@ describe('registerUser Function', () => {
         expect(user2FromDb.name).to.equal(user.name)
         expect(user2FromDb.email).to.equal(user.email)
         expect(user2FromDb.password).to.equal(user.password)
-        expect(user2FromDb.character).to.be.null
+        expect(user2FromDb.character).to.equal('')
     })
 
     it('fails on existing user', async () => {

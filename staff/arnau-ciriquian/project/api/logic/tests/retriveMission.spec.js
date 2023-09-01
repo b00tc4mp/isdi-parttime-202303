@@ -28,7 +28,7 @@ describe('retriveMission Function', () => {
 
         expect(retrievedMission).to.exist
         expect(retrievedMission.tittle).to.equal(mission.tittle)
-        expect(retrievedMission.image).to.equal(mission.image)
+        expect(parseFloat(retrievedMission.image)).to.equal(mission.image)
         expect(retrievedMission.info).to.equal(mission.info)
         expect(retrievedMission.level).to.equal(mission.level)
         expect(retrievedMission.difficulty).to.equal(mission.difficulty)

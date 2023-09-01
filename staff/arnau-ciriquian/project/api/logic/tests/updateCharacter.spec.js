@@ -18,7 +18,7 @@ beforeEach(() => {
 describe('updateCharacter Function', () => {
     it('succeeds on updating character', async () => {
         const newCharacterName = `name-${Math.random()}`
-        const newAvatar = `avatar-${Math.random()}`
+        const newAvatar = Math.random()
 
         const _characters = [character]
         const characters = await populateCharacters(_characters)
@@ -37,8 +37,8 @@ describe('updateCharacter Function', () => {
         expect(character2._id.toString()).to.equal(characterId)
         expect(character2.characterName).to.not.equal(character.characterName)
         expect(character2.characterName).to.equal(newCharacterName)
-        expect(character2.avatar).to.not.equal(character.avatar)
-        expect(character2.avatar).to.equal(newAvatar)
+        expect(parseFloat(character2.avatar)).to.not.equal(character.avatar)
+        expect(parseFloat(character2.avatar)).to.equal(newAvatar)
     })
 
     it('fails on missing user', async () => {

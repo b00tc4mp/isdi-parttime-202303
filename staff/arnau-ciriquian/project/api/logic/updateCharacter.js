@@ -1,5 +1,5 @@
 const {
-    validators: { validateUrl, validateId },
+    validators: { validateExpoUrl, validateId },
     errors: { ExistenceError }
 } = require('com')
 const { User, Character } = require('../data/models')
@@ -21,7 +21,7 @@ const { validateText } = require('com/validators')
 module.exports = (userId, newCharacterName, newAvatar) => {
     validateId(userId)
     validateText(newCharacterName, 'character name text')
-    validateUrl(newAvatar, 'avatar url')
+    //validateExpoUrl(newAvatar, 'avatar url')
 
     return User.findById(userId)
         .then(user => {

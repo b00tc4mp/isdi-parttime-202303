@@ -6,6 +6,7 @@ const { expect } = require('chai')
 const { ExistenceError } = require('com/errors')
 
 let user
+let mission
 
 beforeEach(() => {
     user = generate.user()
@@ -17,7 +18,7 @@ beforeEach(() => {
 
 describe('updateMission Function', () => {
     it('succeeds on updating mission', async () => {
-        const newImage = `image-${Math.random()}`
+        const newImage = Math.random()
         const newTittle = `tittle-${Math.random()}`
         const newInfo = `info-${Math.random()}`
         const newLevel = `level-${Math.random()}`
@@ -38,8 +39,8 @@ describe('updateMission Function', () => {
 
         expect(mission2).to.exist
         expect(mission2._id.toString()).to.equal(missionId)
-        expect(mission2.image).to.not.equal(mission.image)
-        expect(mission2.image).to.equal(newImage)
+        expect(parseFloat(mission2.image)).to.not.equal(mission.image)
+        expect(parseFloat(mission2.image)).to.equal(newImage)
         expect(mission2.tittle).to.not.equal(mission.tittle)
         expect(mission2.tittle).to.equal(newTittle)
         expect(mission2.info).to.not.equal(mission.info)
