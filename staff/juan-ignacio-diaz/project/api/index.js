@@ -104,7 +104,7 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/lists/:listId/products/:productId', reviewProductHandler)
         api.get('/lists/:listId/productTypes', reviewProductTypesHandler)
         api.get('/lists/:listId/products/:productId/cart', toggleProductToCartHandler)
-        api.get('/lists/:listId/products/:productId/like', toggleLikeProductHandler
+        api.patch('/lists/:listId/products/:productId/like', toggleLikeProductHandler
         )
         
 //

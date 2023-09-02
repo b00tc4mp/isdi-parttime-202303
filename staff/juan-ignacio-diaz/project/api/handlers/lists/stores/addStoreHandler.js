@@ -10,8 +10,8 @@ module.exports = handleErrors((req, res) => {
     const promise = addStore(listId, userId, name)
     
     return (async () => { 
-        await promise
-        
-        res.status(201).send()
+        const store = await promise
+
+        res.json(store)
     })()
 })

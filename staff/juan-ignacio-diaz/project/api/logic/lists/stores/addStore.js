@@ -19,7 +19,7 @@ const { User, List, Store } = require('../../../data/models')
 module.exports = (listId, userId, name) => {
     validateId(listId, 'list id')
     validateId(userId, 'user id')
-    validateName(name, 'name')
+    validateName(name)
 
     return (async () => {   
         const [list, user] = await Promise.all([List.findById(listId), User.findById(userId)])
@@ -42,6 +42,11 @@ module.exports = (listId, userId, name) => {
                 throw new DuplicityError(`store with name ${name} already exists`)
 
             throw new UnknowError(error.message) 
-        }            
+        }     
+
+        store.id = store._id.toString()
+        delete store._id
+
+        return store
     })()
 }

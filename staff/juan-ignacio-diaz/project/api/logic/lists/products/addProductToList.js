@@ -40,7 +40,7 @@ module.exports = (listId, userId, name, howMany, stores, type, comment) => {
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
 
         stores.forEach(store => {
-            if (!(list.stores.some(tmpStore => tmpStore.name === store))) throw new InvalidDataError('invalid store')
+            if (!(list.stores.some(tmpStore => tmpStore.id === store))) throw new InvalidDataError('invalid store')
         })
 
         const product = new Product({
@@ -50,7 +50,7 @@ module.exports = (listId, userId, name, howMany, stores, type, comment) => {
             stores,
             type,
             comment,
-            view: list.guests
+            view: list.guests.filter(tmpUser => tmpUser._id.toString() !== userId)
         })
 
         try {

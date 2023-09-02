@@ -3,7 +3,7 @@ const {
     errors: { ExistenceError }
 } = require('com')
 
-const { User, List, Product } = require('../../../data/models')
+const { User, List } = require('../../../data/models')
 
 /**
  * retriew product filtered 
@@ -30,17 +30,19 @@ module.exports = (listId, userId, productId) => {
 
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
        
-        const tmpList = await List.findById({ "_id": listId, "products._id": productId }, 'products._id products.name products.howMany products.state products.type products.stores products.comment')
+        const tmpList = await List.findById(listId, 'products._id products.name products.date products.author products.howMany products.state products.type products.stores products.comment')
+            .populate('products.author', 'name avatar')
             .populate('products.likes', 'name avatar').lean()
     
-        const products = tmpList[0].products
+        const product = tmpList.products.find(product => product._id.toString() === productId)
 
-        if (products.length==0) throw new ExistenceError('product not found')
-
-        const product = products[0]      
+        if (!product) throw new ExistenceError('product not found')  
 
         product.id = product._id.toString()
         delete product._id
+
+        product.author.id = product.author._id.toString()
+        delete product.author._id
 
         if (product.likes.length>0) {
             product.likes.forEach(like => {
@@ -57,5 +59,5 @@ module.exports = (listId, userId, productId) => {
         }
 
         return product
-    })
+    })()
 }

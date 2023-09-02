@@ -31,15 +31,13 @@ module.exports = (listId, userId, producId, price) => {
 
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
 
-        const tmpList = await List.findById({ "_id": listId, "products._id": producId })
-
-        const tmpProduct = tmpList.products[0]
+        const product = list.products.find(product => product.id === producId)
         
-        tmpProduct.price = price
-        tmpProduct.date = new Date(Date.now())
-        tmpProduct.state = 'bought'
-        tmpProduct.view = list.guests
+        product.price = price
+        product.date = new Date(Date.now())
+        product.state = 'bought'
+        product.view = list.guests.filter(tmpUser => tmpUser._id.toString() !== userId)
         
-        await List.findByIdAndUpdate({ "_id": listId, "products._id": producId }, { $set: { products: tmpProduct } })  
+        await list.save()
     })()
 }

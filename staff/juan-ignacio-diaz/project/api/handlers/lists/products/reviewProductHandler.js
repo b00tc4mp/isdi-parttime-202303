@@ -9,8 +9,8 @@ module.exports = handleErrors((req, res) => {
     const promise = reviewProduct(listId, userId, productId)
 
     return (async () => { 
-        const products = await promise
+        const product = await promise
         
-        res.json(products)
+        res.json(product)
     })()
 })

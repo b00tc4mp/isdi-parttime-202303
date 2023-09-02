@@ -29,7 +29,7 @@ module.exports = (listId, userId, productId) => {
 
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
 
-       await List.findByIdAndUpdate(listId, { $pull: { products: { _id: productId } } })
+        await List.findByIdAndUpdate(listId, { $pull: { products: { _id: productId } } })
 
     })()
 }

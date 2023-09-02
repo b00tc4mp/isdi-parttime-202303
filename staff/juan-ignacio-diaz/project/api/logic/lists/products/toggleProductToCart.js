@@ -30,26 +30,24 @@ module.exports = (listId, userId, producId) => {
 
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
 
-        const tmpList = await List.findById({ "_id": listId, "products._id": producId })
+        const product = list.products.find(product => product.id === producId)
 
-        const tmpProduct = tmpList.products[0]
-        
-
-        if (tmpProduct.state === 'bought') {
+        if (product.state === 'bought') {
             throw new InvalidDataError('invalid state')
         }
-        else if (tmpProduct.state === '') {
-            tmpProduct.buyer = userId
-            tmpProduct.state = 'selected'
+        else if (product.state === '') {
+            product.buyer = userId
+            product.state = 'selected'
         }
         else {
-            if (tmpProduct.buyer.toString() !== userId) throw new InvalidDataError('invalid user')
+            if (product.buyer.toString() !== userId) throw new InvalidDataError('invalid user')
 
-            tmpProduct.buyer = null
-            tmpProduct.state = '' 
+            product.buyer = null
+            product.state = '' 
         }
-        tmpProduct.view = list.guests 
+
+        product.view = list.guests.filter(tmpUser => tmpUser._id.toString() !== userId)
  
-        await List.findByIdAndUpdate({ "_id": listId, "products._id": producId }, { $set: { products: tmpProduct } })  
+        await list.save() 
     })()
 }

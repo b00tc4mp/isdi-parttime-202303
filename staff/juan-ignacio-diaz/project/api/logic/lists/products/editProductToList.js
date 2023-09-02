@@ -46,18 +46,20 @@ module.exports = (listId, userId, producId, name, howMany, stores, type, comment
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
 
         stores.forEach(store => {
-            if (!(list.stores.some(tmpStore => tmpStore.name === store))) throw new InvalidDataError('invalid store')
+            if (!(list.stores.some(tmpStore => tmpStore.id === store))) throw new InvalidDataError('invalid store')
         })
 
         try {
-            await List.findByIdAndUpdate({ "_id": listId, "products._id": producId }, 
-                { $set: { products: { name: name, 
-                        howMany: howMany, 
-                        stores: stores, 
-                        type: type, 
-                        comment: comment, 
-                        view: list.guests 
-                } } }) 
+            const product = list.products.find(product => product.id === producId)
+
+            product.name = name
+            product.howMany = howMany        
+            product.stores = stores 
+            product.type = type 
+            product.comment = comment 
+            product.view = list.guests.filter(tmpUser => tmpUser._id.toString() !== userId)
+            
+            await list.save()
         }
         catch (error) {
             if(error.message.includes('E11000'))

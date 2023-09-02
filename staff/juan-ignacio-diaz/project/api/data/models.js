@@ -86,6 +86,8 @@ const product = new Schema({
     },
     date: {
         type: Date,
+        required: true,
+        default: Date.now
     },
     buyer: {
         type: ObjectId,
@@ -96,7 +98,8 @@ const product = new Schema({
         ref: 'User'
     },
     stores: {
-        type: [String]
+        type: [ObjectId],
+        ref: 'Store'
     },
     type: {
         type: String,

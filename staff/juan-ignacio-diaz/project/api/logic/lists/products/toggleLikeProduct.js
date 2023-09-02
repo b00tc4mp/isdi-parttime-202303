@@ -16,10 +16,10 @@ const { User, List } = require('../../../data/models')
  * @throws {InvalidDataError} On invalid store or type
 
  */
-module.exports = (listId, userId, producId) => {
+module.exports = (listId, userId, productId) => {
     validateId(listId, 'list id')
     validateId(userId, 'user id')
-    validateId(producId, 'product id')
+    validateId(productId, 'product id')
 
     return (async () => {   
         const [list, user] = await Promise.all([List.findById(listId), User.findById(userId)])
@@ -30,11 +30,9 @@ module.exports = (listId, userId, producId) => {
 
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
 
-        const tmpList = await List.findById({ "_id": listId, "products._id": producId })
-
-        const tmpProduct = tmpList.products[0]
+        const product = list.products.find(product => product.id === productId)
         
-        const likes = tmpProduct.likes
+        const likes = product.likes
 
         const index = likes.map(like => like.toString()).indexOf(userId)
     
@@ -43,8 +41,8 @@ module.exports = (listId, userId, producId) => {
         else
             likes.splice(index, 1)
                              
-        tmpProduct.view = list.guests 
+        product.view = list.guests.filter(tmpUser => tmpUser._id.toString() !== userId)
  
-        await List.findByIdAndUpdate({ "_id": listId, "products._id": producId }, { $set: { products: tmpProduct } })  
+        await list.save()
     })()
 }
