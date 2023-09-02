@@ -147,7 +147,7 @@ List
 
 ### Layout
 
-- https://www.figma.com/file/VCBZByk6KRObBrvtfeBLVl/Untitled?type=design&node-id=0%3A1&mode=design&t=KHQ74rWI80z9Vr4j-1
+- https://www.figma.com/file/VCBZByk6KRObBrvtfeBLVl/Untitled?type=design&node-id=0%3A1&mode=design&t=ZFDCOCuwFZ0RHOgo-1
 
 ## Planning
 
