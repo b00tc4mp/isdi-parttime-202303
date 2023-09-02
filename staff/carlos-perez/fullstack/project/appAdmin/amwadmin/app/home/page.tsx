@@ -1,15 +1,14 @@
-import { Footer, NavBar, Login } from '@/components'
+import { Footer, NavBar} from '@/components'
 import useStorage from '@/hooks/useStorage';
 
 export default function Home() {
   const { getItem } = useStorage();
-  const isAuth = getItem('token','session');
-  console.log('Este es isAuth ' + isAuth);
+  const isAuth = getItem('token');
 
   return (
     <div className='grid grid-cols-1 max-w-[1440px] w-full mx-auto justify-center'>
       <NavBar />
-      <Login />
+      <p>{`Este es isAuth ${getItem('token', 'session')}`}</p>
       <Footer />
     </div>
   )
