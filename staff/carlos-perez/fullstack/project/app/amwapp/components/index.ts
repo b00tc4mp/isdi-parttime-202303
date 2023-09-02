@@ -11,7 +11,8 @@ import Songs from './Songs';
 import Event from './Event';
 import Events from './Events';
 import CalendarDay from './CalendarDay';
+import ContactForm from './ContactForm';
 export {
    CustomButton, NavBar, Footer, Banner, Welcome, BannerAndWelcome, UpdatesHome, Update,
-   Song, Songs, Event, Events, CalendarDay
+   Song, Songs, Event, Events, CalendarDay, ContactForm
 };
