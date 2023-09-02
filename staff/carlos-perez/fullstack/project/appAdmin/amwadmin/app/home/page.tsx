@@ -1,3 +1,5 @@
+"use client";
+
 import { Footer, NavBar} from '@/components'
 import { returnToken } from '@/utils';
 
