@@ -33,7 +33,7 @@ type User = {
 }
 
 export default function AdditionalInfo() {
-    const { loaderOn, loaderOff, navigate } = useAppContext()
+    const { loaderOn, loaderOff, navigate, toast } = useAppContext()
     const handleErrors = useHandleError()
 
     const [availabilityDays, setAvailabilityDays] = useState<string[]>([])
@@ -71,9 +71,15 @@ export default function AdditionalInfo() {
 
         const { description, tags, location, availability } = handleAdditionalInfoHelper(formRef.current!, availabilityDays);
 
+
         (async () => {
-            loaderOn()
             try {
+                if (avatarImage === undefined || description === "" || tags.length === 1 && tags.includes("") || location === "" || availability.length === 0) {
+                    toast('Complete all fields', 'error')
+                    return
+                }
+                loaderOn()
+
                 await registerAdditionalInfo(avatarImage!, description, tags, location, availability)
 
                 setTimeout(() => {

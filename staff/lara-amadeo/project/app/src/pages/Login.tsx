@@ -35,7 +35,7 @@ export default function Login(): JSX.Element {
                 setTimeout(() => {
                     loaderOff()
 
-                    if (from.includes("/meal/")) {
+                    if (from && from.includes("/meal/")) {
                         navigate(from, { state: "/login" })
                     } else navigate('/')
                 }, 1000)

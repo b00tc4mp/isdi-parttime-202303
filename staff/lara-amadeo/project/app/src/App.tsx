@@ -19,6 +19,7 @@ import Search from './pages/Search'
 //@ts-ignore
 import PWAPrompt from 'react-ios-pwa-prompt'
 import getMobileOperatingSystem from './logic/helpers/getMobileOperatingSystem'
+import FavouriteChefs from './pages/FavouriteChefs'
 
 
 type ToastProperties = {
@@ -73,6 +74,7 @@ function App() {
         <Route path='/meal/:mealId' element={<MealDetails />} />
         <Route path='/cart' element={isUserLoggedIn() ? <Cart /> : <Navigate to="/login" />} />
         <Route path='/search' element={isUserLoggedIn() ? <Search /> : <Navigate to="/login" />} />
+        <Route path='/favouriteChefs' element={isUserLoggedIn() ? <FavouriteChefs /> : <Navigate to="/login" />} />
       </Routes>
       <PWAPrompt promptOnVisit={1} timesToShow={3} copyClosePrompt="Close" permanentlyHideOnDismiss={false} />
       {loader && <Loader />}

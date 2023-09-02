@@ -47,10 +47,7 @@ export default function CreateMeal(): JSX.Element {
 
 
     const handleAddMeal = () => {
-        if (mealImages.length === 0) {
-            toast('At least one image is required.', 'error')
-            return
-        }
+
 
         if (formRef !== null) {
             const form = formRef.current as typeof formRef.current & {
@@ -59,7 +56,7 @@ export default function CreateMeal(): JSX.Element {
                 ingredients: { value: string },
                 categories: { value: string },
                 bestBefore: { value: string },
-                price: { value: string }
+                price: { value: number }
             }
 
 
@@ -67,19 +64,39 @@ export default function CreateMeal(): JSX.Element {
             const description = form.description.value
             const ingredients = form.ingredients.value.split(",").map(item => item.trim())
             const bestBefore = Number(form.bestBefore.value)
-            const quantity = Number(form.quantity.value);
+            const quantity = Number(form.quantity.value)
+
+
+            if (mealImages.length === 0 || title === "" || description === "" || ingredients.length === 1 && ingredients.includes("")) {
+                toast('At least one image is required.', 'error')
+                return
+            }
+
+            if (bestBefore === 0) {
+                toast(`You can't upload a product with no batch duration.`, 'error')
+                return
+            }
+
+            if (quantity === 0) {
+                toast(`Stock must be higher than 0`, 'error')
+                return
+            }
+            if (price === "") {
+                toast(`Price must be higher than 0`, 'error')
+                return
+            }
 
             (async () => {
                 loaderOn()
                 try {
                     const images = mealImages
-                    //await createMeal({ images, title, description, ingredients, categories, bestBefore, quantity, price })
+                    await createMeal({ images, title, description, ingredients, categories, bestBefore, quantity, price })
 
                     setTimeout(() => {
                         loaderOff()
                         navigate('/')
                         toast('Meal created!', 'success')
-                    }, 100000)
+                    }, 500)
                 } catch (error: any) {
                     loaderOff()
                     handleErrors(error)

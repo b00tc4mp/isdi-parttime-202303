@@ -22,7 +22,6 @@ import PaymentSummary from '../modals/PaymentSummary'
 import Header from '../library/components/Header'
 import markAsCompleted from '../logic/markAsCompleted'
 import ContextualModalMenu from '../library/modules/ContextualModalMenu'
-import CompleteOrderModal from '../modals/CompleteOrderModal'
 import Button from '../library/components/Button'
 
 
@@ -32,7 +31,6 @@ type Order = {
     meals: Meal[]
 }
 
-//pending
 
 type Author = {
     _id: string
@@ -103,7 +101,6 @@ export default function Cart() {
     const { navigate, loaderOn, loaderOff, toast } = useAppContext()
 
     const [meals, setMeals] = useState<Order[]>()
-    const [lastQuantity, setLastQuantity] = useState()
 
     const [timeoutId, setTimeoutId] = useState<Timeout>()
 

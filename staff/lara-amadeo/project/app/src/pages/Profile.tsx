@@ -71,7 +71,7 @@ export default function Profile(): JSX.Element {
             try {
                 const user = await retrieveUser()
                 setUser(user)
-                console.log(user.tags)
+
                 const meals = await retrieveOwnMeals()
                 setMeals(meals)
 
@@ -127,6 +127,7 @@ export default function Profile(): JSX.Element {
     }
 
     return <>
+
         {user ? <Topbar level={'first'} firstLevel={{ label: `@${user?.username}`, chat: true, onChatClick: () => alert('🛠️ Feature coming soon! Please, be patient') }} /> : <Skeleton width={'250px'} count={1} height={'16px'} className="profile-topbar-skeleton" />}
         <div className="page-first-level">
             <div className="profile-first-part">
@@ -139,7 +140,7 @@ export default function Profile(): JSX.Element {
             </div>
             <div className="profile-second-part">
 
-                <div className="profile-opt" onClick={() => alert('🛠️ Feature coming soon! Please, be patient')}>
+                <div className="profile-opt" onClick={() => navigate('/favouriteChefs')}>
                     <div className="profile-opt-label">
                         <HeartIcon className="icon-xs grey-700" />
                         <p className="body-text grey-700">My favourites</p>

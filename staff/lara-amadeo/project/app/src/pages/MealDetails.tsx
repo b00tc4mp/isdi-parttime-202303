@@ -22,6 +22,8 @@ import addMealToCart from '../logic/addMealToCart'
 import { Carousel } from 'flowbite-react'
 import isUserLoggedIn from '../logic/isUserLoggedIn'
 import Spinner from '../library/components/Spinner'
+import toggleLikeChef from '../logic/toggleLikeChef'
+import retrieveUser from '../logic/retrieveUser'
 
 
 type Meal = {
@@ -37,6 +39,16 @@ type Meal = {
     quantity: number
 }
 
+type User = {
+    name: string,
+    availability: Array<object>,
+    avatar: string,
+    username: string,
+    description: string,
+    tags: string[],
+    likedChefs: string[]
+}
+
 
 export default function MealDetails(): JSX.Element {
 
@@ -44,6 +56,7 @@ export default function MealDetails(): JSX.Element {
     const handleErrors = useHandleError()
 
     const [meal, setMeal] = useState<Meal>()
+    const [user, setUser] = useState<User>()
 
     const { mealId } = useParams<string>()
     const userId = getUserId()
@@ -63,7 +76,8 @@ export default function MealDetails(): JSX.Element {
 
     const [userLogged, setUserLogged] = useState<boolean>()
 
-    useEffect(() => {
+
+    const refreshData = () => {
         (async () => {
             try {
                 const meal = await retrieveMeal(mealId!)
@@ -71,10 +85,16 @@ export default function MealDetails(): JSX.Element {
                 setCounterButtonLabel(meal.price)
                 setMealStock(meal.quantity)
                 setUserLogged(isUserLoggedIn())
+
+                const user = await retrieveUser()
+                setUser(user)
             } catch (error: any) {
                 handleErrors(error)
             }
         })()
+    }
+    useEffect(() => {
+        refreshData()
     }, [editModal])
 
     const onBackClick = () => {
@@ -172,6 +192,17 @@ export default function MealDetails(): JSX.Element {
         }, 800);
     }
 
+    const toggleLikeChefHandler = () => {
+        (async () => {
+            try {
+                await toggleLikeChef(meal!.author.id)
+                refreshData()
+            } catch (error: any) {
+                handleErrors(error)
+            }
+        })()
+    }
+
     const ownMeal = meal?.author.id === userId
     return <>
         {deleteModal && <DeleteModal mealId={mealId!} handleClose={closeDeleteModal} onDelete={saveDelete} />}
@@ -235,7 +266,7 @@ export default function MealDetails(): JSX.Element {
                 {meal && <DataItem label='BestBefore' content={`${meal.bestBefore} days`} />}
                 {meal && <DataItem label='Price' content={`${meal.price}€`} />}
                 {meal && <Divider width='100%' />}
-                {meal && <ChefModule avatar={meal.author.avatar} name={meal.author.name} liked={false} onSendMessage={onSendMessageButton} />}
+                {meal && user && <ChefModule avatar={meal.author.avatar} name={meal.author.name} liked={user.likedChefs.includes(meal.author.id)} onSendMessage={onSendMessageButton} onLikeChef={toggleLikeChefHandler} />}
             </div>
         </div>
         {meal?.author.id !== userId && <ButtonBar firstButton={{ label: mealCounter === 0 ? `Add to cart` : `Add ${mealCounter} to cart - ${counterButtonLabel}€`, onClick: onAddToCart }} />}

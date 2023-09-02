@@ -10,9 +10,10 @@ type Props = {
     name: string,
     liked: boolean,
     onSendMessage: (event: React.SyntheticEvent) => void
+    onLikeChef: () => void
 }
 
-export default function ChefModule({ avatar, name, liked, onSendMessage }: Props): JSX.Element {
+export default function ChefModule({ avatar, name, liked, onSendMessage, onLikeChef }: Props): JSX.Element {
     return <>
         <div className='chef-module-container'>
             <Avatar image={avatar} width={'32px'} />
@@ -21,7 +22,7 @@ export default function ChefModule({ avatar, name, liked, onSendMessage }: Props
             </div>
             {/* @ts-ignore */}
             <Button type={'secondary'} size={'small'} label={'Send message'} hugContent={true} onClick={onSendMessage} />
-            {liked ? <IconButton icon={<SolidHeartIcon className='icon-s red-200' />} type={'secondary'} /> : <IconButton onClick={() => alert('🛠️ Feature coming soon! Please, be patient')} icon={<HeartIcon className='icon-s grey-700' />} type={'secondary'} />}
+            {liked ? <IconButton icon={<SolidHeartIcon className='icon-s red-200' />} type={'secondary'} onClick={onLikeChef} /> : <IconButton onClick={onLikeChef} icon={<HeartIcon className='icon-s grey-700' />} type={'secondary'} />}
         </div>
     </>
 }
