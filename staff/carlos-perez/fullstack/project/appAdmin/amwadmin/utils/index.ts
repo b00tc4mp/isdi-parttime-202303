@@ -1,3 +1,15 @@
+import context from "./context"
+
+function extractPayloadFromToken(token: string) {
+  return JSON.parse(atob(token.split('.')[1]))
+}
+
+export function isTokenAlive(token: string) {
+  const { iat, exp } = extractPayloadFromToken(token)
+  const now = Date.now() / 1000
+
+  return exp - iat > now - iat
+}
 
 export async function login(email: string, password: string){
   const res = await fetch('http://localhost:4321/admins/auth', {
@@ -11,7 +23,20 @@ export async function login(email: string, password: string){
     })
   })
 
-  return res.json()
+  if (res.status === 200) {
+    const token = await res.json()
+
+    context.token = token
+
+    return
+  }
+  else{
+    const message = await res.json()
+    alert(message);
+  }
+
+  
+
 }
 
 export async function fetchUpdates() {

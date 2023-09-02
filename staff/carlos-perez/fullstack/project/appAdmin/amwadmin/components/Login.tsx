@@ -2,11 +2,9 @@
 
 import { FormEvent } from 'react'
 import { login } from '@/utils';
-import useStorage from '@/hooks/useStorage';
 import { useRouter } from 'next/navigation'
 
 const Login = () => {
-    const { setItem, getItem } = useStorage();
     const router=useRouter();
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
@@ -20,9 +18,8 @@ const Login = () => {
         const password = target.password.value;
         //console.log(`${title} ${name} ${email} ${message}`);
 
-       const token = await login(email, password);
-       setItem('token',token);
-       console.log(getItem('token'));
+       await login(email, password);
+       
        router.push('/home');
        
     }
