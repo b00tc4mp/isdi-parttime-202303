@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useAppContext } from '../../hooks'
 
 import { Container, Button, Label } from '../library'
-import { List, AddListModal } from '../components'
+import { List, AddListModal, AddProduct, EditDeleteProduct  } from '../components'
 
 import { retrieveUser, retrieveList, closeList } from '../../logic'
 
@@ -22,6 +22,7 @@ export default function HomeList() {
     const [modal, setModal] = useState(null)
     const [productId, setProductId] = useState(null)
     const [lastUpdate, setLastUpdate] = useState(null)
+    
 
     useEffect(() => {
         ;(async () => {
@@ -53,12 +54,12 @@ export default function HomeList() {
 
     const handleOpenAddProduct = (id) => {
         setProductId(id)
-        setModal('add-product')
+        setView('add-product')
     }
 
-    const handleOpenEditProduct = (id) => {
+    const handleOpenEditDeleteProduct = (id) => {
         setProductId(id)
-        setModal('edit-product')
+        setView('editDelete-product')
     }
 
     const handleOpenFilterProducts = () => {
@@ -96,21 +97,22 @@ export default function HomeList() {
 
             <Container tag="main">               
                 {view === 'list' && <List
-                    onModifyedList={handleGoToList}
+                    onModifiedList={handleGoToList}
                     onAddedProduct={handleOpenAddProduct}
-                    onEditedProduct={handleOpenEditProduct}
+                    onEditedDeletedProduct={handleOpenEditDeleteProduct}
                     onFilteredProducts={handleOpenFilterProducts}
                     lastUpdate={lastUpdate}
                 />} 
 
-                {modal === 'add-product' && <AddListModal 
-                    onCancel={handleCloseModal}
-                    onModifiedList={handleCloseModal}
+                {view === 'add-product' && <AddProduct             
+                    onCancel={handleGoToList}  
+                    onAddedPropduct={handleGoToList}     
                 />}
 
-                {modal === 'edit-product' && <AddListModal 
-                    onCancel={handleCloseModal}
-                    onModifiedList={handleCloseModal}
+                {view === 'editDelete-product' && <EditDeleteProduct 
+                    onCancel={handleGoToList}
+                    onModifiedProduct={handleGoToList}
+                    productId={productId}
                 />}
 
                 {modal === 'filter-products' && <AddListModal 

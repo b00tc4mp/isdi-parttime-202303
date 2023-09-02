@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react'
 import { useAppContext } from '../../hooks'
 
 import { Product, Message } from '.'
-import { Container, Button, Label } from '../library'
+import { Container, Button, Label, Form, Input } from '../library'
 
-import { retrieveFilteredProducts, retrieveMessages} from '../../logic'
+import { retrieveFilteredProducts, retrieveMessages, addMessage} from '../../logic'
 
-export default ({ lastUpdate, onModifyedList, onAddedProduct, onEditedProduct, onFilteredProducts }) => {
+export default ({ lastUpdate, onModifiedList, onAddedProduct, onEditedDeletedProduct, onFilteredProducts }) => {
     console.log('Lists -> render')
 
     const { alert, freeze, unfreeze } = useAppContext()
@@ -33,28 +33,55 @@ export default ({ lastUpdate, onModifyedList, onAddedProduct, onEditedProduct, o
         handleRefreshList()
     }, [])
 
-    const handleNewFilter = () => onNewFilter()
+    const handleNewFilter = () => onFilteredProducts()
 
+    const handleAddProduct = () => onAddedProduct()
+    
+    const handleAddMessage = async (event) => {
+        const message = event.target.message.value
+
+        try {
+            freeze()
+            await addMessage(message) 
+            unfreeze()
+
+            //handleRefreshList()
+        }
+        catch (error) {
+            unfreeze()
+            alert(error.message)
+        }   
+    }
     return <>
         <Container>
-            <Label >Products:</Label>
-            <Button onClick={handleNewFilter}>Filter</Button>
+            <Container type="row">
+                <Label >Products:</Label>
+                <Button onClick={handleAddProduct}>+</Button>
+                <Button onClick={handleNewFilter}>Filter</Button>
+            </Container>
             <Container tag="section">
                 {products && products.map(product => <Product
                         key={product.id} 
                         product={product} 
-                       // onEditProduct={onEditedProduct}
-                        onModifyList={handleRefreshList}
+                        onEditDeleteProduct={onEditedDeletedProduct}
+                        onModifyProduct={handleRefreshList}
                     />)
                 }
             </Container>
-            <Label >Messages:</Label>
+            <Container type="row">
+                <Label >Messages:</Label>
+                <Form className = "flex-row" onSubmit={handleAddMessage}>
+                        <textarea type="text" name="message"></textarea>
+                        <Button type="submit">+</Button>
+                </Form>
+            </Container>
             <Container tag="section">
                 {messages && messages.map(message => <Message 
-                        key={list.id} 
+                        key={message.id} 
                         message={message} 
                     />)
                 }
+
             </Container>
         </Container>
 

@@ -7,7 +7,7 @@ import { Container, Button, Label } from '../library'
 
 import { retrieveListsInvited, retrieveListsGuest } from '../../logic'
 
-export default ({ onEditedList, onCreatedList, lastUpdate }) => {
+export default ({ onEditUsersList, onCreateList, onAddStoresList, lastUpdate }) => {
     console.log('Lists -> render')
 
     const { alert, freeze, unfreeze } = useAppContext()
@@ -28,7 +28,7 @@ export default ({ onEditedList, onCreatedList, lastUpdate }) => {
         }   
     }
 
-    const handleNewList = () => onCreatedList()
+    const handleNewList = () => onCreateList()
 
     const handleGotoList = (id) => OnOpenList()
 
@@ -44,7 +44,8 @@ export default ({ onEditedList, onCreatedList, lastUpdate }) => {
                 {listsGuest && listsGuest.map(list => <ListsGuest
                         key={list.id} 
                         list={list} 
-                        onEditList={onEditedList}
+                        onEditUsersList={onEditUsersList}
+                        onAddStoresList={onAddStoresList}
                     />)
                 }
             </section>

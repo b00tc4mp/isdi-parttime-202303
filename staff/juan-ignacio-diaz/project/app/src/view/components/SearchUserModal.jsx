@@ -7,7 +7,7 @@ import { searchUser, addUserContact } from '../../logic'
 
 import { DEFAULT_AVATAR_URL } from '../../constants'
 
-export default ({ onCancel, onModifyContact }) => {
+export default ({ onCancel, onModifiedContact }) => {
 
     const { alert, freeze, unfreeze } = useAppContext()
 
@@ -43,7 +43,7 @@ export default ({ onCancel, onModifyContact }) => {
             await addUserContact(user.id)
             unfreeze()
 
-            onModifyContact()
+            onModifiedContact()
         }
         catch(error){
             unfreeze()

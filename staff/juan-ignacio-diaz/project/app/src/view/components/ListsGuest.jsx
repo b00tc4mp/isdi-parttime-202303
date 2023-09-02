@@ -4,12 +4,14 @@ import { Container, Button } from '../library'
 
 import { isCurrentUser, openList } from '../../logic'
 
-export default ({ list: { id, owner, name, date}, onEditList, OnOpenList }) => {
+export default ({ list: { id, owner, name, date}, onEditUsersList, onAddStoresList }) => {
     console.log('ListGuest -> render')
 
     const { alert, navigate } = useAppContext()
 
-    const handleEditList = () => onEditList(id)
+    const handleEditUsersList = () => onEditUsersList(id)
+
+    const handleAddStoresList = () => onAddStoresList(id)
 
     const handleOpenList = () => {
         try {
@@ -28,7 +30,8 @@ export default ({ list: { id, owner, name, date}, onEditList, OnOpenList }) => {
         <Container tag="article" type="row">
             <p>{name}</p>
             <time>📎 {date.toLocaleString()}</time>   
-            {isCurrentUserList ? <Button onClick={handleEditList}>🖍</Button> : ''} 
+            {isCurrentUserList ? <Button onClick={handleEditUsersList}>👥</Button> : ''} 
+            <Button onClick={handleAddStoresList}>🏬</Button> 
             <Button onClick={handleOpenList}>🛒</Button> 
         </Container>
     </>

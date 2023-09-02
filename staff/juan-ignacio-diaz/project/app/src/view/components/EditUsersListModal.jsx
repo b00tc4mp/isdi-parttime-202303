@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useAppContext } from '../../hooks'
 
 import { Container, Button, Label } from '../library'
-import { EditListGuest, EditListInvited, EditListContact } from '../components'
+import { EditGuestList, EditInvitedList, EditContactList } from '.'
 
 import { retrieveUsersList, retrieveUserContacts } from '../../logic'
 
@@ -17,7 +17,7 @@ export default ({ listId, onAccept }) => {
     const handleRefreshEditList = async () => {
         try {
             freeze()
-            const [list, constacts] = await Promise.all([ retrieveUsersList(listId), retrieveUserContacts()])
+            const [list, contacts] = await Promise.all([ retrieveUsersList(listId), retrieveUserContacts()])
             setList(list)  
             setContacts(contacts)
 
@@ -56,7 +56,7 @@ export default ({ listId, onAccept }) => {
             </Container>
             <Container tag="section">
                 <h2>Guest</h2>
-                {list && list.guests && list.guests.map(contact => <EditListGuest 
+                {list && list.guests && list.guests.map(contact => <EditGuestList 
                     key={contact.id} 
                     contact={contact} 
                     />)
@@ -65,7 +65,7 @@ export default ({ listId, onAccept }) => {
             </Container>
             <Container tag="section">
                 <h2>Invited</h2>
-                {list && list.invited && list.invited.map(contact => <EditListInvited 
+                {list && list.invited && list.invited.map(contact => <EditInvitedList
                     key={contact.id} 
                     contact={contact} 
                     listId={listId}
@@ -75,7 +75,7 @@ export default ({ listId, onAccept }) => {
             </Container>
             <Container tag="article">
                 <h2>Add contact</h2>
-                {contacts && contacts.map(contact => <EditListContact 
+                {contacts && contacts.map(contact => <EditContactList
                     key={contact.id} 
                     contact={contact} 
                     listId={listId}

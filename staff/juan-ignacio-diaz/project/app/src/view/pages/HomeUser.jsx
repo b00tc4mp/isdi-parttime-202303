@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useAppContext } from '../../hooks'
 
 import { Container, Button } from '../library'
-import { Profile, Lists, SearchUserModal, AddListModal, EditListModal } from '../components'
+import { Profile, Lists, SearchUserModal, AddListModal, EditUsersListModal, AddStoresModal } from '../components'
 
 import { logoutUser, retrieveUser } from '../../logic'
 
@@ -80,17 +80,22 @@ export default function HomeUser() {
     }
 
     const handleOpenSearchUser = () => {
-        setModal('SearchUser')
+        setModal('search-user')
     }
 
     const handleOpenNewList = () => {
         setModal('new-list')
     }
 
-    const handleOpenEditList = (id) => {
+    const handleOpenUsersList = (id) => {
         setListId(id)
-        setModal('edit-list')
+        setModal('users-list')
     }
+
+    const handleOpenStoresList = (id) => {
+        setListId(id)
+        setModal('stores-list')
+    } 
 
     const handleGoToLists = () => setView('lists') 
 
@@ -111,8 +116,9 @@ export default function HomeUser() {
             <Container tag="main">               
                 {view === 'lists' && <Lists 
                     onModifyedList={handleGoToLists}
-                    onCreatedList={handleOpenNewList}
-                    onEditedList={handleOpenEditList}
+                    onCreateList={handleOpenNewList}
+                    onEditUsersList={handleOpenUsersList}
+                    onAddStoresList={handleOpenStoresList}
                     lastUpdate={lastUpdate}
                 />} 
 
@@ -122,23 +128,27 @@ export default function HomeUser() {
                     user={user}
                     lastUpdate={lastUpdate}
                 />}
-                
-                {modal === 'SearchUser' && <SearchUserModal 
-                    onCancel={handleCloseModal}
-                    onModifyContact={handleCloseModal}
-                />}
 
                 {modal === 'new-list' && <AddListModal 
                     onCancel={handleCloseModal}
                     onCreatedList={handleCloseModal}
                 />}
-
-                
-                {modal === 'edit-list' && <EditListModal 
+        
+                {modal === 'users-list' && <EditUsersListModal 
                     onAccept={handleCloseModal}
                     onEditedList={handleCloseModal}
                     listId={listId}
                 />} 
+
+                {modal === 'search-user' && <SearchUserModal 
+                    onCancel={handleCloseModal}
+                    onModifiedContact={handleCloseModal}
+                />}
+
+                {modal === 'stores-list' && <AddStoresModal 
+                    onClose={handleCloseModal}
+                    listId={listId}               
+                />}
 
             </Container>
 

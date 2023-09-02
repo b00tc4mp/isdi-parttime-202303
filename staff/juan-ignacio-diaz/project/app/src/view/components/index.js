@@ -1,8 +1,8 @@
 import AddListModal from './AddListModal'
-import EditListModal from './EditListModal'
-import EditListGuest from './EditListGuest'
-import EditListInvited from './EditListInvited'
-import EditListContact from './EditListContact'
+import EditUsersListModal from './EditUsersListModal'
+import EditGuestList from './EditGuestList'
+import EditInvitedList from './EditInvitedList'
+import EditContactList from './EditContactList'
 import AlertModal from './AlertModal'
 import Contact from './Contact'
 import Lists from './Lists'
@@ -10,6 +10,11 @@ import ListsGuest from './ListsGuest'
 import ListsInvited from './ListsInvited'
 import Profile from './Profile'
 import SearchUserModal from './SearchUserModal'
+import AddProduct from './AddProduct'
+import Stores from './Stores'
+import AddStoresModal from './AddStoresModal'
+import EditDeleteProduct from './EditDeleteProduct'
+import ProductTypes from './ProductTypes'
 
 import List from './List'
 import Product from './Product'
@@ -17,10 +22,10 @@ import Message from './Message'
 
 export {
     AddListModal,
-    EditListModal,
-    EditListGuest,
-    EditListInvited,
-    EditListContact,
+    EditUsersListModal,
+    EditGuestList,
+    EditInvitedList,
+    EditContactList,
     AlertModal,
     SearchUserModal,
     Contact,
@@ -30,5 +35,10 @@ export {
     ListsInvited,
     List,
     Product,
-    Message
+    Message,
+    AddProduct,
+    Stores,
+    AddStoresModal,
+    EditDeleteProduct,
+    ProductTypes
 }

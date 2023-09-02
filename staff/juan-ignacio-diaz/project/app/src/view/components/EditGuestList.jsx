@@ -2,8 +2,6 @@ import { useAppContext } from '../../hooks'
 
 import { Container } from '../library'
 
-import { deleteUserContact } from '../../logic'
-
 import { DEFAULT_AVATAR_URL } from '../../constants'
 
 export default ({ contact: { name, avatar}}) => {

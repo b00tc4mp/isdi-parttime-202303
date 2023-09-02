@@ -1,6 +1,6 @@
 import { useAppContext } from '../../hooks'
 
-import { Container } from '../library'
+import { Container, Button } from '../library'
 
 import { DEFAULT_AVATAR_URL } from '../../constants'
 

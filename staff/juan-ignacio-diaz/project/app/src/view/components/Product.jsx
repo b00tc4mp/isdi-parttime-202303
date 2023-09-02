@@ -4,20 +4,20 @@ import { Container, Button } from '../library'
 
 import { isIncludesCurrentUser, toggleLikeProduct, toggleProductToCart } from '../../logic'
 
-export default ({ product: { id, owner, name, howMany, date, untried, likes, comment, state, type}, onEditList, OnModifyProduct }) => {
+export default ({ product: { id, name, howMany, untried, likes, comment, state, type}, onEditDeleteProduct, onModifyProduct }) => {
     console.log('Product -> render')
 
     const { alert, freeze, unfreeze } = useAppContext()
 
-    const handleEditProduct = () => onEditList(id)
+    const handleEditDeleteProduct = () => onEditDeleteProduct(id)
 
-    const handleLikeProduct = () => {
+    const handleLikeProduct = async () => {
         try {
             freeze()
-            toggleLikeProduct(id)
+            await toggleLikeProduct(id)
             unfreeze()
 
-            OnModifyProduct()
+            onModifyProduct()
         }
         catch(error){
             unfreeze()
@@ -25,13 +25,13 @@ export default ({ product: { id, owner, name, howMany, date, untried, likes, com
         }
     }
 
-    const handleToCart = () => {
+    const handleToCart = async () => {
         try {
             freeze()
-            toggleProductToCart(id)
+            await toggleProductToCart(id)
             unfreeze()
 
-            OnModifyProduct()
+            onModifyProduct()
         }
         catch(error){
             unfreeze()
@@ -40,14 +40,14 @@ export default ({ product: { id, owner, name, howMany, date, untried, likes, com
     }
 
     return <>
-        <Container tag="article" type="row">
-            <h1>{untried?'New':''}</h1>
-            <p>{name +' ('+howMany+')'}</p>
-            <time>📎 {date.toLocaleString()}</time>   
-            <Button className = "button-likes" onClick={handleLikeProduct}>{isIncludesCurrentUser(likes.map((like) => like.id)) ? '❤️' : '🤍'} ({likes? likes.length : 0})</Button>
-            <Button onClick={handleEditProduct}>🖍</Button>
-            <Button onClick={handleToCart}>🛒</Button> 
-            <p>{type}</p>
+        <Container tag="article">
+            <Container type="row">
+                <h1>{untried?'❗':''}</h1>
+                <p>{name +' ('+howMany+')'}</p>
+                <Button className = "button-likes" onClick={handleLikeProduct}>{isIncludesCurrentUser(likes.map((like) => like.id)) ? '❤️' : '🤍'} ({likes? likes.length : 0})</Button>
+                <Button onClick={handleEditDeleteProduct}>🖍</Button>
+                <Button onClick={handleToCart}>🛒</Button> 
+            </Container>
             <p>{comment}</p>
         </Container>
     </>

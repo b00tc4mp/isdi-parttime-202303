@@ -24,10 +24,19 @@ import retrieveList from './retrieveList'
 import openList from './openList'
 import closeList from './closeList'
 import retrieveFilteredProducts from './retrieveFilteredProducts'
+import retrieveProduct from './retrieveProduct'
 import retrieveMessages from './retrieveMessages'
 import toggleProductToCart from './toggleProductToCart'
 import toggleLikeProduct from './toggleLikeProduct'
 import isOpenList from './isOpenList'
+import addMessage from './addMessage'
+import addProductToList from './addProductToList'
+import editProductToList from './editProductToList'
+import deleteProductToList from './deleteProductToList'
+import reviewStores from './reviewStores'
+import reviewStoresList from './reviewStoresList'
+import addStoreList from './addStoreList'
+import reviewProductTypes from './reviewProductTypes'
 
 export {
     isCurrentUser,
@@ -56,8 +65,17 @@ export {
     openList,
     closeList,
     retrieveFilteredProducts,
+    retrieveProduct,
     retrieveMessages,
     toggleProductToCart,
     toggleLikeProduct,
-    isOpenList
+    isOpenList,
+    addMessage,
+    addProductToList,
+    editProductToList,
+    deleteProductToList,
+    reviewStores,
+    reviewStoresList,
+    addStoreList,
+    reviewProductTypes
 }
