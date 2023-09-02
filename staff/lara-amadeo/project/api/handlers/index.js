@@ -21,5 +21,7 @@ module.exports = {
     retrieveWaitingClientToPickUpHandler: require('./retrieveWaitingClientToPickUpHandler'),
     serverStatusHandler: require('./serverStatusHandler'),
     markAsCompletedHandler: require('./markAsCompletedHandler'),
-    searchMealsHandler: require('./searchMealsHandler')
+    searchMealsHandler: require('./searchMealsHandler'),
+    toggleLikeChefHandler: require('./toggleLikeChefHandler'),
+    retrieveLikedChefsHandler: require('./retrieveLikedChefsHandler')
 }

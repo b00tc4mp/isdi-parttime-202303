@@ -20,5 +20,7 @@ module.exports = {
     markAsReady: require('./markAsReady'),
     retrieveWaitingClientToPickUp: require('./retrieveWaitingClientToPickUp'),
     markAsCompleted: require('./markAsCompleted'),
-    searchMeals: require('./searchMeals')
+    searchMeals: require('./searchMeals'),
+    toggleLikeChef: require('./toggleLikeChef'),
+    retrieveLikedChefs: require('./retrieveLikedChefs')
 }

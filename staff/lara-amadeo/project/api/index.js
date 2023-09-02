@@ -3,7 +3,7 @@ require('dotenv').config()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const express = require('express')
-const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler, retrieveCartMealsHandler, payMealsInCartHandler, removeMealFromCartHandler, retrievePendingToPickUpHandler, incrementMealsInCartHandler, retrievePendingToDeliverHandler, markAsReadyHandler, retrieveWaitingClientToPickUpHandler, serverStatusHandler, markAsCompletedHandler, searchMealsHandler } = require('./handlers')
+const { helloAPIHandler, registerUserHandler, authenticateUserHandler, registerAdditionalInfoHandler, createMealHandler, retrieveMealsHandler, retrieveUserHandler, retrieveMealHandler, retrieveOwnMealsHandler, updateMealHandler, deleteMealHandler, addMealToCartHandler, retrieveCartMealsHandler, payMealsInCartHandler, removeMealFromCartHandler, retrievePendingToPickUpHandler, incrementMealsInCartHandler, retrievePendingToDeliverHandler, markAsReadyHandler, retrieveWaitingClientToPickUpHandler, serverStatusHandler, markAsCompletedHandler, searchMealsHandler, toggleLikeChefHandler, retrieveLikedChefsHandler } = require('./handlers')
 
 const mongoose = require('mongoose')
 
@@ -91,6 +91,12 @@ mongoose.connect(process.env.MONGODB_URL)
 
         //search meals and retrieve results
         api.post('/meals/search', jsonBodyParser, searchMealsHandler)
+
+        //Toggle like chef
+        api.patch('/users/like/:chefId', toggleLikeChefHandler)
+
+        //Retrieve likes chefs
+        api.get('/users/like', retrieveLikedChefsHandler)
 
         api.get('/IKAuth', (req, res) => {
             const result = imagekit.getAuthenticationParameters()
