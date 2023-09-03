@@ -1,5 +1,7 @@
 import context from "./context"
 
+let tokenApp: string;
+
 function extractPayloadFromToken(token: string) {
   return JSON.parse(atob(token.split('.')[1]))
 }
@@ -11,11 +13,11 @@ export function isTokenAlive(token: string) {
   return exp - iat > now - iat
 }
 
-export function returnToken(){
+export function returnToken() {
   return context.token;
 }
 
-export async function login(email: string, password: string){
+export async function login(email: string, password: string) {
   const res = await fetch('http://localhost:4321/admins/auth', {
     method: 'POST',
     headers: {
@@ -31,15 +33,15 @@ export async function login(email: string, password: string){
     const token = await res.json()
 
     context.token = token
-
+    tokenApp = token;
     return
   }
-  else{
+  else {
     const message = await res.json()
     alert(message);
   }
 
-  
+
 
 }
 
@@ -112,9 +114,13 @@ export async function fetchEvent(id: string) {
 }
 
 export async function fetchMessages() {
-  const res = await fetch('http://localhost:4321/messages', { cache: 'no-store', headers: {
-    Authorization: `Bearer ${context.token}`
-  }})
+  const res = await fetch('http://localhost:4321/messages', {
+    cache: 'no-store',
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${context.token}`
+    }
+  })
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')
@@ -125,9 +131,13 @@ export async function fetchMessages() {
 
 
 export async function fetchMessage(id: string) {
-  const res = await fetch(`${process.env.API_BASE_URL}messages/${id}`, { cache: 'no-store', headers: {
-    Authorization: `Bearer ${context.token}`
-  } })
+  const res = await fetch('http://localhost:4321/messages/' + id, {
+    cache: 'no-store',
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${context.token}`
+    }
+  })
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')
@@ -154,7 +164,7 @@ export async function postMessage(name: string, title: string, email: string, me
   if (res.status === 201) {
     alert('Message sent')
   }
-  else{
+  else {
     alert('Something went wrong. Please, try again');
   }
 }
@@ -178,13 +188,13 @@ export async function postUpdate(title: string, image: string, text: string) {
   if (res.status === 201) {
     alert('Update sent')
   }
-  else{
+  else {
     alert('Something went wrong. Please, try again');
   }
 }
 
 export async function patchUpdate(id: string, title: string, image: string, text: string) {
-  const url='http://localhost:4321/updates'+id
+  const url = 'http://localhost:4321/updates' + id
   const res = await fetch(url, {
     method: 'PATCH',
     headers: {
@@ -203,13 +213,13 @@ export async function patchUpdate(id: string, title: string, image: string, text
   if (res.status === 201) {
     alert('Update updated')
   }
-  else{
+  else {
     alert('Something went wrong. Please, try again');
   }
 }
 
 export async function deleteUpdate(id: string) {
-  const url='http://localhost:4321/updates/'+id
+  const url = 'http://localhost:4321/updates/' + id
   const res = await fetch(url, {
     method: 'DELETE',
     headers: {
@@ -221,7 +231,7 @@ export async function deleteUpdate(id: string) {
   if (res.status === 202) {
     alert('Update deleted')
   }
-  else{
+  else {
     alert('Something went wrong. Please, try again');
   }
 }
