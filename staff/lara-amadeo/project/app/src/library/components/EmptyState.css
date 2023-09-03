@@ -5,10 +5,11 @@
 }
 
 .empty-state-img-container {
-    width: 350px;
+    width: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .empty-state-container {
@@ -16,4 +17,5 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 80%;
 }

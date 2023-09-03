@@ -74,7 +74,7 @@ export default function Tabbar({ home, search, add, cart, profile }: Props): JSX
             </div>
 
             <div className='tabbar-item' onClick={onSearch}>
-                {search ? <SolidMagnifyingGlassCircleIcon className='icon-s grey-700' /> : <MagnifyingGlassIcon className='icon-s grey-700' />}
+                {search ? <MagnifyingGlassIcon className='icon-s grey-700 filled-icon' /> : <MagnifyingGlassIcon className='icon-s grey-700' />}
             </div>
 
             <div className='tabbar-item' onClick={onAddMeal}>

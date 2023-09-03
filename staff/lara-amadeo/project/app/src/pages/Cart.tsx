@@ -340,9 +340,8 @@ export default function Cart() {
 
                         {/* CART - EMPTY STATE */}
                         {meals && meals.length === 0 && <>
-                            <div className='cart-empty-state-container'>
-                                <EmptyState src='/illustrations/beach-girl.gif' title='No meals added yet!' description='Add some meals to your cart to start enjoying Yuper!' marginBottom='-32px' />
-                            </div>
+                            <div className="empty-state-cart"><EmptyState src="/illustrations/EmptyState.png" title="No meals added yet!" description="Add some meals to your cart to start enjoying Yuper!" width="240px" /> </div>
+
                         </>}
 
 
@@ -389,9 +388,7 @@ export default function Cart() {
                                 </div>
                             </>}
                         {pendingMeals?.length === 0 && <>
-                            <div className='cart-empty-state-container'>
-                                <EmptyState src='/illustrations/beach-girl.gif' title='No orders in process!' description='Start paying some meals!!!' width='80%' />
-                            </div>
+                            <div className="empty-state-profile"><EmptyState src="/illustrations/EmptyState.png" title="No meals found" description="Try adjusting the search criteria" width="240px" /> </div>
                         </>}
                     </>}
             </div>

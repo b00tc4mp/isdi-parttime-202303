@@ -47,8 +47,6 @@ export default function CreateMeal(): JSX.Element {
 
 
     const handleAddMeal = () => {
-
-
         if (formRef !== null) {
             const form = formRef.current as typeof formRef.current & {
                 title: { value: string },
@@ -90,11 +88,14 @@ export default function CreateMeal(): JSX.Element {
                 loaderOn()
                 try {
                     const images = mealImages
-                    await createMeal({ images, title, description, ingredients, categories, bestBefore, quantity, price })
+                    const id = await createMeal({ images, title, description, ingredients, categories, bestBefore, quantity, price })
 
                     setTimeout(() => {
                         loaderOff()
-                        navigate('/')
+
+                        const currentPath = window.location.pathname
+                        navigate(`/meal/${id}`, { state: currentPath })
+
                         toast('Meal created!', 'success')
                     }, 500)
                 } catch (error: any) {

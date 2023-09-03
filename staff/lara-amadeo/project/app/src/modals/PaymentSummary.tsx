@@ -16,7 +16,7 @@ export default function PaymentSummary({ onClose }: Props) {
                 <p className='body-text grey-700' style={{ marginBottom: '16px', marginTop: '16px' }}>Your order has been successfully completed. Please wait until the meal is ready to pick-up.</p>
 
                 <p className='body-text grey-700' style={{ marginBottom: '40px' }}>Usually within 3 days, orders are ready.</p>
-                <img className='illustration-gif' src='/illustrations/shopping.gif'></img>
+                <img className='illustration-gif' src='/illustrations/Done.png'></img>
             </div>
         </ModalFullScreen>
         <ButtonBar secondButton={{ label: 'Close', onClick: onClose }} />

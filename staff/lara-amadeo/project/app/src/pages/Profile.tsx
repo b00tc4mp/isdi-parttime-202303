@@ -209,7 +209,7 @@ export default function Profile(): JSX.Element {
                         }} onclick={() => onMealCard(meal.id)} />
                     })}
 
-                    {meals && meals.length === 0 && <div className="empty-state-profile"><EmptyState src="/illustrations/searching.gif" title="No meals created yet!" description="Add meals to start experiencing Yuper!" width="240px" /> </div>}
+                    {meals && meals.length === 0 && <div className="empty-state-profile"><EmptyState src="/illustrations/sadCloud.png" title="No meals created yet!" description="Add meals to start experiencing Yuper!" width="240px" marginBottom="-32px" /> </div>}
 
                     {/* PENDING TO PACK */}
                     {tabView === 'toPack' && pendingToPack && pendingToPack.map((item: Order) => {

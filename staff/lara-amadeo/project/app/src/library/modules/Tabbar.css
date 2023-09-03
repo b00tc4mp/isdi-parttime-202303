@@ -49,3 +49,7 @@
     top: -2px;
     right: -4px;
 }
+
+.filled-icon {
+    stroke-width: 2.5;
+}

@@ -32,8 +32,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 
 .pending-cart-instructions {
     margin-top: 40px;
+}
+
+.empty-state-cart {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }

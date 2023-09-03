@@ -31,7 +31,11 @@ export default function createMeal({ images, title, description, ingredients, ca
             body: JSON.stringify(meal)
         })
 
-        if (res.status === 201) return
+        if (res.status === 201) {
+            const id = await res.json()
+
+            return id
+        }
 
         //@ts-ignore
         const { message, type } = await res.json()

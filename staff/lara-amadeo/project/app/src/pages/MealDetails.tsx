@@ -98,7 +98,7 @@ export default function MealDetails(): JSX.Element {
     }, [editModal])
 
     const onBackClick = () => {
-        if (from.includes("login")) navigate('/')
+        if (from.includes("login") || from.includes("addMeal")) navigate('/')
         else navigate(from)
     }
 

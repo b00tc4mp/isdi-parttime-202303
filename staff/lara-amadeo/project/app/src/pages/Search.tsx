@@ -84,7 +84,7 @@ export default function Search() {
 
             {/* SEARCH RESULTS */}
             <div className="meals-list">
-                {result?.length === 0 && result !== null && <div className="empty-state-profile"><EmptyState src="/illustrations/searching.gif" title="No meals found" description="Try adjusting the search criteria" width="240px" /> </div>}
+                {result?.length === 0 && result !== null && <div className="empty-state-cart"><EmptyState src="/illustrations/NoResults.png" title="No meals found" description="Try adjusting the search criteria" width="240px" /> </div>}
                 {result && result.map((meal: Meal) => {
                     return <MealCard key={meal._id} meal={{
                         image: meal.images[0],
@@ -94,7 +94,7 @@ export default function Search() {
                         price: meal.price
                     }} onclick={() => onMealCard(meal._id)} />
                 })}
-                {/* {!result && <Skeleton count={3} containerClassName="flex-1" height={'110px'} className="meals-profile-skeleton" baseColor="#f4f4f4" highlightColor="#eeeeee" />} */}
+
 
             </div>
         </div>
