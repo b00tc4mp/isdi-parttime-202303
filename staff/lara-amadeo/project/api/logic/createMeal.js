@@ -24,7 +24,7 @@ module.exports = function createMeal(userId, images, title, description, ingredi
 
         if (!user) throw new ExistanceError(`User with id ${userId} not found`)
 
-        await Meal.create({
+        const meal = await Meal.create({
             author: userId,
             images,
             title,
@@ -35,5 +35,7 @@ module.exports = function createMeal(userId, images, title, description, ingredi
             bestBefore,
             price
         })
+
+        return meal._id
     })()
 }
