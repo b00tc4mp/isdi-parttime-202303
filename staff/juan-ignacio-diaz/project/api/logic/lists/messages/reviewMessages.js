@@ -52,8 +52,6 @@ module.exports = (listId, userId) => {
                     return 0
                 })
 
-            //?? await List.findByIdAndUpdate(listId, {messages: {$pull: {view: [userId]}} })
-
             const listView = await List.findById(listId, 'messages')
             const messagesView = listView.messages
             messagesView.forEach(message => {  

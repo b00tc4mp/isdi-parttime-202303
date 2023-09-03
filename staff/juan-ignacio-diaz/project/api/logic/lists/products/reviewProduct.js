@@ -30,10 +30,21 @@ module.exports = (listId, userId, productId) => {
 
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
        
-        const tmpList = await List.findById(listId, 'products._id products.name products.date products.author products.howMany products.state products.type products.stores products.comment')
+        const tmpList = await List.findById(listId, 'stores products._id products.name products.date products.author products.howMany products.state products.type products.stores products.comment')
+            .populate('stores', 'name')
             .populate('products.author', 'name avatar')
             .populate('products.likes', 'name avatar').lean()
-    
+
+        const stores = tmpList.stores
+        if (stores.length>0) {
+            stores.forEach(store => {
+                if (store._id) {
+                    store.id = store._id.toString()
+                    delete store._id
+                }
+            })
+        } 
+
         const product = tmpList.products.find(product => product._id.toString() === productId)
 
         if (!product) throw new ExistenceError('product not found')  
@@ -51,6 +62,15 @@ module.exports = (listId, userId, productId) => {
                     delete like._id
                 }
             })
+        } 
+
+        if (product.stores.length>0) {
+            const populateStores = []
+            product.stores.forEach(store => {
+                populateStores.push(stores.find(tmpStore => tmpStore.id === store.toString()))
+            })
+            delete product.stores
+            product.stores = populateStores
         } 
 
         if (product.view) {

@@ -103,7 +103,7 @@ const product = new Schema({
     },
     type: {
         type: String,
-        enum: ['drogeria', 'carniceria', 'pescaderia', 'congelados', 'panaderia', 'pasteleria']
+        enum: ['Fresh Products', 'The Pantry', 'Frozen', 'Drinks', 'Cleaning and Home', 'Perfumery and Hygiene', 'Bread and Cakes', 'Others']
     },
     comment: {
         type: String

@@ -32,7 +32,7 @@ module.exports = (listId, userId, filter, order) => {
 
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
        
-        const tmpList = await List.find(filter, 'products._id products.name products.date products.howMany products.state products.type products.stores products.comment products.view')
+        const tmpList = await List.find(filter, 'products._id products.name products.date products.howMany products.state products.type products.stores products.comment products.view, products.buyer')
             .populate('products.likes', 'name avatar').lean()
 
             
@@ -51,13 +51,20 @@ module.exports = (listId, userId, filter, order) => {
                     })
                 } 
 
+                if(product.buyer && product.buyer.toString() === userId) {
+                    delete product.buyer
+                    product.buyer = true
+                }
+                else {
+                    product.buyer = false
+                }
+                
+
                 if (product.view) {
                     product.untried = product.view.some(user => user._id.toString() === userId)
                     delete product.view
                 }
             })
-
-            //await List.updateMany(filter, { products: {$pullAll: {view: [userId]} } })
 
             if(order !== '') {
                 const orderField = order
@@ -68,6 +75,14 @@ module.exports = (listId, userId, filter, order) => {
                     return 0
                 })
             }
+   
+            const listView = await List.findById(listId, 'products')
+            const productsView = listView.products
+            productsView.forEach(product => {  
+                product.view = product.view.filter(tmpUser => tmpUser._id.toString() !== userId)
+            })
+            listView.save()
+
         }
         return products
     })()
