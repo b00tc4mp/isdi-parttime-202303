@@ -16,8 +16,10 @@ import Login from './Login';
 import HomeButtons from './HomeButtons';
 import NewUpdateForm from './NewUpdateForm';
 import EditUpdateForm from './EditUpdateForm';
+import Messages from './Messages';
+import Message from './Message';
 export {
    CustomButton, NavBar, Footer, Banner, Welcome, BannerAndWelcome, UpdatesHome, Update,
    Song, Songs, Event, Events, CalendarDay, ContactForm, Login, HomeButtons, 
-   NewUpdateForm, EditUpdateForm
+   NewUpdateForm, EditUpdateForm, Messages, Message
 };

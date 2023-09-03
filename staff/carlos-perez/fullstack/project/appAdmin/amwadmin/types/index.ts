@@ -49,3 +49,13 @@ export interface CustomButtonProps {
    month: string;
    dayNumber: number;
   }
+
+  export interface MessageProps{
+    _id: string;
+    author: string,
+	  email: string,
+	  title: string,
+	  text: string,
+    date: Date,
+	  status: boolean
+  }

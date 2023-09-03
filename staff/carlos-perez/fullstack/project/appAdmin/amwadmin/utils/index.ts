@@ -111,6 +111,31 @@ export async function fetchEvent(id: string) {
   return res.json()
 }
 
+export async function fetchMessages() {
+  const res = await fetch('http://localhost:4321/messages', { cache: 'no-store', headers: {
+    Authorization: `Bearer ${context.token}`
+  }})
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+
+  return res.json()
+}
+
+
+export async function fetchMessage(id: string) {
+  const res = await fetch(`${process.env.API_BASE_URL}messages/${id}`, { cache: 'no-store', headers: {
+    Authorization: `Bearer ${context.token}`
+  } })
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+
+  return res.json()
+}
+
 export async function postMessage(name: string, title: string, email: string, message: string) {
   const res = await fetch('http://localhost:4321/messages', {
     method: 'POST',
