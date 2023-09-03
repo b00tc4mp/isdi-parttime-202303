@@ -3,6 +3,7 @@
 import { UpdateProps } from "@/types";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'
+import { deleteUpdate } from "@/utils";
 
 
 interface UpdatesHomeProps {
@@ -15,6 +16,11 @@ const Update = ({ update }: UpdatesHomeProps) => {
     const { _id, title, image, text, date } = update;
     const dateToDate= new Date(date);
     const dateFormatted = dateToDate.toLocaleString('es-ES');
+
+    async function handleDelete(){
+        await deleteUpdate(_id);
+        router.push('/updates');
+    }
 
     return (
         <div className="max-w-[1440px] w-full flex flex-col">
@@ -33,9 +39,15 @@ const Update = ({ update }: UpdatesHomeProps) => {
                     <div className="w-full p-6 justify-center flex flex-col gap-4">
                         <p className="text-justify">{text}</p>
                         <p>{dateFormatted}</p>
+                        <div>
                         <button className='bg-slate-700 hover:bg-blue-100 duration-300 text-white hover:text-black shadow p-2 rounded-md sm:w-52' onClick={() => router.push('/updates/edit/'+_id)}>
                             Edit
                         </button>
+                        <button className='bg-slate-700 hover:bg-blue-100 duration-300 text-white hover:text-black shadow p-2 rounded-md sm:w-52' onClick={handleDelete}>
+                            Delete
+                        </button>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

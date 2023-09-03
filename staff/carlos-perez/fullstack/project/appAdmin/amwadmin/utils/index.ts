@@ -182,3 +182,21 @@ export async function patchUpdate(id: string, title: string, image: string, text
     alert('Something went wrong. Please, try again');
   }
 }
+
+export async function deleteUpdate(id: string) {
+  const url='http://localhost:4321/updates/'+id
+  const res = await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${context.token}`
+    }
+  })
+
+  if (res.status === 202) {
+    alert('Update deleted')
+  }
+  else{
+    alert('Something went wrong. Please, try again');
+  }
+}
