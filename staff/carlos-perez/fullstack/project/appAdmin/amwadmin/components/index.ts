@@ -15,7 +15,9 @@ import ContactForm from './ContactForm';
 import Login from './Login';
 import HomeButtons from './HomeButtons';
 import NewUpdateForm from './NewUpdateForm';
+import EditUpdateForm from './EditUpdateForm';
 export {
    CustomButton, NavBar, Footer, Banner, Welcome, BannerAndWelcome, UpdatesHome, Update,
-   Song, Songs, Event, Events, CalendarDay, ContactForm, Login, HomeButtons, NewUpdateForm
+   Song, Songs, Event, Events, CalendarDay, ContactForm, Login, HomeButtons, 
+   NewUpdateForm, EditUpdateForm
 };

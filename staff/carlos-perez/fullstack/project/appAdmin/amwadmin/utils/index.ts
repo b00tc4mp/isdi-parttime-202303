@@ -157,3 +157,28 @@ export async function postUpdate(title: string, image: string, text: string) {
     alert('Something went wrong. Please, try again');
   }
 }
+
+export async function patchUpdate(id: string, title: string, image: string, text: string) {
+  const url='http://localhost:4321/updates'+id
+  const res = await fetch(url, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${context.token}`
+    },
+    body: JSON.stringify({
+      title: title,
+      image: image + '/media/?size=l',
+      text: text,
+      rsstext: text,
+      visibility: true
+    })
+  })
+
+  if (res.status === 201) {
+    alert('Update updated')
+  }
+  else{
+    alert('Something went wrong. Please, try again');
+  }
+}

@@ -2,6 +2,7 @@
 
 import { UpdateProps } from "@/types";
 import Image from 'next/image';
+import { useRouter } from 'next/navigation'
 
 
 interface UpdatesHomeProps {
@@ -9,7 +10,9 @@ interface UpdatesHomeProps {
 }
 const Update = ({ update }: UpdatesHomeProps) => {
 
-    const { title, image, text, date } = update;
+    const router = useRouter();
+
+    const { _id, title, image, text, date } = update;
     const dateToDate= new Date(date);
     const dateFormatted = dateToDate.toLocaleString('es-ES');
 
@@ -30,6 +33,9 @@ const Update = ({ update }: UpdatesHomeProps) => {
                     <div className="w-full p-6 justify-center flex flex-col gap-4">
                         <p className="text-justify">{text}</p>
                         <p>{dateFormatted}</p>
+                        <button className='bg-slate-700 hover:bg-blue-100 duration-300 text-white hover:text-black shadow p-2 rounded-md sm:w-52' onClick={() => router.push('/updates/edit/'+_id)}>
+                            Edit
+                        </button>
                     </div>
                 </div>
             </div>
