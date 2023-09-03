@@ -8,9 +8,6 @@ export default function EmployeeFoundeModal({ employee: { _id, name, firstSurnam
 
     const [modal, setModal] = useState(null)
 
-
-
-
     const handleEmployeeModal = () => {
         setModal('employeeModal')
     }

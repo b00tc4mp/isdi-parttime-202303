@@ -39,7 +39,7 @@ export default function PayrollMonth({ payrollMonthRetrieved, onClosePayrollMont
 
     const { name, firstSurname, secondSurname, idCardNumber, employeeNumber, jobPosition, department, centerAttached, tssNumber, salaryLevel, bankAccountNumber } = employee || {}
 
-    const { payrollYear, payrollMonth, monthName, monthSalary, bonus, irpfTax, ssTax, irpfDeductions, ssDeductions, totalAmountIncomes, totalAmountDeductions, netSalary } = payrollMonthRetrieved || {}
+    const { payrollYear, monthName, monthSalary, bonus, irpfTax, ssTax, irpfDeductions, ssDeductions, totalAmountIncomes, totalAmountDeductions, netSalary } = payrollMonthRetrieved || {}
 
 
     return <article className="bg-slate-200">

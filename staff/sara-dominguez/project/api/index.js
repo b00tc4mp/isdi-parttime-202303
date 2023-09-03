@@ -14,7 +14,6 @@ const { helloApiHandler,
     updateEmployeeAddressHandler,
     updateEmployeeBankAccountNumberHandler,
     retrievePayrollMonthHandler,
-    retrieveEmployeePayrollsMonthYearHandler,
     retrievePayrollAnnualAggregateHandler,
     retrieveEmployeesBySalaryLevelHandler,
     retrievePayrollsMonthToBePaidHandler,
@@ -24,11 +23,10 @@ const { helloApiHandler,
     searchEmployeesHandler,
     getTreeChartHandler,
     resetPasswordHandler,
+    deletePayrollMonthHandler
 } = require('./handlers')
 
-
 const mongoose = require('mongoose')
-
 
 mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
@@ -61,6 +59,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/employees/updateBankAccountNumber', jsonBodyParser, updateEmployeeBankAccountNumberHandler)
         api.patch('/payrollMonths/updatePayrollStatusToPaid', jsonBodyParser, updatePayrollStatusToPaidHandler)
         api.patch('/employees/resetPassword', jsonBodyParser, resetPasswordHandler)
+
+        api.delete('/payrollMonths/deletePayrollMonth/:payrollMonthId', jsonBodyParser, deletePayrollMonthHandler)
 
         api.listen(process.env.PORT, () => console.log(`server running in port ${process.env.PORT}`))
     })

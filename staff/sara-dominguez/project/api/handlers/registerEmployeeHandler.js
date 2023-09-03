@@ -1,23 +1,20 @@
 const { registerEmployee } = require('../logic')
 const { handleErrors } = require('./helpers')
+const { extractEmployeeId } = require('./helpers')
 
 module.exports = handleErrors((req, res) => {
+    const employeeLoggedId = extractEmployeeId(req)
 
     const {
         name,
         firstSurname,
         secondSurname,
-        // birthDate,
         idCardNumber,
         tssNumber,
         address,
         personalPhoneNumber,
         bankAccountNumber,
         avatar,
-        employeeNumber,
-        // startOfEmploymentData,
-        // endOfEmploymentData,
-        // lengthOfEmployment,
         typeOfContract,
         jobPosition,
         department,
@@ -28,24 +25,19 @@ module.exports = handleErrors((req, res) => {
         professionalPhoneNumber,
         professionalEmail,
         accessPermissions,
-        // employeePassword
     } = req.body
 
     const promise = registerEmployee(
+        employeeLoggedId,
         name,
         firstSurname,
         secondSurname,
-        // birthDate,
         idCardNumber,
         tssNumber,
         address,
         personalPhoneNumber,
         bankAccountNumber,
         avatar,
-        employeeNumber,
-        // startOfEmploymentData,
-        // endOfEmploymentData,
-        // lengthOfEmployment,
         typeOfContract,
         jobPosition,
         department,
@@ -56,7 +48,6 @@ module.exports = handleErrors((req, res) => {
         professionalPhoneNumber,
         professionalEmail,
         accessPermissions,
-        // employeePassword
     )
     return (async () => {
         await promise

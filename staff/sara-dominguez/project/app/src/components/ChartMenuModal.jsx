@@ -13,7 +13,6 @@ export default function ChartMenuModal({ employee, onCloseEmployeeChartMenuModal
     const [view, setView] = useState(null)
     const { alert } = useAppContext()
 
-
     const handleGetTreeChart = async (event) => {
         event.preventDefault()
         setView('companyChart')
@@ -36,12 +35,6 @@ export default function ChartMenuModal({ employee, onCloseEmployeeChartMenuModal
 
         onCloseEmployeeChartMenuModal()
     }
-    // const handleCloseEmpoyeeChartFoundedModal = () => {
-    //     setView(null)
-    //     setbElevenzChart(null)
-    //     setModal(null)
-    // }
-
 
 
     return <Container tag="section" className="black w-[95%]">

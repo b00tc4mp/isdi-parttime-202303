@@ -6,7 +6,7 @@ const {
 } = require('com')
 
 /**
-* Retrieve a employee against his/her salaryLevel
+* Retrieve a employee against salaryLevel
 * 
 * @param {string} employeeId  The employee id
 * @param {number} salaryLevel  The employee salary level
@@ -28,14 +28,27 @@ module.exports = function retrieveEmployeesBySalaryLevel(employeeId, salaryLevel
 
         if (!employee) throw new ExistenceError('employee not found')
 
-        const employeeListRetrieved = await Employee.find({ salaryLevel: salaryLevel }, '_id avatar name firstSurname secondSurname salaryLevel').lean()
+        if (salaryLevel !== 6) {
+            const employeeListRetrieved = await Employee.find({ salaryLevel: salaryLevel }, '_id avatar name firstSurname secondSurname salaryLevel').lean()
 
-        for (i = 0; i < employeeListRetrieved.length; i++)
-            delete employeeListRetrieved[i].__v
+            for (i = 0; i < employeeListRetrieved.length; i++)
+                delete employeeListRetrieved[i].__v
 
-        if (!employeeListRetrieved || employeeListRetrieved.length === 0) throw new ExistenceError(`Not found any employee with  salary Level ${salaryLevel} `)
+            if (!employeeListRetrieved || employeeListRetrieved.length === 0) throw new ExistenceError(`Not found any employee with  salary Level ${salaryLevel} `)
 
-        return employeeListRetrieved
+            return employeeListRetrieved
+        }
+        if (salaryLevel === 6) {
+            const employeeListRetrieved = await Employee.find({ accessPermissions: "Authorized" }, '_id avatar name firstSurname secondSurname salaryLevel').lean()
+
+            for (i = 0; i < employeeListRetrieved.length; i++)
+                delete employeeListRetrieved[i].__v
+
+            if (!employeeListRetrieved || employeeListRetrieved.length === 0) throw new ExistenceError(`Not found any employee with  salary Level ${salaryLevel} `)
+
+            return employeeListRetrieved
+        }
+
     })()
 }
 

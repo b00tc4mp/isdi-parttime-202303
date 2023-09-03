@@ -20,11 +20,11 @@ export default function searchEmployeesModal({ employee, onCloseSearchEmployeesM
 
         const searchPattern = event.target.employeesToSearch.value
 
-        if (!searchPattern) {
-            throw alert('No search criteria found')
-        }
-
         try {
+            if (!searchPattern) {
+                throw alert('No search criteria found')
+            }
+
             const employees = await searchEmployees(searchPattern)
             setEmployees(employees)
         } catch (error) {
@@ -42,7 +42,6 @@ export default function searchEmployeesModal({ employee, onCloseSearchEmployeesM
         setModal(null)
     }
 
-
     return <section className="w-full mr-28 bg-slate-200 rounded-[7px] ">
         <form className="selectToProcessPayrollsPayment  bg-slate-200 mb- flex flex-wrap sticky top-0 z-10 items-center" onSubmit={handleSearchEmployees} >
             <Input className="placeholder:text-xs" type="text" name="employeesToSearch" placeholder="Search" />
@@ -56,15 +55,10 @@ export default function searchEmployeesModal({ employee, onCloseSearchEmployeesM
                 key={employee._id}
                 employee={employee}
             />)}
-            {employees ? (
-                // <>
+            {employees && (
                 <div className="h-[10%] pt-2 sticky bottom-0 bg-slate-200 z-10 flex justify-end">
                     <Button className="w-[20%] mr-[4%] bg-slate-500 flex justify-end text-xs mb-1 mt-2" onClick={handleCloseEmployeeEmpoyeeFoundedModal}>Close</Button>
                 </div>
-
-                // </>
-            ) : (
-                <h4></h4>
             )}
         </div>
     </section >

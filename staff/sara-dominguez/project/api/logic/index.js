@@ -14,11 +14,11 @@ module.exports = {
     searchEmployees: require('./searchEmployees'),
     retrievePayrollMonth: require('./retrievePayrollMonth'),
     retrieveEmployeesBySalaryLevel: require('./retrieveEmployeesBySalaryLevel'),
-    // retrieveEmployeePayrollsMonthYear: require('./retrieveEmployeePayrollsMonthYear'),
     retrievePayrollAnnualAggregate: require('./retrievePayrollAnnualAggregate'),
     retrievePayrollsMonthToBePaid: require('./retrievePayrollsMonthToBePaid'),
     updatePayrollStatusToPaid: require('./updatePayrollStatusToPaid'),
     getTreeChart: require('./getTreeChart'),
     resetPassword: require('./resetPassword'),
+    deletePayrollMonth: require('./deletePayrollMonth'),
 
 }

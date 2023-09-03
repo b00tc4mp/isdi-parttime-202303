@@ -3,13 +3,27 @@ import { useState } from 'react'
 import Header from './Header.jsx'
 import { Input, InputForm, Container, Button, FormButton } from '../library'
 import registerEmployee from '../logic/registerEmployee'
+import searchEmployees from '../logic/searchEmployees'
 
 export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, onEmployeeDatabaseMenuModalLogout, onCloseRegisterEmployeeModal }) {
     console.log('EmployeeDatabaseMenu --> open')
 
     const { alert } = useAppContext()
     const [modal, setModal] = useState(null)
+    const [superiorHierarchicalManagerSelected, setSuperiorHierarchicalManagerSelected] = useState(null)
 
+    const handleSearchSuperiorHierarchicalManager = (event) => {
+        event.preventDefault()
+
+        const superiorHierarchicalEmployeeNumber = event.target.superiorHierarchicalEmployeeNumber.value
+        searchEmployees(superiorHierarchicalEmployeeNumber)
+
+            .then((employee) => {
+                const employeeId = employee[0]._id
+                setSuperiorHierarchicalManagerSelected(employeeId)
+            })
+
+    }
 
     const handleRegisterEmployee = (event) => {
         event.preventDefault()
@@ -18,7 +32,6 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
         const name = event.target.name.value
         const firstSurname = event.target.firstSurname.value
         const secondSurname = event.target.secondSurname.value
-        // const birthDate = event.target.birthDate.value
         const idCardNumber = event.target.idCardNumber.value
         const tssNumber = (event.target.tssNumber.value).replace(/\s+/g, '')
         const address = event.target.address.value
@@ -27,18 +40,13 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
         const avatar = event.target.avatar.value
 
         //  PROFESIONAL DATA
-        const employeeNumber = event.target.employeeNumber.value
-
-
-        // const startOfEmploymentData = event.target.startOfEmploymentData.value
-        // const endOfEmploymentData = event.target.endOfEmploymentData.value
-        // const lengthOfEmployment = event.target.lengthOfEmployment.value
+        // const employeeNumber = event.target.employeeNumber.value
         const typeOfContract = event.target.typeOfContract.value
         const jobPosition = event.target.jobPosition.value
         const department = event.target.department.value
         const salaryLevel = Number(event.target.salaryLevel.value)
         const centerAttached = event.target.centerAttached.value
-        const superiorHierarchicalManager = event.target.superiorHierarchicalManager.value
+        const superiorHierarchicalManager = superiorHierarchicalManagerSelected
 
         //  PERMISSIONS AREA
         const roll = event.target.roll.value
@@ -51,17 +59,13 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
             registerEmployee(name,
                 firstSurname,
                 secondSurname,
-                // birthDate,
                 idCardNumber,
                 tssNumber,
                 address,
                 personalPhoneNumber,
                 bankAccountNumber,
                 avatar,
-                employeeNumber,
-                // startOfEmploymentData,
-                // endOfEmploymentData,
-                // lengthOfEmployment,
+                // employeeNumber,
                 typeOfContract,
                 jobPosition,
                 department,
@@ -87,8 +91,14 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
         onCloseRegisterEmployeeModal()
     }
 
+
     return <section className="registerEmployee">
-        <div className="h-full flex  pl-4 pr-12 mt-1 space-y-4 w-full">
+        <main className="h-full flex flex-col  pl-4 pr-12 mt-1 space-y-4 w-full">
+            <form className="bg-slate-200 text-xs flex" onSubmit={handleSearchSuperiorHierarchicalManager}>
+                <Input className="text-center w-[40%]" name="superiorHierarchicalEmployeeNumber" type="text" placeholder=" superior hierarchical employee number"></Input>
+                <FormButton className="w-1/6 ml-2">search</FormButton>
+            </form>
+
             <form className="" onSubmit={handleRegisterEmployee}>
                 <h5>Personal data </h5>
                 <div className="flex flex-wrap">
@@ -101,7 +111,6 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
                     <div className="w-2/6">
                         <label>Second surname: <Input className="placeholder:text-xs" type="text" name="secondSurname" placeholder="Second Surname" /></label>
                     </div>
-                    {/* <label>Birthdate: <input className="input w-1/4" type="date" name="birthDate" /></label> */}
                     <div className="w-2/6">
                         <label>Id Card number:<Input className="placeholder:text-xs" type="text" name="idCardNumber" placeholder="NNNNNNNNL" /></label>
                     </div>
@@ -124,12 +133,6 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
                 <h5 className="mt-7">Professional data</h5>
                 <div className="flex flex-wrap">
                     <div className="w-2/6">
-                        <label>Employee number:<Input className="placeholder:text-xs" type="string" name="employeeNumber" placeholder="NNNNN" /></label>
-                    </div>
-                    {/* <label>Start of employment data:<input className="input" type="date" name="startOfEmploymentData" /></label>
-                        <label>End of employment data:<input className="input" type="date" name="endOfEmploymentData" /></label>
-                    <label>Length of employment:<input className="input" type="number" name="lengthOfEmployment" /></label> */}
-                    <div className="w-2/6">
                         <label>Type of contract:<Input className="placeholder:text-xs" type="text" name="typeOfContract" placeholder="Temporal / Permanent" /></label>
                     </div>
                     <div className="w-2/6">
@@ -138,19 +141,15 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
                     <div className="w-2/6 ">
                         <label>Center attached:<Input className="placeholder:text-xs" type="text" name="centerAttached" placeholder="Barcelona / Madrid / Malaga" /></label>
                     </div>
-
-                    <div className="w-3/6 ">
-                        <label>superiorHierarchicalManager:<Input className="placeholder:text-xs" type="text" name="superiorHierarchicalManager" placeholder="id" /></label>
+                    <div className="w-4/6 flex items-end">
+                        <label>superiorHierarchicalManager:<Input className="w-full placeholder:text-xs" type="text" name="superiorHierarchicalManager" placeholder="id" defaultValue={superiorHierarchicalManagerSelected} /></label>
                     </div>
-
                     <div className="w-7/12">
                         <label>Department:<Input className="w-full placeholder:text-xs" type="text" name="department" placeholder="C-Suite / Development / Design / Financial / Human Resources" /></label>
                     </div>
                     <div className="w-7/12">
                         <label>Job position:<Input className="w-full placeholder:text-xs" type="text" name="jobPosition" placeholder="CEO / CFO / CTO / Executive / Manager / Developer / Financial Controller / Assistant" /></label>
                     </div>
-
-
                     <h5 className="w-3/6 mt-7">Permissions area</h5>
                     <div className="flex flex-wrap mt-2 pb-3">
                         <div className="w-2/6 ">
@@ -172,6 +171,7 @@ export default function RegisterEmployeeModal({ employee, onEmployeeRegistered, 
                     </div>
                 </div>
             </form>
-        </div>
+        </main>
     </section >
+
 }

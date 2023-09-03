@@ -18,7 +18,7 @@ const {
         validateCenterAttached,
         validateRoll,
         validateProfessionalPhoneNumber,
-        // validateProfessionalEmail,
+        validateEmail,
         validateAccessPermissions,
 
     },
@@ -84,7 +84,6 @@ module.exports = function updateEmployee(
     name,
     firstSurname,
     secondSurname,
-    // birthDate,
     idCardNumber,
     tssNumber,
     address,
@@ -93,10 +92,6 @@ module.exports = function updateEmployee(
     avatar,
 
     // professionalData:
-
-    // startOfEmploymentData,
-    // endOfEmploymentData,
-    // lengthOfEmployment,
     typeOfContract,
     jobPosition,
     department,
@@ -129,7 +124,7 @@ module.exports = function updateEmployee(
     validateCenterAttached(centerAttached)
     validateRoll(roll)
     validateProfessionalPhoneNumber(professionalPhoneNumber)
-    // validateProfessionalEmail(professionalEmail)
+    validateEmail(professionalEmail)
     validateAccessPermissions(accessPermissions)
 
 

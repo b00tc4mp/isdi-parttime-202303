@@ -3,17 +3,15 @@ import context from './context'
 const { validateEmployeeNumber } = validators
 
 /**
-* Update employee password
+* Reset employee password
 * 
-* @param {string} employeePassword  Actual employee password
-* @param {string} employeenewPassword  New password for employee
-* @param {string} employeeConfirmNewPassword  The confirmation of new password for employee
+* @param {string} employeeNumber  employee number
 * 
-* @returns {Promise<void>} Ends when employee password is updated
+* @returns {Promise} Ends when employee password is reset
 * 
-* @throws {TypeError} On non-string employeePassword or employeeNewPassword or employeeConfirmNewPassword
-* @throws {ContentError} On employeePassword or employeeNewPassword or employeeConfirmNewPassword doesn't have a digit or an uppercase or a lowercase or an special chararacter (-_+/#&) or are empty
-* @throws {RangeError} On employeePassword or employeeNewPassword or employeeConfirmNewPassword length is lower than 6 character or upper than 12
+* @throws {TypeError} On non-string employeeNumber
+* @throws {ContentError} On employeeNumber is empty or don´t have 5 characters
+*
 */
 
 export default function resetPassword(employeeNumber) {

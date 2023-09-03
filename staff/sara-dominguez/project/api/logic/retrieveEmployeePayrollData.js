@@ -6,7 +6,7 @@ const {
 const { UnknownError } = require('com/errors')
 
 /**
-* Retrieve a employee against his/her id
+* Retrieve a employee against id
 * 
 * @param {string} employeeId  The employee id
 * 

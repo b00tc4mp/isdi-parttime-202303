@@ -1,5 +1,6 @@
 
 import { validators, errors } from 'com'
+import context from './context.js'
 const {
     validateName,
     validateFirstSurname,
@@ -9,13 +10,13 @@ const {
     validateAddress,
     validatePersonalPhoneNumber, validateBankAccountNumber,
     validateUrl,
-    validateEmployeeNumber,
     validateTypeOfContract,
     validateJobPosition,
     validateDepartment,
     validateCenterAttached,
     validateRoll,
-    validateProfessionalPhoneNumber, validateAccessPermissions, validateEmployeePassword
+    validateProfessionalPhoneNumber,
+    validateAccessPermissions,
 } = validators
 
 /**
@@ -31,7 +32,6 @@ const {
 * @param {number} personalPhoneNumber   employee personal phone number
 * @param {string} bankAccountNumber   employee accoun bank number
 * @param {string} avatar   employee's avatar
-* @param {number} employeeNumber   employee company credential: id number
 //  * @param {date} startOfEmploymentData  Data when employee work relationship started
 //  * @param {date} endOfEmploymentData  Data when employee work relationship ends (opciona). Only for temporary contracts )
 //  * @param {string} lengthOfEmployment Employuee employment duration
@@ -71,17 +71,12 @@ const {
 export default (name,
     firstSurname,
     secondSurname,
-    // birthDate,
     idCardNumber,
     tssNumber,
     address,
     personalPhoneNumber,
     bankAccountNumber,
     avatar,
-    employeeNumber,
-    // startOfEmploymentData,
-    // endOfEmploymentData,
-    // lengthOfEmployment,
     typeOfContract,
     jobPosition,
     department,
@@ -103,7 +98,6 @@ export default (name,
     validatePersonalPhoneNumber(personalPhoneNumber)
     validateBankAccountNumber(bankAccountNumber)
     validateUrl(avatar)
-    validateEmployeeNumber(employeeNumber)
     validateTypeOfContract(typeOfContract)
     validateJobPosition(jobPosition)
     validateDepartment(department)
@@ -113,30 +107,24 @@ export default (name,
     validateAccessPermissions(accessPermissions)
 
 
-
-
     return (async () => {
 
         const res = await fetch(`${import.meta.env.VITE_API_URL}/employees`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${context.token}`
             },
             body: JSON.stringify({
                 name,
                 firstSurname,
                 secondSurname,
-                // birthDate,
                 idCardNumber,
                 tssNumber,
                 address,
                 personalPhoneNumber,
                 bankAccountNumber,
                 avatar,
-                employeeNumber,
-                // startOfEmploymentData,
-                // endOfEmploymentData,
-                // lengthOfEmployment,
                 typeOfContract,
                 jobPosition,
                 department,

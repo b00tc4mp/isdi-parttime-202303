@@ -122,12 +122,6 @@ export default function Home() {
                     onEmployeeAddressUpdated={handleCloseModal}
                     onEmployeeBankAccountNumberUpdated={handleCloseModal}
                     onPersonalInformationModalLogout={handleCloseModal}
-                    onClick={
-                        modal === 'UpdatePassword'
-                            ? (event) => event.preventDefault()
-                            : handleGoToPersonalInformatioMenu
-                    }
-
                 />}
                 {modal === 'PayrollMenu' && < PayrollMenuModal
                     employee={employee}
@@ -152,7 +146,6 @@ export default function Home() {
                 />}
             </main>
             <footer>
-                {/* <h5 className=" text-l font-bold leading-9 tracking-tight text-amber-500 drop-shadow-md mt-10 mb-10 ml-4" onClick={handleLogOut}>Logout</h5> */}
             </footer>
         </div>
     </div>

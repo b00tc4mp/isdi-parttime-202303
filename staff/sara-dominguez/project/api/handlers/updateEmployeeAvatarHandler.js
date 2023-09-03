@@ -5,15 +5,6 @@ const { handleErrors } = require('./helpers')
 
 
 module.exports = handleErrors((req, res) => {
-    // const employeeId = extractEmployeeId(req)
-
-    // const { avatar } = req.body
-
-    // return updateEmployeeAvatar(employeeId, avatar)
-    //     .then(() => res.status(204).send())
-
-
-
     const employeeId = extractEmployeeId(req)
 
     const { avatar } = req.body

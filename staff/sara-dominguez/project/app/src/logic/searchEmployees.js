@@ -1,25 +1,25 @@
 import context from './context'
-import { errors } from 'com'
+import { validators, errors } from 'com'
+const { validateSearchPattern } = validators
 
 
 /**
-* Search Employees by name, firstSurname and SecondSurname
+* Search Employees by searchPattern
 * 
 * @param {string} employeeLoggedId - employee logged in
-* @param {string} name  employee name
-* @param {string} firstSurname   employee firstSurname
-* @param {string} secondSurname   employee secondSurname
+* @param {string} searchPattern  A string with the desired search criteria
 *
 * @returns {Promise}  Array of objects with each employee founded
 *
-@throws {TypeError} On non-string employeeLoggedId, name or firstSurname or secondSurname
-* @throws {ContentError} On invalid format name or firstSurname or secondSurname or employeeId doesn't have 24 characters or not hexadecimal
-* @throws {RangeError} On name or firstSurname or secondSurname length lower than 3 characters or upper than 15 characterspassword 
-* @throws {Existence} On employee not found
+@throws {TypeError} On non-string searchPattern
+@throws {ContentError} On empty value of searchPattern
+*
 */
 
 
 export default (searchPattern) => {
+    validateSearchPattern(searchPattern)
+
     return (async () => {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/employees/searchEmployees/${searchPattern}`, {
             headers: {

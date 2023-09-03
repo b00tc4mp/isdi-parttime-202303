@@ -10,7 +10,6 @@ module.exports = handleErrors((req, res,) => {
         name,
         firstSurname,
         secondSurname,
-        // birthDate,
         idCardNumber,
         tssNumber,
         address,
@@ -20,9 +19,6 @@ module.exports = handleErrors((req, res,) => {
 
         // professionalData:
 
-        // startOfEmploymentData,
-        // endOfEmploymentData,
-        // lengthOfEmployment,
         typeOfContract,
         jobPosition,
         department,
@@ -43,7 +39,6 @@ module.exports = handleErrors((req, res,) => {
         name,
         firstSurname,
         secondSurname,
-        // birthDate,
         idCardNumber,
         tssNumber,
         address,
@@ -53,9 +48,6 @@ module.exports = handleErrors((req, res,) => {
 
         // professionalData:
 
-        // startOfEmploymentData,
-        // endOfEmploymentData,
-        // lengthOfEmployment,
         typeOfContract,
         jobPosition,
         department,

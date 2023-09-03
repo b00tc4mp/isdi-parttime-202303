@@ -5,7 +5,7 @@ const {
 } = require('com')
 
 /**
-* Retrieve a employee against his/her id
+* Retrieve a employee against id
 * 
 * @param {string} employeeId  The employee logged id
 * @param {string} id  The id of employee to find

@@ -139,18 +139,6 @@ const employee = new Schema({
         trim: true,
         unique: true
     },
-    //     startOfEmploymentData: {
-    //         type: Date,
-    //         required: true,
-    //     },
-    //     endOfEmploymentData: {
-    //         type: Date,
-    //         default: null,
-    //     },
-    //     lengthOfEmployment: {
-    //         type: Number,
-    //         default: null,
-    //     },
     typeOfContract: {
         type: String,
         required: true,
@@ -221,11 +209,7 @@ const PayrollMonth = model('PayrollMonth', payrollMonth)
 const Employee = model('Employee', employee)
 
 
-// const Notifications = model('Notifications', notifications)
-
-
 module.exports = {
     PayrollMonth,
-    // PayrollMonthCompany,
     Employee,
 }

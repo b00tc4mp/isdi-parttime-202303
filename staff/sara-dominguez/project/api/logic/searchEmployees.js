@@ -1,36 +1,32 @@
 const { getMonthNameFromMonthNumber } = require('./helpers')
 const { Employee, PayrollMonth } = require('../data/models')
 const {
-    validators: { validateId, validateName, validateFirstSurname, validateSecondSurname } = require('com'),
+    validators: { validateId, validateSearchPattern } = require('com'),
     errors: { ExistenceError }
 } = require('com')
 
 /**
-* Search Employees by name, firstSurname and SecondSurname
+* Search Employees by searchPattern
 * 
 * @param {string} employeeLoggedId - employee logged in
-* @param {string} name  employee name
-* @param {string} firstSurname   employee firstSurname
-* @param {string} secondSurname   employee secondSurname
+* @param {string} searchPattern  A string with the desired search criteria
 *
 * @returns {Promise}  Array of objects with each employee founded
 *
-@throws {TypeError} On non-string employeeLoggedId, name or firstSurname or secondSurname
-* @throws {ContentError} On invalid format name or firstSurname or secondSurname or employeeId doesn't have 24 characters or not hexadecimal
-* @throws {RangeError} On name or firstSurname or secondSurname length lower than 3 characters or upper than 15 characterspassword 
+* @throws {TypeError} On non-string employeeLoggedId or searchPattern
+* @throws {ContentError} On employeeId doesn't have 24 characters or not hexadecimal or searchPattern is empty
 * @throws {Existence} On employee not found
 */
 
 module.exports = async (employeeLoggedId, searchPattern) => {
     validateId(employeeLoggedId)
+    validateSearchPattern(searchPattern)
 
     const employee = await Employee.findById(employeeLoggedId).lean()
 
     if (!employee) {
         throw new ExistenceError(`User with id ${employeeLoggedId} not found`)
     }
-
-
 
     const employees = await Employee.find({
         $or: [
@@ -47,16 +43,24 @@ module.exports = async (employeeLoggedId, searchPattern) => {
             { roll: { $regex: searchPattern, $options: 'i' } },
             { professionalEmail: { $regex: searchPattern, $options: 'i' } },
             { accessPermissions: { $regex: searchPattern, $options: 'i' } },
+            { employeeNumber: { $regex: searchPattern, $options: 'i' } },
 
         ],
-    }, '-__v')
+    }, '-__v -employeePassword -employeePasswordToChange')
 
     if (!employees || employees.length === 0) {
         throw new ExistenceError('employee not found')
     }
 
-    employees.sort((a, b) => a.name.localeCompare(b.name))
+    const employeeListOrdered = employees.sort((a, b) => {
+        const nameComparison = a.name.localeCompare(b.name)
+        if (nameComparison !== 0) return nameComparison
 
+        const firstNameComparison = a.firstSurname.localeCompare(b.firstSurname)
+        if (firstNameComparison !== 0) return firstNameComparison
 
-    return employees
+        const secondNameComparison = a.secondSurname.localeCompare(b.secondSurname)
+        return secondNameComparison
+    })
+    return employeeListOrdered
 }

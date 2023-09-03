@@ -8,9 +8,6 @@ export default function EmployeeFoundeModal({ employee: { _id, name, firstSurnam
 
     const [modal, setModal] = useState(null)
 
-
-
-
     const handleEmployeeModal = () => {
         setModal('employeeModal')
     }
@@ -30,7 +27,6 @@ export default function EmployeeFoundeModal({ employee: { _id, name, firstSurnam
                     <div className="w-11/12 pl-2 text-xs justify-end">{professionalEmail}</div>
                     <div className="w-11/12 pl-2 text-xs justify-end">
                         {(professionalPhoneNumber).toString().replace(/(\d{3})(\d{2})(\d{2})(\d{2})/, '$1.$2.$3.$4')}</div>
-                    {/* {professionalPhoneNumber}</div> */}
                 </div>
                 <div className="flex flex-wrap w-5/12">
                     <div className="w-9/12 text-xs justify-end">Department: {department}</div>

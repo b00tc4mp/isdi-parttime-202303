@@ -5,7 +5,7 @@ const {
 } = require('com')
 
 /**
-* Retrieve a employee against his/her id
+* Retrieve the employeeLogged against id
 * 
 * @param {string} employeeId  The employee id
 * 
@@ -18,8 +18,6 @@ const {
 
 module.exports = function retrieveEmployee(employeeId) {
     validateId(employeeId)
-
-    const { Employee } = require('../data/models')
 
     return (async () => {
         const employee = await Employee.findById(employeeId, 'name firstSurname secondSurname avatar centerAttached professionalPhoneNumber professionalEmail roll employeePasswordToChange').lean()

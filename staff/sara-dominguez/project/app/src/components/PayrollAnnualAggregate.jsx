@@ -40,7 +40,7 @@ export default function PayrollMonth({ payrollAnnualAggregate, onClosePayrollAnn
 
     const { name, firstSurname, secondSurname, idCardNumber, employeeNumber, jobPosition, department, centerAttached, tssNumber, salaryLevel, bankAccountNumber } = employee || {}
 
-    const { payrollYear, sumPayrollMonth, lastMonthAggregatedName, sumMonthSalary, sumBonus, sumIrpfTax, sumSsTax, sumIrpfDeductions, sumSsDeductions, sumTotalAmountIncomes, sumTotalAmountDeductions, sumNetSalary } = payrollAnnualAggregate || {}
+    const { payrollYear, lastMonthAggregatedName, sumMonthSalary, sumBonus, sumIrpfTax, sumSsTax, sumIrpfDeductions, sumSsDeductions, sumTotalAmountIncomes, sumTotalAmountDeductions, sumNetSalary } = payrollAnnualAggregate || {}
 
     return <article className="bg-slate-200">
         <div className="flex flex-col items-end">

@@ -17,7 +17,6 @@ const { Employee } = require('../data/models')
 * @throws {AuthError} On wrong credentials
  */
 
-
 module.exports = function authenticateEmployee(employeeNumber, employeePassword) {
     validateEmployeeNumber(employeeNumber)
     validateEmployeePassword(employeePassword)

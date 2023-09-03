@@ -9,7 +9,7 @@ const {
         validatePersonalPhoneNumber,
         validateBankAccountNumber,
         validateUrl,
-        validateEmployeeNumber,
+        // validateEmployeeNumber,
         validateTypeOfContract,
         validateJobPosition,
         validateDepartment,
@@ -19,15 +19,17 @@ const {
         validateProfessionalPhoneNumber,
         validateEmail,
         validateAccessPermissions,
-        validateEmployeePassword
     },
-    errors: { DuplicityError }
+    errors: { DuplicityError, AuthError }
 } = require('com')
 const { Employee } = require('../data/models')
+
+
 
 /**
 * Register an employee
 * 
+* @param {string} employeeLoggedId employee logged id  
 * @param {string} name  employee name
 * @param {string} firstSurname   employee firstSurname
 * @param {string} secondSurname   employee secondSurname
@@ -74,10 +76,10 @@ const { Employee } = require('../data/models')
 */
 
 module.exports = function registerEmployee(
+    employeeLoggedId,
     name,
     firstSurname,
     secondSurname,
-    // birthDate,
     idCardNumber,
     tssNumber,
     address,
@@ -86,10 +88,6 @@ module.exports = function registerEmployee(
     avatar,
 
     // professionalData:
-    employeeNumber,
-    // startOfEmploymentData,
-    // endOfEmploymentData,
-    // lengthOfEmployment,
     typeOfContract,
     jobPosition,
     department,
@@ -103,6 +101,7 @@ module.exports = function registerEmployee(
     professionalEmail,
     accessPermissions,
 ) {
+
     validateName(name)
     validateFirstSurname(firstSurname)
     validateSecondSurname(secondSurname)
@@ -112,7 +111,6 @@ module.exports = function registerEmployee(
     validatePersonalPhoneNumber(personalPhoneNumber)
     validateBankAccountNumber(bankAccountNumber)
     validateUrl(avatar)
-    validateEmployeeNumber(employeeNumber)
     validateTypeOfContract(typeOfContract)
     validateJobPosition(jobPosition)
     validateDepartment(department)
@@ -123,17 +121,25 @@ module.exports = function registerEmployee(
     validateEmail(professionalEmail)
     validateAccessPermissions(accessPermissions)
 
-
-
-    const employeePassword = `Be-${employeeNumber}`
-
     return (async () => {
+
+
+        const employeeLoggedInId = await Employee.findById(employeeLoggedId)
+
+        if (!employeeLoggedInId) throw new ExistenceError('employeeLoggedId not found')
+
+        if (employeeLoggedInId.accessPermissions !== "Authorized") throw new AuthError("You don't have permission to continue, please contact HR (Human Resources)")
+
+        const employees = await Employee.find({})
+        let employeeNumber = 10000 + (employees.length + 1)
+
+        const employeePassword = `Be-${employeeNumber}`
+
         try {
             await Employee.create({
                 name,
                 firstSurname,
                 secondSurname,
-                // birthDate,
                 idCardNumber,
                 tssNumber,
                 address,
@@ -143,9 +149,6 @@ module.exports = function registerEmployee(
 
                 // professionalData:
                 employeeNumber,
-                // startOfEmploymentData,
-                // endOfEmploymentData,
-                // lengthOfEmployment,
                 typeOfContract,
                 jobPosition,
                 department,

@@ -3,7 +3,6 @@ const { ContentError } = require('./errors')
 
 function validateName(name, explain = "name") {
     const nameRegex = /^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/
-
     if (!nameRegex.test(name)) throw new ContentError(`Invalid format of ${explain}`)
     if (typeof name !== 'string') throw new TypeError(`${explain} is not a string`)
     if (name.trim().length < 3) throw new RangeError(`${explain} length lower than 3 characters`)
@@ -12,7 +11,6 @@ function validateName(name, explain = "name") {
 
 function validateFirstSurname(firstSurname, explain = "firstSurname") {
     const firstSurnameRegex = /^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/
-
     if (!firstSurnameRegex.test(firstSurname)) throw new ContentError(`Invalid format of ${explain}`)
     if (typeof firstSurname !== 'string') throw new TypeError(`${explain} is not a string`)
     if (!firstSurname.trim().length) throw new ContentError(`${explain} is empty`)
@@ -22,7 +20,6 @@ function validateFirstSurname(firstSurname, explain = "firstSurname") {
 
 function validateSecondSurname(secondSurname, explain = "secondSurname") {
     const secondSurnameRegex = /^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/
-
     if (!secondSurnameRegex.test(secondSurname)) throw new ContentError(`Invalid format of ${explain}`)
     if (typeof secondSurname !== 'string') throw new TypeError(`${explain} is not a string`)
     if (secondSurname.trim().length < 3) throw new RangeError(`${explain} length lower than 3 characters`)
@@ -31,28 +28,24 @@ function validateSecondSurname(secondSurname, explain = "secondSurname") {
 
 function validateIdCardNumber(idCardNumber, explain = "idCardNumber") {
     const idCardNumberRegex = /^\d{8}[A-Z]$/
-
     if (!idCardNumberRegex.test(idCardNumber)) throw new ContentError(`Invalid format of ${explain}`)
     if (typeof idCardNumber !== 'string') throw new TypeError(`${explain} is not a string`)
 }
 //TODO revisar regex de ValicateTssNumber y data model
 function validateTssNumber(tssNumber, explain = "tssNumber") {
     const tssNumberRegex = /[0-9]{12}$/
-
     if (!tssNumberRegex.test(tssNumber)) throw new ContentError(`Invalid format of ${explain}`)
     if (typeof tssNumber !== 'string') throw new TypeError(`${explain} is not a string`)
 }
 
 function validateAddress(address, explain = "address") {
     const addressRegex = /^[A-Z][a-zA-Z0-9\s]+ (?:street|avenue|plaza|road) \d{1,5}(?: [0-9A-Za-z\s]+)? \d{5} [A-Z][a-zA-Z\s]+ \(?[A-Z][a-zA-Z\s]+\)? [A-Z][a-zA-Z\s]+$/
-
     if (!addressRegex.test(address)) throw new ContentError(`Invalid format of ${explain}`)
     if (typeof address !== 'string') throw new TypeError(`${explain} is not a string`)
 }
 
 function validatePersonalPhoneNumber(personalPhoneNumber, explain = "personalPhoneNumber") {
     if (typeof personalPhoneNumber !== 'number') throw new TypeError(`${explain} is not a number`)
-
     const personalPhoneNumberToString = personalPhoneNumber.toString()
     if (personalPhoneNumberToString.length === 0) throw new ContentError(`${explain}  is empty`)
     if (personalPhoneNumberToString.length !== 9) throw new ContentError(`${explain}  does not have 9 characters`)
@@ -60,28 +53,20 @@ function validatePersonalPhoneNumber(personalPhoneNumber, explain = "personalPho
 
 function validateBankAccountNumber(bankAccountNumber, explain = 'bankAccountNumber') {
     const bankAccountnumberRegex = /^ES\d{2}\d{20}$/
-
     if (!bankAccountnumberRegex.test(bankAccountNumber)) throw new ContentError(`Invalid format of ${explain}`)
     if (typeof bankAccountNumber !== 'string') throw new TypeError(`${explain} is not a string`)
 }
 
 function validateUrl(newAvatar, explain = 'url') {
     const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/
-
     if (!urlRegex.test(newAvatar)) throw new ContentError(`Invalid format of ${explain}`)
     if (typeof newAvatar !== 'string') throw new TypeError(`${explain} is not a string`);
 }
 
 function validateEmployeeNumber(employeeNumber, explain = "employeeNumber") {
     if (typeof employeeNumber !== 'string') throw new TypeError(`${explain} is not a string`)
-
     if (!employeeNumber.trim().length) throw new ContentError(`${explain}  is empty`)
     if (employeeNumber.trim().length !== 5) throw new ContentError(`${explain}  does not have 5 characters`)
-
-    // if (typeof employeeNumber !== 'number') throw new TypeError(`${explain} is not a number`)
-    // const employeeNumberToString = employeeNumber.toString()
-    // if (!employeeNumberToString.trim().length) throw new ContentError(`${explain}  is empty`)
-    // if (employeeNumberToString.trim().length !== 5) throw new ContentError(`${explain}  does not have 5 characters`)
 }
 
 function validateTypeOfContract(typeOfContract, explain = 'typeOfContract') {
@@ -104,8 +89,8 @@ function validateDepartment(department, explain = 'department') {
 function validateSalaryLevel(salaryLevel, explain = 'salary level') {
     if (typeof salaryLevel !== 'number') throw new TypeError(`${explain}  is not a number`);
     if (salaryLevel === '') throw new ContentError(`${explain}  is empty`)
-    if (!Number.isInteger(salaryLevel) || salaryLevel < 1 || salaryLevel > 5) {
-        throw new RangeError(`${explain}  is not an integer between 1 and 5`);
+    if (!Number.isInteger(salaryLevel) || salaryLevel < 1 || salaryLevel > 6) {
+        throw new RangeError(`${explain}  is not an integer between 1 and 6`);
     }
 }
 function validateCenterAttached(centerAttached, explain = 'centerAttached') {
@@ -121,7 +106,6 @@ function validateRoll(roll, explain = 'roll') {
 
 function validateProfessionalPhoneNumber(professionalPhoneNumber, explain = "professionalPhoneNumber") {
     if (typeof professionalPhoneNumber !== 'number') throw new TypeError(`${explain} is not a number`)
-
     const professionalPhoneNumberToString = professionalPhoneNumber.toString()
     if (professionalPhoneNumberToString.length === 0) throw new ContentError(`${explain}  is empty`)
     if (professionalPhoneNumberToString.length !== 9) throw new ContentError(`${explain}  does not have 9 characters`)
@@ -133,13 +117,10 @@ function validateAccessPermissions(accessPermissions, explain = 'accessPermissio
 }
 
 function validateEmail(email, explain = "email") {
-    // const emailRegex = /^[\w-.]+@[\w-]+(\.[a-zA-Z]{2,4}){1,2}$/
     const emailRegex = /^[\w-.]+@b-elevenzsd.es/
-
     if (typeof email !== 'string') throw new TypeError(`${explain}  is not a string`)
     if (!email.trim().length) throw new ContentError(`${explain}  is empty`)
     if (!emailRegex.test(email)) throw new ContentError(`invalid ${explain}`)
-    // if(!EMAIL_REGEX.test(email)) throw new ContentError('invalid email')
 }
 
 function validateEmployeePassword(employeePassword, explain = "employeePassword") {
@@ -187,8 +168,6 @@ function validateToken(token, explain = 'token') {
     if (token.split('.').length !== 3) throw new ContentError(`${explain} is not valid`)
 }
 
-
-
 function validatePayrollYear(payrollYear, explain = 'payrollYear') {
     if (typeof payrollYear !== 'number') throw new TypeError(`${explain}  is not a number`);
     if (payrollYear === '') throw new ContentError(`${explain}  is empty`)
@@ -202,6 +181,11 @@ function validatePayrollMonth(payrollMonth, explain = 'payrollMonth') {
         throw new RangeError(`${explain}  must be an integer between 1 and 12`);
     }
 }
+function validateSearchPattern(searchPattern, explain = 'searchPattern') {
+    if (typeof searchPattern !== 'string') throw new TypeError(`${explain} is not a string`)
+    if (searchPattern === '') throw new ContentError(`${explain}  is empty`)
+}
+
 
 module.exports = {
     validateName,
@@ -230,4 +214,5 @@ module.exports = {
     validateSalaryLevel,
     validatePayrollYear,
     validatePayrollMonth,
+    validateSearchPattern
 }

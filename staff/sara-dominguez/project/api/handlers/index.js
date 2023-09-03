@@ -13,7 +13,6 @@ module.exports = {
     updateEmployeeBankAccountNumberHandler: require('./updateEmployeeBankAccountNumberHandler'),
     retrievePayrollMonthHandler: require('./retrievePayrollMonthHandler'),
     retrieveEmployeesBySalaryLevelHandler: require('./retrieveEmployeesBySalaryLevelHandler'),
-    // retrieveEmployeePayrollsMonthYearHandler: require('./retrieveEmployeePayrollsMonthYearHandler'),
     retrieveEmployeePayrollToBePaidHandler: require('./retrieveEmployeePayrollToBePaidHandler'),
     retrieveEmployeeHandler: require('./retrieveEmployeeHandler'),
     retrievePayrollAnnualAggregateHandler: require('./retrievePayrollAnnualAggregateHandler'),
@@ -21,6 +20,7 @@ module.exports = {
     updatePayrollStatusToPaidHandler: require('./updatePayrollStatusToPaidHandler'),
     getTreeChartHandler: require('./getTreeChartHandler'),
     resetPasswordHandler: require('./resetPasswordHandler'),
+    deletePayrollMonthHandler: require('./deletePayrollMonthHandler'),
 
 
 }

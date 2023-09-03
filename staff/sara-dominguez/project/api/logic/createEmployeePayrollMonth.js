@@ -31,6 +31,8 @@ module.exports = function createEmployeePayrollMonth(employeeLoggedId, employeeI
 
         if (!employeeLoggedInId) throw new ExistenceError('employeeLoggedId not found')
 
+        if (employeeLoggedInId.accessPermissions !== "Authorized") throw new AuthError("You don't have permission to continue, please contact HR (Human Resources)")
+
         const employee = await Employee.findById(employeeId)
 
         if (!employee) throw new ExistenceError('employee not found')

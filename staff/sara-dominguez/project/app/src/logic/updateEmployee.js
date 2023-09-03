@@ -18,7 +18,7 @@ const {
     validateCenterAttached,
     validateRoll,
     validateProfessionalPhoneNumber,
-    // validateProfessionalEmail,
+    validateEmail,
     validateAccessPermissions,
 } = validators
 
@@ -81,7 +81,6 @@ export default function updateEmployee(
     name,
     firstSurname,
     secondSurname,
-    // birthDate,
     idCardNumber,
     tssNumber,
     address,
@@ -90,10 +89,6 @@ export default function updateEmployee(
     avatar,
 
     // professionalData:
-
-    // startOfEmploymentData,
-    // endOfEmploymentData,
-    // lengthOfEmployment,
     typeOfContract,
     jobPosition,
     department,
@@ -124,7 +119,7 @@ export default function updateEmployee(
     validateCenterAttached(centerAttached)
     validateRoll(roll)
     validateProfessionalPhoneNumber(professionalPhoneNumber)
-    // validateProfessionalEmail(professionalEmail)
+    validateEmail(professionalEmail)
     validateAccessPermissions(accessPermissions)
 
 
@@ -140,7 +135,6 @@ export default function updateEmployee(
                 name,
                 firstSurname,
                 secondSurname,
-                // birthDate,
                 idCardNumber,
                 tssNumber,
                 address,
@@ -149,10 +143,6 @@ export default function updateEmployee(
                 avatar,
 
                 // professionalData:
-
-                // startOfEmploymentData,
-                // endOfEmploymentData,
-                // lengthOfEmployment,
                 typeOfContract,
                 jobPosition,
                 department,

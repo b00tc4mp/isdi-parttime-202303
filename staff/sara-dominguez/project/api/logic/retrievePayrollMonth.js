@@ -26,7 +26,6 @@ module.exports = (employeeId, payrollYear, payrollMonth) => {
     validatePayrollMonth(payrollMonth)
 
     return (async () => {
-        // try {
         const [employee, payrollMonthRetrieved] = await Promise.all([
             Employee.findById(employeeId).lean(),
             PayrollMonth.find({ employee: employeeId, payrollYear: payrollYear, payrollMonth: payrollMonth, status: "paid" }, '-__v -employee -status').lean()
@@ -46,9 +45,6 @@ module.exports = (employeeId, payrollYear, payrollMonth) => {
         payrollMonthRetrieved[0].monthName = getMonthNameFromMonthNumber(monthNumber)
 
         return payrollMonthRetrieved[0]
-        // } catch (error) {
-        //     throw new Error(error);
-        // }
     })()
 }
 
