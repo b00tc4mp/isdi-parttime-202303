@@ -20,7 +20,7 @@ export default async (productId, name, howMany, stores, type, comment) => {
     validateNumber(howMany, 'howMany')
     validateArray(stores, 'stores')
     validateText(type, 'type')
-    validateText(comment, 'comment')
+    if (comment !== '') validateText(comment, 'comment')
 
     const res = await fetch(`${import.meta.env.VITE_API_URL}/lists/${context.listId}/products/${productId}/edit`, {
         method: 'PATCH',

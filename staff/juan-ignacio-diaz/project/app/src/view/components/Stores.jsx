@@ -4,11 +4,12 @@ import { useAppContext } from '../../hooks'
 
 import { reviewStores } from '../../logic'
 
-export default function Stores({ defaultValue }) {
+export default function Stores({ state, multiple }) {
     console.log('Stores -> render')
 
     const { alert, freeze, unfreeze } = useAppContext()
     const [stores, setStores] = useState()
+    const [states, setStates] = useState(state)
   
     const handleRefreshStores = async ()  => {
         try {
@@ -29,10 +30,19 @@ export default function Stores({ defaultValue }) {
     useEffect(() => { handleRefreshStores() }, [])
 
     return <>
-        <select defaultValue={defaultValue} name="stores" id="stores" multiple>
+        <select 
+            name="stores" 
+            multiple={multiple} 
+            value={states}
+            onChange={e => {
+                const options = [...e.target.selectedOptions]
+                const values = options.map(option => option.value)
+                setStates(values)}}
+            >
             {stores && stores.map(store => 
-                <option key={store.id} value={store.id} name={store.id} >{store.name}</option>
+                <option key={store.id} value={store.id} label={store.name}/>
             ) }
         </select>
+
     </>
 }

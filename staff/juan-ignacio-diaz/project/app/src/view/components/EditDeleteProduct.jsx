@@ -60,7 +60,7 @@ export default ({ productId, onCancel, onModifiedProduct }) => {
         }
     }
 
-    function handleCancel(event) {  
+    const handleCancel = (event) => {  
         event.preventDefault()
 
         onCancel()
@@ -87,11 +87,12 @@ export default ({ productId, onCancel, onModifiedProduct }) => {
                         <Input type="number" name="howMany" defaultValue={product.howMany}></Input>                   
                         <Label htmlFor="stores">Stores:</Label>
                         <Stores 
-                            defaultValue={product.stores.map(store => store.id)}
+                            state={product.stores.map(store => (store.id))} //({value: store.id, label: store.name}))}
+                            multiple={true}
                         />                    
                         <Label htmlFor="type">Type:</Label>
                         <ProductTypes 
-                            defaultValue={product.type}
+                            state={{value: product.type}}
                         />                      
                         <Label htmlFor="comment">Comment:</Label>
                         <textarea className="input" name="comment" cols="30" rows="4" placeholder="text" defaultValue={product.comment}></textarea>
@@ -109,13 +110,9 @@ export default ({ productId, onCancel, onModifiedProduct }) => {
                         <Label htmlFor="howMany">How many:</Label>
                         <Input type="number" name="howMany" defaultValue="1"/>        
                         <Label htmlFor="stores">Stores:</Label>
-                        <Stores 
-                            defaultValue={[]}
-                        />               
+             
                         <Label htmlFor="type">Type:</Label>
-                        <ProductTypes 
-                            defaultValue={""}
-                        />          
+        
                         <Label htmlFor="comment">Comment:</Label>
                         <textarea className="input" name="comment" cols="30" rows="5" placeholder="text"></textarea>
                         <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
@@ -125,3 +122,4 @@ export default ({ productId, onCancel, onModifiedProduct }) => {
         </Container>
     </>
 }
+

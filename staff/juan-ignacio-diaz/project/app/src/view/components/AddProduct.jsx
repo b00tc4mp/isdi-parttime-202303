@@ -43,7 +43,7 @@ export default ({ onCancel, onAddedPropduct }) => {
                     <Input type="text" name="name" placeholder="name" />
                     
                     <Label htmlFor="howMany">How many:</Label>
-                    <Input type="number" name="howMany" defaultValue="1"/>
+                    <Input type="number" name="howMany" defaultValue="1" min="1" step="1"/>
                     
                     <Label htmlFor="stores">Stores:</Label>
                     <Stores 

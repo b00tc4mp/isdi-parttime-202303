@@ -27,6 +27,7 @@ import retrieveFilteredProducts from './retrieveFilteredProducts'
 import retrieveProduct from './retrieveProduct'
 import retrieveMessages from './retrieveMessages'
 import toggleProductToCart from './toggleProductToCart'
+import markProductAsPurchased from './markProductAsPurchased'
 import toggleLikeProduct from './toggleLikeProduct'
 import isOpenList from './isOpenList'
 import addMessage from './addMessage'
@@ -68,6 +69,7 @@ export {
     retrieveProduct,
     retrieveMessages,
     toggleProductToCart,
+    markProductAsPurchased,
     toggleLikeProduct,
     isOpenList,
     addMessage,

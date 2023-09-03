@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useAppContext } from '../../hooks'
 
 import { Container, Button, Label } from '../library'
-import { List, AddListModal, AddProduct, EditDeleteProduct  } from '../components'
+import { List, AddListModal, AddProduct, EditDeleteProduct, BuyProduct, FilterProducts  } from '../components'
 
 import { retrieveUser, retrieveList, closeList } from '../../logic'
 
@@ -62,6 +62,11 @@ export default function HomeList() {
         setView('editDelete-product')
     }
 
+    const handleOpenBuyProduct = (id) => {
+        setProductId(id)
+        setView('buy-product')
+    }
+
     const handleOpenFilterProducts = () => {
         setModal('filter-products')
     }
@@ -99,7 +104,10 @@ export default function HomeList() {
                 {view === 'list' && <List
                     onModifiedList={handleGoToList}
                     onAddedProduct={handleOpenAddProduct}
-                    onEditedDeletedProduct={handleOpenEditDeleteProduct}
+                    onEditedDeletedProduct=
+                    {handleOpenEditDeleteProduct}
+                    onBuyedProduct=
+                    {handleOpenBuyProduct}
                     onFilteredProducts={handleOpenFilterProducts}
                     lastUpdate={lastUpdate}
                 />} 
@@ -115,9 +123,15 @@ export default function HomeList() {
                     productId={productId}
                 />}
 
-                {modal === 'filter-products' && <AddListModal 
+                {view === 'buy-product' && <BuyProduct 
+                    onCancel={handleGoToList}
+                    onBuyedProduct={handleGoToList}
+                    productId={productId}
+                />}
+
+                {modal === 'filter-products' && <FilterProducts 
                     onCancel={handleCloseModal}
-                    onModifiedList={handleCloseModal}
+                    onModifiedFilter={handleCloseModal}
                 />}
 
             </Container>          

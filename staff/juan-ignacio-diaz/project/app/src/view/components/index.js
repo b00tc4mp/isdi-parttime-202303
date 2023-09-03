@@ -14,11 +14,12 @@ import AddProduct from './AddProduct'
 import Stores from './Stores'
 import AddStoresModal from './AddStoresModal'
 import EditDeleteProduct from './EditDeleteProduct'
+import BuyProduct from './BuyProduct'
 import ProductTypes from './ProductTypes'
-
 import List from './List'
 import Product from './Product'
 import Message from './Message'
+import FilterProducts from './FilterProducts'
 
 export {
     AddListModal,
@@ -40,5 +41,7 @@ export {
     Stores,
     AddStoresModal,
     EditDeleteProduct,
-    ProductTypes
+    BuyProduct,
+    ProductTypes,
+    FilterProducts
 }

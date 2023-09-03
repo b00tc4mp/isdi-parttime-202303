@@ -1,15 +1,17 @@
  import { useAppContext } from '../../hooks'
 
-import { Container, Button } from '../library'
+import { Container, Button, Label } from '../library'
 
 import { isIncludesCurrentUser, toggleLikeProduct, toggleProductToCart } from '../../logic'
 
-export default ({ product: { id, name, howMany, untried, likes, comment, state, type}, onEditDeleteProduct, onModifyProduct }) => {
+export default ({ product: { id, name, howMany, untried, likes, comment, state, buyer}, onEditDeleteProduct, onBuyProduct, onModifyProduct }) => {
     console.log('Product -> render')
 
     const { alert, freeze, unfreeze } = useAppContext()
 
     const handleEditDeleteProduct = () => onEditDeleteProduct(id)
+
+    const handleBuyProduct = () => onBuyProduct(id)
 
     const handleLikeProduct = async () => {
         try {
@@ -39,16 +41,36 @@ export default ({ product: { id, name, howMany, untried, likes, comment, state, 
         }
     }
 
+
     return <>
         <Container tag="article">
             <Container type="row">
                 <h1>{untried?'❗':''}</h1>
                 <p>{name +' ('+howMany+')'}</p>
-                <Button className = "button-likes" onClick={handleLikeProduct}>{isIncludesCurrentUser(likes.map((like) => like.id)) ? '❤️' : '🤍'} ({likes? likes.length : 0})</Button>
-                <Button onClick={handleEditDeleteProduct}>🖍</Button>
-                <Button onClick={handleToCart}>🛒</Button> 
+                {state==='bought' && <>
+                    <Label htmlFor="nameRegister">💲</Label>
+                </>
+                || <>
+                    {state==='' && <> 
+                        <Button className = "button-likes" onClick={handleLikeProduct}>{isIncludesCurrentUser(likes.map((like) => like.id)) ? '❤️' : '🤍'} ({likes? likes.length : 0})</Button>
+                        <Button onClick={handleEditDeleteProduct}>🖍</Button>
+                        <Button onClick={handleToCart}>🛒✔</Button> 
+                    </>||<>
+                        {state==='selected' && buyer && <> 
+                            <Button onClick={handleToCart}>🛒❌</Button> 
+                            <Button onClick={handleBuyProduct}>💲</Button>
+                        </>||<>
+                            <Label htmlFor="nameRegister">🛒</Label>
+                        </>}                    
+                    
+                    </>}
+
+                </>}
             </Container>
-            <p>{comment}</p>
+            {state==='' && <> 
+                <p>{comment}</p>
+            </>
+            ||<></>}
         </Container>
     </>
 }
