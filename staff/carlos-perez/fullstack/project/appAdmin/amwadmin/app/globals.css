@@ -104,3 +104,7 @@
  }
  
  /* END: Welcome styles*/
+
+ .home-button{
+  @apply text-xl text-black-100 bg-blue-200 h-fit w-fit p-3
+ }

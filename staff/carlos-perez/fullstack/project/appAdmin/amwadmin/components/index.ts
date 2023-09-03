@@ -13,7 +13,9 @@ import Events from './Events';
 import CalendarDay from './CalendarDay';
 import ContactForm from './ContactForm';
 import Login from './Login';
+import HomeButtons from './HomeButtons';
+import NewUpdateForm from './NewUpdateForm';
 export {
    CustomButton, NavBar, Footer, Banner, Welcome, BannerAndWelcome, UpdatesHome, Update,
-   Song, Songs, Event, Events, CalendarDay, ContactForm, Login
+   Song, Songs, Event, Events, CalendarDay, ContactForm, Login, HomeButtons, NewUpdateForm
 };

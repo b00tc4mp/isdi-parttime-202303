@@ -133,3 +133,27 @@ export async function postMessage(name: string, title: string, email: string, me
     alert('Something went wrong. Please, try again');
   }
 }
+
+export async function postUpdate(title: string, image: string, text: string) {
+  const res = await fetch('http://localhost:4321/updates', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${context.token}`
+    },
+    body: JSON.stringify({
+      title: title,
+      image: image + '/media/?size=l',
+      text: text,
+      rsstext: text,
+      visibility: true
+    })
+  })
+
+  if (res.status === 201) {
+    alert('Update sent')
+  }
+  else{
+    alert('Something went wrong. Please, try again');
+  }
+}
