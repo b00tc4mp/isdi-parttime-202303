@@ -3,6 +3,9 @@
 import { Footer, NavBar, HomeButtons } from '@/components'
 import { returnToken } from '@/utils';
 
+const token = returnToken();
+
+sessionStorage.token=token;
 
 export default function Home() {
   

@@ -14,7 +14,7 @@ const HomeButtons = () => {
                 <button className='home-button' onClick={() => router.push('/updates/new')}>New Update</button>
                 <button className='home-button' onClick={() => router.push('/events')}>New Event</button>
                 <button className='home-button' onClick={() => router.push('/music')}>New Song</button>
-                <button className='home-button' onClick={() => router.push('/messages')}>Read Messages</button>
+                <button className='home-button' onClick={() => router.push('/contact')}>Read Messages</button>
             </div>
 
             
