@@ -48,10 +48,21 @@ class UnknowError extends Error {
   }
 }
 
+class ConnectionError extends Error {
+  constructor(message) {
+    super(message);
+  }
+
+  get name() {
+    return ConnectionError.name;
+  }
+}
+
 module.exports = {
   DuplicityError,
   ContentError,
   ExistenceError,
   AuthError,
   UnknowError,
+  ConnectionError,
 };
