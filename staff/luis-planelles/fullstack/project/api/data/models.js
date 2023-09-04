@@ -118,7 +118,7 @@ const nasaEvent = new Schema({
     type: Date,
     required: true,
   },
-  type: {
+  event: {
     type: String,
     required: true,
   },
@@ -127,10 +127,7 @@ const nasaEvent = new Schema({
   },
 });
 
-const nasaData = new Schema({
-  events: {
-    type: [nasaEvent],
-  },
+const apiCall = new Schema({
   lastUpdate: {
     type: Date,
     required: true,
@@ -141,14 +138,14 @@ const User = model('User', user);
 const Mission = model('Mission', mission);
 const Explorer = model('Explorer', explorer);
 const Participant = model('Participant', participant);
-const NASAEvent = model('NASAEvent', nasaEvent);
-const NasaData = model('NasaData', nasaData);
+const NasaEvent = model('NASAEvent', nasaEvent);
+const ApiCall = model('ApiCall', apiCall);
 
 module.exports = {
   User,
   Mission,
   Explorer,
   Participant,
-  NASAEvent,
-  NasaData,
+  NasaEvent,
+  ApiCall,
 };
