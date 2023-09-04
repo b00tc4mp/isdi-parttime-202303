@@ -3,7 +3,8 @@ const {
   Mission,
   Explorer,
   Participant,
-  NASAEvent,
+  NasaEvent,
+  ApiCall,
 } = require('../../data/models');
 
 const cleanUp = () => {
@@ -12,7 +13,8 @@ const cleanUp = () => {
     Mission.deleteMany(),
     Explorer.deleteMany(),
     Participant.deleteMany(),
-    NASAEvent.deleteMany(),
+    NasaEvent.deleteMany(),
+    ApiCall.deleteMany(),
   ]);
 };
 

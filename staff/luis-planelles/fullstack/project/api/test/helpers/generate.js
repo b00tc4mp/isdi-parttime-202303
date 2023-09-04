@@ -40,10 +40,14 @@ const generate = {
     loserPrice: 'beer',
   }),
 
-  nasaEvent: (date, type) => ({
+  nasaEvent: (date, event) => ({
     date,
-    type,
+    event,
     lastUpdate: Date.now(),
+  }),
+
+  ApiCall: (lastUpdate) => ({
+    lastUpdate,
   }),
 };
 
