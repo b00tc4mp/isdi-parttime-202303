@@ -17,7 +17,6 @@ const {
     retrieveSavedPostsHandler,
     retrieveUserPostsHandler,
     toggleLikePostHandler,
-    unsetPostPriceHandler,
     toggleSavePostHandler,
     toggleVisibilityPostHandler,
     updatePostHandler,
@@ -28,7 +27,6 @@ const {
     askForResponseHandler,
     createConversationHandler,
     generateSummaryHandler,
-    retrieveAllSuggestionsHandler,
     retrieveOwnSuggestionsHandler,
     retrievePostSuggestionsHandler,
     retrieveSuggestionHandler,
@@ -57,7 +55,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
-        api.get('/users', retrieveUserHandler)
+        api.get('/users/user', retrieveUserHandler)
 
         api.patch('/users/newAvatar', jsonBodyParser, updateUserAvatarHandler)
 
@@ -79,8 +77,6 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/users/posts/:postId/toggleLike', toggleLikePostHandler)
 
-        api.patch('/posts/:postId/notOnSalePost', unsetPostPriceHandler)
-
         api.patch('/users/posts/:postId/toggleSave', toggleSavePostHandler)
 
         api.patch('/posts/:postId/togglePostVisibility', toggleVisibilityPostHandler)
@@ -97,13 +93,11 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.post('/conversations/:conversationId/askForResponse', jsonBodyParser, askForResponseHandler)
 
-        api.post('/users/generateConversation', jsonBodyParser, createConversationHandler)
+        api.post('/users/createConversation', jsonBodyParser, createConversationHandler)
 
         api.get('/users/conversations/:conversationId/generateSummary', jsonBodyParser, generateSummaryHandler)
         
         api.get('/posts/:postId/postSuggestions', jsonBodyParser, retrievePostSuggestionsHandler)
-
-        api.get('/allSuggestions', jsonBodyParser, retrieveAllSuggestionsHandler)
 
         api.get('/ownSuggestions', jsonBodyParser, retrieveOwnSuggestionsHandler)
 

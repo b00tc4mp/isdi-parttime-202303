@@ -39,7 +39,7 @@ export default function updateSuggestion(suggestionId, _title, _content) {
             body: JSON.stringify({ title, content })
         })
 
-        if (res.status === 200)
+        if (res.status === 204)
             return
 
         const { type, message } = await res.json()

@@ -16,8 +16,8 @@ const { validateText, validateId } = validators
  */
 
 export default function createPost(_summary, conversationId) {
-    validateText(_summary, 'summary text')
     validateId(conversationId, 'conversation id')
+    validateText(_summary, 'summary text')
 
     const summary = _summary.trim()
 
@@ -31,7 +31,7 @@ export default function createPost(_summary, conversationId) {
             body: JSON.stringify({ summary })
         })
 
-        if (res.status === 200)
+        if (res.status === 201)
             return
 
         const { type, message } = await res.json()

@@ -9,7 +9,7 @@ import { errors } from 'com'
 
 export default function retrieveUser() {
     return (async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/user`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${context.token}`

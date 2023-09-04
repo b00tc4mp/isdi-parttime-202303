@@ -7,7 +7,7 @@ const { validators: { validateId, validateArray }, errors: { ExistenceError } } 
  * 
  * @param {string} userId The user id
  * @param {string} conversationId The conversation
- * @param {array} currentConversation The array of objects containing the conversation.
+ * @param {array} currentConversation The array of objects containing the conversation
  * 
  * @returns {Promise<object>} The response object
  * 

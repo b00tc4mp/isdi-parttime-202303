@@ -27,7 +27,7 @@ export default function deleteComment(postId, suggestionId) {
             }
         })
 
-        if (res.status === 200)
+        if (res.status === 204)
             return
 
         const { type, message } = await res.json()

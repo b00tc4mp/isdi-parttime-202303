@@ -11,6 +11,6 @@ module.exports = handleErrors((req, res) => {
   return (async () => {
     await promise
 
-    res.send()
+    res.status(204).send()
   })()
 })

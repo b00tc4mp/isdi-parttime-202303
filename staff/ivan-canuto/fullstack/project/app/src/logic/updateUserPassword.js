@@ -36,7 +36,7 @@ export default function updateUserPassword(password, newPassword, newPasswordCon
             body: JSON.stringify({ password, newPassword, newPasswordConfirm })
         })
 
-        if (res.status === 200)
+        if (res.status === 204)
             return
 
         const { type, message } = await res.json()

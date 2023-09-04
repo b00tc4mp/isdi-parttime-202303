@@ -1,8 +1,48 @@
-# React + Vite
+# App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
+The app (client-side component of our application) serves as the user interface and interaction layer. It is responsible for delivering a seamless and intuitive user experience, allowing users to interact with our services and access their data efficiently. From user authentication and data input to dynamic content display.
 
-Currently, two official plugins are available:
+## Install
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+INSTALLING ALL DEPENDENCIES
+```sh
+$ npm install
+```
+
+VITE
+```sh
+$ npm create vite
+```
+
+Plugins in Vite.confing,js (optimizeDeps, build)
+
+REACT-ROUTER-DOM
+```sh
+$ npm i react-router-dom
+```
+
+COM
+```sh
+$ npm i file:../com
+```
+
+TAILWIND
+```sh
+$ npm install -D tailwindcss postcss autoprefixer
+```
+To work with Tailwind CSS in VITE intall all three dependencies.
+
+### Additional files
+To work with Tailwind CSS in VITE you also have to create this two files (tailwind.config.js, postcss.config.js) and add the configuration existing in the tailwind official page.
+
+## Run APP
+
+Dev - for running app
+```sh
+$ npm run dev
+```
+Dev-reset - for upating changes in dependencies
+```sh
+$ npm run dev-reset
+```

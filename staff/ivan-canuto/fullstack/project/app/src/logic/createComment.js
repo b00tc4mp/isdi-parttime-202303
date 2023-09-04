@@ -31,7 +31,7 @@ export default function createComment(postId, _commentText) {
             body: JSON.stringify({ commentText })
         })
 
-        if (res.status === 200)
+        if (res.status === 201)
             return
 
         const { type, message } = await res.json()

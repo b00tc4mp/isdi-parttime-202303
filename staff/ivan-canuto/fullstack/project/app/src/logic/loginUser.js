@@ -28,6 +28,7 @@ export default function authenticateUser(email, password) {
             },
             body: JSON.stringify({ email, password })
         })
+        
         if (res.status === 200) {
             const token = await res.json()
 
