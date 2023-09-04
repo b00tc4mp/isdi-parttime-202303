@@ -13,9 +13,6 @@ export function isTokenAlive(token: string) {
   return exp - iat > now - iat
 }
 
-export function returnToken() {
-  return context.token;
-}
 
 export async function login(email: string, password: string) {
   const res = await fetch('http://localhost:4321/admins/auth', {
@@ -44,6 +41,11 @@ export async function login(email: string, password: string) {
 
 
 }
+
+export function returnToken() {
+  return tokenApp;
+}
+
 
 export async function fetchUpdates() {
   const res = await fetch(`${process.env.API_BASE_URL}updates`, { cache: 'no-store' })

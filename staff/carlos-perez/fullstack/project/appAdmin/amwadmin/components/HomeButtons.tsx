@@ -9,14 +9,14 @@ const HomeButtons = () => {
 
     return (
         <div className="max-w-[1440px] w-full update-home-container flex flex-col">
-            
-            <div className='w-full flex flex-col justify-center justify-items-center'>
+            <div className=''>
+            <div className='w-full grid grid-cols-2 justify-center justify-items-center'>
                 <button className='home-button' onClick={() => router.push('/updates/new')}>New Update</button>
                 <button className='home-button' onClick={() => router.push('/events/new')}>New Event</button>
                 <button className='home-button' onClick={() => router.push('/music/new')}>New Song</button>
                 <button className='home-button' onClick={() => router.push('/contact')}>Read Messages</button>
             </div>
-
+            </div>
             
         </div>
     )

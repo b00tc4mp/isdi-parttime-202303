@@ -106,5 +106,5 @@
  /* END: Welcome styles*/
 
  .home-button{
-  @apply text-xl text-black-100 bg-blue-200 h-fit w-fit p-3
+  @apply text-xl text-black-100 bg-blue-200 h-fit w-52 p-3 border-2 border-black m-3
  }
