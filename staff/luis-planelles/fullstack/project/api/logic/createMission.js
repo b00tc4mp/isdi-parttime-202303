@@ -9,7 +9,7 @@ const {
   errors: { ExistenceError, DuplicityError },
 } = require('com');
 
-const findDuplicateNames = require('./helpers/findDuplicateNames');
+const { findDuplicateNames } = require('./helpers');
 const { User, Mission, Explorer } = require('../data/models');
 
 /**
