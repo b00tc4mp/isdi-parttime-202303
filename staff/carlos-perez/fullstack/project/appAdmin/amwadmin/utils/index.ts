@@ -235,3 +235,46 @@ export async function deleteUpdate(id: string) {
     alert('Something went wrong. Please, try again');
   }
 }
+
+export async function postEvent(title: string, eventDate: string, location: string, text: string, link1: string, link2: string) {
+  const res = await fetch('http://localhost:4321/events', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${context.token}`
+    },
+    body: JSON.stringify({
+      title: title,
+      eventDate: eventDate,
+      location: location,
+      text: text,
+      links: [link1, link2],
+      visibility: true
+    })
+  })
+
+  if (res.status === 201) {
+    alert('Post sent')
+  }
+  else {
+    alert('Something went wrong. Please, try again');
+  }
+}
+
+export async function deleteEvent(id: string) {
+  const url = 'http://localhost:4321/events/' + id
+  const res = await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${context.token}`
+    }
+  })
+
+  if (res.status === 202) {
+    alert('Event deleted')
+  }
+  else {
+    alert('Something went wrong. Please, try again');
+  }
+}

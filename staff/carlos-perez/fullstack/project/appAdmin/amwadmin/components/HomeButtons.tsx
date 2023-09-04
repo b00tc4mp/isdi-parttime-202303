@@ -12,7 +12,7 @@ const HomeButtons = () => {
             
             <div className='w-full flex flex-col justify-center justify-items-center'>
                 <button className='home-button' onClick={() => router.push('/updates/new')}>New Update</button>
-                <button className='home-button' onClick={() => router.push('/events')}>New Event</button>
+                <button className='home-button' onClick={() => router.push('/events/new')}>New Event</button>
                 <button className='home-button' onClick={() => router.push('/music')}>New Song</button>
                 <button className='home-button' onClick={() => router.push('/contact')}>Read Messages</button>
             </div>

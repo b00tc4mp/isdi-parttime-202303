@@ -2,13 +2,16 @@
 
 import { EventProps } from "@/types";
 import { CalendarDay } from ".";
+import { useRouter } from 'next/navigation'
+import { deleteEvent } from "@/utils";
 
 interface EventProp {
     evento: EventProps
 }
 const Event = ({ evento }: EventProp) => {
+    const router = useRouter();
 
-    const { title, eventDate, location, text, links } = evento;
+    const {_id, title, eventDate, location, text, links } = evento;
 
     const dateToDate = new Date(eventDate);
 
@@ -16,6 +19,11 @@ const Event = ({ evento }: EventProp) => {
         day: dateToDate.toLocaleString('ES-es',{weekday:'long'}),
         month: dateToDate.toLocaleString('ES-es',{month:'long'}),
         dayNumber: dateToDate.getDate()
+    }
+
+    async function handleDelete(){
+        await deleteEvent(_id);
+        router.push('/events');
     }
 
     return (
@@ -31,6 +39,14 @@ const Event = ({ evento }: EventProp) => {
                             links.map((link) => (<a href="{link}">{link}</a>))
                         }
                     </div>
+                    <div className="flex flex-row gap-3">
+                        <button className='bg-slate-700 hover:bg-blue-100 duration-300 text-white hover:text-black shadow p-2 rounded-md sm:w-52' onClick={() => router.push('/events/edit/'+_id)}>
+                            Edit
+                        </button>
+                        <button className='bg-red-300 hover:bg-blue-100 duration-300 text-white hover:text-black shadow p-2 rounded-md sm:w-52' onClick={handleDelete}>
+                            Delete
+                        </button>
+                        </div>
                 </div>
             </div>
         </div>
