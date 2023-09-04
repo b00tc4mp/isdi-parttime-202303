@@ -20,8 +20,11 @@ import Messages from './Messages';
 import Message from './Message';
 import NewEventForm from './NewEventForm';
 import EditEventForm from './EditEventForm';
+import NewSongForm from './NewSongForm';
+import EditSongForm from './EditSongForm';
 export {
    CustomButton, NavBar, Footer, Banner, Welcome, BannerAndWelcome, UpdatesHome, Update,
    Song, Songs, Event, Events, CalendarDay, ContactForm, Login, HomeButtons, 
-   NewUpdateForm, EditUpdateForm, Messages, Message, NewEventForm, EditEventForm
+   NewUpdateForm, EditUpdateForm, Messages, Message, NewEventForm, EditEventForm,
+   NewSongForm, EditSongForm
 };

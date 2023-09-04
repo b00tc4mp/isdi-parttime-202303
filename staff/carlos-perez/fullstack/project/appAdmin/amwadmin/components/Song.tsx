@@ -3,16 +3,24 @@
 import { SongProps } from "@/types";
 import YouTube from "react-youtube";
 import { youTubeGetID } from "@/utils";
+import { useRouter } from 'next/navigation'
+import { deleteSong } from "@/utils";
 
 interface SongProp {
     song: SongProps
 }
 const Song = ({ song }: SongProp) => {
 
-    const { title, media, text, date, songInfo } = song;
+    const router = useRouter();
+
+    const {_id, title, media, text, date, songInfo } = song;
     const videoID = youTubeGetID(media);
     const dateToDate = new Date(date);
     const dateFormatted = dateToDate.toLocaleString('es-ES');
+    async function handleDelete(){
+        await deleteSong(_id);
+        router.push('/music');
+    }
 
     return (
         <div className="max-w-[1440px] w-full flex flex-col">
@@ -26,6 +34,14 @@ const Song = ({ song }: SongProp) => {
                         <p className="text-justify whitespace-pre-line">{text}</p>
                         <p className="text-justify">{songInfo}</p>
                         <p>{dateFormatted}</p>
+                        <div className="flex flex-row gap-3">
+                        <button className='bg-slate-700 hover:bg-blue-100 duration-300 text-white hover:text-black shadow p-2 rounded-md sm:w-52' onClick={() => router.push('/music/edit/'+_id)}>
+                            Edit
+                        </button>
+                        <button className='bg-red-300 hover:bg-blue-100 duration-300 text-white hover:text-black shadow p-2 rounded-md sm:w-52' onClick={handleDelete}>
+                            Delete
+                        </button>
+                        </div>
                     </div>
                 </div>
             </div>

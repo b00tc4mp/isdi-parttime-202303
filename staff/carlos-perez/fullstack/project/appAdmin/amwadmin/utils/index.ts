@@ -278,3 +278,45 @@ export async function deleteEvent(id: string) {
     alert('Something went wrong. Please, try again');
   }
 }
+
+export async function postSong(title: string, media: string, text: string, songInfo: string) {
+  const res = await fetch('http://localhost:4321/lyricPosts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${context.token}`
+    },
+    body: JSON.stringify({
+      title: title,
+      media: media,
+      text: text,
+      songInfo: songInfo,
+      visibility: true
+    })
+  })
+
+  if (res.status === 201) {
+    alert('Song sent')
+  }
+  else {
+    alert('Something went wrong. Please, try again');
+  }
+}
+
+export async function deleteSong(id: string) {
+  const url = 'http://localhost:4321/lyricPosts/' + id
+  const res = await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${context.token}`
+    }
+  })
+
+  if (res.status === 202) {
+    alert('Song deleted')
+  }
+  else {
+    alert('Something went wrong. Please, try again');
+  }
+}
