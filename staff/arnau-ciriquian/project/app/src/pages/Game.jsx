@@ -17,8 +17,6 @@ export default function Game({ character, onWinGame, onLoseGame, zombiesToKill }
   const handleDeadZombies = () => {
     setDeadZombies(deadZombies + 1)
 
-    console.log(zombiesToKill, (deadZombies + 1))
-
     if ((deadZombies + 1) === zombiesToKill) {
       console.log('zombies killed')
       onWinGame()

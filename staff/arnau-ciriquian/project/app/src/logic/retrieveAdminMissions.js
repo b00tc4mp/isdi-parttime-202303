@@ -1,10 +1,10 @@
 import { API_URL } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function retrieveMissions() {
+export default function retrieveAdminMissions() {
     return AsyncStorage.getItem('TOKEN')
         .then(token => {
-            return fetch(`${API_URL}/missions/user`, {
+            return fetch(`${API_URL}/missions/admin`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

@@ -1,4 +1,5 @@
 import retrieveMissions from "../logic/retrieveMissions.js"
+import retrieveAdminMissions from "../logic/retrieveAdminMissions.js"
 import AdminMission from "./admin/AdminMission.jsx"
 import UserMission from "./UserMission.jsx"
 import { ScrollView, View } from "react-native"
@@ -11,9 +12,15 @@ export default function Missions({ onEditClicked, admin, onMissionClicked, chara
 
     const handleRefreshMissions = () => {
         try {
-            retrieveMissions()
+            if (admin) {
+                retrieveAdminMissions()
                 .then(setMissions)
                 .catch(error => alert(error.message))
+            } else {
+                retrieveMissions()
+                    .then(setMissions)
+                    .catch(error => alert(error.message))
+            }
         } catch (error) {
             alert(error.message)
         }
