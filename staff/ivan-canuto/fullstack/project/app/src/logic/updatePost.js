@@ -16,30 +16,30 @@ const { validateId, validateText } = validators
  */
 
 export default function updatePost(postId, _title, _content) {
-  validateId(postId, 'post id')
-  validateText(_title, 'post title')
-  validateText(_content, 'post title')
-  
-  const title = _title.trim()
-  const content = _content.trim()
+    validateId(postId, 'post id')
+    validateText(_title, 'post title')
+    validateText(_content, 'post title')
 
-  return (async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/users/posts/${postId}/updatePost`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${context.token}`
-      },
-      body: JSON.stringify({ title, content })
-    })
+    const title = _title.trim()
+    const content = _content.trim()
 
-    if(res.status === 200)
-      return
-    
-    const { type, message } = await res.json()
+    return (async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/posts/${postId}/updatePost`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${context.token}`
+            },
+            body: JSON.stringify({ title, content })
+        })
 
-    const clazz = errors[type]
+        if (res.status === 200)
+            return
 
-    throw new clazz(message)
-  })()
+        const { type, message } = await res.json()
+
+        const clazz = errors[type]
+
+        throw new clazz(message)
+    })()
 }

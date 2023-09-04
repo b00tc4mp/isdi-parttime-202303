@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const { errors: { ExistenceError, ContentError, AuthError } } = require('com')
 const { User } = require('../../data/models')
 const { mongoose: { Types: { ObjectId } } } = require('mongoose')
+const bcrypt = require('bcryptjs')
 
 describe('updateUserPassword', () => {
     let user, email, password
@@ -32,15 +33,23 @@ describe('updateUserPassword', () => {
             const _user = await User.findOne({ email: user.email })
             const userId = _user._id.toString()
 
+            const passwordHashed = await bcrypt.hash(_user.password, 10)
+            
+            _user.password = passwordHashed
+
+            await _user.save()
+
             const newPassword = '123123123'
 
             await updateUserPassword(userId, password, newPassword, newPassword)
 
             const _user2 = await User.findOne({ email: user.email })
 
+            const match = await bcrypt.compare(newPassword, _user2.password)
+
             expect(_user2).to.exist
             expect(_user2).to.be.an('object')
-            expect(_user2.password).to.equal(newPassword)
+            expect(match).to.be.true
 
         } catch (error) {
             expect(error).to.be.null

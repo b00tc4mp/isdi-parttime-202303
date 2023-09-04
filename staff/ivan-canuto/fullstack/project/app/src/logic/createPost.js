@@ -15,29 +15,29 @@ const { validateText, validateId } = validators
  * @throws {ContentError} On conversation id length not equal to 24 characters, or empty summary text
  */
 
-export default function createPost (_summary, conversationId) {
-  validateText(_summary, 'summary text')
-  validateId(conversationId, 'conversation id')
+export default function createPost(_summary, conversationId) {
+    validateText(_summary, 'summary text')
+    validateId(conversationId, 'conversation id')
 
-  const summary = _summary.trim()
+    const summary = _summary.trim()
 
-  return (async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/users/conversations/${conversationId}/newPost`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${context.token}`
-      },
-      body: JSON.stringify({ summary })
-    })
+    return (async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/conversations/${conversationId}/newPost`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${context.token}`
+            },
+            body: JSON.stringify({ summary })
+        })
 
-    if(res.status === 200)
-      return
-    
-    const { type, message } = await res.json()
+        if (res.status === 200)
+            return
 
-    const clazz = errors[type]
+        const { type, message } = await res.json()
 
-    throw new clazz(message)
-  })()
+        const clazz = errors[type]
+
+        throw new clazz(message)
+    })()
 }

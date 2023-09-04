@@ -33,7 +33,7 @@ module.exports = (userId, newAvatarUrl, password) => {
 
     if(newAvatarUrl === user.avatar) throw new ContentError('New avatar is the same as the old one.')
       
-    const match = bcrypt.compare(password, user.password)
+    const match = await bcrypt.compare(password, user.password)
 
     if(!match) throw new AuthError('Wrong credentials.')
 

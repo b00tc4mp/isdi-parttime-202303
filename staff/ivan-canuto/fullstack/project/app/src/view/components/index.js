@@ -9,7 +9,6 @@ import Header from './Header'
 import SideBarMenu from "./SideBarMenu"
 import VisibilityPost from "./VisibilityPost"
 import Chatbot from "./Chatbot"
-import SeenLately from "./SeenLately"
 import SuggestionsModal from "./SuggestionsModal"
 import SuggestionsPage from "./SuggestionsPage"
 import EditPost from "./EditPost"
@@ -32,7 +31,6 @@ export {
     SideBarMenu,
     VisibilityPost,
     Chatbot,
-    SeenLately,
     SuggestionsModal,
     SuggestionsPage,
     EditPost,

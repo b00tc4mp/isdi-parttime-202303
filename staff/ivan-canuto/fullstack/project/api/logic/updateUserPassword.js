@@ -3,6 +3,7 @@ const {
   errors: { ExistenceError, AuthError, ContentError }
 } = require('com')
 const { User } = require('../data/models')
+const bcrypt = require('bcryptjs')
 
 /**
  * Updates the user password
@@ -34,13 +35,17 @@ module.exports = (userId, password, newPassword, newPasswordConfirm) => {
     const user = await User.findById(userId)
     if(!user) throw new ExistenceError('User not found.')
 
-    if(user.password !== password) throw new AuthError('Wrong credentials.')
+    const matchCurrentPassword = await bcrypt.compare(password, user.password)
+
+    if(!matchCurrentPassword) throw new AuthError('Wrong credentials.')
   
-    if(user.password === newPassword) throw new ContentError('The new password is the same as the old one.')
+    if(password === newPassword) throw new ContentError('The new password is the same as the old one.')
+
+    const hash = await bcrypt.hash(newPassword, 10)
 
     await User.updateOne(
       { _id: userId },
-      { $set: { password: newPassword }}
+      { $set: { password: hash }}
     )
   })()
 }

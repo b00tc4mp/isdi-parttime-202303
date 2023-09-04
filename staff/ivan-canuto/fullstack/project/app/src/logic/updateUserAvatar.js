@@ -17,27 +17,26 @@ const { validateUrl, validatePassword } = validators
  */
 
 export default function updateUserAvatar(newAvatarUrl, password) {
-  validateUrl(newAvatarUrl)
-  validatePassword(password)
+    validateUrl(newAvatarUrl)
+    validatePassword(password)
 
-  return (async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/users/newAvatar`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${context.token}`
-      },
-      body: JSON.stringify({ newAvatarUrl, password })
-    })
+    return (async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/newAvatar`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${context.token}`
+            },
+            body: JSON.stringify({ newAvatarUrl, password })
+        })
 
-    if(res.status === 204)
-      return
-    
-    const { type, message } = await res.json()
+        if (res.status === 204)
+            return
 
-    const clazz = errors[type]
+        const { type, message } = await res.json()
 
-    throw new clazz(message)
-  })()
+        const clazz = errors[type]
+
+        throw new clazz(message)
+    })()
 }
-  

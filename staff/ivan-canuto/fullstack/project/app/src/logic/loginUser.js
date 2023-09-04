@@ -17,29 +17,29 @@ const { validateEmail, validatePassword } = validators
  */
 
 export default function authenticateUser(email, password) {
-  validateEmail(email)
-  validatePassword(password)
+    validateEmail(email)
+    validatePassword(password)
 
-  return (async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    })
-    if(res.status === 200) {
-      const token = await res.json()
+    return (async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        })
+        if (res.status === 200) {
+            const token = await res.json()
 
-      context.token = token
+            context.token = token
 
-      return
-    }
-      
-    const { type, message } = await res.json()
+            return
+        }
 
-    const clazz = errors[type]
+        const { type, message } = await res.json()
 
-    throw new clazz(message)
-  })()
+        const clazz = errors[type]
+
+        throw new clazz(message)
+    })()
 }

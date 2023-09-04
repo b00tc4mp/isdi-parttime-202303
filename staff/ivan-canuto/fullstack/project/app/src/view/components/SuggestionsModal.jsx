@@ -7,119 +7,119 @@ import { context } from "../../ui"
 import { CreateSuggestion, DeleteSuggestion, EditSuggestion } from '.'
 
 export default function SuggestionsModal({ post, user, handleLastPostsUpdate, lastPostsUpdate }) {
-  const { alert } = useAppContext()
-  const handleErrors = useHandleErrors()
+    const { alert } = useAppContext()
+    const handleErrors = useHandleErrors()
 
-  const [modal, setModal] = useState()
-  const [suggestion, setSuggestion] = useState()
-  const [suggestions, setSuggestions] = useState()
+    const [modal, setModal] = useState()
+    const [suggestion, setSuggestion] = useState()
+    const [suggestions, setSuggestions] = useState()
 
-  useEffect(() => {
-    handleRefreshSuggestions()
+    useEffect(() => {
+        handleRefreshSuggestions()
 
-    console.log('Suggestion Modal -> Render')
-  }, [lastPostsUpdate])
+        console.log('Suggestion Modal -> Render')
+    }, [lastPostsUpdate])
 
-  const handleRefreshSuggestions = () => {
-    handleErrors(async () => {
-      const suggestions = await retrievePostSuggestions(post.id)
-      
-      setSuggestions(suggestions)
-    })
-  }
+    const handleRefreshSuggestions = () => {
+        handleErrors(async () => {
+            const suggestions = await retrievePostSuggestions(post.id)
 
-  const openCreateSuggestionModal = () => setModal('addSuggestion')
+            setSuggestions(suggestions)
+        })
+    }
 
-  const openEditSuggestionModal = () => {
-    setModal('editSuggestion')
+    const openCreateSuggestionModal = () => setModal('addSuggestion')
 
-    handleErrors(async () => {
-      const _suggestion = await retrieveSuggestion(context.suggestionId)
-      
-      setSuggestion(_suggestion)
-    })
-  }
+    const openEditSuggestionModal = () => {
+        setModal('editSuggestion')
 
-  const openDeleteSuggestionModal = () => setModal('deleteSuggestion')
+        handleErrors(async () => {
+            const _suggestion = await retrieveSuggestion(context.suggestionId)
 
-  const handleCloseModal = () => setModal(null)
+            setSuggestion(_suggestion)
+        })
+    }
 
-  function handleCreateSuggestion(event) {
-    event.preventDefault()
+    const openDeleteSuggestionModal = () => setModal('deleteSuggestion')
 
-    const title = event.target.title.value
-    const content = event.target.content.value
+    const handleCloseModal = () => setModal(null)
 
-    handleErrors(async () => {
-      await createSuggestion(post.id, title, content)
+    function handleCreateSuggestion(event) {
+        event.preventDefault()
 
-      handleRefreshSuggestions()
-      handleCloseModal()
-    })
-  }
-  
-  const handleDeleteSuggestion = event => {
-    event.preventDefault()
+        const title = event.target.title.value
+        const content = event.target.content.value
 
-    handleErrors(async () => {
-      await deleteSuggestion(post.id, context.suggestionId)
+        handleErrors(async () => {
+            await createSuggestion(post.id, title, content)
 
-      handleRefreshSuggestions()
-      handleCloseModal()
-    })
-  }
+            handleRefreshSuggestions()
+            handleCloseModal()
+        })
+    }
 
-  const handleEditSuggestion = event => {
-    event.preventDefault()
+    const handleDeleteSuggestion = event => {
+        event.preventDefault()
 
-    const title = event.target.title.value
-    const content = event.target.content.value
+        handleErrors(async () => {
+            await deleteSuggestion(post.id, context.suggestionId)
 
-    handleErrors(async () => {
-      await updateSuggestion(context.suggestionId, title, content)
+            handleRefreshSuggestions()
+            handleCloseModal()
+        })
+    }
 
-      handleRefreshSuggestions()
-      handleCloseModal()
-      setSuggestion(null)
-    })
-  }
+    const handleEditSuggestion = event => {
+        event.preventDefault()
 
-  return <>
-    <section className="flex flex-col items-center w-full h-full py-4 px-1 pt-0">
-      <div className="flex flex-col items-center justify-between h-full w-full gap-2">
-        <h2 className="mb-4 font-bold text-xl">Suggestions</h2>
-        <div className='flex flex-col overflow-scroll gap-2 w-full min-h-[320px] max-h-[370px]'>
-          {suggestions && suggestions.map(suggestion => (!suggestion.hidden || suggestion.author.id === user.id) && <Suggestion
-            key={suggestion.id}
-            suggestion={suggestion}
-            openDeleteSuggestionModal={openDeleteSuggestionModal}
-            openEditSuggestionModal={openEditSuggestionModal}
-            user={user}
-            post={post}
-            handleLastPostsUpdate={handleLastPostsUpdate}
-          />
-          
-          )}
-        </div>
-        {user.id !== post.author.id ? <Button className="mb-14 mt-2" onClick={openCreateSuggestionModal}>Add suggestion</Button> : <div className="w-full h-2 mb-16"></div>}
-      </div>
-      
-      {modal === 'addSuggestion' && <CreateSuggestion
-        handleCreateSuggestion={handleCreateSuggestion}
-        handleCloseModal={handleCloseModal}
-      />}
+        const title = event.target.title.value
+        const content = event.target.content.value
 
-      {modal === 'deleteSuggestion' && <DeleteSuggestion
-        handleDeleteSuggestion={handleDeleteSuggestion}
-        handleCloseModal={handleCloseModal}
-      />}
+        handleErrors(async () => {
+            await updateSuggestion(context.suggestionId, title, content)
 
-      {modal === 'editSuggestion' && <EditSuggestion
-        handleEditSuggestion={handleEditSuggestion}
-        handleCloseModal={handleCloseModal}
-        suggestion={suggestion}
-        setSuggestion={setSuggestion}
-      />}
-    </section>
-  </>
+            handleRefreshSuggestions()
+            handleCloseModal()
+            setSuggestion(null)
+        })
+    }
+
+    return <>
+        <section className="flex flex-col items-center w-full h-full py-4 px-1 pt-0">
+            <div className="flex flex-col items-center justify-between h-full w-full gap-2">
+                <h2 className="mb-4 font-bold text-xl">Suggestions</h2>
+                <div className='flex flex-col overflow-scroll gap-2 w-full min-h-[320px] max-h-[370px]'>
+                    {suggestions && suggestions.map(suggestion => (!suggestion.hidden || suggestion.author.id === user.id) && <Suggestion
+                        key={suggestion.id}
+                        suggestion={suggestion}
+                        openDeleteSuggestionModal={openDeleteSuggestionModal}
+                        openEditSuggestionModal={openEditSuggestionModal}
+                        user={user}
+                        post={post}
+                        handleLastPostsUpdate={handleLastPostsUpdate}
+                    />
+
+                    )}
+                </div>
+                {user.id !== post.author.id ? <Button className="mb-14 mt-2" onClick={openCreateSuggestionModal}>Add suggestion</Button> : <div className="w-full h-2 mb-16"></div>}
+            </div>
+
+            {modal === 'addSuggestion' && <CreateSuggestion
+                handleCreateSuggestion={handleCreateSuggestion}
+                handleCloseModal={handleCloseModal}
+            />}
+
+            {modal === 'deleteSuggestion' && <DeleteSuggestion
+                handleDeleteSuggestion={handleDeleteSuggestion}
+                handleCloseModal={handleCloseModal}
+            />}
+
+            {modal === 'editSuggestion' && <EditSuggestion
+                handleEditSuggestion={handleEditSuggestion}
+                handleCloseModal={handleCloseModal}
+                suggestion={suggestion}
+                setSuggestion={setSuggestion}
+            />}
+        </section>
+    </>
 }

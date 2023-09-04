@@ -2,262 +2,262 @@ import { useEffect, useState } from "react";
 import { ModalContainer } from "../library";
 import { useHandleErrors, useAppContext } from "../hooks";
 import {
-  retrievePost,
-  retrieveUser,
-  toggleLikePost,
-  toggleSavePost,
+    retrievePost,
+    retrieveUser,
+    toggleLikePost,
+    toggleSavePost,
 } from "../../logic";
 import { context } from "../../ui";
 import { ContextualMenu, Comments, SuggestionsModal } from "../components";
 
 export default function PostModalWindow({
-  handleOpenEditPost,
-  handleOpenDeletePost,
-  handleToggleVisibility,
-  handleLastPostsUpdate,
-  handleTogglePostModal,
-  lastPostsUpdate,
-  page,
-  handleHidePost
+    handleOpenEditPost,
+    handleOpenDeletePost,
+    handleToggleVisibility,
+    handleLastPostsUpdate,
+    handleTogglePostModal,
+    lastPostsUpdate,
+    page,
+    handleHidePost
 }) {
-  const handleErrors = useHandleErrors();
-  const { freeze, unfreeze } = useAppContext()
+    const handleErrors = useHandleErrors();
+    const { freeze, unfreeze } = useAppContext()
 
-  const [post, setPost] = useState();
-  const [user, setUser] = useState();
-  const [contextualMenu, setContextualMenu] = useState("close");
-  const [modal, setModal] = useState("post");
+    const [post, setPost] = useState();
+    const [user, setUser] = useState();
+    const [contextualMenu, setContextualMenu] = useState("close");
+    const [modal, setModal] = useState("post");
 
-  useEffect(() => {
-    console.log("PostModalWindow -> render");
+    useEffect(() => {
+        console.log("PostModalWindow -> render");
 
-    handleRefreshPost();
-    handleRefreshUser();
-  }, [lastPostsUpdate]);
+        handleRefreshPost();
+        handleRefreshUser();
+    }, [lastPostsUpdate]);
 
-  const handleRefreshUser = () => {
-    handleErrors(async () => {
-      freeze()
+    const handleRefreshUser = () => {
+        handleErrors(async () => {
+            freeze()
 
-      const user = await retrieveUser();
+            const user = await retrieveUser();
 
-      setUser(user)
+            setUser(user)
 
-      unfreeze()
-    });
-  };
+            unfreeze()
+        });
+    };
 
-  const handleRefreshPost = () => {
-    handleErrors(async () => {
-      freeze()
-      const post = await retrievePost(context.postId);
-      
-      setPost(post);
+    const handleRefreshPost = () => {
+        handleErrors(async () => {
+            freeze()
+            const post = await retrievePost(context.postId);
 
-      unfreeze()
-    });
-  };
+            setPost(post);
 
-  const handleToggleLike = () => {
-    handleErrors(async () => {
-      await toggleLikePost(post.id);
+            unfreeze()
+        });
+    };
 
-      handleRefreshPost();
-    });
-  };
+    const handleToggleLike = () => {
+        handleErrors(async () => {
+            await toggleLikePost(post.id);
 
-  const handleToggleFav = () => {
-    handleErrors(async () => {
-      await toggleSavePost(post.id);
+            handleRefreshPost();
+        });
+    };
 
-      handleRefreshPost();
-      handleRefreshUser();
-    });
-  };
+    const handleToggleFav = () => {
+        handleErrors(async () => {
+            await toggleSavePost(post.id);
 
-  const toggleContextualMenu = () => {
-    context.postId = post.id;
+            handleRefreshPost();
+            handleRefreshUser();
+        });
+    };
 
-    setContextualMenu(contextualMenu === "close" ? "open" : "close");
-  };
+    const toggleContextualMenu = () => {
+        context.postId = post.id;
 
-  const handleReturn = () => {
-    if (modal !== "post") setModal("post");
-    else {
-      if(page !== 'mySuggestions') {
-        handleTogglePostModal();
-        handleLastPostsUpdate();
-      }
-      else handleHidePost()
-    }
-  };
+        setContextualMenu(contextualMenu === "close" ? "open" : "close");
+    };
 
-  const handleOpenSuggestions = () => setModal("suggestions");
-  
-  return (
-    <ModalContainer
-      className="bg-black h-screen bg-opacity-20 fixed z-20 top-0 left-0"
-      onClick={(event) => {
-        if (event.target === document.querySelector(".ModalContainer")) {
-          if(page !== 'mySuggestions') {
-            handleTogglePostModal();
-            handleLastPostsUpdate();
-          }
-          else handleHidePost()
+    const handleReturn = () => {
+        if (modal !== "post") setModal("post");
+        else {
+            if (page !== 'mySuggestions') {
+                handleTogglePostModal();
+                handleLastPostsUpdate();
+            }
+            else handleHidePost()
         }
-      }}
-    >
-      {contextualMenu === "open" && (
-        <ContextualMenu
-          options={[
-            {
-              text: "Suggestions",
-              onClick: () => {
-                handleOpenSuggestions();
-                toggleContextualMenu();
-              },
-            },
-            {
-              text: "Edit post",
-              onClick: () => {
-                handleOpenEditPost();
-                toggleContextualMenu();
-              },
-            },
-            {
-              text: `Set post ${post && post.visible ? "private" : "public"}`,
-              onClick: () => {
-                handleToggleVisibility();
-                toggleContextualMenu();
-              },
-            },
-            {
-              text: "Delete post",
-              onClick: () => {
-                handleOpenDeletePost();
-                toggleContextualMenu();
-              },
-            },
-          ]}
-          toggleContextualMenu={toggleContextualMenu}
-        />
-      )}
-      
-      <section className="w-11/12 h-5/6 bg-white rounded-lg flex flex-col items-center gap-4">
-        {post && (
-          <div className="w-full flex justify-between p-2">
-            <div className="flex items-center gap-2">
-              <span
-                className="material-symbols-outlined w-8"
-                onClick={handleReturn}
-              >
-                arrow_back
-              </span>
-              <img
-                className="h-8 w-8 object-cover rounded-full"
-                src={post.author.avatar}
-                alt="post-user-avatar"
-              />
-              <p className="px-1">{post.author.name}</p>
-            </div>
+    };
 
-            {modal === "post" && (
-              <div className="flex items-center">
-                {user && post.author.id === user.id && (
-                  <>
-                    <p className="mx-1">
-                      {post.visible ? "Public" : "Private"}
-                    </p>
-                    <span
-                      className="material-symbols-outlined hover:bg-gray-300 cursor-pointer font-black rounded-full"
-                      onClick={toggleContextualMenu}
-                    >
-                      more_vert
-                    </span>
-                  </>
-                )}
-                {user && post.author.id !== user.id && (
-                  <>
-                    <p className="px-1 rounded text-sm mr-1 border" onClick={handleOpenSuggestions}>Suggestions</p>
-                  </>
-                )}
-              </div>
+    const handleOpenSuggestions = () => setModal("suggestions");
+
+    return (
+        <ModalContainer
+            className="bg-black h-screen bg-opacity-20 fixed z-20 top-0 left-0"
+            onClick={(event) => {
+                if (event.target === document.querySelector(".ModalContainer")) {
+                    if (page !== 'mySuggestions') {
+                        handleTogglePostModal();
+                        handleLastPostsUpdate();
+                    }
+                    else handleHidePost()
+                }
+            }}
+        >
+            {contextualMenu === "open" && (
+                <ContextualMenu
+                    options={[
+                        {
+                            text: "Suggestions",
+                            onClick: () => {
+                                handleOpenSuggestions();
+                                toggleContextualMenu();
+                            },
+                        },
+                        {
+                            text: "Edit post",
+                            onClick: () => {
+                                handleOpenEditPost();
+                                toggleContextualMenu();
+                            },
+                        },
+                        {
+                            text: `Set post ${post && post.visible ? "private" : "public"}`,
+                            onClick: () => {
+                                handleToggleVisibility();
+                                toggleContextualMenu();
+                            },
+                        },
+                        {
+                            text: "Delete post",
+                            onClick: () => {
+                                handleOpenDeletePost();
+                                toggleContextualMenu();
+                            },
+                        },
+                    ]}
+                    toggleContextualMenu={toggleContextualMenu}
+                />
             )}
-          </div>
-        )}
 
-        {post && modal === "post" && (
-          <>
-            <h1 className="px-2 text-xl text-center">{post.title}</h1>
+            <section className="w-11/12 h-5/6 bg-white rounded-lg flex flex-col items-center gap-4">
+                {post && (
+                    <div className="w-full flex justify-between p-2">
+                        <div className="flex items-center gap-2">
+                            <span
+                                className="material-symbols-outlined w-8"
+                                onClick={handleReturn}
+                            >
+                                arrow_back
+                            </span>
+                            <img
+                                className="h-8 w-8 object-cover rounded-full"
+                                src={post.author.avatar}
+                                alt="post-user-avatar"
+                            />
+                            <p className="px-1">{post.author.name}</p>
+                        </div>
 
-            <p className="px-2 h-2/3 overflow-scroll border border-gray-300 rounded py-1 mx-2">{post.text}</p>
+                        {modal === "post" && (
+                            <div className="flex items-center">
+                                {user && post.author.id === user.id && (
+                                    <>
+                                        <p className="mx-1">
+                                            {post.visible ? "Public" : "Private"}
+                                        </p>
+                                        <span
+                                            className="material-symbols-outlined hover:bg-gray-300 cursor-pointer font-black rounded-full"
+                                            onClick={toggleContextualMenu}
+                                        >
+                                            more_vert
+                                        </span>
+                                    </>
+                                )}
+                                {user && post.author.id !== user.id && (
+                                    <>
+                                        <p className="px-1 rounded text-sm mr-1 border" onClick={handleOpenSuggestions}>Suggestions</p>
+                                    </>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                )}
 
-            <div className="px-2 w-full flex justify-between">
-              <div>
-                <div className="flex gap-2">
-                  <i onClick={handleToggleFav}>
-                    {user && post.fav ? (
-                      <span className="material-symbols-outlined cursor-pointer filled saved">
-                        bookmark
-                      </span>
-                    ) : (
-                      <span className="material-symbols-outlined cursor-pointer">
-                        bookmark
-                      </span>
-                    )}
-                  </i>
+                {post && modal === "post" && (
+                    <>
+                        <h1 className="px-2 text-xl text-center">{post.title}</h1>
 
-                  <i>
-                    <span
-                      className="material-symbols-outlined cursor-pointer"
-                      onClick={() => {
-                        context.postId = post.id;
+                        <p className="px-2 h-2/3 overflow-scroll border border-gray-300 rounded py-1 mx-2">{post.text}</p>
 
-                        setModal("comments");
-                      }}
-                    >
-                      mode_comment
-                    </span>
-                  </i>
+                        <div className="px-2 w-full flex justify-between">
+                            <div>
+                                <div className="flex gap-2">
+                                    <i onClick={handleToggleFav}>
+                                        {user && post.fav ? (
+                                            <span className="material-symbols-outlined cursor-pointer filled text-yellow-400">
+                                                bookmark
+                                            </span>
+                                        ) : (
+                                            <span className="material-symbols-outlined cursor-pointer">
+                                                bookmark
+                                            </span>
+                                        )}
+                                    </i>
 
-                  <i onClick={handleToggleLike}>
-                    {user && post.liked ? (
-                      <span className="material-symbols-outlined cursor-pointer filled liked">
-                        favorite
-                      </span>
-                    ) : (
-                      <span className="material-symbols-outlined cursor-pointer">
-                        favorite
-                      </span>
-                    )}
-                  </i>
-                </div>
+                                    <i>
+                                        <span
+                                            className="material-symbols-outlined cursor-pointer"
+                                            onClick={() => {
+                                                context.postId = post.id;
 
-                <p className="mt-[-5px] ml-1">
-                  {post.likes ? post.likes.length + " likes" : "0 likes"}
-                </p>
-              </div>
-              <p className="ml-2">{post.date}</p>
-            </div>
-          </>
-        )}
+                                                setModal("comments");
+                                            }}
+                                        >
+                                            mode_comment
+                                        </span>
+                                    </i>
 
-        {post && modal === "comments" && (
-          <Comments
-            handleRefreshPost={handleRefreshPost}
-            post={post}
-            user={user}
-          />
-        )}
+                                    <i onClick={handleToggleLike}>
+                                        {user && post.liked ? (
+                                            <span className="material-symbols-outlined cursor-pointer filled text-red-400">
+                                                favorite
+                                            </span>
+                                        ) : (
+                                            <span className="material-symbols-outlined cursor-pointer">
+                                                favorite
+                                            </span>
+                                        )}
+                                    </i>
+                                </div>
 
-        {post && modal === "suggestions" && <SuggestionsModal
-          handleRefreshPost={handleRefreshPost}
-          post={post}
-          user={user}
-          handleLastPostsUpdate={handleLastPostsUpdate}
-          lastPostsUpdate={lastPostsUpdate}
-        />}
-      </section>
-    </ModalContainer>
-  )
+                                <p className="mt-[-5px] ml-1">
+                                    {post.likes ? post.likes.length + " likes" : "0 likes"}
+                                </p>
+                            </div>
+                            <p className="ml-2">{post.date}</p>
+                        </div>
+                    </>
+                )}
+
+                {post && modal === "comments" && (
+                    <Comments
+                        handleRefreshPost={handleRefreshPost}
+                        post={post}
+                        user={user}
+                    />
+                )}
+
+                {post && modal === "suggestions" && <SuggestionsModal
+                    handleRefreshPost={handleRefreshPost}
+                    post={post}
+                    user={user}
+                    handleLastPostsUpdate={handleLastPostsUpdate}
+                    lastPostsUpdate={lastPostsUpdate}
+                />}
+            </section>
+        </ModalContainer>
+    )
 }

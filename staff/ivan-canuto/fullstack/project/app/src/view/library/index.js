@@ -9,13 +9,13 @@ import LoaderResponse from "./LoaderResponse"
 import LoaderContent from "./LoaderContent"
 
 export {
-  Button,
-  Container,
-  Form,
-  Input,
-  ModalContainer,
-  ModalWindow,
-  SpeechBubble,
-  LoaderResponse,
-  LoaderContent
+    Button,
+    Container,
+    Form,
+    Input,
+    ModalContainer,
+    ModalWindow,
+    SpeechBubble,
+    LoaderResponse,
+    LoaderContent
 }

@@ -16,24 +16,24 @@ const { validateId } = validators
  */
 
 export default function deleteComment(postId, suggestionId) {
-  validateId(postId, 'post id')
-  validateId(suggestionId, 'suggestion id')
+    validateId(postId, 'post id')
+    validateId(suggestionId, 'suggestion id')
 
-  return (async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/suggestions/${suggestionId}/delete`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${context.token}`
-      }
-    })
+    return (async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/suggestions/${suggestionId}/delete`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${context.token}`
+            }
+        })
 
-    if(res.status === 200)
-      return
-    
-    const { type, message } = await res.json()
+        if (res.status === 200)
+            return
 
-    const clazz = errors[type]
+        const { type, message } = await res.json()
 
-    throw new clazz(message)
-  })()
+        const clazz = errors[type]
+
+        throw new clazz(message)
+    })()
 }

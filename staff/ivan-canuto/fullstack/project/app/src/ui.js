@@ -1,76 +1,76 @@
 export const setTheme = (_theme) => {
 
-  const root = document.querySelector(':root')
+    const root = document.querySelector(':root')
 
-  if(_theme === 'dark') root.classList.add('dark')
-  else root.classList.remove('dark')
+    if (_theme === 'dark') root.classList.add('dark')
+    else root.classList.remove('dark')
 
-  localStorage.theme = _theme
+    localStorage.theme = _theme
 }
 
 export const getTheme = () => {
-  return localStorage.theme || 'light'
+    return localStorage.theme || 'light'
 }
 
 export const context = {
-  set postId(postId) {
-    if(!postId) {
-        delete sessionStorage.postId
+    set postId(postId) {
+        if (!postId) {
+            delete sessionStorage.postId
 
-        return
-    }
+            return
+        }
 
-    sessionStorage.postId = postId
-  },
-  get postId() {
-    return sessionStorage.postId
-  },
-  set conversationId(conversationId) {
-    if(!conversationId) {
-      delete sessionStorage.conversationId
+        sessionStorage.postId = postId
+    },
+    get postId() {
+        return sessionStorage.postId
+    },
+    set conversationId(conversationId) {
+        if (!conversationId) {
+            delete sessionStorage.conversationId
 
-      return
-    }
+            return
+        }
 
-    sessionStorage.conversationId = conversationId
-  },
-  get conversationId() {
-    return sessionStorage.conversationId
-  },
-  set suggestionId(suggestionId) {
-    if(!suggestionId) {
-      delete sessionStorage.suggestionId
+        sessionStorage.conversationId = conversationId
+    },
+    get conversationId() {
+        return sessionStorage.conversationId
+    },
+    set suggestionId(suggestionId) {
+        if (!suggestionId) {
+            delete sessionStorage.suggestionId
 
-      return
-    }
+            return
+        }
 
-    sessionStorage.suggestionId = suggestionId
-  },
-  get suggestionId() {
-    return sessionStorage.suggestionId
-  },
-  set hideHeader(hideHeader) {
-    if(!hideHeader) {
-      delete sessionStorage.hideHeader
+        sessionStorage.suggestionId = suggestionId
+    },
+    get suggestionId() {
+        return sessionStorage.suggestionId
+    },
+    set hideHeader(hideHeader) {
+        if (!hideHeader) {
+            delete sessionStorage.hideHeader
 
-      return
-    }
+            return
+        }
 
-    sessionStorage.hideHeader = hideHeader
-  },
-  get hideHeader() {
-    return sessionStorage.hideHeader
-  },
-  set summary(summary) {
-    if(!summary) {
-      delete sessionStorage.summary
+        sessionStorage.hideHeader = hideHeader
+    },
+    get hideHeader() {
+        return sessionStorage.hideHeader
+    },
+    set summary(summary) {
+        if (!summary) {
+            delete sessionStorage.summary
 
-      return
-    }
+            return
+        }
 
-    sessionStorage.summary = summary
-  },
-  get summary() {
-    return sessionStorage.summary
-  },
+        sessionStorage.summary = summary
+    },
+    get summary() {
+        return sessionStorage.summary
+    },
 }

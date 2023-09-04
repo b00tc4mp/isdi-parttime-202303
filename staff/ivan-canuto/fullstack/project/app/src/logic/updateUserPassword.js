@@ -19,30 +19,30 @@ const { ContentError } = errors
  */
 
 export default function updateUserPassword(password, newPassword, newPasswordConfirm) {
-  validatePassword(password)
-  validatePassword(newPassword, 'new password')
-  validatePassword(newPasswordConfirm, 'new password confirmation')
+    validatePassword(password)
+    validatePassword(newPassword, 'new password')
+    validatePassword(newPasswordConfirm, 'new password confirmation')
 
-  if(newPassword !== newPasswordConfirm)
-    throw new ContentError('The new passwords do not match.')
+    if (newPassword !== newPasswordConfirm)
+        throw new ContentError('The new passwords do not match.')
 
-  return (async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/users/newPassword`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${context.token}`
-      },
-      body: JSON.stringify({ password, newPassword, newPasswordConfirm })
-    })
+    return (async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/newPassword`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${context.token}`
+            },
+            body: JSON.stringify({ password, newPassword, newPasswordConfirm })
+        })
 
-    if(res.status === 200)
-      return
-    
-    const { type, message } = await res.json()
+        if (res.status === 200)
+            return
 
-    const clazz = errors[type]
+        const { type, message } = await res.json()
 
-    throw new clazz(message)
-  })()
+        const clazz = errors[type]
+
+        throw new clazz(message)
+    })()
 }

@@ -16,28 +16,28 @@ const { validateId, validateComment } = validators
  */
 
 export default function createComment(postId, _commentText) {
-  validateId(postId, 'post id')
-  validateComment(_commentText, 'comment text')
+    validateId(postId, 'post id')
+    validateComment(_commentText, 'comment text')
 
-  const commentText = _commentText.trim()
+    const commentText = _commentText.trim()
 
-  return (async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/users/posts/${postId}/comment`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${context.token}`
-      },
-      body: JSON.stringify({ commentText })
-    })
+    return (async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/posts/${postId}/comment`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${context.token}`
+            },
+            body: JSON.stringify({ commentText })
+        })
 
-    if(res.status === 200)
-      return
-    
-    const { type, message } = await res.json()
+        if (res.status === 200)
+            return
 
-    const clazz = errors[type]
+        const { type, message } = await res.json()
 
-    throw new clazz(message)
-  })()
+        const clazz = errors[type]
+
+        throw new clazz(message)
+    })()
 } 

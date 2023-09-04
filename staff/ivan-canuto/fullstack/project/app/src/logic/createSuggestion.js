@@ -1,8 +1,7 @@
 import { validators, errors } from 'com'
 import context from './context'
 
-const { validateId, validateText, validateSuggestionTitle, validateSuggestionContent } = validators
-const { ContentError } = errors
+const { validateId, validateSuggestionTitle, validateSuggestionContent } = validators
 
 /**
  * Creates a suggestion
@@ -18,30 +17,30 @@ const { ContentError } = errors
  */
 
 export default function createSuggestion(postId, _title, _content) {
-  validateId(postId, 'post id')
-  validateSuggestionTitle(_title)
-  validateSuggestionContent(_content)
-  
-  const title = _title.trim()
-  const content = _content.trim()
+    validateId(postId, 'post id')
+    validateSuggestionTitle(_title)
+    validateSuggestionContent(_content)
 
-  return (async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/suggestions/newSuggestion`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${context.token}`
-      },
-      body: JSON.stringify({ title, content })
-    })
+    const title = _title.trim()
+    const content = _content.trim()
 
-    if(res.status === 200)
-      return
-    
-    const { type, message } = await res.json()
+    return (async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/suggestions/newSuggestion`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${context.token}`
+            },
+            body: JSON.stringify({ title, content })
+        })
 
-    const clazz = errors[type]
+        if (res.status === 200)
+            return
 
-    throw new clazz(message)
-  })()
+        const { type, message } = await res.json()
+
+        const clazz = errors[type]
+
+        throw new clazz(message)
+    })()
 } 
