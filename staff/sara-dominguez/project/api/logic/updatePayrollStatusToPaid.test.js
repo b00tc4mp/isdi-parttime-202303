@@ -1,12 +1,13 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const retrieveEmployeesBySalaryLevel = require('./retrieveEmployeesBySalaryLevel')
-const { Employee } = require('../data/models')
+const updatePayrollStatusToPaid = require('./updatePayrollStatusToPaid')
+const { Employee, PayrollMonth } = require('../data/models')
 
 mongoose.connect(process.env.MONGODB_URL)
 
     // .then(() => Promise.all(Employee.deleteMany()))
-    .then(() => retrieveEmployeesBySalaryLevel('64f63762a661aadfb2b1fe21', 3))
+    .then(() => updatePayrollStatusToPaid('64f638b656010b387c3535d4', '64f64fc620ff64472237f280'))
     .then((result) => console.log(result))
     .catch(error => { console.log(error) })
     .finally(() => mongoose.disconnect())
+

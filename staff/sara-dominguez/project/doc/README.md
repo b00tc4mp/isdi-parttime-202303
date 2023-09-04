@@ -11,11 +11,13 @@ b-Elevenzsd is an employee portal.
 
 It will allow the company to channel processes related to the Human Resources department like register new employees, consult or modify their data, as well as make monthly payroll payments for each of them. 
 
-Employees to make all the necessary inquiries regarding their personal and company profile, like enter modifications to certain personal data, check monthly payrolls, as well as access the year-to-date Aggregated and the previous year's tax certificate.
+Employees to make all the necessary inquiries regarding their personal and company profile, like enter modifications to certain personal data, check monthly payrolls, as well as access the year-to-date and  previous year's Aggregate.
 
-![](https://media.giphy.com/media/KtFuqZ3JK497geHYhe/giphy.gif)
+<img src="https://media.giphy.com/media/KtFuqZ3JK497geHYhe/giphy.gif" width="900" height="500">
 
 ## Functional description
+
+<img src="Project Diagram.jpg" width=700px  />
 
 ### Use cases
 

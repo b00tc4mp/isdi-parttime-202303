@@ -33,6 +33,8 @@ module.exports = function updatePayrollStatusToPaid(employeeId, _id) {
 
         payrollMonth.status = "paid"
 
+        delete payrollMonth.__v
+
         return payrollMonth.save()
     })()
 }

@@ -7,8 +7,8 @@ import retrieveEmployee from '../logic/retrieveEmployee'
 import searchEmployees from '../logic/searchEmployees'
 
 
-export default function RegisterEmployeeModal({ employeeId, onUpdateEmployeeModalClose, onEmployeeUpdated }) {
-    console.log('EmployeeDatabaseMenu --> open')
+export default function UpdatedEmployeeModal({ employeeId, onUpdateEmployeeModalClose, onEmployeeUpdated }) {
+    console.log('UpdateEmployeeModal --> open')
 
     const { alert } = useAppContext()
     const [modal, setModal] = useState(null)
@@ -22,7 +22,6 @@ export default function RegisterEmployeeModal({ employeeId, onUpdateEmployeeModa
                 throw new Error("employee not found")
             }
             setEmployee(employee)
-
         }
         fetchEmployee()
     }, [])
@@ -37,7 +36,6 @@ export default function RegisterEmployeeModal({ employeeId, onUpdateEmployeeModa
                 const employeeId = employee[0]._id
                 setSuperiorHierarchicalManagerSelected(employeeId)
             })
-
     }
 
     function handleUpdateEmployeeModalClose(event) {
@@ -166,7 +164,7 @@ export default function RegisterEmployeeModal({ employeeId, onUpdateEmployeeModa
                         <label>Job position:<Input className="w-full placeholder:text-xs" type="text" name="jobPosition" placeholder="CEO / CFO / CTO / Executive / Manager / Developer / Financial Controller / Assistant" defaultValue={jobPosition} /></label>
                     </div>
                     <div className="w-7/12">
-                        <label>Superior hierarchical manager:<Input className="input w-full" type="text" name="superiorHierachicalManager" placeholder="Id" defaultValue={superiorHierarchicalManager} /></label>
+                        <label>Superior hierarchical manager:<Input className="input w-full" type="text" name="superiorHierachicalManager" placeholder="Id" defaultValue={setSuperiorHierarchicalManagerSelected !== null ? employeeId : superiorHierarchicalManager} /></label>
                     </div>
                     <h5 className="w-3/6 mt-7">Permissions area</h5>
                     <div className="flex flex-wrap mt-2 pb-3">

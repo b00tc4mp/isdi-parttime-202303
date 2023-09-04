@@ -5,7 +5,7 @@ const { Employee } = require('../data/models')
 
 mongoose.connect(process.env.MONGODB_URL)
 
-    .then(() => updateEmployeeAddress('64c1a6f1e19591be650a5963', 'Plaza ISDI 70 3-2', '08026', 'Barcelona', 'España'
+    .then(() => updateEmployeeAddress('64f638b656010b387c3535d4', 'ISDI avenue 70 3 2', '08026', 'Barcelona (Barcelona)', 'Spain'
     ))
     .then((result) => console.log(result))
     .catch(error => { console.log(error) })

@@ -9,7 +9,6 @@ const {
         validatePersonalPhoneNumber,
         validateBankAccountNumber,
         validateUrl,
-        // validateEmployeeNumber,
         validateTypeOfContract,
         validateJobPosition,
         validateDepartment,
@@ -20,7 +19,7 @@ const {
         validateEmail,
         validateAccessPermissions,
     },
-    errors: { DuplicityError, AuthError }
+    errors: { DuplicityError, AuthError, ExistenceError }
 } = require('com')
 const { Employee } = require('../data/models')
 
