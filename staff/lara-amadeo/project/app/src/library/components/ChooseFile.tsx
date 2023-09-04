@@ -1,6 +1,5 @@
 import { PlusIcon } from '../icons'
 import './ChooseFile.css'
-import Link from './Link'
 
 type Props = {
     onAddClick?: undefined | (() => void),

@@ -43,7 +43,7 @@ export default function PendingOrderCard({ image, chefName, chip, quantity, tota
                     </div>
                 </div>
             </>
-            <Button type={'secondary'} size={'extrasmall'} label={'Mark as completed'} onClick={onCompletedLink} />
+            {chip.label === "ready" && <Button type={'secondary'} size={'extrasmall'} label={'Mark as completed'} onClick={onCompletedLink} />}
 
         </div>
     </>

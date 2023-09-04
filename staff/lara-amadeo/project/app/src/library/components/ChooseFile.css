@@ -18,4 +18,5 @@
 .chooseFile-img {
     height: 90px;
     aspect-ratio: 1/1;
+    object-fit: cover;
 }

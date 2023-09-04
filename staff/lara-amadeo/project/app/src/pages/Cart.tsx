@@ -173,6 +173,8 @@ export default function Cart() {
 
                 setCompletedContextualModal(null)
 
+                refreshCartMeals()
+
                 setTimeout(() => {
                     loaderOff()
                     toast('Order completed successfully', 'success')
@@ -388,7 +390,7 @@ export default function Cart() {
                                 </div>
                             </>}
                         {pendingMeals?.length === 0 && <>
-                            <div className="empty-state-profile"><EmptyState src="/illustrations/EmptyState.png" title="No meals found" description="Try adjusting the search criteria" width="240px" /> </div>
+                            <div className="empty-state-profile"><EmptyState src="/illustrations/EmptyState.png" title="No meals pending" description="Start paying some meals!" width="240px" /> </div>
                         </>}
                     </>}
             </div>

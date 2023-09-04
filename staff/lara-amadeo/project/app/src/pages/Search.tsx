@@ -36,11 +36,9 @@ export default function Search() {
 
     useEffect(() => {
         const delayId = setTimeout(() => {
-
             (async () => {
                 try {
                     const meals = await searchMeals(searchQuery, categories)
-                    console.log(searchQuery, meals)
                     setResult(meals)
                 } catch (error: any) {
                     handleErrors(error)
@@ -48,7 +46,9 @@ export default function Search() {
             })()
         }, 800)
 
+
         return () => clearTimeout(delayId)
+
     }, [searchQuery, categories])
 
     const onCategoryClick = (category: string) => {
