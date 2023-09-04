@@ -58,27 +58,27 @@ describe('retrieveMission', () => {
   });
 
   it('throws ExistenceError when user does not exist', async () => {
-    const nonexistentUserId = new ObjectId().toString();
+    const nonExistentUserId = new ObjectId().toString();
 
     try {
-      await retrieveMission(nonexistentUserId, mission._id.toString());
+      await retrieveMission(nonExistentUserId, mission._id.toString());
     } catch (error) {
       expect(error).to.be.an.instanceOf(ExistenceError);
       expect(error.message).to.equal(
-        `user with id ${nonexistentUserId} not exist`
+        `user with id ${nonExistentUserId} not exist`
       );
     }
   });
 
   it('throws ExistenceError when mission does not exist', async () => {
-    const nonexistentMissionId = new ObjectId().toString();
+    const nonExistentMissionId = new ObjectId().toString();
 
     try {
-      await retrieveMission(user._id.toString(), nonexistentMissionId);
+      await retrieveMission(user._id.toString(), nonExistentMissionId);
     } catch (error) {
       expect(error).to.be.an.instanceOf(ExistenceError);
       expect(error.message).to.equal(
-        `mission with id ${nonexistentMissionId} not exist`
+        `mission with id ${nonExistentMissionId} not exist`
       );
     }
   });

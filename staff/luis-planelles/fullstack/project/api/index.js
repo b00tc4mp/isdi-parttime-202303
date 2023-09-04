@@ -29,8 +29,6 @@ mongoose
     api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
     api.post('/missions', jsonBodyParser, createMissionHandler);
     api.get('/missions/:missionId', retrieveMissionHandler);
-
-    // api NASA
     api.get('/nasa-data/', retrieveNasaDataHandler);
 
     api.listen(process.env.PORT, () =>

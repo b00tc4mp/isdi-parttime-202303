@@ -13,7 +13,7 @@ const {
 } = require('com');
 
 describe('createMission', () => {
-  let date;
+  let date, fakeDate;
 
   before(() => {
     date = new Date();
@@ -146,17 +146,12 @@ describe('createMission', () => {
   });
 
   it('success on many participants', async () => {
-    const participants = ([
-      participant1,
-      participant2,
-      participant3,
-      participant4,
-    ] = [
+    const participants = [
       generate.participant(),
       generate.participant(),
       generate.participant(),
       generate.participant(),
-    ]);
+    ];
 
     await createMission(
       user._id.toString(),
@@ -401,7 +396,7 @@ describe('createMission', () => {
       );
     } catch (error) {
       expect(error).to.be.instanceOf(TypeError);
-      expect(error.message).to.equal('no object at index 0 is not an object');
+      expect(error.message).to.equal('participant is not an object');
     }
   });
 
