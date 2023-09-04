@@ -3,5 +3,6 @@ module.exports = {
   registerUser: require('./registerUser'),
   createMission: require('./createMission'),
   retrieveMission: require('./retrieveMission'),
+  createNasaData: require('./createNasaData'),
   retrieveNasaData: require('./retrieveNasaData'),
 };
