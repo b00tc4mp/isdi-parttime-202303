@@ -6,14 +6,18 @@ const {
 const { handleErrors } = require('../../handlers/helpers');
 
 describe('handleErrors', () => {
-  it('should return a 200 no errors for successful response', () => {
-    const callbackStub = sinon.stub().resolves();
+  let req, res;
 
-    const req = {};
-    const res = {
+  beforeEach(() => {
+    req = {};
+    res = {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),
     };
+  });
+
+  it('should return a 200 no errors for successful response', () => {
+    const callbackStub = sinon.stub().resolves();
 
     handleErrors(callbackStub)(req, res);
 
@@ -24,12 +28,6 @@ describe('handleErrors', () => {
   it('should handle asynchronous errors and respond with status 500', async () => {
     const asyncCallbackStub = async () => {
       throw new Error('Error');
-    };
-
-    const req = {};
-    const res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.stub(),
     };
 
     await handleErrors(asyncCallbackStub)(req, res);
@@ -48,12 +46,6 @@ describe('handleErrors', () => {
       throw new DuplicityError('Duplicity error');
     };
 
-    const req = {};
-    const res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.stub(),
-    };
-
     await handleErrors(asyncCallbackStub)(req, res);
 
     expect(res.status.calledWith(409)).to.be.true;
@@ -68,12 +60,6 @@ describe('handleErrors', () => {
   it('should handle asynchronous AuthError and respond with status 401', async () => {
     const asyncCallbackStub = async () => {
       throw new AuthError('Auth error');
-    };
-
-    const req = {};
-    const res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.stub(),
     };
 
     await handleErrors(asyncCallbackStub)(req, res);
@@ -92,12 +78,6 @@ describe('handleErrors', () => {
       throw new ExistenceError('Existence error');
     };
 
-    const req = {};
-    const res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.stub(),
-    };
-
     await handleErrors(asyncCallbackStub)(req, res);
 
     expect(res.status.calledWith(404)).to.be.true;
@@ -112,12 +92,6 @@ describe('handleErrors', () => {
   it('should handle synchronous general Error and respond with status 500', () => {
     const callbackStub = sinon.stub().throws(new Error('Error'));
 
-    const req = {};
-    const res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.stub(),
-    };
-
     handleErrors(callbackStub)(req, res);
 
     expect(res.status.calledWith(500)).to.be.true;
@@ -127,12 +101,6 @@ describe('handleErrors', () => {
 
   it('should handle synchronous TypeError and respond with status 406', () => {
     const callbackStub = sinon.stub().throws(new TypeError('Type Error'));
-
-    const req = {};
-    const res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.stub(),
-    };
 
     handleErrors(callbackStub)(req, res);
 
@@ -144,12 +112,6 @@ describe('handleErrors', () => {
 
   it('should handle synchronous ContentError and respond with status 406', () => {
     const callbackStub = sinon.stub().throws(new ContentError('Content Error'));
-
-    const req = {};
-    const res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.stub(),
-    };
 
     handleErrors(callbackStub)(req, res);
 
@@ -164,12 +126,6 @@ describe('handleErrors', () => {
 
   it('should handle synchronous RangeError and respond with status 406', () => {
     const callbackStub = sinon.stub().throws(new RangeError('Range Error'));
-
-    const req = {};
-    const res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.stub(),
-    };
 
     handleErrors(callbackStub)(req, res);
 
