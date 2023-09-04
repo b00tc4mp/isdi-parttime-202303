@@ -5,36 +5,36 @@
 ## Intro
 This is a web app build as the final project for the ISDI Coders' online web development fullstack bootcamp.
 </br>
-</br>
 Ballopolis is meant to be a social game, where you create levels that are fun and challenging to beat for other players.
-</br>
 </br>
 In doing so, you earn achivements to add to your profile and show off to other users.
 </br>
-</br>
 To create those levels you need to earn Customization Credits by playing other people levels.
-</br>
 </br>
 So you play levels to earn points to create levels that other people will play to earn points to create levels that you will play!
 </br>
-</br>
-
 [PLAY NOW!](https://ballopolis.rucev.com/)
 
 ## Functional description
 
 ### Use cases
 
+- login
+- create a user
 - create level
 - play level
 - earn achivements
 - toggle like level
+- toggle favorite to save a level
 - follow users
-- see other users achivements
-- see other users created levels
+- see other users (and mine) achivements
+- see other users (and mine) created levels
+- see other users (and mine) saved levels
 - customize your avatar
-</br>
-</br>
+- change/recover my password
+- add recovery questions
+- search users or levels
+
 
 ## UI desgin
 The initial views were drawn in a whiteboard, digitalized and add to uizard.io to create a prototype you can [see here](https://app.uizard.io/p/8a20cb17/preview).
@@ -54,8 +54,6 @@ The initial views were drawn in a whiteboard, digitalized and add to uizard.io t
 - MongoDB and Mongoose
 - Socket.IO
 - Mocha Chai *for backend testing*
-</br>
-</br>
 
 
 ### Data models
@@ -86,7 +84,7 @@ The initial views were drawn in a whiteboard, digitalized and add to uizard.io t
 **Achivements**
 - user (oid)
 - progressByAchivement (array of objects)
-</br>
+
 *progressByAchivement* 
 - code (string)
 - name (string)
@@ -97,18 +95,16 @@ The initial views were drawn in a whiteboard, digitalized and add to uizard.io t
 - isRankBronzeReached (boolean)
 - isRankSilverReached (boolean)
 - isRankGoldReached (boolean)
-</br>
-</br>
+
 
 **Session**
 - user (oid)
 - sessionDetails (array of objects)
-</br>
+
 *sessionDetails* 
 - socketId (string)
 - date (date)
-</br>
-</br>
+
 
 ### Test Coverage
 
@@ -173,29 +169,48 @@ All files                           |   99.03 |    91.87 |   98.95 |   98.93 |
 ## Planning
 
 Planned through a kanban visible on this [Trello](https://trello.com/b/uHRmZKBR/final-project-ballopolis).
-</br>
-</br>
 
 ### Epics & Stories
 
 #### **Demo page**
-
 - Me as a user, I want to see a basic page where i can try the main functionalities and learn about the app
 
-#### **Access control**
+##### *use cases*
+- create level
+- play level
 
+#### **Access control**
 - Me as a user, I want to get the chance to sign up and log in into the web app and with that access more functionalities
+
+##### *use cases*
+- login
+- create a user
+- toggle like level
+- toggle favorite to save a level
+- follow users
 
 #### **User views**
 - Me as a user, I want to have te option to update privacy settings and customize my profile.
 
-#### **Achivement**
+##### *use cases*
+- change/recover my password
+- add recovery questions
+- see other users (and mine) created levels
+- see other users (and mine) saved levels
+- search users or levels
+
+#### **Achivements**
 - Me as a user, I want to get little awards that stimulate me to keep playing and interact with other users.
+
+##### *use cases*
+- earn achivements
+- see other users (and mine) achivements
 
 #### **Customization Credits**
 - Me as a user, I want to earn points when I play that I can spend to create more levels or customize my profile
 
-</br>
+##### *use cases*
+- customize your avatar
 
 ## Project setup
 This project is configured to run both in local or through EC2 on AWS. To know more [click here](./project-setup.md).
