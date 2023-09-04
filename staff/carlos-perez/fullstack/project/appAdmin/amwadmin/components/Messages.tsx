@@ -32,7 +32,7 @@ const Messages = ({ message }: MessagesProps) => {
             <div className="flex flex-col justify-between content-center border-solid border-2 border-blue-100 cursor-pointer">
                 <button onClick={buttonHandler} name={_id}>
                 <h1 className="font-bold justify-self-center text-xl p-4">{title}</h1>
-                <h1 className="font-bold justify-self-center text-xl p-4">{author}</h1>
+                <h1 className="font-bold justify-self-center text-xl p-4 bg-slate-700 text-white">{author}</h1>
                 </button>
             </div>
         </div>

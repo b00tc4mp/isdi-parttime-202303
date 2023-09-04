@@ -113,12 +113,12 @@ export async function fetchEvent(id: string) {
   return res.json()
 }
 
-export async function fetchMessages() {
+export async function fetchMessages(token: string) {
   const res = await fetch('http://localhost:4321/messages', {
     cache: 'no-store',
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${context.token}`
+      Authorization: `Bearer ${token}`
     }
   })
 
@@ -130,12 +130,12 @@ export async function fetchMessages() {
 }
 
 
-export async function fetchMessage(id: string) {
+export async function fetchMessage(id: string, token: string) {
   const res = await fetch('http://localhost:4321/messages/' + id, {
     cache: 'no-store',
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${context.token}`
+      Authorization: `Bearer ${token}`
     }
   })
 
