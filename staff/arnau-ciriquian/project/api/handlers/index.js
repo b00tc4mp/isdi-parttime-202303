@@ -18,5 +18,6 @@ module.exports = {
     updateUserPasswordHandler: require('./updateUserPasswordHandler'),
     createNewCharacterHandler: require('./createNewCharacterHandler'),
     getUserCharacterHandler: require('./getUserCharacterHandler'),
-    registerCompletedMissionHandler: require('./registerCompletedMissionHandler')
+    registerCompletedMissionHandler: require('./registerCompletedMissionHandler'),
+    retriveAdminMissionsHandler: require('./retriveAdminMissionsHandler')
 }

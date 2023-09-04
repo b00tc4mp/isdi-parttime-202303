@@ -20,7 +20,8 @@ const {
     deleteMissionHandler,
     createNewCharacterHandler,
     getUserCharacterHandler,
-    registerCompletedMissionHandler
+    registerCompletedMissionHandler,
+    retriveAdminMissionsHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -61,7 +62,9 @@ mongoose.connect(process.env.MONGODB_URL)
         // MISSIONS DATA
         api.post('/missions', jsonBodyParser, createNewMissionHandler)
 
-        api.get('/missions', retriveMissionsHandler)
+        api.get('/missions/user', retriveMissionsHandler)
+
+        api.get('/missions/admin', retriveAdminMissionsHandler)
 
         api.get('/missions/:missionId', retriveMissionHandler)
 

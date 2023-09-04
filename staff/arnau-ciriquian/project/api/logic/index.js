@@ -17,5 +17,6 @@ module.exports = {
     updateUserPassword: require('./updateUserPassword'),
     createNewCharacter: require('./createNewCharacter'),
     getUserCharacter:require('./getUserCharacter'),
-    registerCompletedMission: require('./registerCompletedMission')
+    registerCompletedMission: require('./registerCompletedMission'),
+    retriveAdminMissions: require('./retriveAdminMissions')
 }

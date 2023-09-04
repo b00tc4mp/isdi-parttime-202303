@@ -26,7 +26,7 @@ module.exports = userId => {
                 .then(character => {
                     if (!character) throw new ExistenceError('character not found')
 
-                    return Mission.find().sort({ completed: 1, level: 1, date: -1 }).lean()
+                    return Mission.find()/* .sort({ completed: 1, level: 1, date: -1 }) */.lean()
                         .then(missions => {
                             missions.forEach(mission => {
                                 mission.id = mission._id.toString()
@@ -36,6 +36,16 @@ module.exports = userId => {
                                 delete mission._id
                                 delete mission.__v
                             })
+
+                            missions.sort((a, b) => {
+                                if (a.completed !== b.completed) {
+                                  return a.completed ? 1 : -1
+                                } else if (a.level !== b.level) {
+                                  return a.level - b.level
+                                } else {
+                                  return b.date - a.date
+                                }
+                              })
 
                             return missions
                         })
