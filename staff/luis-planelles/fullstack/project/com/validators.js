@@ -6,8 +6,6 @@ const validateName = (name) => {
   if (typeof name !== 'string') throw new TypeError('name is not a string');
   if (!name.length) throw new ContentError('name is empty');
   if (containsSpaces.test(name)) throw new ContentError('name contains spaces');
-
-  return name.trim();
 };
 
 const validateEmail = (email) => {
@@ -16,8 +14,6 @@ const validateEmail = (email) => {
   if (typeof email !== 'string') throw new TypeError('email is not a string');
   if (!email.length) throw new ContentError('email is empty');
   if (!emailRegex.test(email)) throw new ContentError('invalid email');
-
-  return email;
 };
 
 const validatePassword = (password, type = 'password') => {
@@ -43,8 +39,6 @@ const validatePassword = (password, type = 'password') => {
     throw new ContentError(`${type} not contains one special character`);
   if (!noWhitespace.test(password))
     throw new ContentError(`${type} contains any whitespace characters`);
-
-  return password;
 };
 
 const validateId = (id, explain = 'id') => {
@@ -62,6 +56,17 @@ const validateText = (text, explain = 'text') => {
   if (typeof text !== 'string')
     throw new TypeError(`${explain} is not a string`);
   if (!text.trim().length) throw new ContentError(`${explain} is empty`);
+};
+
+const validateObject = (object, explain = 'object') => {
+  if (typeof object !== 'object' || object === null || Array.isArray(object))
+    throw new TypeError(`${explain} is not an object`);
+};
+
+const validateDate = (date, explain = 'date') => {
+  if (!(date instanceof Date) || isNaN(date)) {
+    throw new TypeError(`${explain} is not a valid Date object`);
+  }
 };
 
 const validateTraveler = (traveler) => {
@@ -92,11 +97,8 @@ const validateParticipants = (participants) => {
     throw new ContentError(`${participants} is empty`);
   }
 
-  participants.forEach((participant, index) => {
-    if (!participant || typeof participant !== 'object') {
-      throw new TypeError(`${participant} at index ${index} is not an object`);
-    }
-
+  participants.forEach((participant) => {
+    validateObject(participant, 'participant');
     validateText(participant.name, 'participant name');
   });
 };
@@ -114,6 +116,8 @@ module.exports = {
   validatePassword,
   validateId,
   validateText,
+  validateObject,
+  validateDate,
   validateTraveler,
   validateDestination,
   validateParticipants,
