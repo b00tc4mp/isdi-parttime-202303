@@ -6,6 +6,7 @@ const {
   createMissionHandler,
   retrieveMissionHandler,
   retrieveNasaDataHandler,
+  updateMissionHandler,
 } = require('./handlers');
 
 const mongoose = require('mongoose');
@@ -23,13 +24,19 @@ mongoose
     api.use(cors());
 
     // api routes
-    api.get('/', (req, res) => res.send('Hello, Space Monkey.v1!'));
+    api.get('/', (req, res) => res.send('Hello, Space Poursuit.v1!'));
 
     api.post('/users', jsonBodyParser, registerUserHandler);
     api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
     api.post('/missions', jsonBodyParser, createMissionHandler);
+
+    api.get('/retrieve-nasa-data/', retrieveNasaDataHandler);
     api.get('/missions/:missionId', retrieveMissionHandler);
-    api.get('/nasa-data/', retrieveNasaDataHandler);
+    api.get(
+      '/missions/update/:missionId',
+      jsonBodyParser,
+      updateMissionHandler
+    );
 
     api.listen(process.env.PORT, () =>
       console.log(`server running in port ${process.env.PORT}`)
