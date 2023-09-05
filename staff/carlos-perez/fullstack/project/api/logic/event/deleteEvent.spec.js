@@ -33,39 +33,64 @@ describe('deleteEvent', () => {
         const adminFound = await Administrator.findOne({ email: admin.email });
         const adminId= adminFound._id;
 
-        await Event.create(adminId, event.title, event.eventDate, event.location, event.text, event.links, event.visibility)
+        await Event.create({author: adminId, title: event.title, eventDate: event.eventDate, location: event.location, text: event.text, links: event.links, visibility: event.visibility})
         const eventFound = await Event.findOne({ title: event.title });
-        const eventId=eventFound._id;
-        await deleteEvent(adminId, eventId);
-
-        expect(Event.find()).to.equal('');
-
+        const eventId=eventFound._id.toString();
+        await deleteEvent(adminId.toString(), eventId);
+        const result = await Event.find();
+        expect(result.length).to.equal(0);
     });
 
     it('should fail if the admin does not exist', async () => {
         const admin = generate.Administrator();
         await Administrator.create(admin);
         const event = generate.Event();
-        try{createEvent('64f71960afe8291e1e4b9643', event.title, event.eventDate, event.location, event.text, event.links, event.visibility)}
+        const adminFound = await Administrator.findOne({ email: admin.email });
+        const adminId= adminFound._id;
+        await Event.create({author: adminId, title: event.title, eventDate: event.eventDate, location: event.location, text: event.text, links: event.links, visibility: event.visibility})
+        const eventFound = await Event.findOne({ title: event.title });
+        const eventId=eventFound._id.toString();
+        try{deleteEvent('64f71960afe8291e1e4b9643', eventId)}
         catch (error){
             expect(error).to.be.instanceOf(ExistenceError)
-            expect(error.message).to.equal('Admin does not exist')
         }
     });
 
     
-    it('should fail on incorrect id format', async () => {
+    it('should fail on incorrect Admin id format', async () => {
+        const admin = generate.Administrator();
+        await Administrator.create(admin);
         const event = generate.Event();
-        await expect(() => createEvent('id', event.title, event.eventDate, event.location, event.text, event.links, event.visibility)).to.throw(FormatError, 'admin id does not have 24 characters');
+        const adminFound = await Administrator.findOne({ email: admin.email });
+        const adminId= adminFound._id;
+        await Event.create({author: adminId, title: event.title, eventDate: event.eventDate, location: event.location, text: event.text, links: event.links, visibility: event.visibility})
+        const eventFound = await Event.findOne({ title: event.title });
+        const eventId=eventFound._id.toString();
+        await expect(() => deleteEvent('id', eventId)).to.throw(FormatError, 'Administrator ID does not have 24 characters');
     });
 
-    it('should fail on invalid title type', async () => {
+    it('should fail on incorrect Event id format', async () => {
+        const admin = generate.Administrator();
+        await Administrator.create(admin);
         const event = generate.Event();
-        await expect(() => createEvent('64f71960afe8291e1e4b9643', 3, event.eventDate, event.location, event.text, event.links, event.visibility)).to.throw(TypeError, 'title is not a string');
+        const adminFound = await Administrator.findOne({ email: admin.email });
+        const adminId= adminFound._id;
+        await Event.create({author: adminId, title: event.title, eventDate: event.eventDate, location: event.location, text: event.text, links: event.links, visibility: event.visibility})
+        const eventFound = await Event.findOne({ title: event.title });
+        const eventId=eventFound._id.toString();
+        await expect(() => deleteEvent('64f71960afe8291e1e4b9643', 'id')).to.throw(FormatError, 'event ID does not have 24 characters');
     });
-
-    it('should fail on invalid text type', async () => {
+     
+    it('should fail on not existing event', async () => {
+        const admin = generate.Administrator();
+        await Administrator.create(admin);
         const event = generate.Event();
-        await expect(() => createEvent('64f71960afe8291e1e4b9643', event.title, event.eventDate, event.location, 3 , event.links, event.visibility)).to.throw(TypeError, 'text is not a string');
+        const adminFound = await Administrator.findOne({ email: admin.email });
+        const adminId= adminFound._id;
+        await Event.create({author: adminId, title: event.title, eventDate: event.eventDate, location: event.location, text: event.text, links: event.links, visibility: event.visibility})
+        try{deleteEvent('64f71960afe8291e1e4b9643', '64f71960afe8291e1e4b9643')}
+        catch (error){
+            expect(error).to.be.instanceOf(ExistenceError)
+        }
     });
 });

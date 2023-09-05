@@ -10,7 +10,6 @@ module.exports = function modifyEvent(adminId, eventId, title, eventDate, locati
     validateText(text, 'text')
     validateText(location, 'location')
     validateId(eventId, 'event id')
-    //validate visibility
 
     return Administrator.findById(adminId)
         .then(admin => {
@@ -18,13 +17,16 @@ module.exports = function modifyEvent(adminId, eventId, title, eventDate, locati
             return Event.findById(eventId)
                 .then(event => {
                     if (!event) throw new ExistenceError(`This event does not exist`)
-                    event.title = title;
-                    event.eventDate = Date.parse(eventDate);
-                    event.location = location;
-                    event.text = text;
-                    event.links=links;
-                    event.visibility = visibility;
-                    return event.save()
+                    else {
+                        event.title = title;
+                        event.eventDate = Date.parse(eventDate);
+                        event.location = location;
+                        event.text = text;
+                        event.links = links;
+                        event.visibility = visibility;
+                        return event.save()
+                    }
+
                 })
         })
         .then(() => { })
