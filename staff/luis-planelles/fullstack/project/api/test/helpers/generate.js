@@ -27,26 +27,33 @@ const generate = {
     oxygen: 100,
   }),
 
-  mission: (user, explorer, participant) => ({
+  mission: (
+    user,
+    explorer,
+    participant,
+    lastUpdate = new Date(),
+    startDate = new Date(),
+    endDate = new Date()
+  ) => ({
     _id: new ObjectId(),
     creator: user._id,
     traveler: explorer,
     destination: 'moon',
     status: 'in_progress',
-    lastUpdate: new Date(),
+    lastUpdate,
     startDate,
     endDate,
     participants: [participant],
     loserPrice: 'beer',
   }),
 
-  nasaEvent: (date, event) => ({
+  nasaEvent: (event, date) => ({
     date,
     event,
-    lastUpdate: Date.now(),
+    link: 'event-link',
   }),
 
-  ApiCall: (lastUpdate) => ({
+  apiCall: (lastUpdate) => ({
     lastUpdate,
   }),
 };
