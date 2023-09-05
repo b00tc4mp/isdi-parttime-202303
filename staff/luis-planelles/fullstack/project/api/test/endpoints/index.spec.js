@@ -13,12 +13,12 @@ describe('API routes', () => {
   const baseURL = `http://localhost:${process.env.PORT}`;
 
   describe('hello API', () => {
-    it('should return a successful response for GET /', async () => {
+    it('should return a successful response for GET endpoint/', async () => {
       const res = await fetch(baseURL + '/');
       const resBody = await res.text();
 
       expect(res.status).to.equal(200);
-      expect(resBody).to.equal('Hello, Space Monkey.v1!');
+      expect(resBody).to.equal('Hello, Space Poursuit.v1!');
     });
   });
 
@@ -113,7 +113,7 @@ describe('API routes', () => {
       return cleanUp().then(() => populate([user]));
     });
 
-    it('should return a successful response for valid user registration', async () => {
+    it('should return a successful response for Post endpoint with valid user registration', async () => {
       let userJSON = {
         email: user.email,
         password: user.password,
@@ -130,7 +130,7 @@ describe('API routes', () => {
       expect(res.status).to.equal(200);
     });
 
-    it('should return an error response for invalid email format', async () => {
+    it('should return an error response for Post endpoint with invalid email format', async () => {
       const invalidEmail = 'invalid-email';
 
       let invalidUserJSON = {
@@ -149,7 +149,7 @@ describe('API routes', () => {
       expect(res.status).to.equal(406);
     });
 
-    it('should return an error response for non existence email', async () => {
+    it('should return an error response for Post endpoint with non existence email', async () => {
       const noMatchEmail = 'noMatch@email.com';
 
       let invalidUserJSON = {
@@ -168,7 +168,7 @@ describe('API routes', () => {
       expect(res.status).to.equal(404);
     });
 
-    it('should return an error response for invalid password', async () => {
+    it('should return an error response for Post endpoint with invalid password', async () => {
       const invalidPassword = 'invalid-password';
 
       let invalidUserJSON = {
@@ -187,7 +187,7 @@ describe('API routes', () => {
       expect(res.status).to.equal(406);
     });
 
-    it('should return an error response for no match password', async () => {
+    it('should return an error response for Post endpoint with no match password', async () => {
       const noMatchPassword = 'Nom@tchPassw0rd';
 
       let invalidUserJSON = {
@@ -224,7 +224,7 @@ describe('API routes', () => {
       return cleanUp().then(() => populate([user]));
     });
 
-    it('should return a successful response for valid mission creation', async () => {
+    it('should return a successful response for Post endpoint with valid mission creation', async () => {
       let missionJSON = {
         traveler,
         destination: 'unexplored_planet',
@@ -243,7 +243,7 @@ describe('API routes', () => {
       expect(res.status).to.equal(201);
     });
 
-    it('should return an error response for missing token', async () => {
+    it('should return an error response for Post endpoint with missing token', async () => {
       let missionJSON = {
         traveler,
         destination: 'unexplored_planet',
@@ -262,7 +262,7 @@ describe('API routes', () => {
       expect(res.status).to.equal(406);
     });
 
-    it('should return an error response for invalid token', async () => {
+    it('should return an error response for Post endpoint with invalid token', async () => {
       let missionJSON = {
         traveler,
         destination: 'unexplored_planet',
@@ -309,10 +309,60 @@ describe('API routes', () => {
 
       expect(res.status).to.equal(200);
     });
+
+    it('should return a 406 response for GET endpoint without a token', async () => {
+      const res = await fetch(baseURL + `/missions/${mission._id.toString()}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      expect(res.status).to.equal(406);
+    });
+
+    it('should return a 500 response for GET endpoint with an invalid token', async () => {
+      const invalidToken = 'invalid_token';
+
+      const res = await fetch(baseURL + `/missions/${mission._id.toString()}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${invalidToken}`,
+        },
+      });
+
+      expect(res.status).to.equal(500);
+    });
+
+    it('should return a 406 Not Found response for GET endpoint with a non-existent mission', async () => {
+      const nonExistentMissionId = 'non_existent_id';
+
+      const res = await fetch(baseURL + `/missions/${nonExistentMissionId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      expect(res.status).to.equal(406);
+    });
+
+    it('should return a 404 response when retrieving a mission not owned by the user', async () => {
+      const anotherUser = generate.user();
+      const anotherUserToken = generateToken(anotherUser._id.toString());
+
+      const res = await fetch(baseURL + `/missions/${mission._id.toString()}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${anotherUserToken}`,
+        },
+      });
+
+      expect(res.status).to.equal(404);
+    });
   });
 
   describe('retrieve nasa data', () => {
-    let user, token;
+    let user, token, mission;
 
     beforeEach(() => {
       const explorer = generate.explorer('monkey');
@@ -322,11 +372,13 @@ describe('API routes', () => {
       token = generateToken(user._id.toString());
       mission = generate.mission(user, explorer, participant);
 
-      return cleanUp().then(() => populate([user]));
+      return cleanUp().then(() => populate([user], [mission]));
     });
 
-    it('should return a succesfull response for GET endpoint', async () => {
-      const res = await fetch(baseURL + '/nasa-data/', {
+    it('should return a succesfull response for GET endpoint', async function () {
+      this.timeout(9000);
+
+      const res = await fetch(baseURL + '/retrieve-nasa-data/', {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
@@ -334,6 +386,120 @@ describe('API routes', () => {
       });
 
       expect(res.status).to.equal(200);
+    });
+
+    it('should return a 406 response for GET endpoint without a token', async () => {
+      const res = await fetch(baseURL + '/retrieve-nasa-data/', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      expect(res.status).to.equal(406);
+    });
+
+    it('should return a 500 response for GET endpoint with an invalid token', async () => {
+      const invalidToken = 'invalid_token';
+
+      const res = await fetch(baseURL + '/retrieve-nasa-data/', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${invalidToken}`,
+        },
+      });
+
+      expect(res.status).to.equal(500);
+    });
+  });
+
+  describe('update mission', () => {
+    let user, token, mission;
+
+    beforeEach(() => {
+      const explorer = generate.explorer('monkey');
+      const participant = generate.participant();
+
+      user = generate.user();
+      token = generateToken(user._id.toString());
+      mission = generate.mission(user, explorer, participant);
+
+      return cleanUp().then(() => populate([user], [mission]));
+    });
+
+    it('should return a succesfull response for GET endpoint', async () => {
+      const res = await fetch(
+        baseURL + `/missions/update/${mission._id.toString()}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      expect(res.status).to.equal(200);
+    });
+
+    it('should return a 406 response for GET endpoint without a token', async () => {
+      const res = await fetch(
+        baseURL + `/missions/update/${mission._id.toString()}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      expect(res.status).to.equal(406);
+    });
+
+    it('should return a 500 response for GET endpoint with an invalid token', async () => {
+      const invalidToken = 'invalid_token';
+
+      const res = await fetch(
+        baseURL + `/missions/update/${mission._id.toString()}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${invalidToken}`,
+          },
+        }
+      );
+
+      expect(res.status).to.equal(500);
+    });
+
+    it('should return a 406 Not Found response for GET endpoint with a non-existent mission', async () => {
+      const nonExistentMissionId = 'non_existent_id';
+
+      const res = await fetch(
+        baseURL + `/missions/update/${nonExistentMissionId}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      expect(res.status).to.equal(406);
+    });
+
+    it('should return a 404 when updating a mission not owned by the user', async () => {
+      const anotherUser = generate.user();
+      const anotherUserToken = generateToken(anotherUser._id.toString());
+
+      const res = await fetch(
+        baseURL + `/missions/update/${mission._id.toString()}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${anotherUserToken}`,
+          },
+        }
+      );
+
+      expect(res.status).to.equal(404);
     });
   });
 
