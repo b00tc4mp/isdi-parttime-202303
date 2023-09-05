@@ -8,7 +8,9 @@ module.exports = (adminId, title, eventDate, location, text, links, visibility) 
 
     return Administrator.findById(adminId)
         .then(admin => {
-            if (!admin) throw new ExistenceError(`Admin does not exist`)
+            if (!admin){
+                throw new ExistenceError('Admin does not exist');
+            } 
 
             const dateToDate = Date.parse(eventDate)
             Event.create({author: adminId, title: title, eventDate: dateToDate, location: location, text: text,links: links, visibility: visibility })

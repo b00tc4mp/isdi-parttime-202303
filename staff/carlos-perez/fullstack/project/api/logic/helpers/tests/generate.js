@@ -1,4 +1,3 @@
-const { ObjectId } = require('mongodb')
 const bcrypt = require('bcryptjs');
 
 module.exports = {
@@ -9,7 +8,6 @@ module.exports = {
     }),
 
     Update: () => ({
-        author: ObjectId.generate,
         title: `text-${Math.random()}`,
         image: `http://www.image-${Math.random()}.com`,
         text: `text-${Math.random()}`,
@@ -18,7 +16,6 @@ module.exports = {
         visibility: true
     }),
     Event: () => ({
-        author: ObjectId.generate,
         title: `text-${Math.random()}`,
         eventDate: new Date,
         location: `text-${Math.random()}`,
@@ -28,7 +25,6 @@ module.exports = {
         visibility: true
     }),
     LyricPost: () => ({
-        author: ObjectId.generate,
         title: `text-${Math.random()}`,
         media: `http://www.media-${Math.random()}.com`,
         text: `text-${Math.random()}`,
@@ -37,7 +33,6 @@ module.exports = {
         visibility: true
     }),
     Message: () => ({
-        author: ObjectId.generate,
         email: `user-${Math.random()}@provider.com`,
         title: `text-${Math.random()}`,
         text: `text-${Math.random()}`,
