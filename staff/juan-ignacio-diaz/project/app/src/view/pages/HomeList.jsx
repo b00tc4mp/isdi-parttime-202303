@@ -21,6 +21,7 @@ export default function HomeList() {
     const [view, setView] = useState('list')
     const [modal, setModal] = useState(null)
     const [productId, setProductId] = useState(null)
+    const [filterList, setFilterList] = useState({})
     const [lastUpdate, setLastUpdate] = useState(null)
     
 
@@ -52,6 +53,12 @@ export default function HomeList() {
         setLastUpdate(Date.now())
     }
 
+    const handleCloseFilterModal = (filter) => {
+        setModal(null)
+        setFilterList(filter)
+        setLastUpdate(Date.now())
+    }
+
     const handleOpenAddProduct = (id) => {
         setProductId(id)
         setView('add-product')
@@ -69,6 +76,12 @@ export default function HomeList() {
 
     const handleOpenFilterProducts = () => {
         setModal('filter-products')
+    }
+
+    const handleResetFilterModal = (filter) => {
+        setModal(null)
+        setModal('filter-products')
+        setFilterList({})
     }
 
     const handleGoToList = () => setView('list') 
@@ -104,11 +117,10 @@ export default function HomeList() {
                 {view === 'list' && <List
                     onModifiedList={handleGoToList}
                     onAddedProduct={handleOpenAddProduct}
-                    onEditedDeletedProduct=
-                    {handleOpenEditDeleteProduct}
-                    onBuyedProduct=
-                    {handleOpenBuyProduct}
+                    onEditedDeletedProduct={handleOpenEditDeleteProduct}
+                    onBuyedProduct={handleOpenBuyProduct}
                     onFilteredProducts={handleOpenFilterProducts}
+                    filterList={filterList}
                     lastUpdate={lastUpdate}
                 />} 
 
@@ -131,7 +143,9 @@ export default function HomeList() {
 
                 {modal === 'filter-products' && <FilterProducts 
                     onCancel={handleCloseModal}
-                    onModifiedFilter={handleCloseModal}
+                    onModifiedFilter={handleCloseFilterModal}
+                    onResetFilter={handleResetFilterModal}
+                    filterList={filterList}
                 />}
 
             </Container>          

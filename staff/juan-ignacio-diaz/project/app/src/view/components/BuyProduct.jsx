@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { useAppContext } from '../../hooks'
 
-import { Container, Form, Input, Button, Label } from '../library'
+import { Container, Form, Input, Button, Label, Select } from '../library'
 
 import { retrieveProduct, markProductAsPurchased } from '../../logic'
 
@@ -70,15 +70,10 @@ export default ({ productId, onCancel, onBuyedProduct }) => {
                         <Label htmlFor="howMany">How many:</Label>
                         <Input readOnly type="number" name="howMany" defaultValue={product.howMany}></Input>                   
                         <Label htmlFor="stores">Stores:</Label>
-                        <select name="stores">
-                            {product.stores.map(store => 
-                                <option key={store.id} value={store.id}>{store.name}</option>
-                            ) }
-                        </select>                   
+                        <Select name="stores" options={product.stores} state={[]} multiple={true} />
+                 
                         <Label htmlFor="type">Type:</Label>
-                        <select readOnly name="type">
-                            <option key={product.type} value={product.type}>{product.type}</option>
-                        </select>  
+                        <Select name="type" options={[{ id: product.type, name: product.type}]} state={product.type} multiple={false} />
 
                         <Label htmlFor="price">Price Paid:</Label>
                         <Input type="number" name="price" defaultValue="0"></Input>                              
@@ -93,9 +88,7 @@ export default ({ productId, onCancel, onBuyedProduct }) => {
                         <Label htmlFor="howMany">How many:</Label>
                         <Input type="number" name="howMany" defaultValue="1"/>        
                         <Label htmlFor="stores">Stores:</Label>
-                        <select readOnly name="stores" />
                         <Label htmlFor="type">Type:</Label>
-                        <select readOnly name="type" />
   
                         <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
                     </Form>                   

@@ -4,6 +4,7 @@ import Input from './Input'
 import Button from './Button'
 import Loader from './Loader'
 import Label from './Label'
+import Select from './Select'
 
 export {
     Container,
@@ -11,5 +12,6 @@ export {
     Input,
     Button,
     Loader,
-    Label
+    Label,
+    Select
 }

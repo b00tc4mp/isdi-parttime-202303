@@ -7,18 +7,17 @@ import { Container, Button, Label, Form, Input } from '../library'
 
 import { retrieveFilteredProducts, retrieveMessages, addMessage} from '../../logic'
 
-export default ({ onAddedProduct, onEditedDeletedProduct, onFilteredProducts, onBuyedProduct }) => {
+export default ({ onAddedProduct, onEditedDeletedProduct, onFilteredProducts, onBuyedProduct, filterList, lastUpdate }) => {
     console.log('Lists -> render')
 
     const { alert, freeze, unfreeze } = useAppContext()
-    const [filter, setFilter] = useState({})
     const [products, setProducts] = useState()
     const [messages, setMessages] = useState()
    
     const handleRefreshList = async ()  => {
         try{
             freeze()
-            const [products, messages] = await Promise.all([retrieveFilteredProducts(filter, ''), retrieveMessages()]) 
+            const [products, messages] = await Promise.all([retrieveFilteredProducts(filterList, ''), retrieveMessages()]) 
             setProducts(products)
             setMessages(messages)
             unfreeze()
@@ -40,8 +39,6 @@ export default ({ onAddedProduct, onEditedDeletedProduct, onFilteredProducts, on
             freeze()
             await addMessage(message) 
             unfreeze()
-
-            //handleRefreshList()
         }
         catch (error) {
             unfreeze()
@@ -52,6 +49,10 @@ export default ({ onAddedProduct, onEditedDeletedProduct, onFilteredProducts, on
     useEffect(() => {      
         handleRefreshList()
     }, [])
+
+    useEffect(() => {      
+        handleRefreshList()
+    }, [filterList])
 
     return <>
         <Container>

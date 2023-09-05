@@ -4,7 +4,7 @@ import { Container, Button, Label } from '../library'
 
 import { isIncludesCurrentUser, toggleLikeProduct, toggleProductToCart } from '../../logic'
 
-export default ({ product: { id, name, howMany, untried, likes, comment, state, buyer}, onEditDeleteProduct, onBuyProduct, onModifyProduct }) => {
+export default ({ product: { id, name, howMany, untried, likes, comment, state, buyer, price}, onEditDeleteProduct, onBuyProduct, onModifyProduct }) => {
     console.log('Product -> render')
 
     const { alert, freeze, unfreeze } = useAppContext()
@@ -48,7 +48,7 @@ export default ({ product: { id, name, howMany, untried, likes, comment, state, 
                 <h1>{untried?'❗':''}</h1>
                 <p>{name +' ('+howMany+')'}</p>
                 {state==='bought' && <>
-                    <Label htmlFor="nameRegister">💲</Label>
+                    <Label htmlFor="nameRegister">💲 {price}€</Label>
                 </>
                 || <>
                     {state==='' && <> 

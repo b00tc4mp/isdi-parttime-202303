@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 
 import { useAppContext } from '../../hooks'
 
+import { Select } from '../library'
+
 import { reviewStores } from '../../logic'
 
 export default function Stores({ state, multiple }) {
@@ -9,7 +11,6 @@ export default function Stores({ state, multiple }) {
 
     const { alert, freeze, unfreeze } = useAppContext()
     const [stores, setStores] = useState()
-    const [states, setStates] = useState(state)
   
     const handleRefreshStores = async ()  => {
         try {
@@ -29,20 +30,5 @@ export default function Stores({ state, multiple }) {
 
     useEffect(() => { handleRefreshStores() }, [])
 
-    return <>
-        <select 
-            name="stores" 
-            multiple={multiple} 
-            value={states}
-            onChange={e => {
-                const options = [...e.target.selectedOptions]
-                const values = options.map(option => option.value)
-                setStates(values)}}
-            >
-            {stores && stores.map(store => 
-                <option key={store.id} value={store.id} label={store.name}/>
-            ) }
-        </select>
-
-    </>
+    return <Select name="stores" options={stores} state={state} multiple={multiple} />
 }

@@ -9,11 +9,11 @@ const { validateObject, validateText } = validators
  * 
 * @returns {messages} The messages to list
  */
-export default async (filter, order) => {   
-    validateObject(filter, 'filter')
+export default async (filterList, order) => {   
+    validateObject(filterList, 'filter')
     if(order !== '') validateText(order, 'order')   
 
-    filter._id = context.listId
+    const filter = {_id: context.listId, ...filterList}
 
     const res = await fetch(`${import.meta.env.VITE_API_URL}/lists/${context.listId}/products/filter`, {
         method: 'POST',

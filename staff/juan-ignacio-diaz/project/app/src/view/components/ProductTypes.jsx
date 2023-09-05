@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 
 import { useAppContext } from '../../hooks'
 
+import { Select } from '../library'
+
 import { reviewProductTypes } from '../../logic'
 
 export default function ProductTypes({ state, multiple }) {
@@ -9,15 +11,14 @@ export default function ProductTypes({ state, multiple }) {
 
     const { alert, freeze, unfreeze } = useAppContext()
     const [productTypes, setProductTypes] = useState()
-    const [states, setStates] = useState(state)
   
     const handleRefreshProductTypes = async ()  => {
         try {
             freeze()
-            const productTypes = await reviewProductTypes()
+            const tmpProductTypes = (await reviewProductTypes()).map(productType => ({id: productType, name: productType}))
             unfreeze()
-            
-            setProductTypes(productTypes)
+
+            setProductTypes(tmpProductTypes)
         }
         catch (error) {
             unfreeze()
@@ -27,19 +28,6 @@ export default function ProductTypes({ state, multiple }) {
 
     useEffect(() => { handleRefreshProductTypes() }, [])
 
-    return <>
-        <select 
-            name="type" 
-            multiple={multiple} 
-            value={states}
-            onChange={e => {
-                const options = [...e.target.selectedOptions]
-                const values = options.map(option => option.value)
-                setStates(values)}}
-            >
-            {productTypes && productTypes.map(productType => 
-                <option key={productType} value={productType} label={productType} />
-            )}
-        </select>
-    </>
+    return <Select name="type" options ={productTypes} state={state} multiple={multiple} />
+
 }
