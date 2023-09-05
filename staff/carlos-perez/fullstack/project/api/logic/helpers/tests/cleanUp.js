@@ -1,15 +1,14 @@
-const context = require('../../context')
+const { Administrator, Update, Event, LyricPost, Message, UsersData } = require ('../../../data/models');
 
-module.exports = () => {
-    const { users, posts } = context
-
-    // in series
-    // return users.deleteMany()
-    //     .then(() => posts.deleteMany())
-
-    // in parallel (faster)
-    return Promise.all([
-        users.deleteMany(),
-        posts.deleteMany()
-    ])
+const cleanUp = () => {
+  return Promise.all([
+    Administrator.deleteMany(),
+    Update.deleteMany(),
+    Event.deleteMany(),
+    LyricPost.deleteMany(),
+    Message.deleteMany(),
+    UsersData.deleteMany()]
+  )
 }
+
+module.exports = cleanUp;

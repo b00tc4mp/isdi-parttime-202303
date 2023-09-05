@@ -1,8 +1,8 @@
-//Broken. DO NOT USE YET
 const { expect } = require('chai');
 const authenticateAdministrator = require('./authenticateAdmin');
-const { Administrator } = require('../data/models');
+const { Administrator } = require('../../data/models');
 const mongoose = require('mongoose');
+const { cleanUp, generate } = require('../helpers/tests');
 require('dotenv').config()
 const {
     errors: { AuthError, ContentError, ExistenceError, FormatError }
@@ -25,17 +25,12 @@ describe('authenticateAdmin', () => {
     });
 
     it('should login a Administrator with correct credentials', async () => {
-        const adminName = `Administrator${Math.floor(Math.random() * 999)}`;
-        const email =`${adminName}@${adminName}.com`;
-        const password = `Password${Math.random()}`;
 
-        const cryptPassword = bcrypt.hashSync(password, 10);
-
-        const admin = generate.Administrator(adminName, email, cryptPassword);
+        const admin = generate.Administrator();
 
         await Administrator.create(admin);
 
-        const adminId = await authenticateAdmin(email, password);
+        const adminId = await authenticateAdmin(admin.email, 'password');
 
         expect(adminId).to.be.a('string').and.not.empty;
     });
@@ -44,26 +39,24 @@ describe('authenticateAdmin', () => {
         const adminName = `Administrator${Math.floor(Math.random() * 999)}`;
         const email =`${adminName}@${adminName}.com`
         const password = `Password${Math.random()}`;
+        
 
         try {
             await authenticateAdmin(email, password);
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError);
-            expect(error.message).to.equal('Administrator not found');
+            expect(error.message).to.equal('user not found');
         }
     });
 
     it('should fail on wrong credentials', async () => {
-        const adminName = `Administrator${Math.floor(Math.random() * 999)}`;
-        const password = `Password${Math.random()}`;
-        const email =`${adminName}@${adminName}.com`
-
-        const admin = generate.Administrator(adminName, email, 'different_password');
+        const admin = generate.Administrator();
 
         await Administrator.create(admin);
 
+
         try {
-            await authenticateAdmin(email, password);
+            await authenticateAdmin(admin.email, 'wrongpassword');
         } catch (error) {
             expect(error).to.be.instanceOf(AuthError);
             expect(error.message).to.equal('wrong credentials');
@@ -74,7 +67,7 @@ describe('authenticateAdmin', () => {
         const password = `Password${Math.random()}`;
         const email =Math.floor(Math.random() * 999);
 
-        await expect(() => authenticateAdmin(email, password)).to.throw(TypeError, 'Email is not a string');
+        await expect(() => authenticateAdmin(email, password)).to.throw(TypeError, 'email is not a string');
     });
 
 
@@ -82,7 +75,7 @@ describe('authenticateAdmin', () => {
         const password = `Password${Math.random()}`;
         const email =''
 
-        await expect(() => authenticateAdmin(email, password)).to.throw(ContentError, 'Email is empty');
+        await expect(() => authenticateAdmin(email, password)).to.throw(ContentError, 'email is empty');
     });
 
     it('should fail on incorrect email format', async () => {
@@ -91,7 +84,7 @@ describe('authenticateAdmin', () => {
         const email =`${adminName}${adminName}.com`
 
 
-        await expect(() => authenticateAdmin(email, password)).to.throw(FormatError, 'Email format is incorrect');
+        await expect(() => authenticateAdmin(email, password)).to.throw(FormatError, 'email is no valid');
     });
 
     it('should fail on invalid password type', async () => {
