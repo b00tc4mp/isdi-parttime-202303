@@ -1,14 +1,12 @@
 const { expect } = require('chai');
-const { Event, Administrator } = require('../../data/models');
+const { LyricPost, Administrator } = require('../../data/models');
 const mongoose = require('mongoose');
-const { Schema, Schema: { Types: { ObjectId } }} = mongoose
 const { cleanUp, generate } = require('../helpers/tests');
 require('dotenv').config()
 const {
     errors: { AuthError, ContentError, ExistenceError, FormatError, DuplicityError, TypeError }
 } = require('com');
-const seeEvent = require('./seeEvent');
-const seeEventList = require('./seeEventList');
+const seeLyricPostList = require('./seeLyricPostList');
 
 describe('seeLyricPostList', () => {
     before(async () => {
@@ -25,7 +23,7 @@ describe('seeLyricPostList', () => {
     });
     
     it('should see events', async () => {
-        const result = await seeEventList();
+        const result = await seeLyricPostList();
         expect(result).to.be.not.null;
     });
 });
