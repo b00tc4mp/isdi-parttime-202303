@@ -6,6 +6,7 @@ import Loader from './Loader'
 import TextArea from './TextArea'
 import Label from'./Label'
 import SearchInput from './SearchInput'
+import CheckboxContainer from './CheckboxContainer'
 
 export {
     Container,
@@ -15,5 +16,6 @@ export {
     Loader,
     TextArea,
     Label,
-    SearchInput
+    SearchInput, 
+    CheckboxContainer
 }

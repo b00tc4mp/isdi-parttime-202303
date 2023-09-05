@@ -1,5 +1,5 @@
 import getWorkspotsByName from '../../logic/getWorkspotsByName'
-import Workspot from './Workspot'
+import WorkspotCard from './WorkspotCard'
 import { useState, useEffect } from 'react'
 import { useAppContext, useHandleErrors } from '../hooks'
 import { Container, Form, Input, Button } from '../library'
@@ -9,9 +9,9 @@ export default function WorkspotsSearchedByName({ user, nameSearched, lastWorksp
 
     const [searchedWorkspots, setSearchedWorkspots] = useState([])
 
-    useEffect(() => handleNameSearchedResults(), [nameSearched])
+    useEffect(() => handleRefresWorkspots(), [nameSearched])
 
-    const handleNameSearchedResults = () => {
+    const handleRefresWorkspots = () => {
         try {
             handleErrors(async () => {
                 const searchedWorkspotsResults = await getWorkspotsByName(nameSearched)
@@ -24,33 +24,34 @@ export default function WorkspotsSearchedByName({ user, nameSearched, lastWorksp
     
     useEffect(() => {
         if (lastWorkspotsUpdate)
-            handleNameSearchedResults()
+            handleRefresWorkspots()
     }, [lastWorkspotsUpdate])
 
-    let workspotsToShow
-
-    if (searchedWorkspots.length > 0) {
-        workspotsToShow = searchedWorkspots.map(workspot => (
-            <Workspot
-                key={workspot.id}
-                workspot={workspot}
-                onEditWorkspot={onEditWorkspot}
-                onAddReview={onAddReview}
-                onToggledLikeWorkspot={handleNameSearchedResults}
-                onToggledSavedWorkspot={handleNameSearchedResults}
-                onWorkspotDeleted={handleNameSearchedResults}
-                user={user} />
-        ))
-    } else {
-        workspotsToShow = (
-            <Container className="bg-blue">
-                <p className="text-gray-800">No results found</p>
-            </Container>
-        )
-    }
     return (
-        <Container>
-            {workspotsToShow}
-        </Container>
+        <div className="mt-60 mb-60 px-8 sm:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {searchedWorkspots.length > 0 ? (
+                searchedWorkspots.map(workspot => (
+                    <WorkspotCard
+                        key={workspot.id}
+                        workspot={workspot}
+                        onEditWorkspot={onEditWorkspot}
+                        onAddReview={onAddReview}
+                        onToggledLikeWorkspot={handleRefresWorkspots}
+                        onToggledSavedWorkspot={handleRefresWorkspots}
+                        onWorkspotDeleted={handleRefresWorkspots}
+                        onWorkspotEdited={handleRefresWorkspots}
+                        onReviewAdded={handleRefresWorkspots}
+                        user={user}
+                    />
+                ))
+            ) : (
+                <div className="w-80 h-80 fixed top-40 left-40">
+                    <div className="p-80">
+                        <h1>No Results found</h1>
+                    </div>
+
+                </div>
+            )}
+        </div>
     )
 }

@@ -60,13 +60,13 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
 
     console.log('Profile -> render')
 
-    return <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+    return <div className="px-10 pt-10 pb-40">
 
         {user && <div>
-            <section className="mx-auto max-w-xl">
+            <section className="mx-auto">
                 <div className="flex flex-col items-center gap-2">
                     <img 
-                        className="w-1/4 rounded-full border-4 border-gray-light" 
+                        className="w-40 rounded-full border-4 border-gray-light" 
                         src={user.avatar} 
                         alt="" 
                     />
@@ -74,9 +74,9 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
                 </div>
             </section>
 
-            <section className="mx-auto max-w-xl m-10 flex flex-col gap-10">
+            <section className="mx-auto m-10 flex flex-col gap-10  max-w-md space-y-4">
                 <div className="">
-                    <h1 className="text-xl text-gray-dark">Update avatar</h1>
+                    <h1 className="text-gray-dark font-bold">Profile picture</h1>
                         <form 
                             onSubmit={handleUpdateAvatar}>
                             <Input 
@@ -89,7 +89,7 @@ export default function Profile({ onUserAvatarUpdated, onUpdatedUserPassword }) 
                 </div>
 
                 <div>
-                    <h1 className="text-xl text-gray-dark">Update password</h1>
+                    <h1 className="text-gray-dark font-bold">Change your password</h1>
                         <form 
                             onSubmit={handleUpdatePassword}
             

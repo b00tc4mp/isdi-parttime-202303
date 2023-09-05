@@ -2,7 +2,6 @@ import Workspots from '../components/Workspots'
 import WorkspotsSearchedByName from '../components/WorkspotsSearchedByName'
 import AddWorkspotModal from '../components/AddWorkspotModal'
 import EditWorkspotModal from '../components/EditWorkspotModal'
-import AddReviewModal from '../components/AddReviewModal'
 import FilterModal from '../components/FiltersModal'
 import FilteredWorkspots from '../components/FilteredWorkspots'
 import { SearchInput, Form, Input, Button } from '../library'
@@ -11,8 +10,8 @@ import Profile from '../components/Profile'
 import retrieveUser from '../../logic/retrieveUser'
 import { LOGO_URL } from "../../data.js"
 import { useAppContext, useHandleErrors } from '../hooks'
-import { ProfileIcon, ExploreIcon, AddIcon, FavFooterIcon } from '../library/Icons'
-
+import { ProfileIcon, ExploreIcon, AddIcon, FavFooterIcon, FiltersIcon} from '../library/Icons'
+import FavWorkspots from '../components/FavWorkspots'
 
 export default function Home() {
     const { navigate } = useAppContext()
@@ -37,23 +36,21 @@ export default function Home() {
         event.preventDefault()
         setModal('add-workspot')
     }
+    
 
-    const handleOpenEditWorkspotModal = (workspotId) => {
-        setModal('edit-workspot')
-        setworkspotId(workspotId)
-    }
-
-    const handleAddReviewModal = (workspotId) => {
-        setModal('add-review')
-        setworkspotId(workspotId)
-    }
-
+   
     const handleCloseModal = () => setModal(null)
 
     const handleGoToProfile = event => {
         event.preventDefault()
 
         setView('profile')
+    }
+
+    const handleGoToFavs = event => {
+        event.preventDefault()
+
+        setView('favs')
     }
 
     const handleGoToWorkSpots = event =>{
@@ -108,10 +105,11 @@ export default function Home() {
     console.log('Home -> render')
 
     return (
-        <div>
-            {/* {view === "workspots" || view === "workspots-searched-by-name" || view === "filtered-workspots" ? ( <header
+        <div className="flex flex-col">
+            {view === "workspots" || view === "workspots-searched-by-name" || view === "filtered-workspots" ? ( 
+            <header
                 className="bg-white fixed w-full z-20 top-0 left-0 border-gray-light">
-                <div className="bg-indigo-light mx-auto max-w-screen xl:px-4 py-16 sm:px-6 lg:px-8">
+                <div className="bg-indigo-light mx-auto max-w-screen xl:px-4 py-12 sm:px-6 lg:px-8 p-4">
                     <form onSubmit={handleSearchWorkspotsByName}>
                         <div className="relative max-w-lg container mx-auto">
                                 <Input
@@ -121,43 +119,48 @@ export default function Home() {
                                 />
                                 <button
                                     type="submit"
-                                    className=" absolute end-1 top-1/2 -translate-y-1/2 rounded-lg bg-indigo-dark px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-mid"
+                                    className="absolute end-1 top-1/2 -translate-y-1/2 rounded-lg bg-indigo-dark px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-mid"
                                 >   Let's find that workspot!
                                 </button>
                             </div>
                         </form>
                 </div>
+                
+                <div className="bg-white border-b border-gray-light shadow-sm w-full h-14 mb-10">
+                    <div className="w-20 h-20 mt-2 ml-8">
+                            <Button onClick={handleOpenFilterModal}>
+                        <FiltersIcon/>
+                    </Button>
+                    </div>
+
+                </div>
+
             </header>
-            ) : null} */}
+
+            ) : null}
+        
 
             <div>
                 {view === 'workspots' && <Workspots
-                    onEditWorkspot={handleOpenEditWorkspotModal}
-                    onAddReview={handleAddReviewModal}
                     lastWorkspotsUpdate={lastWorkspotsUpdate}
                 />}
 
                 {view === 'workspots-searched-by-name' && <WorkspotsSearchedByName 
                     nameSearched={nameSearched}
-                    onEditWorkspot={handleOpenEditWorkspotModal}
-                    onAddReview={handleAddReviewModal}
-                    lastWorkspotsUpdate={lastWorkspotsUpdate}
                 />}
 
                 {view === 'filtered-workspots' && <FilteredWorkspots
                     districts={filteredData.districts}
                     category={filteredData.category}
                     features={filteredData.features}
-                    onEditWorkspot={handleOpenEditWorkspotModal}
-                    onAddReview={handleAddReviewModal}
-                    lastWorkspotsUpdate={lastWorkspotsUpdate}
-
                 />}
         
                 {view === 'profile' && <Profile
                     onUserAvatarUpdated={handleUserAvatarUpdated}
                     onUpdatedUserPassword={handleUserPasswordUpdated}
                 />}
+
+                {view === 'favs' && <FavWorkspots/>}
 
                 {modal === 'add-workspot' && 
                     <AddWorkspotModal
@@ -169,24 +172,10 @@ export default function Home() {
                     <FilterModal
                         onCancel={handleCloseModal}
                         onFilteredSearch={handleFilteredSearch}
-                    />}
-
-                {modal === 'edit-workspot' &&
-                    <EditWorkspotModal
-                        onCancel={handleCloseModal}
-                        onWorkspotEdited={handleWorkspotUpdated}
-                        workspotId = {workspotId}
-                    />}
-
-                {modal === 'add-review' &&
-                    <AddReviewModal
-                        onCancel={handleCloseModal}
-                        onReviewAdded={handleWorkspotUpdated}
-                        workspotId={workspotId}
-                    />} 
+                    />}  
             </div>
 
-        <footer className="fixed bottom-0 left-0 right-0 bg-white">
+        <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-light shadow-sm">
             <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 flex flex-row justify-around">
                 <a href=""
                     onClick={handleGoToWorkSpots}
@@ -206,7 +195,7 @@ export default function Home() {
 
                 {user && <>
                     <a href=""
-                        onClick={handleGoToProfile}
+                        onClick={handleGoToFavs}
                             className="text-gray-dark transition hover:opacity-75 transition hover:text-indigo-dark flex flex-col items-center"
                     >
                         <FavFooterIcon />

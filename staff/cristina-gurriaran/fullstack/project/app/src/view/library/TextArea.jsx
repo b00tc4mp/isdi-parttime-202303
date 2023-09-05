@@ -1,4 +1,4 @@
 export default function TextArea(props) {
-    return <input className="block w-full py-2 px-3 text-sm text-gray-700 rounded-lg border border-gray-300 focus:outline-none focus:ring focus:border-blue-500" {...props}></input>
+    return <textarea className="w-full rounded-lg border-gray-light p-4 pe-12 text-sm shadow-sm align-top " rows="4" {...props}></textarea>
 }
 

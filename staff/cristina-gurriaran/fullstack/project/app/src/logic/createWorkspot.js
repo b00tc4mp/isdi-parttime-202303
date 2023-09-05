@@ -4,6 +4,7 @@ import context from './context'
 
 export default function createWorkspot(image, name, location, description, category, features) {
     validateUrl(image, 'image url')
+    validateText(name, 'name')
     validateText(description, 'description')
 
     return (async () => {

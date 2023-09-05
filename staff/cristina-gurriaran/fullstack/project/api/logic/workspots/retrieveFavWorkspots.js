@@ -24,6 +24,8 @@ module.exports = (userId) => {
 
             delete workspot._id
 
+            workspot.fav = user.favs.some(favs => favs.toString() === workspot.id)
+
             if (workspot.author._id) {
                 workspot.author.id = workspot.author._id.toString()
 
