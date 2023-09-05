@@ -6,7 +6,6 @@ require('dotenv').config()
 const {
     errors: { AuthError, ContentError, ExistenceError, FormatError, DuplicityError }
 } = require('com');
-const deleteAdmin = require('./deleteAdmin');
 const registerAdmin = require('./registerAdmin');
 
 describe('registerAdmin', () => {

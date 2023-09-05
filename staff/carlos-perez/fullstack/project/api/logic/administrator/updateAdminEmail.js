@@ -4,10 +4,10 @@ const {
 } = require('com')
 const { Administrator } = require('../../data/models')
   
-  module.exports = function updateUserEmail(adminId,email,newEmail,newEmailConfirm) 
+  module.exports = function updateAdminEmail(adminId,email,newEmail,newEmailConfirm) 
   {
     validateId(adminId, 'User ID')
-    validateEmail(email)
+    validateEmail(email, 'email')
     validateEmail(newEmail, 'New email')
     validateEmail(newEmailConfirm, 'New email confirmation')
   

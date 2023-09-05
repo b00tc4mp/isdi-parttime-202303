@@ -22,8 +22,6 @@ module.exports = function updateUserEmail(adminId, password, newPassword, newPas
 
         const matchReuse = bcrypt.compareSync(newPassword, admin.password)
 
-        if(matchReuse) throw new ContentError('Do NOT use old passwords')
-
         admin.password = bcrypt.hashSync(newPassword, 10);
 
         return admin.save()
