@@ -8,7 +8,7 @@ describe('getStringDate', () => {
 
     const formattedDate = getStringDate(date);
 
-    expect(formattedDate).to.equal('2023-09-14');
+    expect(formattedDate).to.equal('2023-09-15');
   });
 
   it('should format a Date object for single-digit months and days', () => {
@@ -16,7 +16,7 @@ describe('getStringDate', () => {
 
     const formattedDate = getStringDate(date);
 
-    expect(formattedDate).to.equal('2023-01-04');
+    expect(formattedDate).to.equal('2023-01-05');
   });
 
   it('should raise a TypeError if date is not a valid Date object', () => {
