@@ -5,4 +5,5 @@ module.exports = {
   retrieveMission: require('./retrieveMission'),
   createNasaData: require('./createNasaData'),
   retrieveNasaData: require('./retrieveNasaData'),
+  updateMission: require('./updateMission'),
 };
