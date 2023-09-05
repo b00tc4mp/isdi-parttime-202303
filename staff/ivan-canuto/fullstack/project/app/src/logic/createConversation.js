@@ -14,11 +14,11 @@ const { validateText } = validators
  * @throws {ContentError} On user id length not equal to 24 characters, or empty user input
  */
 
-export default function generateConversation(userInput) {
+export default function createConversation(userInput) {
     validateText(userInput, 'user input')
 
     return (async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/generateConversation`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/createConversation`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',

@@ -1,7 +1,7 @@
 import { validators, errors } from "com";
 import context from "./context";
 
-const { validateId, validateObject } = validators
+const { validateId, validateUserInputObject } = validators
 
 /**
  * Stores the user input object in database
@@ -17,7 +17,7 @@ const { validateId, validateObject } = validators
 
 export default function storeInputInDB(conversationId, userInput) {
     validateId(conversationId, 'conversation id')
-    validateObject(userInput, 'user input')
+    validateUserInputObject(userInput, 'user input')
 
     return (async () => {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/users/conversations/${conversationId}/userInput`, {

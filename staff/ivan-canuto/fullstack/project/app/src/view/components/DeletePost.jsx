@@ -3,7 +3,7 @@ import { ModalContainer, ModalWindow, Button } from "../library"
 import { useHandleErrors } from "../hooks"
 import { context } from "../../ui"
 
-export default function DeletePost({ onDeletedPost, onCancel }) {
+export default function DeletePost({ onDeletedPost, onCancel, handleTogglePostModal }) {
     const handleErrors = useHandleErrors()
 
     const handleDeletePost = () => {
@@ -11,6 +11,7 @@ export default function DeletePost({ onDeletedPost, onCancel }) {
             await deletePost(context.postId)
 
             onDeletedPost()
+            handleTogglePostModal()
         })
     }
 

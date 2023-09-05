@@ -17,7 +17,6 @@ export default function Alert({ error, level, onAccept }) {
             {(level === 'warning' || level === 'error') ?
                 <div className='w-full flex justify-center items-center gap-2'>
                     <h1 className='text-3xl'>Oops!</h1>
-                    <img src="src/images/warning.png" alt="alert-image" className='h-10'/>
                 </div>
             :
                 <div className='w-full flex justify-center items-center'>

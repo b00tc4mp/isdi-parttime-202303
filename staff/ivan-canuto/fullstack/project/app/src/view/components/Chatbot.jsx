@@ -162,6 +162,7 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
 
             navigate('/')
             setPage('Home')
+            setView('posts')
 
             handleLastPostsUpdate()
 

@@ -33,6 +33,11 @@ module.exports = (userId, postId) => {
       { favs: { $in: postId }},
       { $pull: { favs: postId }}
     )
+    
+    await User.updateMany(
+      { seenLately: { $in: postId }},
+      { $pull: { seenLately: postId }}
+    )
 
     await Post.deleteOne({ _id: postId })
   })()

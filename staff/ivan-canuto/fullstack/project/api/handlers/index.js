@@ -10,7 +10,6 @@ module.exports = {
   retrieveSavedPostsHandler: require('./retrieveSavedPostsHandler'),
   retrieveUserHandler: require('./retrieveUserHandler'),
   retrieveUserPostsHandler: require('./retrieveUserPostsHandler'),
-  unsetPostPriceHandler: require('./unsetPostPriceHandler'),
   toggleLikePostHandler: require('./toggleLikePostHandler'),
   toggleSavePostHandler: require('./toggleSavePostHandler'),
   toggleVisibilityPostHandler: require('./toggleVisibilityPostHandler'),

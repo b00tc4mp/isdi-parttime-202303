@@ -171,8 +171,8 @@ export default function Home() {
         <Container className="home-container bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover min-h-screen absolute left-0 overflow-scroll">
             <div className="loader"></div>
             {page === "Home" && (<>
-                {!search && <div className="fixed top-[105px] z-10 flex justify-between w-full px-4">
-                    <Button className='border-gray-300 bg-slate-100 p-1 rounded flex gap-2' onClick={handleToggleSearchBar}><span className="material-symbols-outlined">search</span>Search...</Button>
+                {!search && <div className={`fixed top-[105px] z-10 flex ${view === 'posts' ? 'justify-between' : 'justify-end'} w-full px-4`}>
+                    {view === 'posts' && <Button className='border-gray-300 bg-slate-100 p-1 rounded flex gap-2' onClick={handleToggleSearchBar}><span className="material-symbols-outlined">search</span>Search...</Button>}
                     <Button className="bg-slate-100 border border-gray-200" onClick={handleOpenChatbotWindow}>
                         <p className='flex items-center gap-1 text-lg'>Chat<span className="material-symbols-outlined">smart_toy</span></p>
                     </Button>
@@ -231,6 +231,7 @@ export default function Home() {
                     <DeletePost
                         onDeletedPost={handleLastPostsUpdate}
                         onCancel={handleCloseModal}
+                        handleTogglePostModal={handleTogglePostModal}
                     />
                 )}
 
