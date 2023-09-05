@@ -58,6 +58,20 @@ const validateText = (text, explain = 'text') => {
   if (!text.trim().length) throw new ContentError(`${explain} is empty`);
 };
 
+const validateArrayOfObjects = (array, explain = 'array of objects') => {
+  if (!Array.isArray(array)) {
+    throw new TypeError(`${explain} is not an array`);
+  }
+
+  if (array.length === 0) {
+    throw new ContentError(`${explain} is empty`);
+  }
+
+  array.forEach((object, index) => {
+    validateObject(object, `${explain} at index ${index}`);
+  });
+};
+
 const validateObject = (object, explain = 'object') => {
   if (typeof object !== 'object' || object === null || Array.isArray(object))
     throw new TypeError(`${explain} is not an object`);
@@ -121,5 +135,6 @@ module.exports = {
   validateTraveler,
   validateDestination,
   validateParticipants,
+  validateArrayOfObjects,
   validateToken,
 };
