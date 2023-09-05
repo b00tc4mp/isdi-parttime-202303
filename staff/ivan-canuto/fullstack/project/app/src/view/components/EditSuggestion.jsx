@@ -25,6 +25,7 @@ export default function EditSuggestion({
                                 className="w-full"
                                 name="title"
                                 defaultValue={suggestion.title}
+                                placeholder='Reason of the suggestion'
                             ></Input>
                             <textarea
                                 className="border border-gray-400 rounded-md p-2 h-60 w-full"
@@ -32,6 +33,7 @@ export default function EditSuggestion({
                                 rows="10"
                                 name="content"
                                 defaultValue={suggestion.content}
+                                placeholder='Content of the suggestion'
                             ></textarea>
                             <div className="w-full flex justify-evenly">
                                 <Button className="bg-slate-100 w-14">Update</Button>

@@ -1,6 +1,7 @@
 import { validators, errors } from 'com'
 import context from './context'
 const { validateId, validateText } = validators
+const { ContentError } = errors
 
 /**
  * Updates the post with new data
@@ -22,6 +23,8 @@ export default function updatePost(postId, _title, _content) {
 
     const title = _title.trim()
     const content = _content.trim()
+    
+    if(title.length > 60) throw new ContentError('The title of the post is too long.')
 
     return (async () => {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/users/posts/${postId}/updatePost`, {

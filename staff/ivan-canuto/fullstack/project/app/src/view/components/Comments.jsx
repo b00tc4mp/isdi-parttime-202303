@@ -40,7 +40,7 @@ export default function Comments({ handleRefreshPost, post, user }) {
         <section className="flex flex-col items-center w-full h-full py-4 px-1 pt-0">
             <div className="flex flex-col justify-around items-center h-full w-full">
                 <h2 className="mt-2 mb-4 font-bold text-xl">Post comments</h2>
-                <div className="flex flex-col overflow-scroll h-96 gap-2">
+                <div className="flex flex-col overflow-scroll h-96 gap-2 w-full px-2">
                     {user && post.comments && post.comments.map(comment => <Comment
                         key={comment.id}
                         comment={comment}

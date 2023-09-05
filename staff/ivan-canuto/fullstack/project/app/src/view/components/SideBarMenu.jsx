@@ -74,7 +74,7 @@ export default function SideBarMenu({
                             return (
                                 <li
                                     key={index}
-                                    className={`conversation-${index} ${index === chatbotOptions.length - 1 ? 'h-24 bg-white' : `${option.text.length >= 28 ? 'h-fit' : 'h-16'} bg-gray-100`} w-full border-2 border-t-0 border-white flex justify-center items-center`}
+                                    className={`conversation-${index} ${index === chatbotOptions.length - 1 ? 'h-24 bg-white' : `${option.text.length > 37 ? 'h-fit' : 'h-16'} bg-gray-100`} w-full border-2 border-t-0 border-white flex justify-center items-center`}
                                     onClick={event => {
                                         if (event.target.tagName.toLowerCase() !== 'span' && !event.target.classList.contains('deleteAllChatsText')) {
                                             option.onClick();

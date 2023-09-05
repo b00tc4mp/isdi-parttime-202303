@@ -26,7 +26,7 @@ module.exports = (userId, postId, title, content) => {
   validateText(title, 'post title')
   validateText(content, 'post text')
 
-  if(title.length > 30) throw new ContentError('The title of the post is too long.')
+  if(title.length > 60) throw new ContentError('The title of the post is too long.')
 
   return (async () => {
     const user = await User.findById(userId)

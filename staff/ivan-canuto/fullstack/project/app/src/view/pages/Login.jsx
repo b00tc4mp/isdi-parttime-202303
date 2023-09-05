@@ -27,7 +27,7 @@ export default function Login() {
     return <Container className="w-screen h-screen bg-white flex flex-col items-center justify-center bg-[url(src/images/wallpaper.jpg)] bg-cover bg-center">
         <div className='flex justify-center items-center w-11/12 pt-8'>
             <div className="w-4/5 h-[500px] bg-white rounded-[10px] border border-black flex flex-col items-center justify-center">
-                <img className="max-w-[140px] h-[140px] mt-[-100px] rounded-full" src="src/images/logo-login&register.jpg" />
+                <img className="max-w-[140px] h-[140px] mt-[-140px] rounded-full" src="src/images/logo-login&register.jpg" />
                 <Form className="flex flex-col gap-4 w-80 items-center my-5" onSubmit={handleLogin}>
                     <div className="h-[54px] text-black text-4xl font-normal">WELCOME</div>
                     <Input className="w-2/3 h-12 border-black border-2 rounded-lg p-4" type="email" name="email" placeholder="Email" />

@@ -1,11 +1,11 @@
 const { extractUserId, handleErrors } = require('./helpers')
-const { toggleHideSuggestion } = require('../logic')
+const { hideSuggestion } = require('../logic')
 
 module.exports = handleErrors((req, res) => {
   const userId = extractUserId(req)
   const { suggestionId } = req.params
 
-  const promise = toggleHideSuggestion(userId, suggestionId)
+  const promise = hideSuggestion(userId, suggestionId)
 
   return (async () => {
     await promise

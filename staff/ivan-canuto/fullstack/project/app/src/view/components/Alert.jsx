@@ -1,8 +1,6 @@
 import ModalContainer from '../library/ModalContainer'
 
 export default function Alert({ error, level, onAccept }) {
-    console.log(error)
-
     let color = 'lightblue'
 
     if (level === 'warning')

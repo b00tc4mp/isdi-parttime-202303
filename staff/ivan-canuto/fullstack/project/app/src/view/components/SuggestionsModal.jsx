@@ -66,6 +66,7 @@ export default function SuggestionsModal({ post, user, handleLastPostsUpdate, la
 
             handleRefreshSuggestions()
             handleCloseModal()
+            handleLastPostsUpdate()
         })
     }
 
@@ -81,6 +82,7 @@ export default function SuggestionsModal({ post, user, handleLastPostsUpdate, la
             handleRefreshSuggestions()
             handleCloseModal()
             setSuggestion(null)
+            handleLastPostsUpdate()
         })
     }
 
@@ -88,7 +90,7 @@ export default function SuggestionsModal({ post, user, handleLastPostsUpdate, la
         <section className="flex flex-col items-center w-full h-full py-4 px-1 pt-0">
             <div className="flex flex-col items-center justify-between h-full w-full gap-2">
                 <h2 className="mb-4 font-bold text-xl">Suggestions</h2>
-                <div className='flex flex-col overflow-scroll gap-2 w-full min-h-[320px] max-h-[370px]'>
+                <div className='flex flex-col overflow-scroll gap-2 w-full min-h-[320px] h-full'>
                     {suggestions && suggestions.map(suggestion => (!suggestion.hidden || suggestion.author.id === user.id) && <Suggestion
                         key={suggestion.id}
                         suggestion={suggestion}
@@ -101,7 +103,7 @@ export default function SuggestionsModal({ post, user, handleLastPostsUpdate, la
 
                     )}
                 </div>
-                {user.id !== post.author.id ? <Button className="mb-14 mt-2" onClick={openCreateSuggestionModal}>Add suggestion</Button> : <div className="w-full h-2 mb-16"></div>}
+                {user.id !== post.author.id ? <Button className="mb-20 mt-2" onClick={openCreateSuggestionModal}>Add suggestion</Button> : <div className="w-full h-2 mb-16"></div>}
             </div>
 
             {modal === 'addSuggestion' && <CreateSuggestion

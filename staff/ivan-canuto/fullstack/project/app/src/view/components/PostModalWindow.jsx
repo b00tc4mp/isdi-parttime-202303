@@ -188,11 +188,11 @@ export default function PostModalWindow({
 
                 {post && modal === "post" && (
                     <>
-                        <h1 className="px-2 text-xl text-center">{post.title}</h1>
+                        <h1 className="px-2 text-xl text-center w-5/6">{post.title}</h1>
 
                         <p className="px-2 h-2/3 overflow-scroll border border-gray-300 rounded py-1 mx-2">{post.text}</p>
 
-                        <div className="px-2 w-full flex justify-between">
+                        <div className="px-2 w-full flex justify-between mb-2">
                             <div>
                                 <div className="flex gap-2">
                                     <i onClick={handleToggleFav}>

@@ -6,7 +6,7 @@ import { EditSuggestion, DeleteSuggestion } from "../components"
 import { context } from "../../ui"
 import { PostModalWindow } from ".";
 
-export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate }) {
+export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate, lastPostsUpdate }) {
     const handleErrors = useHandleErrors()
 
     const [modal, setModal] = useState()
@@ -20,7 +20,7 @@ export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate }
         setPage('Suggestions')
 
         console.log('Suggestion Page -> Render')
-    }, [])
+    }, [lastPostsUpdate])
 
     const handleRefershSuggestions = () => {
         handleErrors(async () => {
@@ -99,7 +99,8 @@ export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate }
         handleLastPostsUpdate()
     }
 
-    return <section className="flex flex-col gap-4 p-2 absolute top-28 left-0 overflow-scroll pb-8">
+    return <section className="flex flex-col gap-4 p-2 absolute top-28 left-0 overflow-scroll pb-8 w-full items-center">
+        {suggestions && <h1 className="w-full text-center text-5xl font-thin underline mb-4">My suggestions</h1>}
         {suggestions && suggestions.map(suggestion => <Suggestion
                 key={suggestion.id}
                 openEditSuggestionModal={openEditSuggestionModal}
@@ -112,6 +113,7 @@ export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate }
                 handleShowPost={handleShowPost}
             />
         )}
+        {(!suggestions || !suggestions.length) && <h2 className="text-2xl my-10 border border-gray-600 p-4 rounded-lg">There is still no suggestions</h2>}
         {modal === 'editSuggestion' && <EditSuggestion
             handleEditSuggestion={handleEditSuggestion}
             handleCloseModal={handleCloseModal}
@@ -123,9 +125,9 @@ export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate }
             handleCloseModal={handleCloseModal}
         />}
         {post && <PostModalWindow
-        page={'mySuggestions'}
-        handleHidePost={handleHidePost}
-        handleLastPostsUpdate={handleLastPostsUpdate}
+            page={'mySuggestions'}
+            handleHidePost={handleHidePost}
+            handleLastPostsUpdate={handleLastPostsUpdate}
         />}
     </section>
 }

@@ -1,12 +1,8 @@
-import { useState, useEffect } from "react"
-import { retrieveUser } from "../../logic"
-import { useAppContext, useHandleErrors } from "../hooks"
+import { useAppContext } from "../hooks"
 
-export default function Header({ handleToggleMenu, handleOpenProfile, setPage, handleCloseModal, openedProfile, setOpenedProfile, setView }) {
-    const { navigate, freeze, unfreeze } = useAppContext()
-    const handleErrors = useHandleErrors()
+export default function Header({ handleToggleMenu, handleOpenProfile, setPage, handleCloseModal, openedProfile, setOpenedProfile, setView, user }) {
+    const { navigate } = useAppContext()
 
-    const [user, setUser] = useState(null)
 
     const handleReturnToHome = () => {
         setPage('Home')
@@ -18,18 +14,6 @@ export default function Header({ handleToggleMenu, handleOpenProfile, setPage, h
 
         if (openedProfile) setOpenedProfile(false)
     }
-
-    useEffect(() => {
-        handleErrors(async () => {
-            freeze()
-
-            const user = await retrieveUser()
-
-            setUser(user)
-
-            unfreeze()
-        })
-    }, [])
 
     return <header className={`fixed h-24 top-0 w-full z-20 bg-slate-100`}>
         <div className="h-full flex justify-between items-center px-4">

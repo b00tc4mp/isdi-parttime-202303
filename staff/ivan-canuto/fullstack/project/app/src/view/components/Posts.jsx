@@ -105,6 +105,6 @@ export default function Posts({ lastPostsUpdate, view, handleOpenEditPost, handl
             handleToggleVisibility={handleToggleVisibility}
             handleTogglePostModal={handleTogglePostModal}
         />)}
-        {(!posts || !posts.length) && <h2 className="text-2xl my-10 border border-gray-600 p-4 rounded-lg bg-gray-100">There is no posts availabe!</h2>}
+        {(!posts || !posts.length) && <h2 className="text-2xl my-10 border border-gray-600 p-4 rounded-lg">There is no posts availabe!</h2>}
     </section>
 }

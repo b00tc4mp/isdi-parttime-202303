@@ -28,7 +28,7 @@ export default function Post({ post, handleTogglePostModal }) {
     console.debug('Post -> render')
 
     return <>
-        <article className="bg-white border h-[450px] w-4/5 text-black rounded-md p-4 flex flex-col items-center overflow-hidden" id={id.toString()} onScroll={handlePostScroll} onClick={handleOpenPostModal}>
+        <article className="bg-white border h-[450px] w-4/5 text-black rounded-md p-4 flex flex-col items-center overflow-hidden shadow-md shadow-slate-400" id={id.toString()} onScroll={handlePostScroll} onClick={handleOpenPostModal}>
 
             <section className="flex justify-between w-full px-4 py-2 overflow-hidden">
                 <div className="flex items-center">
@@ -39,7 +39,7 @@ export default function Post({ post, handleTogglePostModal }) {
 
             <h1 className="text-2xl text-center mb-2">{title}</h1>
 
-            <section className="w-full overflow-hidden">{text}</section>
+            <section className="w-full overflow-hidden mb-1">{text}</section>
         </article>
     </>
 } 

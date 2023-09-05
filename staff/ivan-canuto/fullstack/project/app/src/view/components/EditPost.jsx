@@ -39,7 +39,7 @@ export default function EditPost({ onUpdatedPost, onCancel }) {
         if(event.target === document.querySelector('.EditPostContainer'))
             onCancel()
     }}>
-        {post && <ModalWindow className='w-11/12 h-5/6'>
+        {post && <ModalWindow className='w-11/12 h-4/6'>
             <h2 className="text-2xl">Edit post</h2>
             <Form className='flex flex-col items-center gap-4 w-full h-5/6' onSubmit={handleUpdatePost}>
                 <div className='flex flex-col items-start w-full'>

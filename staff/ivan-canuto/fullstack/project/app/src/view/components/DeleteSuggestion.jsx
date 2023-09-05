@@ -1,7 +1,7 @@
 import { ModalContainer, ModalWindow, Form, Button } from "../library"
 
 export default function DeleteSuggestion({ handleCloseModal, handleDeleteSuggestion }) {
-    return <ModalContainer className='SuggestionModal fixed top-0 left-0 bg-black bg-opacity-20' onClick={event => {
+    return <ModalContainer className='SuggestionModal fixed top-0 left-0 bg-black bg-opacity-20 z-30' onClick={event => {
         if (event.target === document.querySelector('.SuggestionModal'))
             handleCloseModal()
     }}>

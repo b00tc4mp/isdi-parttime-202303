@@ -65,7 +65,7 @@ function validateComment(comment, explanation = 'comment') {
 function validateSuggestionTitle(title) {
   if (typeof title !=='string') throw new TypeError(`The suggestion title is not a string.`)
   if (!title.trim().length) throw new ContentError(`The suggestion title field is empty.`)
-  if (title.length > 30) throw new ContentError('The suggestion title is too long.')
+  if (title.length > 40) throw new ContentError('The suggestion title is too long.')
 }
 
 function validateSuggestionContent(content) {

@@ -47,10 +47,6 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
         handleErrors(async () => {
             const userInput = typeof event.target.userInput !== 'undefined' ? event.target.userInput.value : event.target.value
 
-            // let userInput
-            // if(typeof event.target.userInput.value !== undefined) userInput = event.target.userInput.value
-            // else userInput = event.target.value
-
             if (!userInput) return
             
             if (!context.conversationId) context.conversationId = await createConversation(userInput)
@@ -176,7 +172,9 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
     }
 
     return <Container className={`chatbot-container fixed top-0 left-0 bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover overflow-scroll`}>
-        <button className="fixed right-2 top-24 w-24 z-10 mt-2 bg-yellow-100 leading-tight border border-black flex justify-center" onClick={handleGenerateSummary}>Generate summary</button>
+        <button className="fixed right-2 top-24 w-24 z-10 mt-2 bg-yellow-100 leading-tight border border-black flex justify-center" onClick={() => {
+            if(!valueToRender) handleGenerateSummary()
+        }}>Generate summary</button>
         
         <section className={`conversation-container absolute top-24 w-full ${!summary ? 'bottom-32' : 'bottom-0'} overflow-scroll`}>
             <div className='w-full flex justify-start'>
@@ -193,7 +191,7 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
                 />
             )}
             {/* {document.querySelectorAll('.speechBubble').length === messages.length && setScrollToBottom()} */}
-            {summary && <div className="flex flex-col items-center gap-2 bg-red-300 rounded-lg pt-4 mx-4 pb-2 my-2">
+            {summary && <div className="flex flex-col items-center gap-2 bg-red-300 rounded-lg pt-4 mx-4 pb-2 mb-4">
                 <h1>Summary</h1>
                 <SpeechBubble className='py-0 px-0'
                     role={'sumamry'}

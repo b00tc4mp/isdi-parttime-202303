@@ -9,7 +9,7 @@ import { context } from "../../ui";
 
 export default function Home() {
     const handleErrors = useHandleErrors();
-    const { navigate } = useAppContext();
+    const { navigate, freeze, unfreeze } = useAppContext();
 
     const [modal, setModal] = useState();
     const [menu, setMenu] = useState(false);
@@ -33,15 +33,15 @@ export default function Home() {
         if (!lastPostsUpdate) handleRefreshUser()
     }, [lastPostsUpdate]);
 
-    useEffect(() => {
-        context.hideHeader = false
-    }, [])
-
     const handleRefreshUser = () => {
         handleErrors(async () => {
+            freeze()
+
             const user = await retrieveUser();
 
             setUser(user);
+
+            unfreeze()
         });
     }
 
@@ -203,6 +203,7 @@ export default function Home() {
                 openedProfile={openedProfile}
                 setOpenedProfile={setOpenedProfile}
                 setView={setView}
+                user={user}
             />
 
             <main>
@@ -372,6 +373,7 @@ export default function Home() {
                                 user={user}
                                 setPage={setPage}
                                 handleLastPostsUpdate={handleLastPostsUpdate}
+                                lastPostsUpdate={lastPostsUpdate}
                             /> : <Navigate to="/login" />
                         }
                     />

@@ -61,7 +61,7 @@ export default function Suggestion({ suggestion, openDeleteSuggestionModal, open
 
     return <>
         <div className=" mx-2 flex flex-col justify-between border p-2 rounded min-h-40 bg-white">
-            <div className="overflow-auto flex justify-between">
+            <div className="overflow-hidden flex justify-between">
                 <div className="flex gap-1 items-center">
                     <img className="h-5 w-5 object-cover rounded-full" src={suggestion.author.avatar || user.avatar} alt="Suggestion author avatar" />
                     <p>{suggestion.author.name || user.name}</p>
@@ -78,7 +78,7 @@ export default function Suggestion({ suggestion, openDeleteSuggestionModal, open
                 </div>
             </div>
             <div className="w-full flex justify-center">
-                <h1 className="text-xl text-center my-2">{suggestion.title}</h1>
+                <h1 className="text-xl text-center mt-4 mb-3">{suggestion.title}</h1>
             </div>
             <p className="mb-2">{suggestion.content}</p>
         </div>

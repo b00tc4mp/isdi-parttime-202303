@@ -14,7 +14,7 @@ const { User, Suggestion } = require('../data/models')
  * @throws {ExistenceError} On non-existing user or suggestion
  */
 
-module.exports = function toggleCheckSuggestion(userId, suggestionId) {
+module.exports = function hideSuggestion(userId, suggestionId) {
     validateId(userId, 'user id')
     validateId(suggestionId, 'suggestion id')
 
