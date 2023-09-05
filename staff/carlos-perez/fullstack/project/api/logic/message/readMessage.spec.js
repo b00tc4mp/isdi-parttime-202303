@@ -34,7 +34,8 @@ describe('readMessage', () => {
         await Message.create({author: message.author, email: message.email, title: message.title, text: message.text, status: message.status})
         const messageFound = await Message.findOne({ title: message.title });
         const messageId=messageFound._id.toString();
-        await expect(() => readMessage(adminId.toString(), messageId)).to.be.not.null;
+       // const result = await readMessage(adminId.toString(), messageId)
+        await expect(readMessage(adminId.toString(), messageId)).to.be.not.null;
 
     });
 
@@ -81,6 +82,23 @@ describe('readMessage', () => {
         catch (error){
             expect(error).to.be.instanceOf(ExistenceError)
             expect(error).equals('This message does not exist')
+        }
+    });
+    it('should fail on not existing Admin', async () => {
+        const admin = generate.Administrator();
+        await Administrator.create(admin);
+        const message = generate.Message();
+        
+        const adminFound = await Administrator.findOne({ email: admin.email });
+        const adminId= adminFound._id;
+
+        await Message.create({author: message.author, email: message.email, title: message.title, text: message.text, status: message.status})
+        const messageFound = await Message.findOne({ title: message.title });
+        const messageId=messageFound._id.toString();
+        try{readMessage('64f71960afe8291e1e4b9643', '64f71960afe8291e1e4b9643')}
+        catch (error){
+            expect(error).to.be.instanceOf(ExistenceError)
+            expect(error).equals('Admin does not exist')
         }
     });
 });

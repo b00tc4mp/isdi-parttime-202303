@@ -67,9 +67,8 @@ describe('seeEvent', () => {
         await Event.create({author: adminId, title: event.title, eventDate: event.eventDate, location: event.location, text: event.text, links: event.links, visibility: event.visibility})
         const eventFound = await Event.findOne({ title: event.title });
         const eventId=eventFound._id.toString();
-        try{seeEvent('64f71960afe8291e1e4b9643', eventId)}
+        try{seeEvent('64f71960afe8291e1e4b9643', '64f71960afe8291e1e4b9643')}
         catch (error){
-            console.log(error);
             expect(error).to.be.instanceOf(ExistenceError)
             expect(error.message).to.be('This event does not exist')
         }

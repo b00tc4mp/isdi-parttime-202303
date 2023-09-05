@@ -32,7 +32,7 @@ describe('seeMessageList', () => {
         const adminId= adminFound._id;
 
         await Message.create({author: message.author, email: message.email, title: message.title, text: message.text, status: message.status})
-        await expect(() =>seeMessageList(adminId.toString())).to.be.not.null;
+        await expect(seeMessageList(adminId.toString())).to.be.not.null;
 
     });
    
