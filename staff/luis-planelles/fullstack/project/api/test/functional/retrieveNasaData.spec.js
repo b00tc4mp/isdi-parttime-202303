@@ -3,7 +3,6 @@ require('dotenv').config();
 const { expect } = require('chai');
 const mongoose = require('mongoose');
 const { ObjectId } = require('mongodb');
-const sinon = require('sinon');
 
 const { retrieveNasaData } = require('../../logic');
 const { cleanUp, populate, generate } = require('../helpers');
@@ -30,20 +29,18 @@ describe('retrieveNasaData', () => {
       speedSteam: `${NASADonki}/HSS?startDate=2016-01-01&endDate=2016-01-31&api_key=${nasaApiKey}`,
     };
 
-  before(() => {
-    return mongoose.connect(process.env.MONGODB_URL);
-  });
+  before(() => mongoose.connect(process.env.MONGODB_URL));
 
-  let user, userId, currentDate, tenMinutesAgo;
+  let user, userId, currentDate;
 
   beforeEach(() => {
     user = generate.user();
     userId = user._id.toString();
 
     currentDate = new Date();
-    tenMinutesAgo = new Date(currentDate.getTime() - 10 * 60 * 1000);
+    const tenMinutesAgo = new Date(currentDate.getTime() - 10 * 60 * 1000);
 
-    const apiCall = generate.ApiCall(tenMinutesAgo);
+    const apiCall = generate.apiCall(tenMinutesAgo);
 
     return cleanUp().then(() => populate([user], [], [], [apiCall]));
   });
@@ -75,12 +72,43 @@ describe('retrieveNasaData', () => {
     });
   });
 
+  it('success no save data if apicall date doent exist', async function () {
+    this.timeout(9000);
+
+    await cleanUp();
+
+    await populate([user], [], [], []);
+
+    const retrievedNasaData = await retrieveNasaData(userId);
+
+    const expectedEvents = [
+      'massEjection',
+      'geoStorm',
+      'planetShock',
+      'solarFlare',
+      'solarParticle',
+      'magnetoPause',
+      'radiationBelt',
+      'speedSteam',
+    ];
+
+    retrievedNasaData.map((eventData) => {
+      const isMinor = isMinorDate(currentDate, eventData.date);
+
+      expect(isMinor).to.be.true;
+      expect(eventData.event).to.oneOf(expectedEvents);
+      expect(eventData.link).to.contain(
+        '/webtools.ccmc.gsfc.nasa.gov/DONKI/view/'
+      );
+    });
+  });
+
   it('should no save data if apicall date is less than ten minutes ago', async function () {
     this.timeout(9000);
 
     await cleanUp();
 
-    const apiCall = generate.ApiCall(currentDate);
+    const apiCall = generate.apiCall(currentDate);
     await populate([user], [], [], [apiCall]);
 
     const retrievedNasaData = await retrieveNasaData(userId, nasaEndpoints);
@@ -117,6 +145,8 @@ describe('retrieveNasaData', () => {
 
     try {
       await retrieveNasaData(noStringId);
+      currentDate = new Date();
+      tenMinutesAgo = new Date(currentDate.getTime() - 10 * 60 * 1000);
     } catch (error) {
       expect(error).to.be.instanceOf(TypeError);
       expect(error.message).to.equal('user id is not a string');
