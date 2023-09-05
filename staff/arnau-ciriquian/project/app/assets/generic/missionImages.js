@@ -1,0 +1,6 @@
+export const AMMO = require('./ammo.png')
+export const CONSTRUCTION = require('./construction.png')
+export const FOOD = require('./food.png')
+export const K9 = require('./k9.png')
+export const RESCUE = require('./rescue.png')
+export const SKULL = require('./skull.png')

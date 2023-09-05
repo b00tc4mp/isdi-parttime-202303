@@ -1,0 +1,32 @@
+Session started - 28/05/2023, 17:31:55 
+New Game - 28/05/2023, 17:31:58 
+Megalodon makes a special attack of 212 damage to enemy Kraken 
+Kraken makes a special attack of 208 damage to enemy Megalodon 
+Megalodon makes a special attack of 206 damage to enemy Kraken 
+Kraken makes an attack of 113 damage to enemy Megalodon 
+Megalodon makes a special attack of 208 damage to enemy Kraken 
+Kraken lost all hp 
+Game ended 
+New Game - 28/05/2023, 17:32:15 
+Session started - 28/05/2023, 17:33:40 
+-
+Menu to Options 
+Options to menu 
+-
+New Game - 28/05/2023, 17:33:53 
+Megalodon makes an attack of 101 damage to enemy Kraken 
+Kraken makes an attack of 108 damage to enemy Megalodon 
+Megalodon makes a special attack of 212 damage to enemy Kraken 
+Kraken makes a special attack of 240 damage to enemy Megalodon 
+Megalodon makes a special attack of 220 damage to enemy Kraken 
+Kraken lost all hp 
+Game ended 
+-
+Menu to Options 
+Options to menu 
+Session ended - 28/05/2023, 17:34:07 
+ 
+Session started - 01/06/2023, 21:02:33 
+-
+Session ended - 01/06/2023, 21:02:36 
+ 

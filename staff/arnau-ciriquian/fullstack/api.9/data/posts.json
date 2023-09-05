@@ -1,0 +1,11 @@
+[
+    {
+        "id": "post-2",
+        "author": "user-3",
+        "image": "new post 2025",
+        "text": "hey there",
+        "date": "11/06/2023, 17:47:29",
+        "likes": [],
+        "hidden": true
+    }
+]
