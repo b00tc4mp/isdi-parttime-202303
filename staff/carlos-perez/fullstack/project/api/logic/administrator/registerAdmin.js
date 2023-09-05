@@ -17,7 +17,7 @@ module.exports = (name, email, password) => {
             await Administrator.create({name, email, password: hash})
         } catch (error) {
             if (error.message.includes('E11000'))
-                throw new DuplicityError(`user with email ${email} already exists`)
+                throw new DuplicityError(`user already exists`)
 
             throw error
         }
