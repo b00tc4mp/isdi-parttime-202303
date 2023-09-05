@@ -8,9 +8,6 @@ module.exports = (adminId, eventId) => {
                 if (!event){
                     throw new ExistenceError('This event does not exist')
                 }
-
-                else{
-                    return event
-                }
+                return event;
                 })
 }

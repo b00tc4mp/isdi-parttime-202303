@@ -10,7 +10,7 @@ const {
 const seeEvent = require('./deleteEvent');
 const modifyEvent = require('./modifyEvent');
 
-describe('modifyEvent', () => {
+describe('seeEvent', () => {
     before(async () => {
         await mongoose.connect(process.env.MONGODB_URL);
     });
@@ -37,10 +37,10 @@ describe('modifyEvent', () => {
         const eventFound = await Event.findOne({ title: event.title });
         const eventId=eventFound._id.toString();
 
-        const result = await seeEvent(adminId.toString(),eventId);
+        //const result = await seeEvent(adminId.toString(),eventId);
         
 
-        expect(result).to.be.not.null;
+        await expect(() => seeEvent(adminId.toString(),eventId)).to.be.not.null;
     });
 
     it('should fail on incorrect Event id format', async () => {
@@ -69,6 +69,7 @@ describe('modifyEvent', () => {
         const eventId=eventFound._id.toString();
         try{seeEvent('64f71960afe8291e1e4b9643', eventId)}
         catch (error){
+            console.log(error);
             expect(error).to.be.instanceOf(ExistenceError)
             expect(error.message).to.be('This event does not exist')
         }

@@ -33,6 +33,7 @@ module.exports = {
         visibility: true
     }),
     Message: () => ({
+        author: `author-${Math.random()}`,
         email: `user-${Math.random()}@provider.com`,
         title: `text-${Math.random()}`,
         text: `text-${Math.random()}`,

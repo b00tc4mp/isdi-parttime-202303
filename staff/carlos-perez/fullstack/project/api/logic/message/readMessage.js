@@ -1,4 +1,4 @@
-const { validators: { validateId } } = require('com')
+const { validators: { validateId }, errors: {ExistenceError} } = require('com')
 const { Administrator, Message } = require('../../data/models')
 
 module.exports = (adminId, messageId) => {
@@ -11,13 +11,9 @@ module.exports = (adminId, messageId) => {
         return Message.findById(messageId)
             .then(message => {
                 if (!message) throw new ExistenceError(`This message does not exist`)
-                if(message.status===false){
-                    message.status=true;
+                else{
+                    return message
                 }
-                
-                message.save()
-                
-                return message
             })
     })
 }
