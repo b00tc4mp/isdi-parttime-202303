@@ -7,7 +7,6 @@ require('dotenv').config()
 const {
     errors: { AuthError, ContentError, ExistenceError, FormatError }
 } = require('com');
-const bcrypt = require('bcryptjs');
 const authenticateAdmin = require('./authenticateAdmin');
 
 describe('authenticateAdmin', () => {

@@ -1,6 +1,6 @@
 const {
     validators: { validateId, validatePassword },
-    errors: {ExistenceError, ContentError}
+    errors: {ExistenceError, ContentError, AuthError}
 } = require('com')
 const { Administrator } = require('../../data/models')
 const bcrypt = require('bcryptjs')
