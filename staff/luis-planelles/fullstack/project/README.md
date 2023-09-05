@@ -72,12 +72,11 @@ Space Pursuit is a Node.js web application that allows users to create private b
 #### NasaEvent
 
 - `date`: A Date field representing the date of the NASA event. Required.
-- `type`: A string representing the type of the NASA event. Required.
+- `event`: A string representing the type of the NASA event. Required.
 - `link`: A string representing the link of event of the nasa.
 
-#### NasaData
+#### ApiCall
 
-- `events`: An array of "NasaEvent" associated in the mission. Required.
 - `lastUpdate`: A Date field representing the date of the last update for the api Nasa. Required.
 
 ## Planning
@@ -90,6 +89,8 @@ Task breakdown and progress tracking in [Trello.](https://trello.com/b/CmBbNAni/
 - `POST /users/auth` - Log in a user
 - `POST /missions` - Create a new mission
 - `GET /missions/:id` - Get a specific mission
+- `GET /missions/update/:id` - Get a specific mission updated.
+- `GET /retrieve-nasa-data/` - Get a data from nasa apis.
 
 ### License
 
