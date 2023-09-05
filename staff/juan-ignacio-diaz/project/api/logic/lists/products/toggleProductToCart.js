@@ -32,6 +32,8 @@ module.exports = (listId, userId, producId) => {
 
         const product = list.products.find(product => product.id === producId)
 
+        if (!product) throw new ExistenceError('product not found')
+
         if (product.state === 'bought') {
             throw new InvalidDataError('invalid state')
         }

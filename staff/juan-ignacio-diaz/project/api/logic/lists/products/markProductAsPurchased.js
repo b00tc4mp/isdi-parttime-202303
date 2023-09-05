@@ -35,6 +35,8 @@ module.exports = (listId, userId, producId, price, stores) => {
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
 
         const product = list.products.find(product => product.id === producId)
+
+        if (!product) throw new ExistenceError('product not found')
         
         product.price = price
         product.date = new Date(Date.now())

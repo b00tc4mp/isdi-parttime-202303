@@ -52,6 +52,8 @@ module.exports = (listId, userId, producId, name, howMany, stores, type, comment
         try {
             const product = list.products.find(product => product.id === producId)
 
+            if (!product) throw new ExistenceError('product not found')
+
             product.name = name
             product.howMany = howMany        
             product.stores = stores 

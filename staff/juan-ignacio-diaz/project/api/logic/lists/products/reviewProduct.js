@@ -64,14 +64,12 @@ module.exports = (listId, userId, productId) => {
             })
         } 
 
-        if (product.stores.length>0) {
-            const populateStores = []
-            product.stores.forEach(store => {
-                populateStores.push(stores.find(tmpStore => tmpStore.id === store.toString()))
-            })
-            delete product.stores
-            product.stores = populateStores
-        } 
+        const populateStores = []
+        product.stores.forEach(store => {
+            populateStores.push(stores.find(tmpStore => tmpStore.id === store.toString()))
+        })
+        delete product.stores
+        product.stores = populateStores
 
         if (product.view) {
             product.untried = product.view.some(user => user._id.toString() === userId)

@@ -39,7 +39,7 @@ describe('markProductAsPurchased', () =>{
     })
 
     it('succeeds on mark state product as purchased', async () => {
-        await markProductAsPurchased(listTest.id, contactTest.id, productTest.id)
+        await markProductAsPurchased(listTest.id, contactTest.id, productTest.id, 1, [storeTest.id])
         let lists = await List.find({})
         expect(lists).to.have.length(1)
         let list = lists[0]
@@ -51,7 +51,7 @@ describe('markProductAsPurchased', () =>{
         const listTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await markProductAsPurchased(listTestNoExistsId, contactTest.id, productTest.id)
+            return await markProductAsPurchased(listTestNoExistsId, contactTest.id, productTest.id, 1, [storeTest.id])
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('list not found')
@@ -62,7 +62,7 @@ describe('markProductAsPurchased', () =>{
         const userTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await markProductAsPurchased(listTest.id, userTestNoExistsId, productTest.id)
+            return await markProductAsPurchased(listTest.id, userTestNoExistsId, productTest.id, 1, [storeTest.id])
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('user not found')
@@ -73,7 +73,7 @@ describe('markProductAsPurchased', () =>{
         const productTestNoExistsId = '000000000000000000000000'
 
         try {
-            return await markProductAsPurchased(listTest.id, contactTest.id, productTestNoExistsId)
+            return await markProductAsPurchased(listTest.id, contactTest.id, productTestNoExistsId, 1, [storeTest.id])
         } catch (error) {
             expect(error).to.be.instanceOf(Error)
             expect(error.message).to.equal('product not found')
@@ -81,15 +81,15 @@ describe('markProductAsPurchased', () =>{
     })
 
     it('fails on empty listId', () => 
-        expect(() => markProductAsPurchased('', contactTest.id, productTest.id)).to.throw(Error, 'list id does not have 24 characters')
+        expect(() => markProductAsPurchased('', contactTest.id, productTest.id, 1, [storeTest.id])).to.throw(Error, 'list id does not have 24 characters')
     )
 
     it('fails on empty userId', () =>
-        expect(() => markProductAsPurchased(listTest.id, '', productTest.id)).to.throw(Error, 'user id does not have 24 characters')
+        expect(() => markProductAsPurchased(listTest.id, '', productTest.id, 1, [storeTest.id])).to.throw(Error, 'user id does not have 24 characters')
     )
 
     it('fails on empty productId ', () =>
-        expect(() => markProductAsPurchased(listTest.id, contactTest.id, '')).to.throw(Error, 'product id does not have 24 characters')
+        expect(() => markProductAsPurchased(listTest.id, contactTest.id, '', 1, [storeTest.id])).to.throw(Error, 'product id does not have 24 characters')
     )
 
     after(() => 

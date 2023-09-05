@@ -98,7 +98,7 @@ describe('reviewProduct', () =>{
 
     
     it('fails on empty productId', () =>
-        expect(() => reviewProduct(listTest.id, '', productTest.id)).to.throw(Error, 'product id does not have 24 characters')
+        expect(() => reviewProduct(listTest.id, contactTest.id, '')).to.throw(Error, 'product id does not have 24 characters')
     )
 
     after(() => 

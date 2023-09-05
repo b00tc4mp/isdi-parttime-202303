@@ -8,7 +8,7 @@ const { User, List, Product } = require('../../../data/models')
 const editProductToList = require('./editProductToList')
 
 const { generateUser, generateList, generateStore, generateProduct, cleanUp, populateUser, populateList, populateStore, populateProduct } = require('../../helpers/tests')
-
+debugger
 describe('editProductToList', () =>{
     let userTest, contactTest, listTest, storeTest, productTest, productTest2, type, type2
 
@@ -31,9 +31,9 @@ describe('editProductToList', () =>{
         await populateStore(listTest.id, storeTest)
 
         type = Product.schema.path('type').enumValues[0]
-        productTest = generateProduct(contactTest.id, [storeTest.name], type )
+        productTest = generateProduct(contactTest.id, [storeTest.id], type )
         type2 = Product.schema.path('type').enumValues[1]
-        productTest2 = generateProduct(userTest.id, [storeTest.name], type )
+        productTest2 = generateProduct(userTest.id, [storeTest.id], type )
 
         await populateProduct(listTest.id, productTest)
     })
@@ -49,7 +49,7 @@ describe('editProductToList', () =>{
         expect(list.products[0].type).to.equal(productTest2.type)
         expect(list.products[0].comment).to.equal(productTest2.comment)
         expect(list.products[0].stores).to.have.lengthOf(1)
-        expect(list.products[0].stores[0]).to.equal(storeTest.name)
+        expect(list.products[0].stores[0]._id.toString()).to.equal(storeTest.id)
     })
 
     it('fails on invalid type', async () => {

@@ -36,7 +36,7 @@ describe('reviewProductTypes', () =>{
 
     it('succeeds on retrieve product types', async () => {
         const types = await reviewProductTypes(listTest.id, userTest.id)
-        expect(types).to.have.length(6)
+        expect(types).to.have.length(8)
         expect(types[0]).to.equal(type)
     })
 

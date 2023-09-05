@@ -68,7 +68,6 @@ module.exports = (listId, userId, filter, order) => {
                         product.buyer = false
                     }
                     
-
                     if (product.view) {
                         product.untried = product.view.some(user => user._id.toString() === userId)
                         delete product.view
