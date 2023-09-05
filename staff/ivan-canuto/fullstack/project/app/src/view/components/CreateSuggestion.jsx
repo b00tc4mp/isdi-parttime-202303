@@ -15,12 +15,18 @@ export default function CreateSuggestion({ handleCreateSuggestion, handleCloseMo
                     onSubmit={handleCreateSuggestion}
                 >
                     <h2 className="text-lg">New suggestion</h2>
-                    <Input className="w-full" name="title" autoFocus></Input>
+                    <Input
+                        className="w-full"
+                        name="title"
+                        placeholder='Reason of the suggestion'
+                        autoFocus
+                    ></Input>
                     <textarea
                         className="border border-gray-400 rounded-md p-2 h-60 w-full"
                         cols="30"
                         rows="10"
                         name="content"
+                        placeholder='Content of the suggestion'
                     ></textarea>
                     <div className="w-full flex justify-evenly">
                         <Button className="bg-slate-100 w-14">Add</Button>

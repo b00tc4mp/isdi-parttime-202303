@@ -10,28 +10,26 @@ Among its other functionalities, users can comment on posts by other users, like
 
 ### Use cases
 - Start conversation / interact with chatbot (ask questions, request summarys)
+- Generate / publish post (with summary)
+- Acess to all prior conversations
 - Delete conversation
 - Delete all conversations
-- Generate / publish post (with summary)
 - Search post
 - Click on post to open post modal with all the post information
-- Modify own post's title or conetnt
+- Edit own post's title or conetnt
 - Delete own posts
 - Toggle like post
 - Toggle fav/save post
+- View the comment section
 - Create post comment
 - Delete post comment
+- View suggestion section
 - Create post suggestion
 - Modify post suggestion's title or content (by the suggestion owner)
 - Delete post suggestion (by the suggestion owner)
-- Set suggestion as checked (by the post owner)
-- View all posts in home page
-- View own posts
-- View saved posts
-- View last fifteen seen posts
+- Set suggestion as checked by the post owner, and remove it from the suggestion modal
+- Acess to the different views of the posts (all posts in home page, own posts, saved posts, last fifteen seen posts)
 - View user made suggestions
-- View comment section in post
-- View suggestion section in post
 - Update user avatar
 - Update user password
 
@@ -101,83 +99,206 @@ Message
 
 - build html
 - build basic css
-- implement register functionality
-- implement login functionality
-- implement home welcome functionality
+- Implement register functionality
+- Implement login functionality
+- Implement home welcome functionality
 
 #### Start conversation, create posts, and refresh posts list
 
 - Me as user, I want to talk with the chatbot to ask some questions
 - Me as user, I want ask the chatbot to generate a summary about some topics
-- Me as user, I want to 
+- Me as user, I want to create a post with the summary generated, add it to the feed, and refresh the post list in home
+- Me as user, if I dont' want to create a poost with the summary generated, be able to tell the AI to do another one, or contiue the conversation
 
 ##### Tasks
 
-- implement a chat bot window to interact with it
-- implement an 'ask me' button to talk to the chat bot
-- implement a 'generate summary' button to make a summary
-- implement prompt logic to generate responses and summaries (input: text)
-- implement a 'create post' button to create a post with the generated summary
-- implement a 'copy' button to copy the generated response
-- implement logic to persist the info (post with summary) in database 
-- implement retrievePosts logic to get all posts form database
-- implement a panel for listing posts in home
+- Implement a chat bot window to interact with it
+- Implement an 'chat' button to talk to the chatbot
+- Implement a 'generate summary' button to make a summary
+- Implement a summary box with three inferior buttons, one to create a post, one to generate another summary, and one to continue the coversation
+- Implement a logic to generate a post with an only respost fron the chatbot
+- Implement logic to persist the info (post with summary) in database 
+- Implement retrievePosts logic to get all posts form database
+- Implement a panel for listing posts in home
+
+#### Acess to prior conversations
+
+- Me as user, I want a sidebar menu where i can acces all the prior conversations I had with the chatbot
+- Me as user, I want to be able to clik in one of the conversations in menu, acces to it, an continue with it if I want
+
+##### Tasks
+
+- Implement a logic where I can see all the prior conversations in the sidebar menu
+- Implement the logic where i can click in one of the menu options an load all the conversation in the chatbot page
+- Implement the logic to be able to continue with the conversations
+
+#### Delete a conversation
+
+- Me as user, I want to be able to delete a conversation existing in the sidebar menu
+- Me as user, I want to be able to be able to delete all conversations if I want with an only button
+
+##### Tasks
+
+- Implement a logic where i can delete a conversation from the sidebar menu, with doble check
+- Implement an option in the sidebar menu where to delete all conversations, with doble check
+
+#### Search post
+
+- Me as user, I want to search a post related to a topic
+
+##### Tasks
+
+- Implement a search button to open a small search form under the header
+- Implement the logic where the user enters an input in the form, and the posts with the titles related to the input topic are retrieved, sorted from most liked to the least
+
+##### Click on post to open post modal with all the post information
+
+- Me as user, I want to click in a post from the feed and open a post modal where i can interact with the post
+
+##### Tasks
+
+- Implement the logic to open a post modal with all its post information, where the user can see the whole post content and interact with the diferent functionalities
+- Implement a retrievePost logic to retrieve all the information of the post from database
 
 #### Edit a post and refresh list
 
 - Me as user, I want to have the edit option (as a button) in every post I created, open the Edit dialog with it, and save the changes in the post
-- Me as user, I want to edit the comment section, to delte any comment if there are any inappropiate one
 - Me as user, I want to see the list of updated posts with the changes applied in any of my posts
 
 ##### Tasks
 
-- implement an 'edit' button to edit an existing post in all the posts that belong to the use connected (in the session)
-- implement a 'delete comment' comment button to remove inappropiate comments in the posts that belong to the user connected()
-- implement the modal window to edit the post
-- implement logic to save in database the changes made to the post and its comment section
+- Implement an 'edit' button to edit an existing post in all the posts that belong to the use connected (in the session)
+- Implement a 'delete comment' comment button to remove inappropiate comments in the posts that belong to the user connected()
+- Implement the modal window to edit the post
+- Implement logic to save in database the changes made to the post and its comment section
 - add a call to refresh the posts list after saving the changes in the edited post
 
 #### Delete a post and refresh list
 
 - Me as a user, I want have a delete option (as a button) in any post I create, open a Delete dialog with it, and preceed to delete the post if accepted (or cancel it otherwise)
-- Me as user, I want to see the list of summaries updated with the changes applied in any of my posts
+- Me as user, I want to see the list of posts updated with the changes applied in any of my posts
 
 ##### Tasks
 
-- implement a 'delete' button in any of the posts of the conencted user (in the session)
-- implement deletePost logic to remove post from database
-- implement a modal window to ask the user if he/she really want to deletethe post (two buttons: delete, cancel)
-- add a call to refresh the posts list after deleting one post
+- Implement a 'delete' button in any of the posts belonging to user
+- Implement deletePost logic to remove post from database
+- Implement a modal window to ask the user if he/she really want to delete the post (two buttons: delete, cancel)
+- Add a call to refresh the posts list after deleting one post
 
-#### Generate an improvement suggestion and refresh list
+#### Toggle a like in post and toggle save post
 
--Me as a user, I want to have the option to generate improvement suggestions (as a button) in every summary in the feed, open a dialog with it, and proceed to make the suggestion
+- Me as user, I want to like a post
+- Me as user, I want to save a post as favorite
 
 ##### Tasks
 
-- implement an 'add suggestion' button to each post that does not belong to the user connected (in session)
-- implement modal window to write the suggestion (form with two text inputs: title (reason of the suggestion) and content (description of the suggestion))
-- implement generateSuggestion logic to save suggestion in database
-- add call to refresh posts list with the new suggestions
+- Implement a like and a save button
+- Implement toggleLikePos logic to be able to like/unlike the post
+- Implement toggleLikePos logic to be able to save/unsave the post as favorite
+- Add call to refresh the posts list after liking or saving the post
+
+#### View the comment section
+
+- Me as user I want to be able to see the comments in a post
+
+##### Tasks
+
+- Implement a comment button, beside the like and save buttons, to access to the comment section
+- Implement a comment section where the user can see al the comments made to the post
+
+#### Create a comment or delete a comment, and refres comment list
+
+- Me as user, I want to create a comment in a post.
+- Me as user, I want to delete a comment I made previouly in a post
+- Add call to refresh comment section
+
+#### View suggestion modal
+
+- Me as user, I want to be able to click a button and view all the made suggestions existing in a post
+
+##### Tasks
+
+- Implement a 'suuggesitons' button where the user can acces to all the suggestions in post previously made
+- Imlement a suggestion section where the users can see the suggestions already made to the post
+- Implement a retrieveSuggestions logic to get the suggestions from database
+
+#### Create a suggestion and refresh list
+
+- Me as a user, I want to have the option to generate post suggestions (as a button) in every post in the feed, open a dialog with it, and proceed to make the suggestion
+
+##### Tasks
+
+- Implement an 'add suggestion' button to each post that does not belong to the user connected (in session)
+- Implement modal window to write the suggestion (form with two text inputs: title (reason of the suggestion) and content (description of the suggestion))
+- Implement generateSuggestion logic to save suggestion in database
+- Add call to refresh posts list with the new suggestions
 
 #### Delete suggestion and refresh list
 
-- Me as user, delete a suggestion made by me.
+- Me as user, I want to delete a suggestion made by me.
 
 ##### Tasks
 
-- implement 'delete button' in every suggestion made by me
-- implement deleteSuggestion logic to remove suggestion from database
-- add call to refresh the posts list wiht the updated changes
+- Implement 'delete button' in every suggestion made by me
+- Implement deleteSuggestion logic to remove suggestion from database
+- Add call to refresh the posts list wiht the updated changes
 
 #### Watch made suggestions, remove the checked ones in own posts and refresh list
 
-- Me as user, I want to see the suggestions made in all posts to see if the contribution i want to make is already done.
+- Me as user, I want to see the suggestions made in all posts to see if the contribution I want to make is already done.
 - Me as user, I want to remove the suggestions made in my posts once checked.
 
 ##### Tasks
 
-- implement 'suggestions' button in each post that does not belong to the connected user (in session) to open a window with all the suggestions made.
-- implement logic to retrieve all the suggestions made in one post
-- implement logic to remove the suggestions cheched by user in his/her posts
-- add call to refresh the posts with the made changes
+- Implement 'suggestions' button in each post that does not belong to the connected user (in session) to open a window with all the suggestions made.
+- Implement logic to retrieve all the suggestions made in one post
+- Implement logic to remove the suggestions cheched by user in his/her posts
+- Add call to refresh the posts with the made changes
+
+#### Set suggestion as checked by the post owner, and remove it from the suggestion modal
+
+- Me as user, I want to be able to set as checked the suggestions made in my posts
+- Me as user, I want to hide checked suggestions if I want, the suggestion owner will be able to still see them
+
+##### Tasks
+
+- Implement a chek/uncheck button in all the suggestions in user posts
+- Implement a check/uncheck suggestion functionality
+- Implement a hideSuggestion functionality to hide them from the suggestion section
+
+#### Access to all the different post views
+
+- Me as user, I want to be able to view all the existing post in the home page
+- Me as user, I want to be able to view all the post made by me
+- Me as user, I want to be able to view all the posts saved by me as favorites
+- Me as user, I want to be able to view the las fifteen posts i visited
+- Me as user, I want to acces to all these views from the sidebar menu
+
+##### Tasks
+
+- Implement a retrievePosts logic to get all the posts from database
+- Implement a retrieveUserPosts logic to get all the posts made by the user from database
+- Implement a retrieveSavedPosts logic to get all the user's saved post from database
+- Implement a retrieveSeenPosts logic to get the last fifteen seen posts by the user from database
+- Implement a sidebar menu to acces all the different post views
+
+#### Acces to the user made suggestions
+
+- Me as user, I want to see the suggestions made by me
+- Me as user, I want to acces to them through the sidebar menu
+
+##### Tasks
+
+- Implemet suggestion page to see al the user suggestions
+- Implement retrieveOwnSuggestions logic to retrieve the suggestions made by the current user from database
+
+#### Update user avatar and update user password
+
+- Me as user, I want to be able to update my avatar
+- Me as user, I want to te able to update my password
+
+##### Tasks
+
+- Implement a section in the profile modal where the user can access to the update avatar form and update password form
+- Implement the updateUserAvatar logic to change the user avatar
+- Implement the updateUserPassword logic to change the user password
