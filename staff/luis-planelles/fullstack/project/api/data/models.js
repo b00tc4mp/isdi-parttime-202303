@@ -138,7 +138,7 @@ const User = model('User', user);
 const Mission = model('Mission', mission);
 const Explorer = model('Explorer', explorer);
 const Participant = model('Participant', participant);
-const NasaEvent = model('NASAEvent', nasaEvent);
+const NasaEvent = model('NasaEvent', nasaEvent);
 const ApiCall = model('ApiCall', apiCall);
 
 module.exports = {

@@ -12,9 +12,7 @@ const {
 } = require('com');
 
 describe('retrieveMission', () => {
-  before(() => {
-    return mongoose.connect(process.env.MONGODB_URL);
-  });
+  before(() => mongoose.connect(process.env.MONGODB_URL));
 
   let user, explorer, participant, mission;
 

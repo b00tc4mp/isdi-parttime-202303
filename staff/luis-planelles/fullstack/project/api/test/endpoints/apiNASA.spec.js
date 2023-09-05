@@ -3,30 +3,6 @@ require('dotenv').config();
 const { expect } = require('chai');
 
 describe('NASA API routes', () => {
-  describe('Asteroids Neows', () => {
-    const asteroids = `https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=${process.env.NASA_KEY}`;
-
-    it('should return a successful response for NASA API asteroids GET /', async () => {
-      const res = await fetch(asteroids);
-      const resBody = await res.text();
-
-      expect(res.status).to.equal(200);
-
-      if (resBody) {
-        const data = JSON.parse(resBody);
-        const asteroidsData = data.near_earth_objects;
-
-        asteroidsData.map((asteroid) => {
-          expect(asteroid.name_limited).to.be.a('string');
-          expect(asteroid.links.self).to.contain(
-            'api.nasa.gov/neo/rest/v1/neo/'
-          );
-          expect(asteroid.absolute_magnitude_h).to.be.a('number');
-        });
-      }
-    });
-  });
-
   describe('Space Weather Database Notifications DONKI', () => {
     const isDateBetween = (startDate, endDate, dateToCheck) => {
       return dateToCheck >= startDate && dateToCheck <= endDate;

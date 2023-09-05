@@ -12,19 +12,15 @@ const {
   errors: { ConnectionError, ContentError },
 } = require('com');
 
-describe('saveNasaData     ', () => {
+describe('saveNasaData', () => {
   before(() => mongoose.connect(process.env.MONGODB_URL));
 
   beforeEach(() => {
     const currentDate = new Date();
 
-    const apiCall = generate.ApiCall(currentDate);
+    const apiCall = generate.apiCall(currentDate);
 
     return cleanUp().then(() => populate([], [], [], [apiCall]));
-  });
-
-  afterEach(() => {
-    sinon.restore();
   });
 
   it('success on save nasa event', async () => {
@@ -228,8 +224,9 @@ describe('saveNasaData     ', () => {
       expect(error.message).to.equal('response is not an object');
     }
   });
-});
 
-after(() => {
-  return cleanUp().then(() => mongoose.disconnect());
+  after(() => {
+    sinon.restore();
+    return cleanUp().then(() => mongoose.disconnect());
+  });
 });
