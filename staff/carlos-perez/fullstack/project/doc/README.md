@@ -4,7 +4,7 @@
 
 ![](./AlexSings.gif)
 
-This webapp is the official web for Alex MayBe, an andalusian musician. It provides all the information that their fans need, including events information (dates, location, etc...), updates, lyrics posts, contact and social network integration. It also provides a section to manage all events, updates, lyrics posts and messages from the contact section, accessible only to him (and/or someone who he authorizes). Updates will be pushed via RSS too.
+This webapp is the official web for Alex MayBe, an andalusian musician. It provides all the information that their fans need, including events information (dates, location, etc...), updates, lyrics posts, contact and social network integration. It also provides a section to manage all events, updates, lyrics posts and messages from the contact section, accessible only to him (and/or someone who he authorizes).
 
 It uses React, Tailwind CSS, HeadlessUI, NextJS, MongoDB and Mongoose. API written in JavaScript, App written in TypeScript.
 
@@ -19,35 +19,28 @@ It uses React, Tailwind CSS, HeadlessUI, NextJS, MongoDB and Mongoose. API writt
 
 - see events list
 - add event
-- preview event
 - modify event
 - remove event
-- toggle event visibility
 
 - see updates list
 - add update
-- preview update
 - modify update
 - remove update
-- toggle update visibility
 
 - see lyrics list
 - add lyric post
-- preview lyric post
 - modify lyric post
 - delete lyric post
-- toggle lyric post visibility
 
 - see messages list
 - read message
-- toggle message read/unread
 - delete message
 
 - see update
 - see event
 - see lyric post
 - create message
-- subscribe to RSS?
+
 
 ## Technical description
 
@@ -108,6 +101,7 @@ Social Networks
 
 ### Test Coverage
 
+![](./coverage.png)
 
 ## Design
 Design will be managed with Figma: https://www.figma.com/file/M8POaubUvK4RN7R1Xidmv6/AMW?type=design&node-id=0%3A1&mode=design&t=qOYEB5PC6ZbirbBk-1
@@ -172,14 +166,6 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 
 - Implement add event
 
-#### Preview Event
-
-- Me as an administrator, I want to see a preview of how a user will see my event
-
-##### Task
-
-- Implement preview event
-
 #### Modify Event
 
 - Me as an administrator, I want to modify an event information
@@ -195,14 +181,6 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 ##### Task
 
 - Implement delete event
-
-#### Toggle Event Visibility
-
-- Me as an administrator, I want to toggle an event's visibility
-
-##### Task
-
-- Implement toggle event visibility
 
 #### See Updates List
 
@@ -220,16 +198,6 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 ###### Task
 
 - Implement add update
-- Implement RSS functionality
-
-#### Preview Update
-
-- Me as an administrator, I want to see a preview of how a user will see my update
-
-##### Task
-
-- Implement preview update
-
 
 #### Modify Update
 
@@ -246,14 +214,6 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 ##### Task
 
 - Implement delete update
-
-#### Toggle Update Visibility
-
-- Me as an administrator, I want to toggle an update's visibility and push it to RSS if it's visible
-
-##### Task
-
-- Implement toggle update visibility
 
 
 #### See Lyrics List
@@ -273,15 +233,6 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 
 - Implement add lyric post
 
-#### Preview Lyric Post
-
-- Me as an administrator, I want to see a preview of how a user will see my lyric post
-
-##### Task
-
-- Implement preview lyric post
-
-
 #### Modify Lyric Post
 
 - Me as an administrator, I want to modify a lyric post
@@ -297,14 +248,6 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 ##### Task
 
 - Implement delete lyric post
-
-#### Toggle Lyric Post Visibility
-
-- Me as an administrator, I want to toggle an lyric post's visibility
-
-##### Task
-
-- Implement toggle lyric post visibility
 
 #### See Message List
 
@@ -322,14 +265,6 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 
 - Implement read message
 
-#### Toggle Message Read/Unread
-
-- Me as an administrator, I want to toggle the read status of a message
-
-##### Task
-
-- Implement toggle message read/unread
-
 #### Delete Message
 
 - Me as an administrator, I want to delete a message
@@ -345,15 +280,6 @@ Planning will be managed with Trello: https://trello.com/invite/b/Sw9wR2tM/ATTIa
 ##### Task
 
 - Implement create message
-
-#### Suscribe to RSS feed
-
-- Me as a user, I want to suscribe to the RSS feed
-
-##### Task
-
-- Implement suscription to RSS feed
-
 
 #### See Event
 
