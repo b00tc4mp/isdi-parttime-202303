@@ -29,9 +29,10 @@ Among its other functionalities, users can comment on posts by other users, like
 - Delete post suggestion (by the suggestion owner)
 - Set suggestion as checked by the post owner, and remove it from the suggestion modal
 - Acess to the different views of the posts (all posts in home page, own posts, saved posts, last fifteen seen posts)
-- View user made suggestions
+- View user made suggestions and own posts suggestions
 - Update user avatar
 - Update user password
+- Create a post from scratch
 
 ### Data model
 
@@ -106,7 +107,7 @@ http://127.0.0.1:5500/staff/ivan-canuto/fullstack/project/api/coverage/lcov-repo
 
 - Me as user, I want to talk with the chatbot to ask some questions
 - Me as user, I want ask the chatbot to generate a summary about some topics
-- Me as user, I want to create a post with the summary generated, add it to the feed, and refresh the post list in home
+- Me as user, I want to create a post with the summary generated, add it to the feed, and refresh the posts list in home
 - Me as user, if I dont' want to create a poost with the summary generated, be able to tell the AI to do another one, or contiue the conversation
 
 ##### Tasks
@@ -140,6 +141,16 @@ http://127.0.0.1:5500/staff/ivan-canuto/fullstack/project/api/coverage/lcov-repo
 
 - DONE Implement a logic where i can delete a conversation from the sidebar menu, with doble check
 - DONE Implement an option in the sidebar menu where to delete all conversations, with doble check
+
+#### Create a post from scratch, and refresh posts list
+
+- Me as user, I want to be able to create a post with a summary made by me
+
+##### Tasks 
+
+- DONE Create an AddPost modal where i can enter the title and the sumamry content of my post
+- DONE Implement an option in the sidebar menu where i can click it and the AddPost modal pops up to me
+- DONE Implement the logic to create a post this way
 
 #### Search post
 
@@ -281,15 +292,17 @@ http://127.0.0.1:5500/staff/ivan-canuto/fullstack/project/api/coverage/lcov-repo
 - DONE Implement a retrieveSeenPosts logic to get the last fifteen seen posts by the user from database
 - DONE Implement a sidebar menu to acces all the different post views
 
-#### Acces to the user made suggestions
+#### Acces to the user made suggestions and own posts suggestions
 
 - Me as user, I want to see the suggestions made by me
+- Me as user, I want to see the suggestions that have been made to my posts
 - Me as user, I want to acces to them through the sidebar menu
 
 ##### Tasks
 
-- DONE Implemet suggestion page to see al the user suggestions
+- DONE Implemet suggestion page where i can view either the suggestions made by me or the suggestions that habe been made to my posts
 - DONE Implement retrieveOwnSuggestions logic to retrieve the suggestions made by the current user from database
+- DONE Implement retrieveOwnPostsSuggestions logic to retrieve the suggestions made by the current user from database
 
 #### Update user avatar and update user password
 
@@ -301,3 +314,13 @@ http://127.0.0.1:5500/staff/ivan-canuto/fullstack/project/api/coverage/lcov-repo
 - DONE Implement a section in the profile modal where the user can access to the update avatar form and update password form
 - DONE Implement the updateUserAvatar logic to change the user avatar
 - DONE Implement the updateUserPassword logic to change the user password
+
+#### Create a post from scratch, and refresh posts list
+
+- Me as user, I want to be able to create a post with a summary made by me
+
+##### Tasks 
+
+- DONE Create an AddPost modal where i can enter the title and the sumamry content of my post
+- DONE Implement an option in the sidebar menu where i can click it and the AddPost modal pops up to me
+- DONE Implement the logic to create a post this way
