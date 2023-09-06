@@ -37,10 +37,11 @@ describe('seeEvent', () => {
         const eventFound = await Event.findOne({ title: event.title });
         const eventId=eventFound._id.toString();
 
-        //const result = await seeEvent(adminId.toString(),eventId);
-        
+        const result = await seeEvent(adminId.toString(),eventId);
+        expect(result).to.exist
+        expect(result).to.not.be.instanceOf(ExistenceError)
 
-        await expect(() => seeEvent(adminId.toString(),eventId)).to.be.not.null;
+        //await expect(() => seeEvent(adminId.toString(),eventId)).to.exist;
     });
 
     it('should fail on incorrect Event id format', async () => {
@@ -67,7 +68,11 @@ describe('seeEvent', () => {
         await Event.create({author: adminId, title: event.title, eventDate: event.eventDate, location: event.location, text: event.text, links: event.links, visibility: event.visibility})
         const eventFound = await Event.findOne({ title: event.title });
         const eventId=eventFound._id.toString();
+        /*
+        const result = await seeEvent('64f71960afe8291e1e4b9643', '64f71960afe8291e1e4b9643');
+        await expect(result).to.be.instanceOf(ExistenceError);*/
         try{seeEvent('64f71960afe8291e1e4b9643', '64f71960afe8291e1e4b9643')}
+
         catch (error){
             expect(error).to.be.instanceOf(ExistenceError)
             expect(error.message).to.be('This event does not exist')
