@@ -1,5 +1,6 @@
 module.exports = {
     cleanUp: require('./cleanUp'),
-    generate: require('./generate'),
+    generateWorkspot: require('./generateWorkspot'),
+    generateUser: require('./generateUser'),
     populate: require('./populate')
 }

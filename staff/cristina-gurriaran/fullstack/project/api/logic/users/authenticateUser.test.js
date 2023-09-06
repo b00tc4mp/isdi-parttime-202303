@@ -1,7 +1,7 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const { User, Workspot } = require('../../../data/models')
-const authenticateUser = require('../authenticateUser')
+const { User, Workspot } = require('../../data/models')
+const authenticateUser = require('./authenticateUser')
 
 mongoose.connect(process.env.MONGODB_URL)
   .then(() => Promise.all([User.deleteMany(), Workspot.deleteMany()]))
