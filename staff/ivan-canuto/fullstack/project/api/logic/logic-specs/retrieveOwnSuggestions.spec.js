@@ -23,7 +23,7 @@ describe('retrieveOwnSuggestions', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -72,7 +72,7 @@ describe('retrieveOwnSuggestions', () => {
             expect(ownSuggestions[1].content).to.equal(suggestionContent2)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

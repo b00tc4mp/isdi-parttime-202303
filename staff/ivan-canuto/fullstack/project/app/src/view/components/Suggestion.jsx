@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useHandleErrors } from "../hooks";
 import { savePostAsSeen, toggleCheckSuggestion, hideSuggestion } from '../../logic'
 
-export default function Suggestion({ suggestion, openDeleteSuggestionModal, openEditSuggestionModal, user, page, handleLastPostsUpdate, handleShowPost }) {
+export default function Suggestion({ suggestion, openDeleteSuggestionModal, openEditSuggestionModal, user, handleLastPostsUpdate, handleShowPost, setSuggestion, modal }) {
     const handleErrors = useHandleErrors()
     const [checked, setChecked] = useState(suggestion.checked)
     const [hidden, setHidden] = useState(false)
@@ -14,6 +14,8 @@ export default function Suggestion({ suggestion, openDeleteSuggestionModal, open
         openDeleteSuggestionModal()
 
         handleLastPostsUpdate()
+
+        setSuggestion(suggestion)
     }
 
     const handleOpenEditSuggestion = () => {
@@ -22,6 +24,8 @@ export default function Suggestion({ suggestion, openDeleteSuggestionModal, open
         openEditSuggestionModal()
 
         handleLastPostsUpdate()
+
+        setSuggestion(suggestion)
     }
 
 
@@ -60,20 +64,20 @@ export default function Suggestion({ suggestion, openDeleteSuggestionModal, open
     }
 
     return <>
-        <div className=" mx-2 flex flex-col justify-between border p-2 rounded min-h-40 bg-white">
-            <div className="overflow-hidden flex justify-between">
+        <div className=" mx-2 flex flex-col justify-between border p-2 rounded min-h-40 bg-white shadow-md shadow-slate-400">
+            <div className="overflow-hidden flex justify-between px-1">
                 <div className="flex gap-1 items-center">
-                    <img className="h-5 w-5 object-cover rounded-full" src={suggestion.author.avatar || user.avatar} alt="Suggestion author avatar" />
-                    <p>{suggestion.author.name || user.name}</p>
+                    <img className="h-5 w-5 object-cover rounded-full" src={suggestion.author.avatar} alt="Suggestion author avatar" />
+                    <p>{suggestion.author.name}</p>
                 </div>
-                <div className="flex gap-3">
-                    {suggestion.postAuthor === user.id && checked && !hidden && <span className="material-symbols-outlined" onClick={handleHideSuggestion}>visibility_off</span>}
-                    {suggestion.postAuthor === user.id && <p className="overflow-hidden flex items-center"><span className={`material-symbols-outlined ${checked && 'bg-green-500 rounded-full'} mr-1`} onClick={handleToggleCheckSuggestion}>check</span>{checked ? 'Checked' : 'To check'}</p>}
-                    {page === 'mySuggestions' && <p className="rounded-full border border-gray-400 px-1 flex itmes-center" onClick={() => handleShowPostModal(suggestion.post)}>Go to post<span className="material-symbols-outlined text-base">arrow_forward_ios</span></p>}
-                    {(suggestion.author.id === user.id || page === 'mySuggestions') && <>
+                <div className="flex gap-3 w-48 flex-wrap justify-end">
+                    {suggestion.postAuthor === user.id && checked && !hidden && <p className="flex items-center gap-1"><span className="material-symbols-outlined text-lg" onClick={handleHideSuggestion}>visibility_off</span>Hide</p>}
+                    {suggestion.postAuthor === user.id && <p className="overflow-hidden flex items-center"><span className={`material-symbols-outlined ${checked && 'bg-green-300 rounded-full'} mr-1`} onClick={handleToggleCheckSuggestion}>check</span>{checked ? 'Checked' : 'Check'}</p>}
+                    {modal === 'suggestionModal' && <p className="rounded-full border border-gray-400 px-1 flex itmes-center" onClick={() => handleShowPostModal(suggestion.post)}>Go to post<span className="material-symbols-outlined text-base">arrow_forward_ios</span></p>}
+                    {suggestion.author.id === user.id && <>
                         {!checked && <span className="material-symbols-outlined" onClick={handleOpenEditSuggestion}>edit_note</span>}
                         <span className="material-symbols-outlined" onClick={handleOpenDeleteSuggestion}>delete</span>
-                        {checked && <p className="overflow-hidden flex items-center"><span className='material-symbols-outlined bg-green-500 rounded-full mr-1'>check</span>Checked</p>}
+                        {checked && <p className="overflow-hidden flex items-center"><span className='material-symbols-outlined bg-green-300 rounded-full mr-1'>check</span>Checked</p>}
                     </>}
                 </div>
             </div>

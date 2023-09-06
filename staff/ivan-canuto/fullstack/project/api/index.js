@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const {
     updateUserAvatarHandler,
     createCommentHandler,
-    createPostHandler,
+    createPostFromChatbotHandler,
     deleteCommentHandler,
     deletePostHandler,
     retrievePostHandler,
@@ -30,6 +30,7 @@ const {
     retrieveOwnSuggestionsHandler,
     retrievePostSuggestionsHandler,
     retrieveSuggestionHandler,
+    retrieveOwnPostsSuggestionsHandler,
     createSuggestionHandler,
     deleteSuggestionHandler,
     updateSuggestionHandler,
@@ -39,7 +40,8 @@ const {
     hideSuggestionHandler,
     retrieveSeenPostsHandler,
     savePostAsSeenHandler,
-    retrieveSearchedPostsHandler
+    retrieveSearchedPostsHandler,
+    createPostFromScratchHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -61,7 +63,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/users/posts/:postId/comment', jsonBodyParser, createCommentHandler)
 
-        api.post('/users/conversations/:conversationId/newPost', jsonBodyParser, createPostHandler)
+        api.post('/users/conversations/:conversationId/newPost', jsonBodyParser, createPostFromChatbotHandler)
 
         api.patch('/posts/:postId/comments/:commentId/delete', deleteCommentHandler)
 
@@ -101,6 +103,8 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/ownSuggestions', jsonBodyParser, retrieveOwnSuggestionsHandler)
 
+        api.get('/ownPostsSuggestions', jsonBodyParser, retrieveOwnPostsSuggestionsHandler)
+
         api.get('/suggestions/:suggestionId', jsonBodyParser, retrieveSuggestionHandler)
         
         api.post('/posts/:postId/suggestions/newSuggestion', jsonBodyParser, createSuggestionHandler)
@@ -122,6 +126,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/posts/:postId/saveSeenPost', jsonBodyParser, savePostAsSeenHandler)
 
         api.post('/posts/searchedPosts', jsonBodyParser, retrieveSearchedPostsHandler)
+
+        api.post('/newPostFromScratch', jsonBodyParser, createPostFromScratchHandler)
 
         api.listen(process.env.PORT, () => console.log(`Server running in port ${process.env.PORT}`))
     })

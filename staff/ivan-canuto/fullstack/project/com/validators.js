@@ -82,6 +82,18 @@ function validateUserInputObject(object) {
   if(!object.content || typeof object.content !== 'string') throw new ContentError('The "content" property in user input does not exist or is not a string.')
 }
 
+function validateNewPostTitle(title) {
+  if (typeof title !=='string') throw new TypeError(`The new post title is not a string.`)
+  if (!title.trim().length) throw new ContentError(`The new post title field is empty.`)
+  if(title.trim().length > 60) throw new RangeError('The title of the post is too long.')
+}
+
+function validateNewPostContent(content) {
+  if (typeof content !=='string') throw new TypeError(`The new post content is not a string.`)
+  if (!content.trim().length) throw new ContentError(`The new post content field is empty.`)
+  if(content.trim().length < 600) throw new RangeError('The content of the post is too short.')
+}
+
 module.exports = {
   validateName,
   validateEmail,
@@ -95,5 +107,7 @@ module.exports = {
   validateComment,
   validateSuggestionTitle,
   validateSuggestionContent,
-  validateUserInputObject
+  validateUserInputObject,
+  validateNewPostTitle,
+  validateNewPostContent
 }

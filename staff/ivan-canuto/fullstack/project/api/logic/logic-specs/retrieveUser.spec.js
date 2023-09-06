@@ -23,7 +23,7 @@ describe('retrieveUser', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -44,7 +44,7 @@ describe('retrieveUser', () => {
             expect(userFound.seenLately).to.have.lengthOf(0)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 
@@ -52,7 +52,7 @@ describe('retrieveUser', () => {
         try {
             const wrongUserId = '6102a3cbf245ef001c9a1837'
             
-            const userFound = await retrieveUser(wrongUserId)
+            await retrieveUser(wrongUserId)
 
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError)

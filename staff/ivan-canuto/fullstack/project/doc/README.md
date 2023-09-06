@@ -84,8 +84,7 @@ Message
 
 ### Test Coverage
 
-![](images/test-coverage-1.png)
-![](images/test-coverage-2.png)
+http://127.0.0.1:5500/staff/ivan-canuto/fullstack/project/api/coverage/lcov-report/index.html
 
 ## Planning
 
@@ -97,11 +96,11 @@ Message
 
 ##### Tasks
 
-- build html
-- build basic css
-- Implement register functionality
-- Implement login functionality
-- Implement home welcome functionality
+- DONE build html
+- DONE build basic css
+- DONE Implement register functionality
+- DONE Implement login functionality
+- DONE Implement home welcome functionality
 
 #### Start conversation, create posts, and refresh posts list
 
@@ -112,14 +111,14 @@ Message
 
 ##### Tasks
 
-- Implement a chat bot window to interact with it
-- Implement an 'chat' button to talk to the chatbot
-- Implement a 'generate summary' button to make a summary
-- Implement a summary box with three inferior buttons, one to create a post, one to generate another summary, and one to continue the coversation
-- Implement a logic to generate a post with an only respost fron the chatbot
-- Implement logic to persist the info (post with summary) in database 
-- Implement retrievePosts logic to get all posts form database
-- Implement a panel for listing posts in home
+- DONE Implement a chat bot window to interact with it
+- DONE Implement an 'chat' button to talk to the chatbot
+- DONE Implement a 'generate summary' button to make a summary
+- DONE Implement a summary box with three inferior buttons, one to create a post, one to generate another summary, and one to continue the coversation
+- DONE Implement a logic to generate a post with an only respost fron the chatbot
+- DONE Implement logic to persist the info (post with summary) in database 
+- DONE Implement retrievePosts logic to get all posts form database
+- DONE Implement a panel for listing posts in home
 
 #### Acess to prior conversations
 
@@ -128,9 +127,9 @@ Message
 
 ##### Tasks
 
-- Implement a logic where I can see all the prior conversations in the sidebar menu
-- Implement the logic where i can click in one of the menu options an load all the conversation in the chatbot page
-- Implement the logic to be able to continue with the conversations
+- DONE Implement a logic where I can see all the prior conversations in the sidebar menu
+- DONE Implement the logic where i can click in one of the menu options an load all the conversation in the chatbot page
+- DONE Implement the logic to be able to continue with the conversations
 
 #### Delete a conversation
 
@@ -139,8 +138,8 @@ Message
 
 ##### Tasks
 
-- Implement a logic where i can delete a conversation from the sidebar menu, with doble check
-- Implement an option in the sidebar menu where to delete all conversations, with doble check
+- DONE Implement a logic where i can delete a conversation from the sidebar menu, with doble check
+- DONE Implement an option in the sidebar menu where to delete all conversations, with doble check
 
 #### Search post
 
@@ -148,8 +147,8 @@ Message
 
 ##### Tasks
 
-- Implement a search button to open a small search form under the header
-- Implement the logic where the user enters an input in the form, and the posts with the titles related to the input topic are retrieved, sorted from most liked to the least
+- DONE Implement a search button to open a small search form under the header
+- DONE Implement the logic where the user enters an input in the form, and the posts with the titles related to the input topic are retrieved, sorted from most liked to the least
 
 ##### Click on post to open post modal with all the post information
 
@@ -157,8 +156,8 @@ Message
 
 ##### Tasks
 
-- Implement the logic to open a post modal with all its post information, where the user can see the whole post content and interact with the diferent functionalities
-- Implement a retrievePost logic to retrieve all the information of the post from database
+- DONE Implement the logic to open a post modal with all its post information, where the user can see the whole post content and interact with the diferent functionalities
+- DONE Implement a retrievePost logic to retrieve all the information of the post from database
 
 #### Edit a post and refresh list
 
@@ -167,11 +166,11 @@ Message
 
 ##### Tasks
 
-- Implement an 'edit' button to edit an existing post in all the posts that belong to the use connected (in the session)
-- Implement a 'delete comment' comment button to remove inappropiate comments in the posts that belong to the user connected()
-- Implement the modal window to edit the post
-- Implement logic to save in database the changes made to the post and its comment section
-- add a call to refresh the posts list after saving the changes in the edited post
+- DONE Implement an 'edit' button to edit an existing post in all the posts that belong to the use connected (in the session)
+- DONE Implement a 'delete comment' comment button to remove inappropiate comments in the posts that belong to the user connected()
+- DONE Implement the modal window to edit the post
+- DONE Implement logic to save in database the changes made to the post and its comment section
+- DONE Add a call to refresh the posts list after saving the changes in the edited post
 
 #### Delete a post and refresh list
 
@@ -180,10 +179,10 @@ Message
 
 ##### Tasks
 
-- Implement a 'delete' button in any of the posts belonging to user
-- Implement deletePost logic to remove post from database
-- Implement a modal window to ask the user if he/she really want to delete the post (two buttons: delete, cancel)
-- Add a call to refresh the posts list after deleting one post
+- DONE Implement a 'delete' button in any of the posts belonging to user
+- DONE Implement deletePost logic to remove post from database
+- DONE Implement a modal window to ask the user if he/she really want to delete the post (two buttons: delete, cancel)
+- DONE Add a call to refresh the posts list after deleting one post
 
 #### Toggle a like in post and toggle save post
 
@@ -192,10 +191,10 @@ Message
 
 ##### Tasks
 
-- Implement a like and a save button
-- Implement toggleLikePos logic to be able to like/unlike the post
-- Implement toggleLikePos logic to be able to save/unsave the post as favorite
-- Add call to refresh the posts list after liking or saving the post
+- DONE Implement a like and a save button
+- DONE Implement toggleLikePos logic to be able to like/unlike the post
+- DONE Implement toggleLikePos logic to be able to save/unsave the post as favorite
+- DONE Add call to refresh the posts list after liking or saving the post
 
 #### View the comment section
 
@@ -203,8 +202,8 @@ Message
 
 ##### Tasks
 
-- Implement a comment button, beside the like and save buttons, to access to the comment section
-- Implement a comment section where the user can see al the comments made to the post
+- DONE Implement a comment button, beside the like and save buttons, to access to the comment section
+- DONE Implement a comment section where the user can see al the comments made to the post
 
 #### Create a comment or delete a comment, and refresh comment list
 
@@ -218,9 +217,9 @@ Message
 
 ##### Tasks
 
-- Implement a 'suuggesitons' button where the user can acces to all the suggestions in post previously made
-- Imlement a suggestion section where the users can see the suggestions already made to the post
-- Implement a retrieveSuggestions logic to get the suggestions from database
+- DONE Implement a 'suuggesitons' button where the user can acces to all the suggestions in post previously made
+- DONE Imlement a suggestion section where the users can see the suggestions already made to the post
+- DONE Implement a retrieveSuggestions logic to get the suggestions from database
 
 #### Create a suggestion and refresh list
 
@@ -228,10 +227,10 @@ Message
 
 ##### Tasks
 
-- Implement an 'add suggestion' button to each post that does not belong to the user connected (in session)
-- Implement modal window to write the suggestion (form with two text inputs: title (reason of the suggestion) and content (description of the suggestion))
-- Implement generateSuggestion logic to save suggestion in database
-- Add call to refresh posts list with the new suggestions
+- DONE Implement an 'add suggestion' button to each post that does not belong to the user connected (in session)
+- DONE Implement modal window to write the suggestion (form with two text inputs: title (reason of the suggestion) and content (description of the suggestion))
+- DONE Implement generateSuggestion logic to save suggestion in database
+- DONE Add call to refresh posts list with the new suggestions
 
 #### Delete suggestion and refresh list
 
@@ -239,9 +238,9 @@ Message
 
 ##### Tasks
 
-- Implement 'delete button' in every suggestion made by me
-- Implement deleteSuggestion logic to remove suggestion from database
-- Add call to refresh the posts list wiht the updated changes
+- DONE Implement 'delete button' in every suggestion made by me
+- DONE Implement deleteSuggestion logic to remove suggestion from database
+- DONE Add call to refresh the posts list wiht the updated changes
 
 #### Watch made suggestions, remove the checked ones in own posts and refresh list
 
@@ -250,10 +249,10 @@ Message
 
 ##### Tasks
 
-- Implement 'suggestions' button in each post that does not belong to the connected user (in session) to open a window with all the suggestions made.
-- Implement logic to retrieve all the suggestions made in one post
-- Implement logic to remove the suggestions cheched by user in his/her posts
-- Add call to refresh the posts with the made changes
+- DONE Implement 'suggestions' button in each post that does not belong to the connected user (in session) to open a window with all the suggestions made.
+- DONE Implement logic to retrieve all the suggestions made in one post
+- DONE Implement logic to remove the suggestions cheched by user in his/her posts
+- DONE Add call to refresh the posts with the made changes
 
 #### Set suggestion as checked by the post owner, and remove it from the suggestion modal
 
@@ -262,9 +261,9 @@ Message
 
 ##### Tasks
 
-- Implement a chek/uncheck button in all the suggestions in user posts
-- Implement a check/uncheck suggestion functionality
-- Implement a hideSuggestion functionality to hide them from the suggestion section
+- DONE Implement a chek/uncheck button in all the suggestions in user posts
+- DONE Implement a check/uncheck suggestion functionality
+- DONE Implement a hideSuggestion functionality to hide them from the suggestion section
 
 #### Access to all the different post views
 
@@ -276,11 +275,11 @@ Message
 
 ##### Tasks
 
-- Implement a retrievePosts logic to get all the posts from database
-- Implement a retrieveUserPosts logic to get all the posts made by the user from database
-- Implement a retrieveSavedPosts logic to get all the user's saved post from database
-- Implement a retrieveSeenPosts logic to get the last fifteen seen posts by the user from database
-- Implement a sidebar menu to acces all the different post views
+- DONE Implement a retrievePosts logic to get all the posts from database
+- DONE Implement a retrieveUserPosts logic to get all the posts made by the user from database
+- DONE Implement a retrieveSavedPosts logic to get all the user's saved post from database
+- DONE Implement a retrieveSeenPosts logic to get the last fifteen seen posts by the user from database
+- DONE Implement a sidebar menu to acces all the different post views
 
 #### Acces to the user made suggestions
 
@@ -289,8 +288,8 @@ Message
 
 ##### Tasks
 
-- Implemet suggestion page to see al the user suggestions
-- Implement retrieveOwnSuggestions logic to retrieve the suggestions made by the current user from database
+- DONE Implemet suggestion page to see al the user suggestions
+- DONE Implement retrieveOwnSuggestions logic to retrieve the suggestions made by the current user from database
 
 #### Update user avatar and update user password
 
@@ -299,6 +298,6 @@ Message
 
 ##### Tasks
 
-- Implement a section in the profile modal where the user can access to the update avatar form and update password form
-- Implement the updateUserAvatar logic to change the user avatar
-- Implement the updateUserPassword logic to change the user password
+- DONE Implement a section in the profile modal where the user can access to the update avatar form and update password form
+- DONE Implement the updateUserAvatar logic to change the user avatar
+- DONE Implement the updateUserPassword logic to change the user password

@@ -1,4 +1,4 @@
-const { validators: { validateId } } = require('com')
+const { validators: { validateId }, errors: { ExistenceError } } = require('com')
 const { User, Post } = require('../data/models')
 
 /**

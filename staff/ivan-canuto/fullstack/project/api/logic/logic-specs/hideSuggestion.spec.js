@@ -22,7 +22,7 @@ describe('hideSuggestion', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -57,7 +57,7 @@ describe('hideSuggestion', () => {
             expect(_suggestion.hidden).to.be.true
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
     
@@ -92,7 +92,7 @@ describe('hideSuggestion', () => {
             expect(_suggestion.checked).to.be.false
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

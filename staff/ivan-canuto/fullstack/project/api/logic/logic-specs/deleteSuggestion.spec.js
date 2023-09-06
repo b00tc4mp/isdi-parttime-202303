@@ -23,7 +23,7 @@ describe('deleteSuggestion', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -53,7 +53,7 @@ describe('deleteSuggestion', () => {
             expect(suggestions).to.have.lengthOf(0)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

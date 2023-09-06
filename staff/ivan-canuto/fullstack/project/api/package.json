@@ -7,7 +7,7 @@
         "start": "node .",
         "watch": "node --watch .",
         "inspect": "node --inspect-brk .",
-        "test": "mocha logic/*.spec.js",
+        "test": "mocha logic/logic-specs/*.spec.js --timeout 70000",
         "test-inspect": "mocha --inspect-brk logic/*.spec.js",
         "test-coverage": "nyc --reporter=lcov --reporter=text-summary mocha logic/logic-specs/*.spec.js --timeout 70000"
     },

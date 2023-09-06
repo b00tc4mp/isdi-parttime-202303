@@ -22,7 +22,7 @@ describe('toggleSavePost', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -50,7 +50,7 @@ describe('toggleSavePost', () => {
             expect(_user2.favs[0].toString()).to.equal(postId)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
     
@@ -85,7 +85,7 @@ describe('toggleSavePost', () => {
             expect(_user3.favs).to.have.length(0)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

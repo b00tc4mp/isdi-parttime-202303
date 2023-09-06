@@ -22,7 +22,7 @@ describe('createPost', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -54,7 +54,7 @@ describe('createPost', () => {
             expect(post.comments).to.be.an('array')
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

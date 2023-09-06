@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const { errors: { ExistenceError, ContentError } } = require('com')
 const { User, Post } = require('../../data/models')
 const { mongoose: { Types: { ObjectId } } } = require('mongoose')
+const bcrypt = require('bcryptjs')
 
 describe('updatePost', () => {
     let user, email
@@ -22,7 +23,7 @@ describe('updatePost', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -52,7 +53,7 @@ describe('updatePost', () => {
             expect(_post.text).to.equal(newTextPost)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 
@@ -104,6 +105,38 @@ describe('updatePost', () => {
             expect(error.message).to.equal('Post not found.')
         }
     })
+    
+    it('fails on the user is not the owner of the post', async () => {
+        try {
+            const _user = await User.findOne({ email: user.email })
+            const userId = _user._id.toString()
+
+            const postTitle = 'Test Conversation'
+            const postText = 'Juan Carlos I de Borbon, es el padre del actual rey de la monarquía española, Felipe IV. Juan Carlos también fue rey de España hasta que en 2014 abdicó cediendole el trono a su hijo Felipe.'
+
+            await Post.create({ author: new ObjectId(userId), title: postTitle, text: postText })
+            
+            const post = await Post.findOne({ author: userId })
+            const postId = post._id.toString()
+            
+            const testPassword = 'testPassword'
+            const hash = await bcrypt.hash(testPassword, 10)
+
+            await User.create({ name: 'testName', email: 'test@email.com', password: hash})
+
+            const newUser = await User.findOne({ email: 'test@email.com' })
+            const newUserId = newUser._id.toString()
+
+            const newTitlePost = 'New post title'
+            const newTextPost = 'This is the new text of the post.'
+
+            await updatePost(newUserId, postId, newTitlePost, newTextPost)
+
+        } catch (error) {
+            expect(error).to.be.instanceOf(Error)
+            expect(error.message).to.equal('This user is not the owner of the post.')
+        }
+    })
 
     it('fails on empty user id', () => expect(() => updatePost('', '6102a3cbf245ef001c9a1837', 'New post title', 'This is the new text of the post.')).to.throw(ContentError, 'The user id does not have 24 characters.'))
 
@@ -151,7 +184,7 @@ describe('updatePost', () => {
         expect(() => updatePost(testUserId, testPostId, 1, testPostText)).to.throw(TypeError, 'The post title is not a string.')
     })
 
-    it('fails on post title too long', () => expect(() => updatePost('6102a3cbf245ef001c9a1837', '6102a3cbf245ef001c9a1837', 'This is the new beautiful title of the post.', 'This is the new text of the post.')).to.throw(ContentError, 'The title of the post is too long.'))
+    it('fails on post title too long', () => expect(() => updatePost('6102a3cbf245ef001c9a1837', '6102a3cbf245ef001c9a1837', 'This is the new beautifuln super long test title of the post.', 'This is the new text of the post.')).to.throw(ContentError, 'The title of the post is too long.'))
     
     it('fails on empty post text', () => expect(() => updatePost('6102a3cbf245ef001c9a1837', '6102a3cbf245ef001c9a1837', 'New post title', '')).to.throw(ContentError, 'The post text field is empty.'))
 

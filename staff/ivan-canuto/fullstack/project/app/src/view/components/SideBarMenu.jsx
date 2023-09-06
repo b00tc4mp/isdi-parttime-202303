@@ -74,7 +74,7 @@ export default function SideBarMenu({
                             return (
                                 <li
                                     key={index}
-                                    className={`conversation-${index} ${index === chatbotOptions.length - 1 ? 'h-24 bg-white' : `${option.text.length > 37 ? 'h-fit' : 'h-16'} bg-gray-100`} w-full border-2 border-t-0 border-white flex justify-center items-center`}
+                                    className={`conversation-${index} ${index === chatbotOptions.length - 1 ? 'h-24 bg-white' : `${option.text.length > 38 ? 'h-fit' : 'h-16'} bg-gray-100`} w-full border-2 border-t-0 border-white flex justify-center items-center`}
                                     onClick={event => {
                                         if (event.target.tagName.toLowerCase() !== 'span' && !event.target.classList.contains('deleteAllChatsText')) {
                                             option.onClick();
@@ -107,12 +107,12 @@ export default function SideBarMenu({
                         })}
                     </>
                 }
-                {(page === "Home" || page === 'Suggestions') &&
+                {(page === "Home" || page === 'Suggestions' || page === 'OwnPostsSuggestions') &&
                     homeOptions &&
                     homeOptions.map((option, index) => {
                         return <li
                             key={index}
-                            className="h-16 bg-gray-100 w-full border-2 border-t-0 border-white flex justify-center overflow-auto items-center"
+                            className="h-16 bg-slate-100 w-full border-2 border-t-0 border-white flex justify-center overflow-auto items-center px-4 text-center"
                             onClick={() => {
                                 option.onClick();
 
@@ -123,11 +123,31 @@ export default function SideBarMenu({
                                 scrollToTop()
                             }}
                         >
-                            {option.text === 'Chatbot page'
-                                ?
-                                <p className='flex items-center gap-1'>{option.text}<span className="material-symbols-outlined">smart_toy</span></p>
+                            {option.text === 'Chatbot page' ?
+                                <p className='w-full flex justify-left items-center gap-2'><span className="material-symbols-outlined text-lg">smart_toy</span>{option.text}</p>
                                 :
-                                <p>{option.text}</p>
+                                option.text === 'Home page' ? 
+                                <p className='w-full flex justify-left items-center gap-2'><span className="material-symbols-outlined text-lg">Home</span>{option.text}</p>
+                                :
+                                option.text === 'Own posts' ? 
+                                <p className='w-full flex justify-left items-center gap-2'><span className="material-symbols-outlined text-lg">copyright</span>{option.text}</p>
+                                :
+                                option.text === 'Saved posts' ? 
+                                <p className='w-full flex justify-left items-center gap-2'><span className="material-symbols-outlined text-lg">bookmark</span>{option.text}</p>
+                                :
+                                option.text === 'Seen lately' ? 
+                                <p className='w-full flex justify-left items-center gap-2'><span className="material-symbols-outlined text-lg">visibility</span>{option.text}</p>
+                                :
+                                option.text === 'My suggestions' ? 
+                                <p className='w-full flex justify-left items-center gap-2'><span className="material-symbols-outlined text-lg">emoji_objects</span>{option.text}</p>
+                                :
+                                option.text === 'Own posts suggestions' ? 
+                                <p className='flex justify-left items-center pr-2'><span className="material-symbols-outlined text-lg">psychology</span>{option.text}</p>
+                                :
+                                option.text === 'Create a post' ? 
+                                <p className='w-full flex justify-left items-center gap-2'><span className="material-symbols-outlined text-lg">post</span>{option.text}</p>
+                                :
+                                ''
                             }
                         </li>
                     })}

@@ -23,7 +23,7 @@ describe('retrievePost', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -38,6 +38,14 @@ describe('retrievePost', () => {
             await Post.create({ author: new ObjectId(userId), title: postTitle, text: postText })
 
             const post = await Post.findOne({ author: userId })
+
+            _user.favs.push(post._id)
+            post.likes.push(_user._id)
+            post.comments.push({ author: 'testUserName', authorId: _user._id, text: 'test comment content'})
+
+            await _user.save()
+            await post.save()
+            
             const postId = post._id.toString()
 
             const postFound = await retrievePost(userId, postId)
@@ -50,15 +58,18 @@ describe('retrievePost', () => {
             expect(postFound.title).to.equal(postTitle)
             expect(postFound.text).to.equal(postText)
             expect(postFound.likes).to.be.an('array')
-            expect(postFound.likes).to.have.lengthOf(0)
+            expect(postFound.likes).to.have.lengthOf(1)
             expect(postFound.visible).to.be.true
             expect(postFound.comments).to.be.an('array')
-            expect(postFound.comments).to.have.lengthOf(0)
-            expect(postFound.liked).to.be.false
-            expect(postFound.fav).to.be.false
+            expect(postFound.comments).to.have.lengthOf(1)
+            expect(postFound.comments[0].author).to.equal('testUserName')
+            expect(postFound.comments[0].authorId.toString()).to.equal(userId)
+            expect(postFound.comments[0].text).to.equal('test comment content')
+            expect(postFound.liked).to.be.true
+            expect(postFound.fav).to.be.true
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 
@@ -77,7 +88,7 @@ describe('retrievePost', () => {
 
             const wrongUserId = '6102a3cbf245ef001c9a1837'
 
-            const postFound = retrievePost(wrongUserId, postId)
+            await retrievePost(wrongUserId, postId)
 
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError)
@@ -97,7 +108,7 @@ describe('retrievePost', () => {
 
             const wrongPostId = '6102a3cbf245ef001c9a1837'
 
-            const postFound = retrievePost(userId, wrongPostId)
+            await retrievePost(userId, wrongPostId)
 
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError)

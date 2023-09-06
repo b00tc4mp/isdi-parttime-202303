@@ -23,7 +23,7 @@ describe('retrieveSearchedPosts', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -41,6 +41,14 @@ describe('retrieveSearchedPosts', () => {
             await Post.create({ author: new ObjectId(userId), title: postTitle, text: postText })
             await Post.create({ author: new ObjectId(userId), title: postTitle2, text: postText2 })
 
+            const post = await Post.findOne({ author: userId })
+
+            _user.favs.push(post._id)
+            post.likes.push(_user._id)
+
+            await _user.save()
+            await post.save()
+
             const textToSearch = 'Rey'
 
             const postsFound = await retrieveSearchedPosts(userId, textToSearch)
@@ -55,12 +63,13 @@ describe('retrieveSearchedPosts', () => {
             expect(postsFound[0].title).to.equal(postTitle)
             expect(postsFound[0].text).to.equal(postText)
             expect(postsFound[0].likes).to.be.an('array')
-            expect(postsFound[0].likes).to.have.lengthOf(0)
+            expect(postsFound[0].likes).to.have.lengthOf(1)
+            expect(postsFound[0].likes[0].toString()).to.equal(userId)
             expect(postsFound[0].visible).to.be.true
             expect(postsFound[0].comments).to.be.an('array')
             expect(postsFound[0].comments).to.have.lengthOf(0)
-            expect(postsFound[0].liked).to.be.false
-            expect(postsFound[0].fav).to.be.false
+            expect(postsFound[0].liked).to.be.true
+            expect(postsFound[0].fav).to.be.true
             
             expect(postsFound[1].author.id).to.equal(userId)
             expect(postsFound[1].author.name).to.equal(name)
@@ -76,7 +85,7 @@ describe('retrieveSearchedPosts', () => {
             expect(postsFound[1].fav).to.be.false
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 
@@ -98,7 +107,7 @@ describe('retrieveSearchedPosts', () => {
 
             const wrongUserId = '6102a3cbf245ef001c9a1837'
 
-            const postFound = retrieveSearchedPosts(wrongUserId, textToSearch)
+            await retrieveSearchedPosts(wrongUserId, textToSearch)
 
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError)

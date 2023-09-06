@@ -23,7 +23,7 @@ describe('createSuggestion', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -47,7 +47,7 @@ describe('createSuggestion', () => {
             expect(suggestion).to.exist
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

@@ -1,7 +1,7 @@
 module.exports = {
   authenticateUserHandler: require('./authenticateUserHandler'),
   createCommentHandler: require('./createCommentHandler'),
-  createPostHandler: require('./createPostHandler'),
+  createPostFromChatbotHandler: require('./createPostFromChatbotHandler'),
   deleteCommentHandler: require('./deleteCommentHandler'),
   deletePostHandler: require('./deletePostHandler'),
   registerUserHandler: require('./registerUserHandler'),
@@ -24,6 +24,7 @@ module.exports = {
   generateSummaryHandler: require('./generateSummaryHandler'),
   retrievePostSuggestionsHandler: require('./retrievePostSuggestionsHandler'),
   retrieveOwnSuggestionsHandler: require('./retrieveOwnSuggestionsHandler'),
+  retrieveOwnPostsSuggestionsHandler: require('./retrieveOwnPostsSuggestionsHandler'),
   retrieveSuggestionHandler: require('./retrieveSuggestionHandler'),
   createSuggestionHandler: require('./createSuggestionHandler'),
   deleteSuggestionHandler: require('./deleteSuggestionHandler'),
@@ -35,4 +36,5 @@ module.exports = {
   retrieveSeenPostsHandler: require('./retrieveSeenPostsHandler'),
   savePostAsSeenHandler: require('./savePostAsSeenHandler'),
   retrieveSearchedPostsHandler: require('./retrieveSearchedPostsHandler'),
+  createPostFromScratchHandler: require('./createPostFromScratchHandler'),
 }

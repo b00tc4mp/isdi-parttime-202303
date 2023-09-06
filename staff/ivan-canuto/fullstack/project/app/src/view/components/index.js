@@ -12,6 +12,7 @@ import Chatbot from "./Chatbot"
 import SuggestionsModal from "./SuggestionsModal"
 import SuggestionsPage from "./SuggestionsPage"
 import EditPost from "./EditPost"
+import AddPost from "./AddPost"
 import PostModalWindow from "./PostModalWindow"
 import ContextualMenu from "./ContextualMenu"
 import Suggestion from "./Suggestion"
@@ -34,6 +35,7 @@ export {
     SuggestionsModal,
     SuggestionsPage,
     EditPost,
+    AddPost,
     PostModalWindow,
     ContextualMenu,
     Suggestion,

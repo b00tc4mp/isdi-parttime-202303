@@ -1,4 +1,4 @@
-const { createPost } = require('../logic')
+const { createPostFromChatbot } = require('../logic')
 const { extractUserId, handleErrors } = require('./helpers')
 
 module.exports = handleErrors((req, res) => {
@@ -6,7 +6,7 @@ module.exports = handleErrors((req, res) => {
   const { summary } = req.body
   const { conversationId } = req.params
 
-  const promise = createPost(userId, conversationId, summary)
+  const promise = createPostFromChatbot(userId, conversationId, summary)
 
   return (async () => {
     await promise

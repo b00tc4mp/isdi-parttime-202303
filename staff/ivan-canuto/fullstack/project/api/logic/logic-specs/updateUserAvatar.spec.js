@@ -4,9 +4,9 @@ const { expect } = require('chai')
 const updateUserAvatar = require('../updateUserAvatar')
 const { cleanUp, generate, populate } = require('../helpers-test')
 const mongoose = require('mongoose')
-const { errors: { ExistenceError, ContentError } } = require('com')
-const { User, Post, Suggestion } = require('../../data/models')
-const { mongoose: { Types: { ObjectId } } } = require('mongoose')
+const { errors: { ExistenceError, ContentError, AuthError } } = require('com')
+const { User } = require('../../data/models')
+const bcrypt = require('bcryptjs')
 
 describe('updateUserAvatar', () => {
     let user, email, password
@@ -21,9 +21,11 @@ describe('updateUserAvatar', () => {
             password = user.password
             email = user.email
 
+            user.password = await bcrypt.hash(password, 10)
+
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -43,14 +45,12 @@ describe('updateUserAvatar', () => {
             expect(_user2.avatar).to.equal(newAvatarUrl)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
-
+    
     it('fails on non-existing user', async () => {
         try {
-            const _user = await User.findOne({ email: user.email })
-
             const newAvatarUrl = 'this-is-the-new-avatar-url.jpg'
 
             const wrongUserId = '6102a3cbf245ef001c9a1837'
@@ -60,6 +60,43 @@ describe('updateUserAvatar', () => {
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError)
             expect(error.message).to.equal('User not found.')
+        }
+    })
+
+    it('fails on new avatar the same as the old one', async () => {
+        try {
+            const _user = await User.findOne({ email: user.email })
+            const userId = _user._id.toString()
+
+            const avatarUrl = 'this-is-the-new-avatar-url.jpg'
+            
+            await User.updateOne(
+                { _id: userId },
+                { $set: { avatar: avatarUrl }}
+            )
+
+            await updateUserAvatar(userId, avatarUrl, password)
+
+        } catch (error) {
+            expect(error).to.be.instanceOf(ContentError)
+            expect(error.message).to.equal('New avatar is the same as the old one.')
+        }
+    })
+    
+    it('fails on wrong credentials', async () => {
+        try {
+            const _user = await User.findOne({ email: user.email })
+            const userId = _user._id.toString()
+
+            const newAvatarUrl = 'this-is-the-new-avatar-url.jpg'
+
+            const wrongPassword = 'wrongPassword'
+            
+            await updateUserAvatar(userId, newAvatarUrl, wrongPassword)
+
+        } catch (error) {
+            expect(error).to.be.instanceOf(AuthError)
+            expect(error.message).to.equal('Wrong credentials.')
         }
     })
 

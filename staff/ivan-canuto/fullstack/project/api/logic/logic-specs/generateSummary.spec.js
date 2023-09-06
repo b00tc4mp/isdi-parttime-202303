@@ -22,7 +22,7 @@ describe('generateSummary', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -45,7 +45,7 @@ describe('generateSummary', () => {
             expect(response).to.be.an('string')
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

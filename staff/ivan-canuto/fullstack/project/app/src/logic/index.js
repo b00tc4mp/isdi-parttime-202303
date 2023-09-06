@@ -1,6 +1,6 @@
 import context from './context'
 import createComment from './createComment'
-import createPost from './createPost'
+import createPostFromChatbot from './createPostFromChatbot'
 import deleteComment from './deleteComment'
 import deletePost from './deletePost'
 import getUserId from './getUserId'
@@ -28,6 +28,7 @@ import createConversation from './createConversation'
 import generateSummary from './generateSummary'
 import retrievePostSuggestions from './retrievePostSuggestions'
 import retrieveOwnSuggestions from './retrieveOwnSuggestions'
+import retrieveOwnPostsSuggestions from './retrieveOwnPostsSuggestions'
 import retrieveSuggestion from './retrieveSuggestion'
 import createSuggestion from './createSuggestion'
 import deleteSuggestion from './deleteSuggestion'
@@ -39,11 +40,12 @@ import hideSuggestion from './hideSuggestion'
 import retrieveSeenPosts from './retrieveSeenPosts'
 import savePostAsSeen from './savePostAsSeen'
 import retrieveSearchedPosts from './retrieveSearchedPosts'
+import createPostFromScratch from './createPostFromScratch'
 
 export {
     context,
     createComment,
-    createPost,
+    createPostFromChatbot,
     deleteComment,
     deletePost,
     getUserId,
@@ -71,6 +73,7 @@ export {
     generateSummary,
     retrievePostSuggestions,
     retrieveOwnSuggestions,
+    retrieveOwnPostsSuggestions,
     retrieveSuggestion,
     createSuggestion,
     deleteSuggestion,
@@ -81,5 +84,6 @@ export {
     hideSuggestion,
     retrieveSeenPosts,
     savePostAsSeen,
-    retrieveSearchedPosts
+    retrieveSearchedPosts,
+    createPostFromScratch
 }

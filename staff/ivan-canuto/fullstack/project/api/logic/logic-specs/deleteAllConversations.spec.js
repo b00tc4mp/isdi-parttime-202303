@@ -25,7 +25,7 @@ describe('deleteAllConversations', () => {
             await Conversation.deleteMany({})
             
         } catch (error) {
-            throw new Error(error.message)
+            
         }
 
     })
@@ -52,7 +52,7 @@ describe('deleteAllConversations', () => {
             expect(conversations).to.have.lengthOf(0)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

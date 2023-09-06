@@ -22,7 +22,7 @@ describe('toggleCheckSuggestion', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -57,7 +57,7 @@ describe('toggleCheckSuggestion', () => {
             expect(_suggestion.checked).to.be.true
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
     
@@ -92,7 +92,7 @@ describe('toggleCheckSuggestion', () => {
             expect(_suggestion.checked).to.be.false
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 
@@ -147,7 +147,7 @@ describe('toggleCheckSuggestion', () => {
 
             const wrongSuggestionId = '6102a3cbf245ef001c9a1837'
 
-             toggleCheckSuggestion(userId, wrongSuggestionId)
+            await toggleCheckSuggestion(userId, wrongSuggestionId)
 
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError)

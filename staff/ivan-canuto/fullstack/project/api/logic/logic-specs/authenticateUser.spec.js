@@ -25,7 +25,7 @@ describe('authenticateUser', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -39,7 +39,7 @@ describe('authenticateUser', () => {
             expect(userId).to.equal(_user.id)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

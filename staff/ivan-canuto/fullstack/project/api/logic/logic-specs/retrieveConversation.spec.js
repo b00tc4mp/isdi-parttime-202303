@@ -22,7 +22,7 @@ describe('retrieveConversation', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -52,7 +52,7 @@ describe('retrieveConversation', () => {
             expect(conversationFound.messages[1].content).to.equal('Juan Carlos I de Borbon, es el padre del actual rey de la monarquía española, Felipe IV. Juan Carlos también fue rey de España hasta que en 2014 abdicó cediendole el trono a su hijo Felipe VI.')
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

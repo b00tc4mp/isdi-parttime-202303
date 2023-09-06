@@ -7,7 +7,6 @@ import { context } from "../../ui"
 import { CreateSuggestion, DeleteSuggestion, EditSuggestion } from '.'
 
 export default function SuggestionsModal({ post, user, handleLastPostsUpdate, lastPostsUpdate }) {
-    const { alert } = useAppContext()
     const handleErrors = useHandleErrors()
 
     const [modal, setModal] = useState()
@@ -99,6 +98,7 @@ export default function SuggestionsModal({ post, user, handleLastPostsUpdate, la
                         user={user}
                         post={post}
                         handleLastPostsUpdate={handleLastPostsUpdate}
+                        setSuggestion={setSuggestion}
                     />
 
                     )}

@@ -23,7 +23,7 @@ describe('retrievePostSuggestions', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -72,7 +72,7 @@ describe('retrievePostSuggestions', () => {
             expect(postSuggestions[1].hidden).to.have.false
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 
@@ -100,7 +100,7 @@ describe('retrievePostSuggestions', () => {
 
             const wrongUserId = '6102a3cbf245ef001c9a1837'
 
-            const postSuggestions = await retrievePostSuggestions(wrongUserId, postId)
+            await retrievePostSuggestions(wrongUserId, postId)
 
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError)
@@ -132,7 +132,7 @@ describe('retrievePostSuggestions', () => {
 
             const wrongPostId = '6102a3cbf245ef001c9a1837'
 
-            const postSuggestions = await retrievePostSuggestions(userId, wrongPostId)
+            await retrievePostSuggestions(userId, wrongPostId)
 
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError)

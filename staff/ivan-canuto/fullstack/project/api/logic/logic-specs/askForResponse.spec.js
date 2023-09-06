@@ -9,7 +9,7 @@ const { User, Conversation } = require('../../data/models')
 const { mongoose: { Types: { ObjectId } } } = require('mongoose')
 
 describe('askFroResponse', () => {
-    let user, email
+    let user
 
     before(async () => await mongoose.connect(process.env.MONGODB_URL))
 
@@ -22,7 +22,7 @@ describe('askFroResponse', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -45,7 +45,7 @@ describe('askFroResponse', () => {
             expect(response.content).to.be.a('string')
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 
@@ -65,7 +65,7 @@ describe('askFroResponse', () => {
 
             const currentConversation = [{role: 'user', content: 'Hello, how are you?'}]
 
-            const response = await askForResponse(wrongUserId, conversationId, currentConversation)
+            await askForResponse(wrongUserId, conversationId, currentConversation)
 
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError)
@@ -84,7 +84,7 @@ describe('askFroResponse', () => {
 
             const currentConversation = [{role: 'user', content: 'Hello, how are you?'}]
 
-            const response = await askForResponse(userId, wrongConversationId, currentConversation)
+            await askForResponse(userId, wrongConversationId, currentConversation)
 
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError)

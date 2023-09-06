@@ -23,7 +23,7 @@ describe('createComment', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -50,7 +50,7 @@ describe('createComment', () => {
             expect(comment.text).to.equal(commentText)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

@@ -13,13 +13,12 @@ export default function Alert({ error, level, onAccept }) {
     return <ModalContainer className='absolute z-50 top-0'>
         <div className="min-w-40 min-h-20 p-4 flex flex-col items-center justify-center gap-4 rounded bg-white absolute z-10 h-60 w-10/12" >
             {(level === 'warning' || level === 'error') ?
-                <div className='w-full flex justify-center items-center gap-2'>
+                <div className='w-full flex justify-center items-center'>
                     <h1 className='text-3xl'>Oops!</h1>
                 </div>
             :
                 <div className='w-full flex justify-center items-center'>
                     <h1 className='text-2xl'>Well done!</h1>
-                    <img src="src/images/emoticon.png" alt="alert-image" className='h-14'/>
                 </div>
             }
             <p className={`p-4 rounded bg-${level === 'error' ? 'red' : level === 'warning' ? 'yellow' : 'blue'}-300 text-center`}>{error.message}</p>

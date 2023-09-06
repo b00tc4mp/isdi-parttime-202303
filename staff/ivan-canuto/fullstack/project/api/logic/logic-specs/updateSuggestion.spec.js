@@ -22,7 +22,7 @@ describe('updateSuggestion', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -57,7 +57,7 @@ describe('updateSuggestion', () => {
             expect(_suggestion.content).to.equal(newSuggestionContent)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

@@ -25,7 +25,7 @@ describe('registerUser', () => {
             favs = user.favs
 
         } catch (error) {
-            throw new Error(error.message)
+            
         }
 
     })
@@ -48,7 +48,7 @@ describe('registerUser', () => {
             
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
     

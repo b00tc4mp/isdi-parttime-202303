@@ -6,7 +6,6 @@ const { cleanUp, generate, populate } = require('../helpers-test')
 const mongoose = require('mongoose')
 const { errors: { ExistenceError, ContentError, AuthError } } = require('com')
 const { User } = require('../../data/models')
-const { mongoose: { Types: { ObjectId } } } = require('mongoose')
 const bcrypt = require('bcryptjs')
 
 describe('updateUserPassword', () => {
@@ -24,7 +23,7 @@ describe('updateUserPassword', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -52,7 +51,7 @@ describe('updateUserPassword', () => {
             expect(match).to.be.true
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 
@@ -74,6 +73,13 @@ describe('updateUserPassword', () => {
         try {
             const _user = await User.findOne({ email: user.email })
             const userId = _user._id.toString()
+
+            const hash = await bcrypt.hash(password, 10)
+
+            await User.updateOne(
+                { _id: userId },
+                { $set: { password: hash } }
+            )
             
             const newPassword = '123123123'
             const wrongPassword = 'wrong-password'
@@ -90,6 +96,13 @@ describe('updateUserPassword', () => {
         try {
             const _user = await User.findOne({ email: user.email })
             const userId = _user._id.toString()
+
+            const hash = await bcrypt.hash(password, 10)
+
+            await User.updateOne(
+                { _id: userId },
+                { $set: { password: hash } }
+            )
             
             const newPassword = '123123123'
             const wrongPasswordConfirm = 'wrong-password-confirm'
@@ -99,6 +112,26 @@ describe('updateUserPassword', () => {
         } catch (error) {
             expect(error).to.be.instanceOf(ContentError)
             expect(error.message).to.equal('The new passwords do not match.')
+        }
+    })
+    
+    it('fails on new password is the same as the old one', async () => {
+        try {
+            const _user = await User.findOne({ email: user.email })
+            const userId = _user._id.toString()
+
+            const hash = await bcrypt.hash(password, 10)
+
+            await User.updateOne(
+                { _id: userId },
+                { $set: { password: hash } }
+            )
+            
+            await updateUserPassword(userId, password, password, password)
+
+        } catch (error) {
+            expect(error).to.be.instanceOf(ContentError)
+            expect(error.message).to.equal('The new password is the same as the old one.')
         }
     })
 

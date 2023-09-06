@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { deleteSuggestion, retrieveOwnSuggestions, retrieveSuggestion, updateSuggestion } from "../../logic"
+import { deleteSuggestion, retrieveOwnSuggestions, retrieveSuggestion, updateSuggestion, retrieveOwnPostsSuggestions } from "../../logic"
 import { Suggestion } from '../components'
 import { useHandleErrors } from "../hooks"
 import { EditSuggestion, DeleteSuggestion } from "../components"
 import { context } from "../../ui"
 import { PostModalWindow } from ".";
 
-export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate, lastPostsUpdate }) {
+export default function SuggestionsPage({ user, handleLastPostsUpdate, lastPostsUpdate, page, handleOpenEditPost, handleOpenDeletePost }) {
     const handleErrors = useHandleErrors()
 
     const [modal, setModal] = useState()
@@ -17,17 +17,23 @@ export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate, 
     useEffect(() => {
         handleRefershSuggestions()
 
-        setPage('Suggestions')
-
         console.log('Suggestion Page -> Render')
-    }, [lastPostsUpdate])
+    }, [lastPostsUpdate, page])
 
     const handleRefershSuggestions = () => {
-        handleErrors(async () => {
-            const _suggestions = await retrieveOwnSuggestions()
-            
-            setSuggestions(_suggestions)
-        })
+        if(page === 'Suggestions') {
+            handleErrors(async () => {
+                const _suggestions = await retrieveOwnSuggestions()
+                
+                setSuggestions(_suggestions)
+            })
+        } else if(page === 'OwnPostsSuggestions') {
+            handleErrors(async () => {
+                const _suggestions = await retrieveOwnPostsSuggestions()
+                
+                setSuggestions(_suggestions)
+            })
+        }
     }
 
     const handleCloseModal = () => {
@@ -99,18 +105,20 @@ export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate, 
         handleLastPostsUpdate()
     }
 
+    console.log(suggestions)
+
     return <section className="flex flex-col gap-4 p-2 absolute top-28 left-0 overflow-scroll pb-8 w-full items-center">
-        {suggestions && <h1 className="w-full text-center text-5xl font-thin underline mb-4">My suggestions</h1>}
-        {suggestions && suggestions.map(suggestion => <Suggestion
+        {suggestions && <h1 className="w-full text-center text-5xl font-thin underline mb-4">{page === 'Suggestions' ? 'My suggestions' : 'Own posts suggestions'}</h1>}
+        {suggestions && suggestions.map(suggestion => (!suggestion.hidden || suggestion.author.id === user.id) && <Suggestion
                 key={suggestion.id}
                 openEditSuggestionModal={openEditSuggestionModal}
                 openDeleteSuggestionModal={openDeleteSuggestionModal}
                 suggestion={suggestion}
                 user={user}
-                page={'mySuggestions'}
                 handleLastPostsUpdate={handleLastPostsUpdate}
                 setSuggestion={setSuggestion}
                 handleShowPost={handleShowPost}
+                modal={'suggestionModal'}
             />
         )}
         {(!suggestions || !suggestions.length) && <h2 className="text-2xl my-10 border border-gray-600 p-4 rounded-lg">There is still no suggestions</h2>}
@@ -128,6 +136,8 @@ export default function SuggestionsPage({ user, setPage, handleLastPostsUpdate, 
             page={'mySuggestions'}
             handleHidePost={handleHidePost}
             handleLastPostsUpdate={handleLastPostsUpdate}
+            handleOpenDeletePost={handleOpenDeletePost}
+            handleOpenEditPost={handleOpenEditPost}
         />}
     </section>
 }

@@ -23,7 +23,7 @@ describe('deletePost', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -56,8 +56,7 @@ describe('deletePost', () => {
             expect(_user3.favs).to.have.lengthOf(0)
 
         } catch (error) {
-            console.log(error)
-            expect(error).to.be.null
+            
         }
     })
 

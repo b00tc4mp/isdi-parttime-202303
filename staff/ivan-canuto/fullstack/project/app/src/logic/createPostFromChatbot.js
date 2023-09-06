@@ -15,7 +15,7 @@ const { validateText, validateId } = validators
  * @throws {ContentError} On conversation id length not equal to 24 characters, or empty summary text
  */
 
-export default function createPost(_summary, conversationId) {
+export default function createPostFromChatbot(_summary, conversationId) {
     validateId(conversationId, 'conversation id')
     validateText(_summary, 'summary text')
 

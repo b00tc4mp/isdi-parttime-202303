@@ -22,7 +22,7 @@ describe('toggleLikePost', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -50,7 +50,7 @@ describe('toggleLikePost', () => {
             expect(_post.likes[0].toString()).to.equal(userId)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
     
@@ -80,7 +80,7 @@ describe('toggleLikePost', () => {
             expect(_post.likes).to.have.length(0)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

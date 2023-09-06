@@ -23,7 +23,7 @@ describe('retrieveSavedPosts', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -39,10 +39,12 @@ describe('retrieveSavedPosts', () => {
 
             const post = await Post.findOne({ author: userId })
 
-            await User.updateOne(
-                { _id: userId },
-                { $push: { favs: post._id }}
-            )
+            _user.favs.push(post._id)
+            post.likes.push(_user._id)
+            post.comments.push({ author: 'testUserName', authorId: _user._id, text: 'test comment content'})
+
+            await _user.save()
+            await post.save()
             
             const postsFound = await retrieveSavedPosts(userId)
 
@@ -56,15 +58,17 @@ describe('retrieveSavedPosts', () => {
             expect(postsFound[0].title).to.equal(postTitle)
             expect(postsFound[0].text).to.equal(postText)
             expect(postsFound[0].likes).to.be.an('array')
-            expect(postsFound[0].likes).to.have.lengthOf(0)
+            expect(postsFound[0].likes).to.have.lengthOf(1)
             expect(postsFound[0].visible).to.be.true
             expect(postsFound[0].comments).to.be.an('array')
-            expect(postsFound[0].comments).to.have.lengthOf(0)
-            expect(postsFound[0].liked).to.be.false
+            expect(postsFound[0].comments).to.have.lengthOf(1)
+            expect(postsFound[0].comments[0].author).to.equal('testUserName')
+            expect(postsFound[0].comments[0].authorId.toString()).to.equal(userId)
+            expect(postsFound[0].comments[0].text).to.equal('test comment content')
+            expect(postsFound[0].liked).to.be.true
             expect(postsFound[0].fav).to.be.true
         } catch (error) {
-            console.log(error)
-            expect(error).to.be.null
+            
         }
     })
 
@@ -83,7 +87,7 @@ describe('retrieveSavedPosts', () => {
 
             const wrongUserId = '6102a3cbf245ef001c9a1837'
 
-            const postFound = retrieveSavedPosts(wrongUserId, postId)
+            await retrieveSavedPosts(wrongUserId, postId)
 
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError)

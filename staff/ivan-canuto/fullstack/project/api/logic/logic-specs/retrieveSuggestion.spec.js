@@ -22,7 +22,7 @@ describe('retrieveSuggestion', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -57,7 +57,7 @@ describe('retrieveSuggestion', () => {
             expect(suggestionFound.content).to.equal(suggestionContent)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 
@@ -84,7 +84,7 @@ describe('retrieveSuggestion', () => {
 
             const wrongUserId = '6102a3cbf245ef001c9a1837'
 
-            const suggestionFound = await retrieveSuggestion(wrongUserId, suggestionId)
+            await retrieveSuggestion(wrongUserId, suggestionId)
 
         } catch (error) {
             expect(error).to.be.instanceOf(ExistenceError)

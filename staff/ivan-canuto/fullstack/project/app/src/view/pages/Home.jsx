@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useAppContext, useHandleErrors } from "../hooks";
-import { Button, Container, Input } from "../library";
-import { Profile, Posts, SideBarMenu, Header, VisibilityPost, EditPost, DeletePost, PostModalWindow, Chatbot, SuggestionsPage } from "../components";
+import { Container } from "../library";
+import { Profile, Posts, SideBarMenu, Header, VisibilityPost, EditPost, DeletePost, PostModalWindow, Chatbot, SuggestionsPage, AddPost } from "../components";
 import { logoutUser, retrieveUser, retrieveConversations } from "../../logic";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { isUserLoggedIn } from "../../logic";
@@ -193,6 +193,13 @@ export default function Home() {
                     handleSearch={handleSearch}
                 />}
 
+                {modal === "addPost" && (
+                    <AddPost
+                        onCloseModal={handleCloseModal}
+                        handleLastPostsUpdate={handleLastPostsUpdate}
+                    />
+                )}
+
                 {modal === "editPost" && (
                     <EditPost
                         onUpdatedPost={handleCloseModal}
@@ -245,7 +252,7 @@ export default function Home() {
                                 },
                             },
                             {
-                                text: "Own post",
+                                text: "Own posts",
                                 onClick: () => {
                                     setLastPostsUpdate(Date.now());
 
@@ -267,7 +274,7 @@ export default function Home() {
                                 },
                             },
                             {
-                                text: "SeenLately",
+                                text: "Seen lately",
                                 onClick: () => {
                                     setLastPostsUpdate(Date.now());
 
@@ -284,6 +291,18 @@ export default function Home() {
 
                                     navigate("/suggestions");
                                 },
+                            },
+                            {
+                                text: "Own posts suggestions",
+                                onClick: () => {
+                                    setPage('OwnPostsSuggestions')
+
+                                    navigate("/suggestions");
+                                },
+                            },
+                            {
+                                text: "Create a post",
+                                onClick: () => setModal('addPost')
                             },
                         ]}
                         chatbotOptions={[
@@ -327,7 +346,6 @@ export default function Home() {
                 )}
 
                 <Routes>
-                    {/* <Route path="hello" element={<Hello />}></Route> */}
                     <Route
                         path="chatbot"
                         element={
@@ -348,11 +366,14 @@ export default function Home() {
                     <Route
                         path="suggestions"
                         element={
-                            isUserLoggedIn() && page === 'Suggestions' ? <SuggestionsPage
+                            isUserLoggedIn() && (page === 'Suggestions' || page === 'OwnPostsSuggestions') ? <SuggestionsPage
                                 user={user}
                                 setPage={setPage}
                                 handleLastPostsUpdate={handleLastPostsUpdate}
                                 lastPostsUpdate={lastPostsUpdate}
+                                page={page}
+                                handleOpenEditPost={handleOpenEditPost}
+                                handleOpenDeletePost={handleOpenDeletePost}
                             /> : <Navigate to="/login" />
                         }
                     />

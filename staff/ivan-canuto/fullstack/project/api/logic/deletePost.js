@@ -3,7 +3,7 @@ const {
   errors: { ExistenceError }
 } = require('com')
 
-const { User, Post } = require('../data/models')
+const { User, Post, Suggestion } = require('../data/models')
 
 /**
  * Deletes a post
@@ -38,6 +38,8 @@ module.exports = (userId, postId) => {
       { seenLately: { $in: postId }},
       { $pull: { seenLately: postId }}
     )
+
+    await Suggestion.deleteMany({ post: postId })
 
     await Post.deleteOne({ _id: postId })
   })()

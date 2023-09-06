@@ -29,8 +29,7 @@ export default function Post({ post, handleTogglePostModal }) {
 
     return <>
         <article className="bg-white border h-[450px] w-4/5 text-black rounded-md p-4 flex flex-col items-center overflow-hidden shadow-md shadow-slate-400" id={id.toString()} onScroll={handlePostScroll} onClick={handleOpenPostModal}>
-
-            <section className="flex justify-between w-full px-4 py-2 overflow-hidden">
+            <section className="flex justify-between w-full px-4 py-2 overflow-hidden h-16">
                 <div className="flex items-center">
                     <img className="h-8 w-8 object-cover rounded-full" src={author.avatar} alt="post-user-avatar" />
                     <p className="px-1">{author.name}</p>

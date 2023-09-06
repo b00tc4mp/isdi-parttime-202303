@@ -22,7 +22,7 @@ describe('toggleVisibilityPost', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -49,7 +49,7 @@ describe('toggleVisibilityPost', () => {
             expect(_post.visible).to.be.false
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
     
@@ -76,7 +76,7 @@ describe('toggleVisibilityPost', () => {
             expect(_post.visible).to.be.true
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 

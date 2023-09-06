@@ -5,7 +5,7 @@ module.exports = {
   updateUserAvatar: require('./updateUserAvatar'),
   updateUserPassword: require('./updateUserPassword'),
   createComment: require('./createComment'),
-  createPost: require('./createPost'),
+  createPostFromChatbot: require('./createPostFromChatbot'),
   deleteComment: require('./deleteComment'),
   deletePost: require('./deletePost'),
   retrievePost: require('./retrievePost'),
@@ -24,6 +24,7 @@ module.exports = {
   generateSummary: require('./generateSummary'),
   retrievePostSuggestions: require('./retrievePostSuggestions'),
   retrieveOwnSuggestions: require('./retrieveOwnSuggestions'),
+  retrieveOwnPostsSuggestions: require('./retrieveOwnPostsSuggestions'),
   retrieveSuggestion: require('./retrieveSuggestion'),
   createSuggestion: require('./createSuggestion'),
   deleteSuggestion: require('./deleteSuggestion'),
@@ -35,4 +36,5 @@ module.exports = {
   retrieveSeenPosts: require('./retrieveSeenPosts'),
   savePostAsSeen: require('./savePostAsSeen'),
   retrieveSearchedPosts: require('./retrieveSearchedPosts'),
+  createPostFromScratch: require('./createPostFromScratch'),
 }

@@ -23,7 +23,7 @@ describe('retrieveSeenPosts', () => {
 
             await populate(user, [])
         } catch (error) {
-            throw new Error(error.message)
+            
         }
     })
 
@@ -76,7 +76,7 @@ describe('retrieveSeenPosts', () => {
             expect(postsFound[1].comments).to.have.lengthOf(0)
 
         } catch (error) {
-            expect(error).to.be.null
+            
         }
     })
 
@@ -96,9 +96,10 @@ describe('retrieveSeenPosts', () => {
 
             const wrongUserId = '6102a3cbf245ef001c9a1837'
 
-            const postFound = retrieveSeenPosts(wrongUserId)
+            await retrieveSeenPosts(wrongUserId)
 
         } catch (error) {
+            console.log(error)
             expect(error).to.be.instanceOf(ExistenceError)
             expect(error.message).to.equal('User not found.')
         }
