@@ -1,96 +1,113 @@
-require('dotenv').config()
+const dotenv = require('dotenv')
+dotenv.config()
+const mongoose = require('mongoose')
+
 const { expect } = require('chai')
-const { writeFile } = require ('fs')
-const authenticateUser = require('./authenticateUser')
+const { describe } = require('mocha')
+const { authenticateUser } = require('../logic')
+const { cleanUp, generateUser } = require('../helpers/tests')
+
+const { User } = require('../data/models')
+
+const { errors: { AuthError, ExistanceError } } = require('../../../com')
 
 describe('authenticateUser', () => {
-    let id, email, password
-
-    beforeEach(done => {
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error))
-
-        id = `user-${Math.random()}`
-        email = `e-${Math.random()}@mail.com`
-        password = `password-${Math.random()}`
-
+    before(async () => {
+        await mongoose.connect(process.env.MONGODB_URL)
     })
 
-    it('should succeed on existing user' , done => {
-        const user = [{id, email, password}]
-        const json = JSON.stringify(user)
+    let user
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
-            expect(error).to.be.null
+    beforeEach(done => {
+        user = generate.user()
 
-            authenticateUser(email, password, (error, userId) => {
+        cleanUp(done)
+    })
+
+    it('succeeds on existing user', done => {
+        const users = [user]
+
+        populate(users, [], error => {
+            if (error) {
+                done(error)
+
+                return
+            }
+
+            authenticateUser(user.email, user.password, (error, userId) => {
                 expect(error).to.be.null
-                expect(userId).to.equal(id)
+                expect(userId).to.equal(user.id)
 
                 done()
             })
         })
     })
 
-    it('should fail on non-existing user', done => {
-        const user = [{id, email, password}]
-        const json = JSON.stringify(user)
-
-        authenticateUser(email, password, (error, userId) => {
-            expect(error).to.be.instanceOf(Error)
-            expect(error.message).to.equal('user not found')
+    it('fails on non-existing user', done =>
+        authenticateUser(user.email, user.password, (error, userId) => {
+            expect(error).to.be.instanceOf(AuthError)
+            expect(error.message).to.equal(`user with email ${user.email} not found`)
             expect(userId).to.be.undefined
 
             done()
         })
-    })
-    
-    
-    it('should fail on wrong password', done => {
-        const user = [{id, email, password}]
-        const json = JSON.stringify(user)
+    )
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
-            expect(error).to.be.null
-            
-            const wrongPassword = `password-${Math.random()}`
-    
-            authenticateUser(email, wrongPassword, (error, userId) => {
-                expect(error).to.be.instanceOf(Error)
-                expect(error.message).to.equal('wrong password')
-    
+    it('fails on existing user but wrong passord', done => {
+        const users = [user]
+
+        populate(users, [], error => {
+            if (error) {
+                done(error)
+
+                return
+            }
+
+            authenticateUser(user.email, user.password + '-wrong', (error, userId) => {
+                expect(error).to.be.instanceOf(AuthError)
+                expect(error.message).to.equal('wrong credentials')
+                expect(userId).to.be.undefined
+
                 done()
             })
         })
     })
 
-    it('should fail on empty email', () => 
-        expect(() => authenticateUser('', password, () => { })).to.throw(Error, 'email is empty')
-    )
+    it('fails on existing user but wrong email', done => {
+        const users = [user]
 
-    it('should fail on non-string name', () => {
-        expect(() => authenticateUser(1, password, () => { })).to.throw(Error, 'email is not a string')
-        expect(() => authenticateUser(undefined, password, () => { })).to.throw(Error, 'email is not a string')
-        expect(() => authenticateUser(true, password, () => { })).to.throw(Error, 'email is not a string')
-        expect(() => authenticateUser([], password, () => { })).to.throw(Error, 'email is not a string')
-        expect(() => authenticateUser({}, password, () => { })).to.throw(Error, 'email is not a string')
+        populate(users, [], error => {
+            if (error) {
+                done(error)
 
+                return
+            }
+
+            user.email += '-wrong'
+
+            authenticateUser(user.email, user.password, (error, userId) => {
+                expect(error).to.be.instanceOf(AuthError)
+                expect(error.message).to.equal(`user with email ${user.email} not found`)
+                expect(userId).to.be.undefined
+
+                done()
+            })
+        })
     })
 
-    it('should fail on empty password', () => 
-    expect(() => authenticateUser(email, '', () => { })).to.throw(Error, 'password has less than 8 characters')
+    it('fails on empty email', () =>
+        expect(() => authenticateUser('', user.password, () => { })).to.throw(Error, 'email is empty')
     )
 
-    it('should fail on non-string password', () => {
-        expect(() => authenticateUser(email, 1, () => { })).to.throw(Error, 'password is not a string')
-        expect(() => authenticateUser(email, undefined, () => { })).to.throw(Error, 'password is not a string')
-        expect(() => authenticateUser(email, true, () => { })).to.throw(Error, 'password is not a string')
-        expect(() => authenticateUser(email, [], () => { })).to.throw(Error, 'password is not a string')
-        expect(() => authenticateUser(email, {}, () => { })).to.throw(Error, 'password is not a string')
-    })
+    it('fails on empty password', () =>
+        expect(() => authenticateUser(user.email, '', () => { })).to.throw(Error, 'password length lower than 8 characters')
+    )
 
-    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
+    it('fails on non-callback', () =>
+        expect(() => authenticateUser(user.email, user.password)).to.throw(Error, 'callback is not a function')
+    )
 
+    // TODO add more unhappiesx
+
+    after(cleanUp)
 })
-
-
-

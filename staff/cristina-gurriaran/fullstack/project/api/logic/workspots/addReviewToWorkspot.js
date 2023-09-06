@@ -1,10 +1,13 @@
-const { validators: { validateId, validateText } } = require('com')
-const { User, Workspot, Review } = require('../../data/models')
+const { 
+    validators: { validateId, validateText },
+    errors: { ExistenceError }
+} = require('com')
+const { User, Workspot } = require('../../data/models')
 
 
-module.exports = (userId, workpostId, text) => {
+module.exports = (userId, workspotId, text) => {
     validateId(userId, 'user id')
-    validateId(workpostId, 'post id')
+    validateId(workspotId, 'post id')
     validateText(text, 'text')
 
     return (async () => {
@@ -12,18 +15,18 @@ module.exports = (userId, workpostId, text) => {
 
         if (!user) throw new ExistenceError(`user with id ${userId} not found`)
 
-        const workspot = await Workspot.findById(workpostId)
+        const workspot = await Workspot.findById(workspotId)
 
         if (!workspot) throw new ExistenceError(`Workspot with id ${workspotId} not found`)
 
-        const review = await Review.create({
-            workspot: workpostId,
-            author: userId, 
+        const review = {
+            workspot: workspotId,
+            author: userId,
             text: text
-        })
+        }
 
         return Workspot.updateOne(
-            { _id: workpostId },
+            { _id: workspotId },
             { $push: { reviews: review } }
    
         )

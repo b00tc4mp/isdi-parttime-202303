@@ -1,12 +1,10 @@
-const { 
+const {
     validators: { validateName, validateEmail, validatePassword },
     errors: { DuplicityError }
- } = require('../../../com')
-
+} = require('../../../com')
 const { User } = require('../../data/models')
 
-module.exports = (name, email, password) => {
-    debugger
+module.exports = function registerUser(name, email, password) {
     validateName(name)
     validateEmail(email)
     validatePassword(password)

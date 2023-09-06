@@ -9,7 +9,7 @@ module.exports = {
     getWorkspotsByName: require('./workspots/getWorkspotsByName'),
     getFilteredWorkspots: require('./workspots/getFilteredWorkspots'),
     retrieveWorkspot: require('./workspots/retrieveWorkspot'),
-    updateWorkspot: require('./workspots/updateWorkstpot'),
+    updateWorkspot: require('./workspots/updateWorkspot.js'),
     deleteWorkspot: require('./workspots/deleteWorkspot'),
     toggleLikeWorkspot: require('./workspots/toggleLikeWorkspot'),
     toggleFavWorkspot: require('./workspots/toggleFavWorkspot'),

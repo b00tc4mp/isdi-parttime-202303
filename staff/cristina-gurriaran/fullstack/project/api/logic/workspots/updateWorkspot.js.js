@@ -19,6 +19,8 @@ module.exports = (userId, workspotId, image, name, location, description, catego
 
         if (!workspot) throw new ExistenceError(`Workspot with id ${workspotId} not found`)
 
+        if (userId !== workspot.author) throw new PermitError(`Workspot with id ${workspotId} does not belong to user with id ${userId}`)
+
         return Workspot.updateOne({ _id: workspotId }, { $set: { image, name, location, description, category, features }})
     })()
 }

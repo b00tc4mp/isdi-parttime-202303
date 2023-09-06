@@ -1,12 +1,9 @@
-const { writeFile } = require('fs')
+import { User, Workspot } from '../../../data/models'
 
-module.exports = callback =>
-    writeFile(`${process.env.DB_PATH}/users.json`, '[]', error => {
-        if (error) {
-            callback(error)
+module.exports = async function cleanUp() {
+    await Promise.all([
+        User.deleteMany(),
+        Workspot.deleteMany(),
+    ])
+}
 
-            return
-        }
-
-        writeFile(`${process.env.DB_PATH}/posts.json`, '[]', error => callback(error))
-    })

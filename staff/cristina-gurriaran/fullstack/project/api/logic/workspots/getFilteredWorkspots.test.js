@@ -2,10 +2,10 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const getFilteredWorkspots = require('./getFilteredWorkspots')
 
-const userId = "64ac3076cca3c7f9cdb065b0"
+const userId = "64f7ca9d75c2fa49950ab36e"
 
 const districts = {
-    ciutatVella: true,
+    ciutatVella: false,
     gracia: false,
     horta: false,
     lEixample: false,
@@ -13,7 +13,7 @@ const districts = {
     nouBarris: false,
     santAndreu: false,
     santMarti: false,
-    santsMontjuic: false,
+    santsMontjuic: true,
     sarriaSantGervasi: false,
 }
 	
@@ -34,6 +34,18 @@ const features = {
         unavailable: false,
     },
 
+    plugs: {
+        nonse: false,
+        few: false,
+        plenty: false,
+    },
+
+    noise: {
+        quite: false,
+        moderate: false,
+        loud: false,
+    },
+
     otherFeatures: {
         accessibility: false,
         petFriendly: false,
@@ -49,8 +61,8 @@ const features = {
     }
 }
 
-mongoose.connect("mongodb://127.0.0.1:27017/data")
-    .then(() => getFilteredWorkspots({districts, category, features}))
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() => getFilteredWorkspots(userId, {districts, category, features}))
     .then(workspots => console.log(workspots))
     .catch(error => console.error(error))
     .finally(() => mongoose.disconnect())

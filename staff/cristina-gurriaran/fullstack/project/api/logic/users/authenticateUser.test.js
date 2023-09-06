@@ -1,11 +1,10 @@
 require('dotenv').config()
-
 const mongoose = require('mongoose')
-const { User, Post } = require('../../data/models')
-const authenticateUser = require('./authenticateUser')
+const { User, Workspot } = require('../../../data/models')
+const authenticateUser = require('../authenticateUser')
 
 mongoose.connect(process.env.MONGODB_URL)
-  .then(() => Promise.all([User.deleteMany(), Post.deleteMany()]))
+  .then(() => Promise.all([User.deleteMany(), Workspot.deleteMany()]))
   .then(() => User.create({ name: 'pepito.grillo', email: 'pepito@grillo.com', password: '123123123'}))
   .then(() => authenticateUser('pepito@grillo.com', '123123123'))
   .then(console.log)

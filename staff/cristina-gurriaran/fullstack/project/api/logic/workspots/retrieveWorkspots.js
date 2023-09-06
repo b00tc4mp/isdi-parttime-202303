@@ -9,7 +9,7 @@ module.exports = userId => {
     validateId(userId, 'user id')
 
     return (async () => {
-    const user = await User.findById(userId).lean()
+    const user = await User.findById(userId)
 
     if (!user) throw new ExistenceError(`user with id ${userId} not found`)
 

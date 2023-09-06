@@ -119,11 +119,6 @@ const location = new Schema({
 })
 
 const review = new Schema({
-    workspot: {
-        type: ObjectId,
-        ref: 'Workspot',
-        required: true
-    },
     author: {
         type: ObjectId,
         ref: 'User',
@@ -179,20 +174,24 @@ const workspot = new Schema({
         otherFeatures: otherFeatures
     },
     reviews: {
-        type: review
+        type: review,
+        ref: 'User',
     },
     likes: {
         type: [ObjectId],
         ref: 'User'
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
     }
 })
 
 const User = model('User', user)
 const Workspot = model('Workspot', workspot)
-const Review = model('review', review)
 
 module.exports = {
     User,
     Workspot,
-    Review
 }

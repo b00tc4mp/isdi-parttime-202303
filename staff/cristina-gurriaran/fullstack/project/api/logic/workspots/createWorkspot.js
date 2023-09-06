@@ -11,12 +11,16 @@ module.exports = (userId, image, name, location, description, category, features
     validateText(name, 'name')
     validateText(description, 'description')
 
+    debugger
+
     return (async () => {
         const user = await User.findById(userId)
 
         if (!user) throw new ExistenceError(`user with id ${userId} not found`)
 
-        return Workspot.create({
+        debugger
+
+        return await Workspot.create({
             author: userId,
             image,
             name,

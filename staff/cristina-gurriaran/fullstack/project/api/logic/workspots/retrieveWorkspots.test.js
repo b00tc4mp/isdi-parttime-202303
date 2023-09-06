@@ -1,9 +1,11 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
+const { User, Post } = require('../../data/models')
 const retrieveWorkspots = require('./retrieveWorkspots')
 
 mongoose.connect(process.env.MONGODB_URL)
-    .then(() => retrieveWorkspots("64ac41995182768d587b4580"))
+    .then(() => User.create({ name: 'pepita.grillo', email: 'pepita@grillo.com', password: '123123123' }))
+    .then((user) => retrieveWorkspots(user.id))
     .then(workspots => console.log(workspots))
     .catch(console.error)
     .finally(mongoose.disconnect)

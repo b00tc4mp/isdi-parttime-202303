@@ -19,6 +19,10 @@ module.exports = (userId, workspotId) => {
             .populate('author', 'name avatar')
             .populate('reviews.author', 'name avatar')
             .lean()
+        
+
+        if (!workspot) throw new ExistenceError(`post with id ${workspotId} not found`)
+
 
         workspot.id = workspot._id.toString()
 
@@ -41,8 +45,6 @@ module.exports = (userId, workspotId) => {
                 }
             })
         }
-
-        if (!workspot) throw new ExistenceError(`post with id ${workspotId} not found`)
 
         return workspot
 

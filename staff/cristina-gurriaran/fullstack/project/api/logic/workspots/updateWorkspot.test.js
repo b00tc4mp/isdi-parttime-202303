@@ -1,11 +1,9 @@
 require ('dotenv').config()
-
 const mongoose = require('mongoose')
-const updateWorkspot = require('./updateWorkstpot')
-const updatePost = require('../../../../api/logic/posts/updatePost')
+const updateWorkspot = require('./updateWorkspot.js')
 
-const userId = "64ac41995182768d587b4580"
-const workspotId = "64e005e9fa613e5600401f6c"
+const userId = "64f7d4be463b34a38092c588"
+const workspotId = "64f7cf5b4acc7fc154a37e77"
 const image = 'https://images.squarespace-cdn.com/content/v1/62f1252f8bfa06437d10ed94/16c11498-0135-43b1-8dd3-7d8bec4585c1/La+Galena+Barcelona?format=2500w'
 const name = 'La Galena UPDATED'
 const coordinates = [41.37273090025529, 2.1627087992196485]
@@ -72,9 +70,8 @@ const features = {
     }
 }
 
-
-mongoose.connect("mongodb://127.0.0.1:27017/data")
-    .then(() => updatePost(userId, workspotId, image, name, location, description, category, features))
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() => updateWorkspot(userId, workspotId, image, name, location, description, category, features))
     .then(console.log)
     .catch(console.error)
     .finally(() => mongoose.disconnect())
