@@ -142,6 +142,7 @@ List
 
 ### Test Coverage
 
+- C:\Users\jignacio\workspace\isdi-parttime-202303\staff\juan-ignacio-diaz\project\api\coverage\index.html
 - http://127.0.0.1:5500/staff/juan-ignacio-diaz/project/api/coverage/index.html
 
 
