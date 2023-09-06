@@ -44,7 +44,7 @@ export default ({ onResetFilter, onCancel, onModifiedFilter, filterList }) => {
                     <Label htmlFor="stores"><Input type="checkbox" name="storesCheck" defaultChecked={filterList.storesCheck?filterList.storesCheck: 0} /> Stores:</Label>                    
                     <Stores state={(filterList.stores?filterList.stores:[])} multiple={true} />           
 
-                    <Label htmlFor="type"><Input type="checkbox" name="typeCheck" defaultChecked={filterList.type} /> Types:</Label>                               
+                    <Label htmlFor="type"><Input type="checkbox" name="typeCheck" defaultChecked={filterList.typeCheck?filterList.typeCheck: 0} /> Types:</Label>                               
                     <ProductTypes state={(filterList.type?filterList.type:[])} multiple={true} />  
 
                     <Label htmlFor="states"><Input type="checkbox" name="statesCheck" defaultChecked={filterList.statesCheck} /> State:</Label>                                

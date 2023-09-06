@@ -18,9 +18,10 @@ export default ({ onEditUsersList, onCreateList, onAddStoresList, lastUpdate }) 
         try{
             freeze()
             const [tmpListsInvited, tmpListsGuest] = await Promise.all([retrieveListsInvited(), retrieveListsGuest()]) 
+            unfreeze()
+
             setListsInvited(tmpListsInvited)
             setListsGuest(tmpListsGuest)
-            unfreeze()
         }
         catch (error) {
             unfreeze()
@@ -39,7 +40,7 @@ export default ({ onEditUsersList, onCreateList, onAddStoresList, lastUpdate }) 
     return <>
         <Container tag="section">
             <Button onClick={handleNewList}>New list</Button>
-            <Label >Guest of the lists:</Label>
+            <Label className="text-[var(--primary)]">Guest of the lists:</Label>
             <section>
                 {listsGuest && listsGuest.map(list => <ListsGuest
                         key={list.id} 
@@ -51,7 +52,7 @@ export default ({ onEditUsersList, onCreateList, onAddStoresList, lastUpdate }) 
             </section>
         </Container>
         <Container tag="section">
-            <Label >Invitation to the lists:</Label>
+            <Label className="text-[var(--primary)]">Invitation to the lists:</Label>
             <section>
                 {listsInvited && listsInvited.map(list => <ListsInvited 
                         key={list.id} 

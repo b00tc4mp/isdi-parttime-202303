@@ -102,13 +102,15 @@ export default function HomeUser() {
     return <>
         <div className="home">
             <header className="home-header">
-                <h1 className="title" onClick={handleGoToLists}>Home</h1>
+                <h1 className="text-[var(--primary)]" onClick={handleGoToLists}>Home</h1>
 
                 <nav className="home-header-nav"> 
+                <div className="flex font-sans">
                     {user && <>
                         <img className="home-header-avatar" src={user.avatar? user.avatar : DEFAULT_AVATAR_URL} alt=""/>
                         <a className = "name" href="" onClick={handleGoToProfile}>{user.name}</a>
                     </>}
+                    </div>
                 </nav>
                 <Button name = "logout" onClick={handleLogout}>Logout</Button>   
             </header>

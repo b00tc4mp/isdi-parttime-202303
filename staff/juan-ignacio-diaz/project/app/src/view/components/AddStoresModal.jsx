@@ -55,17 +55,20 @@ export default ({ listId, onClose}) => {
 
     return <>
         <Container className="modal">
-            <ul>
-                {stores && stores.map(store => <li key={store.id}>{store.name}</li>)
-                }
-            </ul>
-            <section>
-                <Form onSubmit={handleAddStore}>
-                    <Input type="text" name="name" placeholder="name" />
-                    <Button type="submit">+</Button>
-                    <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
-                </Form>
-            </section>
+            <Container tag="section">
+                <Label className="text-[var(--primary)]">Stores:</Label>
+                <ul>
+                    {stores && stores.map(store => <li key={store.id}>{store.name}</li>)
+                    }
+                </ul>
+            </Container>
+            <Container tag="section">
+            <Form onSubmit={handleAddStore}>
+                <Input type="text" name="name" placeholder="name" />
+                <Button type="submit">Add</Button>
+            </Form>
+            <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
+            </Container>
         </Container>
     </>       
     

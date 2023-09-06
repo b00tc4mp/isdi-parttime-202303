@@ -29,11 +29,11 @@ export default function HomeList() {
         ;(async () => {
             try{     
                 freeze()     
-                const [user, list] = await Promise.all([retrieveUser(), retrieveList()])
+                const [tmpUser, tmpList] = await Promise.all([retrieveUser(), retrieveList()])
                 unfreeze()
 
-                setUser(user)
-                setList(list)
+                setUser(tmpUser)
+                setList(tmpList)
             } 
             catch (error) {
                 unfreeze()
@@ -89,26 +89,30 @@ export default function HomeList() {
     return <>
         <Container className="home">
             <header className="home-header">
-                <h1 className="title" onClick={handleGoToList}>List</h1>
+                <h1 className="text-[var(--primary)]" onClick={handleGoToList}>List</h1>
 
                 <nav className="home-header-nav"> 
-                    {user && <>
-                        <img className="home-header-avatar" src={user.avatar? user.avatar : DEFAULT_AVATAR_URL} alt=""/>
-                        <Label type="text" name="name" placeholder="name">{user.name}</Label>
-                    </>}
 
+                    <div className="flex font-sans">
+                        {user && <>
+                            <img className="home-header-avatar" src={user.avatar? user.avatar : DEFAULT_AVATAR_URL} alt=""/>
+                            <Label>{user.name}</Label>
+                        </>}
+                    </div>
+                    <div className="flex font-sans">
                     {list && <>
-                    <Label htmlFor="nameRegister">Name:</Label>
-                    <Label type="text" name="name" placeholder="name">{list.name}</Label>
-                    <Label htmlFor="emailRegister">Date End:</Label>
-                    <Label type="date" name="date">{list.dateToEnd}</Label>
-                </>
-                || <>
-                    <Label htmlFor="nameRegister">Name:</Label>
-                    <Label type="text" name="name" placeholder="name" />
-                    <Label htmlFor="emailRegister">Date End:</Label>
-                    <Label type="date" name="date" />
-                </>}
+                        <Label className="text-[var(--primary)]">Name:</Label>
+                        <Label>{list.name}</Label>
+                        <Label className="text-[var(--primary)]">Date End:</Label>
+                        <Label>{new Date(list.dateToEnd).toLocaleDateString()}</Label>
+                    </>
+                    || <>
+                        <Label className="text-[var(--primary)]">Name:</Label>
+                        <Label placeholder="name" />
+                        <Label className="text-[var(--primary)]">Date End:</Label>
+                        <Label />
+                    </>}
+                    </div>
                 </nav>
                 <Button name = "home" onClick={handleGoToHome}>Home</Button>   
             </header>

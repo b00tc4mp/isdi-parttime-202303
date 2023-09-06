@@ -47,12 +47,14 @@ export default ({ onCancel, onAddedPropduct }) => {
                     
                     <Label htmlFor="stores">Stores:</Label>
                     <Stores 
-                        state={[]}
+                        state={[]} 
+                        multiple={true}
                     />
                     
                     <Label htmlFor="type">Type:</Label>
                     <ProductTypes 
                         state={""}
+                        multiple={false}
                     />
                     
                     <Label htmlFor="comment">Comment:</Label>

@@ -121,7 +121,7 @@ export default ({ onEditedProfile, onSearchUser, user, lastUpdate}) => {
                     <Button onClick={handleSwitchMode}>Switch Mode</Button>
                 </article>
                 <article>
-                    <h2>Update avatar</h2>
+                    <h2 className="text-[var(--primary)]">Update avatar</h2>
 
                     <Form onSubmit={handleEditAvatar}>
                         <Input type="url" name="url" placeholder="url"/>
@@ -129,7 +129,7 @@ export default ({ onEditedProfile, onSearchUser, user, lastUpdate}) => {
                     </Form>
                 </article>
                 <article>
-                    <h2>Update password</h2>
+                    <h2 className="text-[var(--primary)]">Update password</h2>
 
                     <Form onSubmit={handleChangePassword}>
                         <Input type="password" name="password" placeholder="password"/>
@@ -139,7 +139,7 @@ export default ({ onEditedProfile, onSearchUser, user, lastUpdate}) => {
                     </Form>
                 </article>
                 <article>
-                    <h2>Contacts</h2>
+                    <h2 className="text-[var(--primary)]">Contacts</h2>
                     {contacts && contacts.map(contact => <Contact 
                         key={contact.id} 
                         contact={contact} 

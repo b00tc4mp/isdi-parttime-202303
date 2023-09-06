@@ -32,8 +32,8 @@ export default function Login() {
     }
     
     return <>
-        <Container tag="div" className="login page">
-            <h1 className="title">Login</h1>
+        <Container tag="div" className="page">
+            <h1 className="text-[var(--primary)]">Login</h1>
 
             <Form onSubmit={handleLogin}>
                 <Input type="email" name="email" placeholder="usuario@dominio.com" /><br/>

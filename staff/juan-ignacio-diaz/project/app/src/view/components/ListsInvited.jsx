@@ -44,7 +44,7 @@ export default ({ list, onModifyList}) => {
     return <>
         <Container tag="article" type="row">
             <p>{list.name}</p>
-            <time>📎 {list.date.toLocaleString()}</time>   
+            <time>📎 {new Date(list.dateToEnd).toLocaleDateString()}</time>   
             <Button onClick={handleAcceptGuestList}>📌</Button>
             <Button onClick={handleDeclineGuestList}>🗑</Button>
         </Container>

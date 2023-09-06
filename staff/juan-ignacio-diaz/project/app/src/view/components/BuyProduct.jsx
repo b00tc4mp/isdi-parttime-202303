@@ -78,8 +78,8 @@ export default ({ productId, onCancel, onBuyedProduct }) => {
                         <Label htmlFor="price">Price Paid:</Label>
                         <Input type="number" name="price" defaultValue="0"></Input>                              
                         <Button type="submit">Update</Button> 
-                        <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
                     </Form>
+                    <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
                 </>
                 || <>
                     <Form onSubmit={handleBuy}>
@@ -89,9 +89,8 @@ export default ({ productId, onCancel, onBuyedProduct }) => {
                         <Input type="number" name="howMany" defaultValue="1"/>        
                         <Label htmlFor="stores">Stores:</Label>
                         <Label htmlFor="type">Type:</Label>
-  
-                        <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
-                    </Form>                   
+                    </Form>
+                    <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>                   
                 </>}
             </Container>
         </Container>

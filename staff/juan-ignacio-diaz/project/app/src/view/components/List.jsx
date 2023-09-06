@@ -57,7 +57,7 @@ export default ({ onAddedProduct, onEditedDeletedProduct, onFilteredProducts, on
     return <>
         <Container>
             <Container type="row">
-                <Label >Products:</Label>
+                <Label className="text-[var(--primary)]">Products:</Label>
                 <Button onClick={handleAddProduct}>+</Button>
                 <Button onClick={handleNewFilter}>Filter</Button>
             </Container>
@@ -71,10 +71,10 @@ export default ({ onAddedProduct, onEditedDeletedProduct, onFilteredProducts, on
                     />)
                 }
             </Container>
-            <Container type="row">
-                <Label >Messages:</Label>
-                <Form className = "flex-row" onSubmit={handleAddMessage}>
-                        <textarea type="text" name="message"></textarea>
+            <Container type="row" className="content-center">
+                <Label className="text-[var(--primary)]">Messages:</Label>
+                <Form className = "flex-row content-center" onSubmit={handleAddMessage}>
+                        <textarea type="text" name="message" className= "rounded-lg bg-green-50"></textarea>
                         <Button type="submit">+</Button>
                 </Form>
             </Container>

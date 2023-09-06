@@ -45,7 +45,7 @@ export default function Register() {
     }
 
     return <>
-        <Container tag="div" className="register page">
+        <Container tag="div" type ="row" className="register page">
             <h1 className="text-[var(--primary)]">Register</h1>
 
             <Form onSubmit={handleRegister}>
@@ -58,6 +58,7 @@ export default function Register() {
                 <Button type="submit">Register</Button>
             </Form>
             <p>Go to <Link to="/login">Login</Link></p>
+
         </Container>
     </>
 }

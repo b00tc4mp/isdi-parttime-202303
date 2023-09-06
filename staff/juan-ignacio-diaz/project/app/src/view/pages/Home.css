@@ -26,9 +26,9 @@
 }
 
 .home-header-nav {
-  display: flex;
   align-items: center;
-  gap: .4rem;
+  gap: .1rem;
+
 }
 
 .home-header-avatar {

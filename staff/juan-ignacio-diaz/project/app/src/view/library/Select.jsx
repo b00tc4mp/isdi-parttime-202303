@@ -5,7 +5,7 @@ export default function Select({ name, options, state, multiple}) {
 
     return <select 
         name={name}
-        className="py-2 px-2 rounded-lg"
+        className="py-2 px-2 rounded-lg bg-green-50"
         multiple={multiple} 
         value={states}
         onChange={e => {

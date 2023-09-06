@@ -79,7 +79,9 @@ export default ({ productId, onCancel, onModifiedProduct }) => {
                         <img className="home-header-avatar" src={product.author.avatar? product.author.avatar : DEFAULT_AVATAR_URL} alt=""/>
                         <h1 className="name">{product.author.name}</h1>
                     </Container>
+
                     <Label htmlFor="likes">Have {product.likes? product.likes.length : 0} Likes:</Label> 
+
                     <Form onSubmit={handleEditProduct}>                
                         <Label htmlFor="nameRegister">Name:</Label>                
                         <Input type="text" name="name" placeholder="name" defaultValue={product.name}></Input>                  
@@ -87,21 +89,21 @@ export default ({ productId, onCancel, onModifiedProduct }) => {
                         <Input type="number" name="howMany" defaultValue={product.howMany}></Input>                   
                         <Label htmlFor="stores">Stores:</Label>
                         <Stores 
-                            state={product.stores.map(store => (store.id))} //({value: store.id, label: store.name}))}
+                            state={product.stores.map(store => (store.id))} 
                             multiple={true}
                         />                    
                         <Label htmlFor="type">Type:</Label>
                         <ProductTypes 
-                            state={{value: product.type}}
+                            state={product.type}
                         />                      
                         <Label htmlFor="comment">Comment:</Label>
-                        <textarea className="input" name="comment" cols="30" rows="4" placeholder="text" defaultValue={product.comment}></textarea>
+                        <textarea className="input bg-green-50" name="comment" cols="20" rows="4" placeholder="text" defaultValue={product.comment}></textarea>
                         <Container type="row">
                             <Button type="submit">Update</Button> 
                             <Button type="button" onClick={handleDeleteProduct}>Delete</Button>
                         </Container>
-                        <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
                     </Form>
+                    <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
                 </>
                 || <>
                     <Form onSubmit={handleEditProduct}>
@@ -115,8 +117,8 @@ export default ({ productId, onCancel, onModifiedProduct }) => {
         
                         <Label htmlFor="comment">Comment:</Label>
                         <textarea className="input" name="comment" cols="30" rows="5" placeholder="text"></textarea>
-                        <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
-                    </Form>                   
+                    </Form>          
+                    <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>         
                 </>}
             </Container>
         </Container>
