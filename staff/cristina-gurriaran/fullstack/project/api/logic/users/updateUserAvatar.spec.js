@@ -1,48 +1,70 @@
 require('dotenv').config()
-const { expect } = require('chai')
-const { writeFile, readFile, read } = require ('fs')
-const updateUserAvatar = require('./updateUserAvatar.js')
+const mongoose = require('mongoose')
 
+const { expect } = require('chai')
+const { describe } = require('mocha')
+const { cleanUp, generateUser } = require('../helpers/tests')
+const { errors: { ExistenceError, ContentError } } = require('com')
+const { User } = require('../../data/models')
+const updateUserAvatar = require('./updateUserAvatar')
 
 describe('updateUserAvatar', () => {
-    let id, name, email, password, avatar, favs
-
-    beforeEach(done => {
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error))
-        
-        id = `user-${Math.random()}`
-        name = `name-${Math.random()}`
-        email = `e-${Math.random()}@mail.com`
-        password = `password-${Math.random()}`
-        avatar =  null
-        favs = []
-
+    before(async () => {
+        await mongoose.connect(
+            `${process.env.MONGODB_URL}${process.env.DATABASE_TEST}`
+        )
     })
 
-    it('succeeds on avatar updated', done => {
-        const users = [{ id: id, name: name, email: email, password: password, avatar: avatar, favs: favs}]
-        const json = JSON.stringify(users)
+    let user
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
-            expect(error).to.be.null
-
-            updateUserAvatar(id, 'avatarURL', (error => {
-                readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-                    expect(error).to.be.null
-                    const users = JSON.parse(json)
-                    const user = users.find(user => user.email === email)
-                    
-                    expect(error).to.be.null
-                    expect(user).to.exist
-                    expect(user.avatar).to.equal('avatarURL')
-    
-                    done()
-                
-                })
-            }))
-        })
+    beforeEach(async () => {
+        user = generateUser()
+        await cleanUp()
     })
 
-    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
+    after(async () => {
+        await mongoose.disconnect()
+    })
 
+    it('should succeed on update user avatar', async () => {
+        user = generateUser()
+        await User.create(user)
+
+        const registeredUser = await User.findOne({ email: user.email })
+
+        await updateUserAvatar(registeredUser.id, 'avatar-updated')
+
+        const retrievedUser = await User.findById(registeredUser.id)
+
+        expect(retrievedUser.avatar).to.equal('avatar-updated')
+    })
+
+    it('should fail on non-existing user', async () => {
+        user = generateUser()
+        const userId = '123456789012345678901234'
+        try {
+            await updateUserAvatar(userId, user.avatar)
+        } catch (error) {
+            expect(error).to.be.instanceOf(ExistenceError)
+            expect(error.message).to.equal('user not found')
+        }
+    })
+
+    it('should fail on empty avatar url', () => {
+        user = generateUser()
+        const userId = 'user-id'
+
+        expect(() => updateUserAvatar(userId, '', () => { })).to.throw(ContentError, 'url is empty')
+    })
+
+    it('should fail on non-string avatar url', () => {
+        const userId = 'user-id'
+
+        expect(() => updateUserAvatar(userId, undefined, () => { })).to.throw(TypeError, 'url is not a string')
+        expect(() => updateUserAvatar(userId, 1, () => { })).to.throw(TypeError, 'url is not a string')
+        expect(() => updateUserAvatar(userId, true, () => { })).to.throw(TypeError, 'url is not a string')
+        expect(() => updateUserAvatar(userId, {}, () => { })).to.throw(TypeError, 'url is not a string')
+        expect(() => updateUserAvatar(userId, [], () => { })).to.throw(TypeError, 'url is not a string')
+    })
 })
+

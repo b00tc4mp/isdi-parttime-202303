@@ -1,48 +1,169 @@
 require('dotenv').config()
-const { expect } = require('chai')
-const { writeFile, readFile, read } = require ('fs')
-const updateUserPassword = require('./updateUserPassword.js')
+const mongoose = require('mongoose')
 
+const { expect } = require('chai')
+const { describe } = require('mocha')
+const { cleanUp, generateUser } = require('../helpers/tests')
+const { errors: { ExistenceError, ContentError, AuthError } } = require('com')
+const { User } = require('../../data/models')
+const updateUserPassword = require('./updateUserPassword')
 
 describe('updateUserPassword', () => {
-    let id, name, email, password, avatar, favs
+    before(async () => {
+        await mongoose.connect(process.env.MONGODB_URL)
+    })
 
-    beforeEach(done => {
-        writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error))
-        
-        id = `user-${Math.random()}`
-        name = `name-${Math.random()}`
-        email = `e-${Math.random()}@mail.com`
-        password = `password-${Math.random()}`
-        avatar =  null
-        favs = []
+    let user
+
+    beforeEach(async () => {
+        user = generateUser()
+        await cleanUp()
+    })
+
+    after(async () => {
+        await mongoose.disconnect()
+    })
+
+    it('should succeed on update user password', async () => {
+        user = generateUser()
+        await User.create(user)
+        const newPassword = 'new-password'
+        const newPasswordConfirm = 'new-password'
+
+        const registeredUser = await User.findOne({ email: user.email })
+
+        await updateUserPassword(registeredUser.id, registeredUser.password, newPassword, newPasswordConfirm)
+
+        const retrievedUser = await User.findById(registeredUser.id)
+
+        expect(retrievedUser.password).to.equal(newPassword)
 
     })
 
-    it('succeeds on password updated', done => {
-        const users = [{ id: id, name: name, email: email, password: password, avatar: avatar, favs: favs}]
-        const json = JSON.stringify(users)
+    it('should fail on matching current and new password ', async () => {
+        user = generateUser()
+        await User.create(user)
+        const registeredUser = await User.findOne({ email: user.email })
 
-        writeFile(`${process.env.DB_PATH}/users.json`, json, 'utf8', error => {
-            expect(error).to.be.null
+        const newPassword = registeredUser.password
+        const newPasswordConfirm = 'new-password-confirm'
 
-            updateUserPassword(id, password,'123123123','123123123', (error => {
-                readFile(`${process.env.DB_PATH}/users.json`, 'utf8', (error, json) => {
-                    expect(error).to.be.null
-                    const users = JSON.parse(json)
-                    const user = users.find(user => user.email === email)
-                    
-                    expect(error).to.be.null
-                    expect(user).to.exist
-                    expect(user.password).to.equal('123123123')
-    
-                    done()
-                
-                })
-            }))
-        })
+        try {
+            await updateUserPassword(registeredUser.id, registeredUser.password, newPassword, newPasswordConfirm)
+
+        } catch (error) {
+
+            expect(error).to.be.instanceOf(ContentError)
+            expect(error.message).to.equal('new password equals old password')
+        }
     })
 
-    after(done => writeFile(`${process.env.DB_PATH}/users.json`, '[]', 'utf8', error => done(error)))
+    it('should fail on non-matching passwords', async () => {
+        user = generateUser()
+        await User.create(user)
+        const newPassword = 'new-password'
+        const newPasswordConfirm = 'new-password-confirm'
 
+        const registeredUser = await User.findOne({ email: user.email })
+
+        try {
+            await updateUserPassword(registeredUser.id, newPassword, newPasswordConfirm)
+
+        } catch(error) {
+            expect(error).to.be.instanceOf(ContentError)
+            expect(error.message).to.equal('password confirmation mismatch')
+
+        }
+    })
+
+    it('should fail on non-existing user', async () => {
+        const userId = '123456789012345678901234'
+        const password = 'current-password'
+        const newPassword = 'new-password'
+        const newPasswordConfirm = 'new-password'
+        try {
+            await updateUserPassword(userId, password, newPassword, newPasswordConfirm)
+        } catch (error) {
+            expect(error).to.be.instanceOf(ExistenceError)
+            expect(error.message).to.equal('user not found')
+        }
+    })
+
+    it('should fail on wrong current password', async () => {
+        user = generateUser()
+        await User.create(user)
+        const registeredUser = await User.findOne({ email: user.email })
+        const password = 'wrong-password'
+        const newPassword = 'new-password'
+        const newPasswordConfirm = 'new-password'
+
+        try {
+            await updateUserPassword(registeredUser.id, password, newPassword, newPasswordConfirm)
+
+        } catch (error) {
+
+            expect(error).to.be.instanceOf(AuthError)
+            expect(error.message).to.equal('wrong password')
+        }
+    })
+ 
+    it('should fail on empty password', () => {
+        const userId = '123456789012345678901234'
+        const password = ''
+        const newPassword = 'new-password'
+        const newPasswordConfirm = 'new-password'
+
+        expect(() => updateUserPassword(userId, password, newPassword, newPasswordConfirm, () => { })).to.throw(RangeError, 'password has less than 8 characters')
+    })
+
+    it('should fail on password shorter than 8 characters', () => {
+        const userId = '123456789012345678901234'
+        const password = '123'
+        const newPassword = 'new-password'
+        const newPasswordConfirm = 'new-password'
+
+        expect(() => updateUserPassword(userId, password, newPassword, newPasswordConfirm, () => { })).to.throw(RangeError, 'password has less than 8 characters')
+    })
+
+    it('should fail on non-string password', () => {
+        const userId = '123456789012345678901234'
+        const newPassword = 'new-password'
+        const newPasswordConfirm = 'new-password'
+
+        expect(() => updateUserPassword(userId, undefined, newPassword, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, 1, newPassword, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, true, newPassword, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, [], newPassword, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, {}, newPassword, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
+    })
+
+    it('should fail on empty new password', () => {
+        const userId = '123456789012345678901234'
+        const password = 'password'
+        const newPassword = ''
+        const newPasswordConfirm = 'new-password'
+
+        expect(() => updateUserPassword(userId, password, newPassword, newPasswordConfirm, () => { })).to.throw(RangeError, 'new password has less than 8 characters')
+    })
+
+    it('should fail on new password shorter than 8 characters', () => {
+        const userId = '123456789012345678901234'
+        const password = 'password'
+        const newPassword = '123'
+        const newPasswordConfirm = 'new-password'
+
+        expect(() => updateUserPassword(userId, password, newPassword, newPasswordConfirm, () => { })).to.throw(RangeError, 'new password has less than 8 characters')
+    })
+
+    it('should fail on non-string new password', () => {
+        const userId = '123456789012345678901234'
+        const password = 'password'
+        const newPasswordConfirm = 'new-password'
+
+        expect(() => updateUserPassword(userId, password, undefined, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, password, 1, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, password, true, newPasswordConfirm, () => {})).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, password, [], newPasswordConfirm, () => {})).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, password, {}, newPasswordConfirm, () => {})).to.throw(TypeError, 'password is not a string')
+    })
 })

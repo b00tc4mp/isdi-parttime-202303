@@ -1,12 +1,11 @@
 const { 
-    validators: { validateId, validateUrl },
+    validators: { validateUrl },
     errors : { ExistenceError }
 } = require('com')
 const { User } = require('../../data/models')
 
 
 module.exports = (userId, avatar) => {
-    validateId(userId, 'user id')
     validateUrl(avatar, 'avatar url API')
 
     return (async () => {

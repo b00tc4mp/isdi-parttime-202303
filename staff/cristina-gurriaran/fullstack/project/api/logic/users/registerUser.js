@@ -1,7 +1,7 @@
 const {
     validators: { validateName, validateEmail, validatePassword },
     errors: { DuplicityError }
-} = require('../../../com')
+} = require('com')
 const { User } = require('../../data/models')
 
 module.exports = function registerUser(name, email, password) {
@@ -11,7 +11,7 @@ module.exports = function registerUser(name, email, password) {
 
     return (async () => {
         try{
-            const promise = await User.create({ name, email, password, avatar: null, favs: [] })
+            await User.create({ name, email, password, avatar: null, favs: [] })
         } catch (error) {
             if (error.message.includes('E11000'))
                 throw new DuplicityError(`user with email ${email} already exists`)

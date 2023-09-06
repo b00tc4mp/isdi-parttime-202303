@@ -12,7 +12,7 @@ module.exports = (email, password) => {
     return (async () => {
         const user = await User.findOne({ email })
 
-        if (!user) throw new ExistenceError('user with email ${user.email} not found')
+        if (!user) throw new ExistenceError('user not found')
 
         if (user.password !== password) throw new AuthError(`wrong credentials`)
 
