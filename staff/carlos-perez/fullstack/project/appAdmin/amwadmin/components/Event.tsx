@@ -40,10 +40,10 @@ const Event = ({ evento }: EventProp) => {
                         }
                     </div>
                     <div className="flex flex-row gap-3">
-                        <button className='bg-slate-700 hover:bg-blue-100 duration-300 text-white hover:text-black shadow p-2 rounded-md sm:w-52' onClick={() => router.push('/events/edit/'+_id)}>
+                        <button className='bg-slate-700 hover:bg-blue-100 duration-300 text-white hover:text-black shadow p-2 rounded-md w-52' onClick={() => router.push('/events/edit/'+_id)}>
                             Edit
                         </button>
-                        <button className='bg-red-300 hover:bg-blue-100 duration-300 text-white hover:text-black shadow p-2 rounded-md sm:w-52' onClick={handleDelete}>
+                        <button className='bg-red-300 hover:bg-blue-100 duration-300 text-white hover:text-black shadow p-2 rounded-md w-52' onClick={handleDelete}>
                             Delete
                         </button>
                         </div>
