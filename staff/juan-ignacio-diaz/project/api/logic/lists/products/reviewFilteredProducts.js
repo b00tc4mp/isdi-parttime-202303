@@ -32,9 +32,11 @@ module.exports = (listId, userId, filter, order) => {
 
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
 
-        const tmpList = await List.find({_id: filter._id}, 'products._id products.name products.date products.howMany products.state products.type products.stores products.comment products.view, products.buyer, products.price')
+        const tmpList = await List.find({_id: filter._id}, 'products._id products.name products.date products.howMany products.state products.type products.stores products.comment products.view, products.price products.buyer')
             .populate('products.likes', 'name avatar').lean()
  
+            //.populate('products.buyer', 'name avatar')
+
         if(tmpList.length>0) {           
             let products = tmpList[0].products
             if(products.length>0) {
@@ -60,14 +62,20 @@ module.exports = (listId, userId, filter, order) => {
                         })
                     } 
 
+                    // if(product.buyer && product.buyer.toString() === userId) {
+                    //     product.buyer.id = product.buyer._id.toString()
+                    //     delete product.buyer._id
+                    // }
+
                     if(product.buyer && product.buyer.toString() === userId) {
                         delete product.buyer
                         product.buyer = true
                     }
                     else {
                         product.buyer = false
-                    }
-                    
+                    }                   
+
+
                     if (product.view) {
                         product.untried = product.view.some(user => user._id.toString() === userId)
                         delete product.view
