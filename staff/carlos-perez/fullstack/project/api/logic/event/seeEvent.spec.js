@@ -39,9 +39,7 @@ describe('seeEvent', () => {
 
         const result = await seeEvent(adminId.toString(),eventId);
         expect(result).to.exist
-        expect(result).to.not.be.instanceOf(ExistenceError)
-
-        //await expect(() => seeEvent(adminId.toString(),eventId)).to.exist;
+        expect(result.author._id.toString()).to.equal(adminId._id.toString())
     });
 
     it('should fail on incorrect Event id format', async () => {
