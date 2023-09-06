@@ -33,10 +33,11 @@ if (!messages) return <p>No messages</p>
     <div className='grid grid-cols-1 max-w-[1440px] w-full mx-auto justify-center'>
       <NavBar />
       <div className='max-w-[1440px] w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4'>
-
+        
         {
           messages?.map((message: any) => (<Messages message={message} />))
         }
+      
       </div>
       <Footer />
     </div>
