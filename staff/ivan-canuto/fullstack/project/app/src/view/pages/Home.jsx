@@ -156,6 +156,8 @@ export default function Home() {
 
         const text = event.target.textToSearch.value
 
+        if(!text.length) return
+
         setTextToSearch(text)
 
         setView('searchedPosts')
@@ -169,30 +171,6 @@ export default function Home() {
 
     return (
         <Container className="home-container bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover min-h-screen absolute left-0 overflow-scroll">
-            <div className="loader"></div>
-            {page === "Home" && (<>
-                {!search && <div className={`fixed top-[105px] z-10 flex ${view === 'posts' ? 'justify-between' : 'justify-end'} w-full px-4`}>
-                    {view === 'posts' && <Button className='border-gray-300 bg-slate-100 p-1 rounded flex gap-2' onClick={handleToggleSearchBar}><span className="material-symbols-outlined">search</span>Search...</Button>}
-                    <Button className="bg-slate-100 border border-gray-200" onClick={handleOpenChatbotWindow}>
-                        <p className='flex items-center gap-1 text-lg'>Chat<span className="material-symbols-outlined">smart_toy</span></p>
-                    </Button>
-                </div>}
-                {search && <Container className='w-full h-full fixed top-0 left-0 z-30' onClick={event => {
-                    if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'BUTTON' && event.target.tagName !== 'SPAN')
-                        handleToggleSearchBar()
-                }}>
-                    <form className='search-form fixed top-[105px] w-full flex justify-center rounded-lg' onSubmit={handleSearch}>
-                        <div className="border-2 border-slate-300 flex rounded-lg gap-1">
-                            <Input className='border-none w-60' placeholder='Search something...' name='textToSearch' autoFocus></Input>
-                            <Button><span className="material-symbols-outlined">search</span></Button>
-                        </div>
-                    </form>
-                </Container>
-
-                }
-            </>
-            )}
-
             <Header
                 handleOpenProfile={handleOpenProfile}
                 handleLogout={handleLogout}
@@ -212,6 +190,7 @@ export default function Home() {
                     view={view}
                     handleTogglePostModal={handleTogglePostModal}
                     textToSearch={textToSearch}
+                    handleSearch={handleSearch}
                 />}
 
                 {modal === "editPost" && (
@@ -251,6 +230,10 @@ export default function Home() {
                     <SideBarMenu
                         homeOptions={[
                             {
+                                text: 'Chatbot page',
+                                onClick: () => { handleOpenChatbotWindow() },
+                            },
+                            {
                                 text: "Home page",
                                 onClick: () => {
                                     setLastPostsUpdate(Date.now());
@@ -260,10 +243,6 @@ export default function Home() {
 
                                     navigate("/");
                                 },
-                            },
-                            {
-                                text: 'Chatbot page',
-                                onClick: () => { handleOpenChatbotWindow() },
                             },
                             {
                                 text: "Own post",
