@@ -1,4 +1,4 @@
-# App
+# StudySnap
 
 ## Intro
 
@@ -206,7 +206,7 @@ Message
 - Implement a comment button, beside the like and save buttons, to access to the comment section
 - Implement a comment section where the user can see al the comments made to the post
 
-#### Create a comment or delete a comment, and refres comment list
+#### Create a comment or delete a comment, and refresh comment list
 
 - Me as user, I want to create a comment in a post.
 - Me as user, I want to delete a comment I made previouly in a post

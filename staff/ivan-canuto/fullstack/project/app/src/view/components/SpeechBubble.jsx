@@ -12,7 +12,7 @@ export default function SpeechBubble({ role, content, handleGeneratePost, classN
             <p>{content}</p>
             {role === 'assistant' && typeof content === 'string' && content.length > 500 &&
             <div className={`${showButton ? 'bg-white' : ''} flex gap-2 w-fit pr-4 pl-1 mt-2 rounded-lg`}>
-                {showButton && <button className='px-1 py-0' onClick={handleCreatePost}>Generate post</button>}
+                {showButton && <button className='px-1 py-0' onClick={handleCreatePost}>Create post</button>}
                 <div className={`mx-[-10px] mt-1 h-fit rounded-full w-6 flex items-center`} onClick={handleToggleButton}>
                     <span className="material-symbols-outlined">more_vert</span>
                 </div>

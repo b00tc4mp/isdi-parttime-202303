@@ -91,10 +91,10 @@ export default function SideBarMenu({
                                         }
                                         {option.id !== undefined ?
                                             option.id && conversationId !== option.id ?
-                                                option.id !== 'deleteAllChatsId' && <span className="material-symbols-outlined pr-1" onClick={() => handleConfirmDelete(option.id)}>delete</span>
+                                                option.id !== 'deleteAllChatsId' && <span className="material-symbols-outlined pr-1" onClick={() => handleConfirmDelete(option.id)}>more_vert</span>
                                                 :
                                                 <div className="flex flex-col gap-1 overflow-hidden pr-2">
-                                                    <span className="material-symbols-outlined" onClick={option.id === 'deleteAllChatsId' ? handleDeleteAllConversations : handleDeleteConversation}>check</span>
+                                                    <span className="material-symbols-outlined" onClick={option.id === 'deleteAllChatsId' ? handleDeleteAllConversations : handleDeleteConversation}>delete</span>
                                                     <span className="material-symbols-outlined" onClick={handleCancelDelete}>close</span>
                                                 </div>
                                             :

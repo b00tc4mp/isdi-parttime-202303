@@ -38,9 +38,9 @@ export default function Comments({ handleRefreshPost, post, user }) {
 
     return <>
         <section className="flex flex-col items-center w-full h-full py-4 px-1 pt-0">
-            <div className="flex flex-col justify-around items-center h-full w-full">
-                <h2 className="mt-2 mb-4 font-bold text-xl">Post comments</h2>
-                <div className="flex flex-col overflow-scroll h-96 gap-2 w-full px-2">
+            <div className="flex flex-col justify-around items-center h-full w-full mb-4">
+                <h2 className="mt-2 mb-4 font-bold text-xl">Comments</h2>
+                <div className="flex flex-col overflow-scroll h-full gap-2 w-full px-2">
                     {user && post.comments && post.comments.map(comment => <Comment
                         key={comment.id}
                         comment={comment}
@@ -59,7 +59,7 @@ export default function Comments({ handleRefreshPost, post, user }) {
                 }}>
                     <Form className='bg-white h-96 p-4 w-5/6' onSubmit={handleCreateComment}>
                         <h2 className="text-lg">Add comment</h2>
-                        <textarea className="border-2 border-gray-200 rounded-md p-2 h-60" cols="30" rows="10" name="commentText" autoFocus></textarea>
+                        <textarea className="border-2 border-gray-200 rounded-md p-2 h-60 w-11/12" cols="30" rows="10" name="commentText" autoFocus></textarea>
                         <div className="w-full flex justify-evenly">
                             <Button className="bg-slate-100 w-14">Add</Button>
                             <Button className='bg-slate-100' type="button" onClick={toggleAddComment}>Cancel</Button>
