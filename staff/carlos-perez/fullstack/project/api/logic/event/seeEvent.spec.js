@@ -7,7 +7,7 @@ require('dotenv').config()
 const {
     errors: { AuthError, ContentError, ExistenceError, FormatError, DuplicityError, TypeError }
 } = require('com');
-const seeEvent = require('./deleteEvent');
+const seeEvent = require('./seeEvent');
 const modifyEvent = require('./modifyEvent');
 
 describe('seeEvent', () => {
@@ -52,7 +52,7 @@ describe('seeEvent', () => {
 
         await Event.create({author: adminId, title: event.title, eventDate: event.eventDate, location: event.location, text: event.text, links: event.links, visibility: event.visibility});
         
-        await expect(() => seeEvent('64f71960afe8291e1e4b9643', 'id')).to.throw(FormatError, 'event ID does not have 24 characters');
+        await expect(() => seeEvent('64f71960afe8291e1e4b9643', 'id')).to.throw(FormatError, 'event id does not have 24 characters');
     });
      
     it('should fail on not existing event', async () => {
