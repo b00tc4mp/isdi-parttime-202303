@@ -27,7 +27,7 @@ const location = {
         location: 'Point',
         coordinates: coordinates,
     },
-};
+}
 const description = 'Poble Sec hasn’t exactly been booming with great cafes and brunch places, but La Galena has changed that. This adorable cafe has opened on Plaça Sortidor and has taken the neighborhood by storm.';
 const category = {
     coffeeShop: true,
@@ -35,7 +35,7 @@ const category = {
     coWorking: false,
     library: false,
     hotelLobby: false
-};
+}
 const features = {
     wifi: {
         unlimitedFree: false,
@@ -67,7 +67,7 @@ const features = {
         projector: false,
         windowView: true,
     }
-};
+}
 
 mongoose.connect(process.env.MONGODB_URL)
     .then(() => createWorkspot(userId, image, name, location, description, category, features))
