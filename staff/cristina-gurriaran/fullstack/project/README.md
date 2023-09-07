@@ -72,8 +72,11 @@ https://www.figma.com/file/HBNb09aX1SxAI73ki1v6Ip/ROAMDESK-Final-Project?type=de
   - printScanCopy: Boolean
   - projector: Boolean
   - windowView: Boolean
-- reviews: Array of Strings
+- reviews:
+  - reference to Review schema
 - likes: Array of ObjectId (referring to User id)
+-date:
+
 
 ## Location Schema
 - street: String
@@ -115,6 +118,11 @@ https://www.figma.com/file/HBNb09aX1SxAI73ki1v6Ip/ROAMDESK-Final-Project?type=de
 - quiet: Boolean
 - moderate: Boolean
 - loud: Boolean
+
+## Review Schema
+- author: ObjectId (referring to User _id)
+- text: String
+- date
 
 
 ### Test Coverage  
