@@ -31,6 +31,8 @@ module.exports = (listId, userId, productId) => {
         if (!(list.guests.some(tmpId => tmpId.toString() === userId))) throw new InvalidDataError('invalid user')
 
         const product = list.products.find(product => product.id === productId)
+
+        if (!product) throw new ExistenceError('product not found')
         
         const likes = product.likes
 
