@@ -105,8 +105,6 @@ export default function SuggestionsPage({ user, handleLastPostsUpdate, lastPosts
         handleLastPostsUpdate()
     }
 
-    console.log(suggestions)
-
     return <section className="flex flex-col gap-4 p-2 absolute top-28 left-0 overflow-scroll pb-8 w-full items-center">
         {suggestions && <h1 className="w-full text-center text-5xl font-thin underline mb-4">{page === 'Suggestions' ? 'My suggestions' : 'Own posts suggestions'}</h1>}
         {suggestions && suggestions.map(suggestion => (!suggestion.hidden || suggestion.author.id === user.id) && <Suggestion

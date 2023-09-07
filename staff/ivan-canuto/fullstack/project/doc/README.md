@@ -13,30 +13,17 @@ Among its other functionalities, users can comment on posts by other users, like
 
 ### Use cases
 - Start conversation / interact with chatbot (ask questions, request summary)
-- Generate / publish post (with summary)
+- Generate / create, edit or delete post
 - Acess to all prior conversations
-- Delete conversation
-- Delete all conversations
+- Delete conversation/all conversations
 - Search post
 - Click on post to open post modal with all the post information
-- Edit own post's title or conetnt
-- Delete own posts
-- Toggle like post
-- Toggle fav/save post
-- View the comment section
-- Create post comment
-- Delete post comment
-- View suggestion section
-- Create post suggestion
-- Modify post suggestion's title or content (by the suggestion owner)
-- Delete post suggestion (by the suggestion owner)
-- Set suggestion as checked by the post owner, and remove it from the suggestion modal
-- Watch made suggestions, remove the checked ones in own posts and refresh list
-- Acess to the different views of the posts (all posts in home page, own posts, saved posts, last fifteen seen posts)
+- View suggestion, and comment section
+- Create/delete post comment
+- Create/ modify/delete post suggestion
+- Check and hide suggestion once checked
+- Acess to the different views of the posts (all posts in home page, own posts, saved posts, seen lately posts)
 - View user made suggestions and own posts suggestions
-- Update user avatar
-- Update user password
-- Create a post from scratch
 
 ## Technical description
 
