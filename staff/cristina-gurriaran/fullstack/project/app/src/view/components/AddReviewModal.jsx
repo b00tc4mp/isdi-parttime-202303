@@ -42,12 +42,25 @@ export default function addReviewModal({ workspotId, onCancel, onReviewAdded }) 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-20">
             <div className="bg-gray-light w-full h-full px-5 bg-opacity-60">
-                <div className="overflow-auto mx-auto bg-white md:w-1/2 lg:w-2/3 xl:w-2/3 sm:w-full h-2/3 m-20 p-10 rounded-md">
+                <div className="overflow-auto mx-auto bg-white md:w-2/3 lg:w-3/4 xl:w-4/5 sm:w-full h-4/5 m-6 p-6 rounded-md mt-10">
 
                     <Form className="flex flex-col gap-4" onSubmit={handleAddReview}>
-                        <TextArea name="text" placeholder="Enter your review" />
-                        <Button type="submit">Add review</Button>
-                        <Button type="button" onClick={handleCancel}>Cancel</Button>
+                        <TextArea
+                            name="text"
+                            placeholder="Enter your review"
+                            className="h-60"
+                        />
+                        <div className="flex gap-4">
+                            <Button type="submit">
+                                Add review
+                            </Button>
+                            <Button
+                                type="button"
+                                onClick={handleCancel}
+                            >
+                                Cancel
+                            </Button>
+                        </div>
                     </Form>
 
                 </div>

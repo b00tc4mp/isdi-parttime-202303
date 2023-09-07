@@ -99,8 +99,13 @@ export default function WorkspotCard({ workspot: {
                         <article>
                             <div className="relative">
                                 <div className="absolute right-0 p-4 flex flex-row gap-4">
-                                    <button onClick={handleToggleLikeWorkspot}>{likes.includes(getUserId()) ? <RedHeartIcon /> : <HeartIcon />}</button>
-                                    <button onClick={handleToggleSaveWorkspot}>{fav ? <FavSolidIcon /> : <FavRegularIcon />}</button>
+                                    <button onClick={(event) => { event.stopPropagation(); handleToggleLikeWorkspot() }}>
+                                        {likes.includes(getUserId()) ? <RedHeartIcon /> : <HeartIcon />}
+                                    </button>
+                                    <button onClick={(event) => { event.stopPropagation(); handleToggleSaveWorkspot() }}>
+                                        {fav ? <FavSolidIcon /> : <FavRegularIcon />}
+                                    </button>
+
                                 </div>
 
                                 <img

@@ -118,6 +118,7 @@ https://www.figma.com/file/HBNb09aX1SxAI73ki1v6Ip/ROAMDESK-Final-Project?type=de
 
 
 ### Test Coverage  
+http://127.0.0.1:5501/staff/cristina-gurriaran/fullstack/project/api/coverage/index.html
 
 ## Planning
 https://trello.com/invite/b/O8KlY9Nd/ATTIbef2d93ba0db358820d157a0fc53d2a02F4E5045/roamdesk

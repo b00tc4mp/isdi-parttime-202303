@@ -46,12 +46,23 @@ export default function FilteredWorkspots({ districts, category, features, lastW
                     />
                 ))
             ) : (
-                <div className="w-80 h-80 fixed top-40 left-40">
-                    <div className="p-80">
-                            <h1>No Results found</h1>
+                    <div className="fixed top-1/2 left-1/2 flex items-center justify-center z-20 bg-gray-dark bg-opacity-60 ">
+                        <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 m-auto top-1/4 w-80">
+
+                            <div className="flex w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-md bg-gray-200 h-60 items-center justify-center">
+
+                                <div className="px-2 py-2">
+                                    <div className="mx-3 flex items-center flex-col justify-center text-center gap-4">
+                                        <p className="text-md text-gray py-1 font-semibold text-indigo-dark">
+                                            No workspots found that fit your preferences
+                                        </p>
+                                        <p className="text-gray text-sm flex align-center">Try fine-tuning your search criteria for better results!</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
- 
-                </div>
             )}
         </div>
     )

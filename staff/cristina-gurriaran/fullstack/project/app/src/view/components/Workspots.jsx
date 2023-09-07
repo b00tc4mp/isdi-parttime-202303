@@ -30,8 +30,7 @@ export default function Workspots({ onEditWorkspot, onAddReview, lastWorkspotsUp
     }, [lastWorkspotsUpdate])
 
 
-    return <div className="mt-60 mb-60 px-8 sm:grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <div className="flex flex-col gap-4">
+    return <div className="mt-60 mb-60 px-8 grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             {workspots && workspots.map((workspot) =>
                 <WorkspotCard
                     key={workspot.id}
@@ -45,6 +44,6 @@ export default function Workspots({ onEditWorkspot, onAddReview, lastWorkspotsUp
                     onWorkspotEdited={handleRefresWorkspots}
                     user={user}
                 />)}
-        </div>
+        
     </div>
 }
