@@ -109,17 +109,19 @@ export default function Home() {
             {view === "workspots" || view === "workspots-searched-by-name" || view === "filtered-workspots" ? ( 
             <header
                 className="bg-white fixed w-full z-20 top-0 left-0 border-gray-light">
-                <div className="bg-indigo-light mx-auto max-w-screen xl:px-4 py-12 sm:px-6 lg:px-8 p-4">
+                <div className="bg-indigo-light mx-auto max-w-screen xl:px-4 py-6 sm:px-6 lg:px-8 p-4">
                     <form onSubmit={handleSearchWorkspotsByName}>
                         <div className="relative max-w-lg container mx-auto">
                                 <Input
                                     type="text"
                                     name="nameSearched"
                                     placeholder="Got a name to look up?"
+                                    className="sm: h-24"
+                        
                                 />
                                 <button
                                     type="submit"
-                                    className="absolute end-1 top-1/2 -translate-y-1/2 rounded-lg bg-indigo-dark px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-mid"
+                                    className="absolute end-1 top-1/2 -translate-y-1/2 rounded-lg bg-indigo-dark px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-mid sm: h-18 w-1/4 mr-1 px-2"
                                 >   Let's find that workspot!
                                 </button>
                             </div>
@@ -175,8 +177,8 @@ export default function Home() {
                     />}  
             </div>
 
-        <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-light shadow-sm">
-            <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 flex flex-row justify-around">
+        <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-light shadow-sm h-20">
+            <div className="mx-auto max-w-screen-xl px-4 py-4 md: px-6 lg:px-8 flex flex-row justify-around">
                 <a href=""
                     onClick={handleGoToWorkSpots}
                         className="text-gray-dark transition hover:opacity-75 transition hover:text-indigo-dark flex flex-col items-center"
@@ -190,7 +192,7 @@ export default function Home() {
                         className="text-gray-dark transition hover:opacity-75 transition hover:text-indigo-dark flex flex-col items-center"
                 >
                     <AddIcon />
-                    <p>New Workspot</p>
+                    <p>New</p>
                 </a>
 
                 {user && <>

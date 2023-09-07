@@ -110,55 +110,59 @@ export default function WorkspotCard({ workspot: {
                                 />
                             </div>
 
-                            <div className="pt-6 px-6">
+                            <div className="p-4">
                                 <div>
-                                    <button className="text-xl font-bold mb-2">{name}</button>
-                                    <h2 className="text-lg text-gray-dark">
+                                    <button className="sm:text-sm md:text-md font-bold">{name}</button>
+                                    <h2 className="sm:text-sm md:text-md text-gray-dark">
                                         {Object.keys(category).map(categoryOption =>
                                             category[categoryOption] && formatCategory(categoryOption))}
                                     </h2>
-                                    <span className="mt-2 text-sm text-gray-dark">
+                                    <span className="mt-2 text-sm text-gray">
                                         {Object.keys(location.districts).map(district =>
                                             location.districts[district] && formatDistrict(district))}, {location.city}
                                     </span>
                                 </div>
                             </div>
 
-                            <div className="pt-6 px-6">
-                                <div className="mb-5 border-t-2 border-gray-light"></div>
+                            <div className="">
+                                <div className="pb-4 border-t-2 border-gray-light"></div>
 
-                                <div className="flex flex-col px-4 pt-4 pb-2">
-                                    <span className="flex flex-row gap-2">
-                                        <WifiIcon />
-                                        <h2 className="text-gray-dark font-bold">
-                                            {Object.keys(features.wifi).map(wifiOption => features.wifi[wifiOption] && formatWifi(wifiOption))}
-                                        </h2>
-                                    </span>
-                                    <p className="ml-8 text-gray">
-                                        {Object.keys(features.wifi).map(wifiOption => features.wifi[wifiOption])}
-                                    </p>
-                                </div>
+                            <section className="flex flex-row justify-around">
+                                    <div>
+                                        <span className="flex flex-col gap-2 items-center">
+                                            <WifiIcon />
+                                            <h2 className="text-gray-dark text-sm">
+                                                {Object.keys(features.wifi).map(wifiOption => features.wifi[wifiOption] && formatWifi(wifiOption))}
+                                            </h2>
+                                        </span>
+                                        <p className="ml-8 text-gray text-sm">
+                                            {Object.keys(features.wifi).map(wifiOption => features.wifi[wifiOption])}
+                                        </p>
+                                    </div>
 
-                                <div className="flex flex-col px-4 pt-4 pb-2">
-                                    <span className="flex flex-row gap-2">
-                                        <PlugIcon />
-                                        <h2 className="text-gray-dark font-bold">
-                                            {Object.keys(features.plugs).map(plugOption => features.plugs[plugOption] && formatPlugs(plugOption))}
-                                        </h2>
-                                    </span>
-                                    <p className="ml-8 text-gray">
-                                        {Object.keys(features.plugs).map(plugOption => features.plugs[plugOption])}
-                                    </p>
-                                </div>
+                                    <div>
+                                        <span className="flex flex-col gap-2 items-center">
+                                            <PlugIcon />
+                                            <h2 className="text-gray-dark text-sm">
+                                                {Object.keys(features.plugs).map(plugOption => features.plugs[plugOption] && formatPlugs(plugOption))}
+                                            </h2>
+                                        </span>
+                                        <p className="ml-8 text-gray text-sm">
+                                            {Object.keys(features.plugs).map(plugOption => features.plugs[plugOption])}
+                                        </p>
+                                    </div>
 
-                                <div className="flex flex-col px-4 pt-4 pb-2">
-                                    <span className="flex flex-row gap-2">
-                                        <NoiseIcon />
-                                        <h2 className="text-gray-dark font-bold">
-                                            {Object.keys(features.noise).map(noiseOption => features.noise[noiseOption] && formatNoise(noiseOption))}
-                                        </h2>
-                                    </span>
-                                </div>
+                                    <div>
+                                        <span className="flex flex-col gap-2 items-center">
+                                            <NoiseIcon />
+                                            <h2 className="text-gray-dark text-sm">
+                                                {Object.keys(features.noise).map(noiseOption => features.noise[noiseOption] && formatNoise(noiseOption))}
+                                            </h2>
+                                        </span>
+                                    </div>
+                            </section>
+
+
                             </div>
                         </article>
                     </div>

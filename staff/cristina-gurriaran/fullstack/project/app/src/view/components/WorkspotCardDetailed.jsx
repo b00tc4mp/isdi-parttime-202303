@@ -82,9 +82,9 @@ export default function WorkspotCardDetailed({ workspot: {
 
     return (
 
-        <div className="fixed inset-0 flex items-center justify-center z-20">
-            <div className="bg-gray-light w-full px-5 bg-opacity-60 pt-20 h-full">
-                <div className="overflow-auto mx-auto bg-white rounded-lg shadow-md md:w-full lg:w-full xl:w-2/3 sm:w-full h-5/6" >
+        <div className="fixed inset-0 flex items-center z-20">
+            <div className="bg-gray-light w-full bg-opacity-60 flex items-center h-full">
+                <div className="overflow-auto mx-auto bg-white rounded-lg shadow-md md:w-full lg:w-full xl:w-2/3 sm:w-full h-screen" >
                     <article>
                         <div className="relative">
                             <div className="absolute left-0 p-4 flex flex-row gap-4">
@@ -269,20 +269,24 @@ export default function WorkspotCardDetailed({ workspot: {
                         }
 
                         {isCurrentUser ? (
-                            <div className="py-6 px-6 flex flex-row gap-4">
+                            <div className="py-6 px-6 flex flex-row w-screen justify-between">
                                 <div className="mb-5 border-t-2 border-gray-light"></div>
 
-                                <Button
-                                    className="w-1/2 flex items-center justify-center gap-4"
-                                    onClick={handleEditWorkspot}>
-                                    <EditIcon />Edit Workspot
-                                </Button>
+                                <section className="flex flex-row items-center  gap-4">
+                                    <Button
+                                        className="w-1/2 flex items-center justify-center gap-4"
+                                        onClick={handleEditWorkspot}>
+                                        <EditIcon />Edit Workspot
+                                    </Button>
 
-                                <Button
-                                    className="w-1/2 flex items-center justify-center gap-4"
-                                    onClick={handleDeleteWorkspot}>
-                                    <DeleteIcon />Delete Workspot
-                                </Button>
+                                    <Button
+                                        className="w-1/2 flex items-center justify-center gap-4"
+                                        onClick={handleDeleteWorkspot}>
+                                        <DeleteIcon />Delete Workspot
+                                    </Button>
+                                </section>
+
+ 
                             </div>
                         ) : (null)}
 

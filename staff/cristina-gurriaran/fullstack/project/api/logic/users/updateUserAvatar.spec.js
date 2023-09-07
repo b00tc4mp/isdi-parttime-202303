@@ -54,17 +54,17 @@ describe('updateUserAvatar', () => {
         user = generateUser()
         const userId = 'user-id'
 
-        expect(() => updateUserAvatar(userId, '', () => { })).to.throw(ContentError, 'url is empty')
+        expect(() => updateUserAvatar(userId, '')).to.throw(ContentError, 'url is empty')
     })
 
     it('should fail on non-string avatar url', () => {
-        const userId = 'user-id'
+        const userId = '123456789012345678901234'
 
-        expect(() => updateUserAvatar(userId, undefined, () => { })).to.throw(TypeError, 'url is not a string')
-        expect(() => updateUserAvatar(userId, 1, () => { })).to.throw(TypeError, 'url is not a string')
-        expect(() => updateUserAvatar(userId, true, () => { })).to.throw(TypeError, 'url is not a string')
-        expect(() => updateUserAvatar(userId, {}, () => { })).to.throw(TypeError, 'url is not a string')
-        expect(() => updateUserAvatar(userId, [], () => { })).to.throw(TypeError, 'url is not a string')
+        expect(() => updateUserAvatar(userId, undefined)).to.throw(TypeError, 'url is not a string')
+        expect(() => updateUserAvatar(userId, 1)).to.throw(TypeError, 'url is not a string')
+        expect(() => updateUserAvatar(userId, true)).to.throw(TypeError, 'url is not a string')
+        expect(() => updateUserAvatar(userId, {})).to.throw(TypeError, 'url is not a string')
+        expect(() => updateUserAvatar(userId, [])).to.throw(TypeError, 'url is not a string')
     })
 })
 

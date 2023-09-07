@@ -2,9 +2,7 @@ const { ObjectId } = require('mongodb')
 
 module.exports = () => {
     return {
-        workspot: userId => ({
-            _id: new ObjectId(),
-            author: userId,
+            author: new ObjectId(),
             image: `image-${Math.random()}`,
             name: `title-${Math.random()}`,
             location: {
@@ -72,7 +70,7 @@ module.exports = () => {
             likes: [],
             reviews: [],
             date: new Date,
-        })
+        
     }
 }
 

@@ -55,34 +55,34 @@ describe('authenticateUser', () => {
 
     it('should fail on empty email', () =>{
         user = generateUser()
-        expect(() => authenticateUser('', user.password, () => { })).to.throw(Error, 'email is empty')
+        expect(() => authenticateUser('', user.password)).to.throw(Error, 'email is empty')
     })
 
     it('should fail on non-string email', () => {
         user = generateUser()
-        expect(() => authenticateUser(1, user.password, () => { })).to.throw(TypeError, 'email is not a string')
-        expect(() => authenticateUser(true, user.password, () => { })).to.throw(TypeError, 'email is not a string')
-        expect(() => authenticateUser({}, user.password, () => { })).to.throw(TypeError, 'email is not a string')
-        expect(() => authenticateUser([], user.password, () => { })).to.throw(TypeError, 'email is not a string')
+        expect(() => authenticateUser(1, user.password)).to.throw(TypeError, 'email is not a string')
+        expect(() => authenticateUser(true, user.password)).to.throw(TypeError, 'email is not a string')
+        expect(() => authenticateUser({}, user.password)).to.throw(TypeError, 'email is not a string')
+        expect(() => authenticateUser([], user.password)).to.throw(TypeError, 'email is not a string')
     })
 
     it('should fail on empty password', () =>{
         user = generateUser()
-        expect(() => authenticateUser(user.email, '', () => { })).to.throw(RangeError, 'password has less than 8 characters')
+        expect(() => authenticateUser(user.email, '')).to.throw(RangeError, 'password has less than 8 characters')
     })
 
     it('should fail on password shorter than 8 characters', () => {
         user = generateUser()
-        expect(() => authenticateUser(user.email, '123', () => { })).to.throw(RangeError, 'password has less than 8 characters')
+        expect(() => authenticateUser(user.email, '123')).to.throw(RangeError, 'password has less than 8 characters')
     })
 
     it('should fail on non-string password', () => {
         user = generateUser()
-        expect(() => authenticateUser(user.email, 123, () => { })).to.throw(TypeError, 'password is not a string')
-        expect(() => authenticateUser(user.email, undefined, () => { })).to.throw(TypeError, 'password is not a string')
-        expect(() => authenticateUser(user.email, true, () => { })).to.throw(TypeError, 'password is not a string')
-        expect(() => authenticateUser(user.email, [], () => { })).to.throw(TypeError, 'password is not a string')
-        expect(() => authenticateUser(user.email, {}, () => { })).to.throw(TypeError, 'password is not a string')
+        expect(() => authenticateUser(user.email, 123)).to.throw(TypeError, 'password is not a string')
+        expect(() => authenticateUser(user.email, undefined)).to.throw(TypeError, 'password is not a string')
+        expect(() => authenticateUser(user.email, true)).to.throw(TypeError, 'password is not a string')
+        expect(() => authenticateUser(user.email, [])).to.throw(TypeError, 'password is not a string')
+        expect(() => authenticateUser(user.email, {})).to.throw(TypeError, 'password is not a string')
     })
 })
 

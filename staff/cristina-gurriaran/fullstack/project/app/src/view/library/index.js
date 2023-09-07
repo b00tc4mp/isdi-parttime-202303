@@ -7,6 +7,8 @@ import TextArea from './TextArea'
 import Label from'./Label'
 import SearchInput from './SearchInput'
 import CheckboxContainer from './CheckboxContainer'
+import Select from './Select'
+import SelectLabel from './SelectLabel'
 
 export {
     Container,
@@ -17,5 +19,7 @@ export {
     TextArea,
     Label,
     SearchInput, 
-    CheckboxContainer
+    CheckboxContainer, 
+    Select,
+    SelectLabel
 }

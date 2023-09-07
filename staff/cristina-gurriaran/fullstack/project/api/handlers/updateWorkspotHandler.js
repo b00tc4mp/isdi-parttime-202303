@@ -7,7 +7,9 @@ module.exports = handleErrors((req, res) => {
     const { workspotId } = req.params
 
     const { image, name, location, description, category, features } = req.body
-
+    
+    debugger 
+    
     const promise = updateWorkspot(userId, workspotId, image, name, location, description, category, features)
 
     return (async () => {

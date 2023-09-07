@@ -20,8 +20,8 @@ function validateName(name) {
 }
 
 function validateUrl (url, explain = 'url'){
-    if (typeof url !== 'string') throw TypeError (`${explain} is not a string`)
-    if (!url.trim().length) throw new ContentError (`${explain} is empty`)
+    if (typeof url !== 'string') throw TypeError ('url is not a string')
+    if (!url.trim().length) throw new ContentError ('url is empty')
 }
 
 function validateId(id, explain = 'id') {
@@ -43,6 +43,12 @@ function validateToken(token, explain = 'token') {
     if (token.split('.').length !== 3) throw new ContentError(`${explain} is not valid`)
 }
 
+function validateObject(object, explain = 'object') {
+    if (typeof object !== 'object') throw new TypeError(`${explain} is not an object`)
+
+    if (Object.keys(object).length === 0) throw new ContentError(`${explain} is an empty object`);
+}
+
 module.exports = { 
     validateEmail, 
     validatePassword, 
@@ -51,5 +57,6 @@ module.exports = {
     validateId, 
     validateText, 
     validateCallback,
-    validateToken
+    validateToken,
+    validateObject
 }

@@ -8,8 +8,6 @@ const { User, Workspot } = require('../../data/models')
 module.exports = (userId, { districts, category, features }) => {
     validateId(userId, 'user id')
 
-    debugger
-
     return (async () => {
         const user = await User.findById(userId)
 

@@ -6,7 +6,7 @@ const {
 const { User, Workspot } = require('../../data/models');
 
 module.exports = (userId , nameSearched) => {
-    validateId(userId, 'user id')
+    validateId(nameSearched, 'user id')
 
     return (async () => {
         const user = await User.findById(userId).lean()

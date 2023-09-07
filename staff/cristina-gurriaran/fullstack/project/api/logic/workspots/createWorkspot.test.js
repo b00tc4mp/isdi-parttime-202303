@@ -2,8 +2,6 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const createWorkspot = require('./createWorkspot')
 
-
-
 const userId = "64f7ca9d75c2fa49950ab36e";
 const image = 'https://images.squarespace-cdn.com/content/v1/62f1252f8bfa06437d10ed94/16c11498-0135-43b1-8dd3-7d8bec4585c1/La+Galena+Barcelona?format=2500w';
 const name = 'La Galena PRUEBA';

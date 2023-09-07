@@ -113,7 +113,7 @@ describe('updateUserPassword', () => {
         const newPassword = 'new-password'
         const newPasswordConfirm = 'new-password'
 
-        expect(() => updateUserPassword(userId, password, newPassword, newPasswordConfirm, () => { })).to.throw(RangeError, 'password has less than 8 characters')
+        expect(() => updateUserPassword(userId, password, newPassword, newPasswordConfirm)).to.throw(RangeError, 'password has less than 8 characters')
     })
 
     it('should fail on password shorter than 8 characters', () => {
@@ -122,7 +122,7 @@ describe('updateUserPassword', () => {
         const newPassword = 'new-password'
         const newPasswordConfirm = 'new-password'
 
-        expect(() => updateUserPassword(userId, password, newPassword, newPasswordConfirm, () => { })).to.throw(RangeError, 'password has less than 8 characters')
+        expect(() => updateUserPassword(userId, password, newPassword, newPasswordConfirm)).to.throw(RangeError, 'password has less than 8 characters')
     })
 
     it('should fail on non-string password', () => {
@@ -130,11 +130,11 @@ describe('updateUserPassword', () => {
         const newPassword = 'new-password'
         const newPasswordConfirm = 'new-password'
 
-        expect(() => updateUserPassword(userId, undefined, newPassword, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
-        expect(() => updateUserPassword(userId, 1, newPassword, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
-        expect(() => updateUserPassword(userId, true, newPassword, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
-        expect(() => updateUserPassword(userId, [], newPassword, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
-        expect(() => updateUserPassword(userId, {}, newPassword, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, undefined, newPassword, newPasswordConfirm)).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, 1, newPassword, newPasswordConfirm)).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, true, newPassword, newPasswordConfirm)).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, [], newPassword, newPasswordConfirm)).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, {}, newPassword, newPasswordConfirm)).to.throw(TypeError, 'password is not a string')
     })
 
     it('should fail on empty new password', () => {
@@ -143,7 +143,7 @@ describe('updateUserPassword', () => {
         const newPassword = ''
         const newPasswordConfirm = 'new-password'
 
-        expect(() => updateUserPassword(userId, password, newPassword, newPasswordConfirm, () => { })).to.throw(RangeError, 'new password has less than 8 characters')
+        expect(() => updateUserPassword(userId, password, newPassword, newPasswordConfirm)).to.throw(RangeError, 'new password has less than 8 characters')
     })
 
     it('should fail on new password shorter than 8 characters', () => {
@@ -152,7 +152,7 @@ describe('updateUserPassword', () => {
         const newPassword = '123'
         const newPasswordConfirm = 'new-password'
 
-        expect(() => updateUserPassword(userId, password, newPassword, newPasswordConfirm, () => { })).to.throw(RangeError, 'new password has less than 8 characters')
+        expect(() => updateUserPassword(userId, password, newPassword, newPasswordConfirm)).to.throw(RangeError, 'new password has less than 8 characters')
     })
 
     it('should fail on non-string new password', () => {
@@ -160,10 +160,10 @@ describe('updateUserPassword', () => {
         const password = 'password'
         const newPasswordConfirm = 'new-password'
 
-        expect(() => updateUserPassword(userId, password, undefined, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
-        expect(() => updateUserPassword(userId, password, 1, newPasswordConfirm, () => { })).to.throw(TypeError, 'password is not a string')
-        expect(() => updateUserPassword(userId, password, true, newPasswordConfirm, () => {})).to.throw(TypeError, 'password is not a string')
-        expect(() => updateUserPassword(userId, password, [], newPasswordConfirm, () => {})).to.throw(TypeError, 'password is not a string')
-        expect(() => updateUserPassword(userId, password, {}, newPasswordConfirm, () => {})).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, password, undefined, newPasswordConfirm)).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, password, 1, newPasswordConfirm)).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, password, true, newPasswordConfirm)).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, password, [], newPasswordConfirm)).to.throw(TypeError, 'password is not a string')
+        expect(() => updateUserPassword(userId, password, {}, newPasswordConfirm)).to.throw(TypeError, 'password is not a string')
     })
 })

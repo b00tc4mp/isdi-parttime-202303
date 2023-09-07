@@ -38,10 +38,19 @@ class PermitError extends Error {
     get name() { return PermitError.name }
 }
 
+class UnknownError extends Error {
+    constructor(message) {
+        super(message)
+    }
+
+    get name() { return UnknownError.name }
+}
+
 module.exports = {
     DuplicityError,
     ContentError,
     ExistenceError,
     AuthError,
-    PermitError
+    PermitError,
+    UnknownError
 }
