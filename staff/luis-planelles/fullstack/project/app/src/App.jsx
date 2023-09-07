@@ -1,9 +1,13 @@
-import './App.css'
+import { Route, Routes } from 'react-router-dom';
 
-function App() {
+import Home from './pages/Home';
 
-  return <h1>Space Pursuit</h1>
-
-}
+const App = () => {
+  return (
+          <Routes>
+              <Route path="/" element={<Home />} />
+          </Routes>
+  );
+};
 
 export default App
