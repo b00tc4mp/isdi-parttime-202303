@@ -48,7 +48,6 @@ type Author = {
     cart: object[]
     order: any[]
     selledMeals: SelledMeal[]
-    __v: number
 }
 
 type Meal = {
@@ -63,7 +62,7 @@ type Meal = {
     bestBefore: string
     price: number
     date: string
-    __v: number
+
 }
 
 type SelledMeal = {
@@ -72,7 +71,7 @@ type SelledMeal = {
     author: string
     buyer: string
     status: string
-    _id: string
+
 }
 
 type Item = {
