@@ -1,0 +1,148 @@
+html {
+    font-family: 'Press Start 2P', cursive;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 100vh;
+    background: rgb(54, 55, 63);
+    background: linear-gradient(90deg, rgb(51, 52, 62) 0%, rgba(0,0,0,1) 50%, rgb(51, 52, 62) 100%);
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.game-grid {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: repeat(7, 100px);
+    grid-template-rows: repeat(6, 100px);
+}
+
+.space {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid white;
+    margin: 15px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+    color: rgba(255, 255, 255, 0);
+    font-size: 0px;
+}
+
+.space:hover {
+    box-shadow: 0 0 5px white;
+}
+
+.right-buttons {
+    display: flex;
+    width: 176px;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+.restart {
+    display: flex;
+    margin: 1rem;
+    color: white;
+}
+
+.restart-button {
+    margin-right: 1rem;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+    border: 1px solid white;
+    background-color: rgba(255, 0, 0, 0);
+    cursor: pointer;
+}
+
+.restart-button:hover {
+    background-color: white;
+}
+
+.exit {
+    display: flex;
+    margin: 1rem;
+    color: white;
+}
+
+.exit-button {
+    margin-right: 1rem;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+    border: 1px solid white;
+    background-color: rgba(255, 0, 0, 0);
+    cursor: pointer;
+}
+
+.exit-button:hover {
+    background-color: white;
+}
+
+.left-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 12rem;
+}
+
+.turn {
+    margin: 2rem 2rem 1rem;
+    color: white;
+}
+
+.goes-color {
+    margin: 0rem 2rem 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: rgba(240, 248, 255, 0);
+}
+
+.goes-color-red {
+    margin: 0rem 2rem 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: rgba(227, 0, 0, 0.9);
+    transition: 0.3s;
+}
+
+.goes-color-yellow {
+    margin: 0rem 2rem 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: rgba(255, 247, 0, 0.90);
+    transition: 0.3s;
+}
+
+.center-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.yellow-player {
+    background-color: rgba(255, 247, 0, 0.90);
+}
+
+.red-player {
+    background-color: rgba(227, 0, 0, 0.9);
+}

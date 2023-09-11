@@ -1,0 +1,1039 @@
+:root {
+    --car-color: rgba(185,122,179,255);
+    --glass-color: rgba(144,241,214,255);
+    --house-brown: rgba(114,65,35,255);
+    --house-door: rgba(253,154,136,255);
+    --car-metal-color: #a2a5ad;
+    --homer-yellow: rgba(221,181,6,255);
+    --homer-mouth: rgba(200,166,118,255);
+    --homer-black: rgba(0, 0, 0, 0.6);
+    --homer-jeans: rgba(69,87,151,255);
+    --moe-tavern-wall: rgba(163,121,99,255);
+    --moe-tavern-wood: rgba(125,83,131,255);
+    --moe-tavern-window-green: rgba(18,106,28,255);
+    --moe-tavern-window-red: rgba(154,64,4,255);
+    --moe-tavern-door: rgba(115,38,48,255);
+    --moe-tavern-sign: rgba(192,157,200,255);
+    --school-column: rgba(167, 111, 194, 1);
+    --school-wall-color: rgba(193,148,115,255);
+    --general-backgrounds: rgba(0, 0, 0, 0);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+}
+
+.background {
+    position: absolute;
+    min-height: 100vh;
+    width: 100%;
+    z-index: 10;
+}
+
+.sky {
+    min-height: 30vh;
+    background: linear-gradient(180deg, rgb(0, 187, 255), rgb(166, 231, 255));
+}
+
+.ground {
+    box-sizing: border-box;
+    min-height: 40vh;
+    background-color: rgba(5,167,122,255);
+    border-top: 2px solid black;
+}
+
+.street {
+    box-sizing: border-box;
+    min-height: 30vh;
+    background-color: rgb(46, 46, 46);
+    border-top: 2px solid black;
+}
+
+.over-background {
+    transform: scale(0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
+    z-index: 100;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+    background-color: var(--general-backgrounds);
+}
+
+.building-and-car {
+    margin-top: 50px;
+    display: flex;
+    width: fit-content;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--general-backgrounds);
+}
+
+.building {
+    margin: 40px;
+    display: flex;
+}
+
+.house {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.house-top {
+    clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
+    height: 30px;
+    width: 200px;
+    background-color: var(--house-brown);
+    z-index: 100;
+}
+
+.house-bottom {
+    width: 180px;
+    height: 120px;
+    background-color: var(--school-wall-color);
+    border-right: 1px solid black;
+}
+
+.up-windows {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 12px 0 12px;
+    height: 40%;
+}
+
+.window {
+    width: 40px;
+    height: 15px;
+    background-color: white;
+    margin-top: 2px;
+    display: flex;
+}
+
+.glass {
+    background-color: var(--glass-color);
+    width: 50%;
+    height: 100%;
+    border: 2px solid rgba(114,65,35,255);
+}
+
+.down-windows-and-door {
+    height: 60%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+}
+
+.down-window {
+    width: 50px;
+    margin-bottom: 10px;
+}
+
+.down-window-up {
+    width: 50px;
+    height: 10px;
+    background-color: var(--house-brown);
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+}
+
+.glass-file {
+    display: flex;
+    justify-content: center;
+}
+
+.glass-2 {
+    background-color: var(--glass-color);
+    width: 20px;
+    height: 12px;
+    border: 1px solid var(--house-brown);
+}
+
+.down-window-bottom {
+    width: 50px;
+    height: 3px;
+    background-color: var(--house-brown);
+}
+
+.front-door {
+    width: 30px;
+    height: 80%;
+    background-color: var(--house-door);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border: 3px solid var(--house-brown);
+    border-bottom: none;
+}
+
+.building-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateX(-20px) translateY(15px);
+}
+
+.first-floor-roof {
+    clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%);
+    background-color: var(--house-brown);
+    width: 100px;
+    height: 25px;
+}
+
+.garage {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    background-color: var(--school-wall-color);
+    width: 80px;
+    height: 120px;
+}
+
+.window-right-building {
+    width: 30px;
+    height: 10px;
+    background-color: white;
+    margin-top: 2px;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.glass-right-building {
+    background-color: var(--glass-color);
+    width: 50%;
+    height: 100%;
+    border: 2px solid var(--house-brown);
+}
+
+.garage-top {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    width: 94px;
+    height: 32px;
+    background-color: var(--house-brown);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.garage-top-inside {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    width: 84px;
+    height: 28px;
+    background-color: var(--school-wall-color);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.garage-top-window-file {
+    display: flex;
+}
+
+.garage-top-window-glass {
+    background-color: var(--glass-color);
+    width: 6px;
+    height: 6px;
+    border: 1px solid var(--house-brown);
+}
+
+.garage-bottom {
+    width: 80px;
+    height: 70px;
+    background-color: var(--school-wall-color);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.garage-door-table {
+    background-color: var(--school-wall-color);
+    width: 60px;
+    height: 20px;
+    border: 1px solid var(--house-brown);
+}
+
+.car {
+    width: 300px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 150px;
+}
+
+.car-top {
+    clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+    background-color: var(--car-color);
+    height: 50px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.car-glasses {
+    clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+    background-color: var(--glass-color);
+    height: 40px;
+    width: 130px;
+    display: flex;
+    justify-content: center;
+}
+
+.car-middle-bean {
+    height: 100%;
+    width: 10px;
+    background-color: var(--car-color);
+}
+
+.car-middle {
+    height: 60px;
+    width: 290px;
+    background-color: var(--car-color);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.car-middle-front {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.car-light {
+    height: 20px;
+    width: 10px;
+    background-color: rgb(255, 255, 182);
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    margin-top: 10px;
+}
+
+.car-bumper {
+    width: 15px;
+    height: 20px;
+    background-color: var(--car-metal-color);
+}
+
+.car-middle-back {
+    background-color: var(--car-metal-color);
+    border-top-right-radius: 5px;
+    height: 100%;
+    width: 15px;
+}
+
+.car-bottom {
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+}
+
+.wheel {
+    height: 50px;
+    width: 50px;
+    background-color: rgb(66, 66, 66);
+    border-radius: 50%;
+    transform: translateY(-25px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.car-tire {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: var(--car-metal-color);
+}
+
+.homer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--general-backgrounds);
+}
+
+.scaled {
+    transform: scale(0.7);
+}
+
+.top-head {
+    height: 140px;
+    width: 100px;
+    background-color: var(--homer-yellow);
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: center;
+    transform: translateY(220px);
+}
+
+.both-eyes {
+    display: flex;
+    align-items: end;
+    padding-top: 50px;
+}
+
+.homer-eye {
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.homer-eye-dot {
+    height: 8px;
+    width: 8px;
+    background-color: black;
+    border-radius: 50%;
+}
+
+.homer-ears-and-nose {
+    display: flex;
+    justify-content: center;
+    width: 130px;
+}
+
+.homer-ear {
+    height: 20px;
+    width: 20px;
+    background-color: var(--homer-yellow);
+    border-radius: 50%;
+}
+
+.homer-nose {
+    height: 16px;
+    width: 16px;
+    background-color: var(--homer-yellow);
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.426);
+    transform: translateY(-10px);
+    margin: 0 30px 0 30px;
+}
+
+.homer-mouth {
+    height: 80px;
+    width: 102px;
+    border-radius: 50%;
+    background-color: var(--homer-mouth);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.homer-mouth-line {
+    height: 5px;
+    width: 15px;
+    background-color: var(--homer-black);
+    border-radius: 2.5px;
+}
+
+.shirt-neck {
+    display: flex;
+    justify-content: center;
+    height: 30px;
+    /* transform: translateY(-10px); */
+}
+
+.neck-triangle-left {
+    clip-path: polygon(0 0, 0% 100%, 100% 100%);
+    background-color: white;
+    width: 60px;
+    height: 30px;
+}
+
+.neck-triangle-right {
+    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+    background-color: white;
+    width: 60px;
+    height: 30px;
+}
+
+.middle-head {
+    width: 86px;
+    height: 120px;
+    background-color: var(--homer-yellow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(190px);
+}
+
+.homer-shoulders {
+    height: 50px;
+    width: 220px;
+    transform: translateY(180px);
+    display: flex;
+    justify-content: center;
+    z-index: 100;
+}
+
+.homer-chest {
+    background-color: white;
+    width: 120px;
+    height: 50px;
+}
+
+.shoulder-left {
+    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+    background-color: white;
+    height: 50px;
+    width: 50px;
+}
+.shoulder-right {
+    clip-path: polygon(0 0, 0% 100%, 100% 100%);
+    background-color: white;
+    height: 50px;
+    width: 50px;
+}
+
+.homer-middle {
+    display: flex;
+    justify-content: center;
+    z-index: 20;
+}
+
+.homer-body {
+    clip-path: circle(50% at 50% 80%);
+    background-color: var(--homer-yellow);
+    height: 280px;
+    width: 280px;
+    transform: translateY(50px);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.body-t-shirt {
+    clip-path: circle(50% at 50% 75%);
+    background-color: white;
+    height: 230px;
+    width: 230px;
+}
+
+.homer-bottom {
+    width: auto;
+    height: auto;
+    z-index: 10;
+}
+
+.bottom-hips {
+    width: 230px;
+    height: 230px;
+    background-color: var(--homer-jeans);
+    border-radius: 50%;
+    transform: translateY(-120px);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.body-jeans {
+    width: 160px;
+    height: 200px;
+    transform: translateY(120px);
+    display: flex;
+    justify-content: space-around;
+}
+
+.homer-leg {
+    width: 79px;
+    height: 100%;
+    background-color: var(--homer-jeans);
+}
+
+.shoes {
+    display: flex;
+    justify-content: center;
+}
+
+.homer-shoe {
+    width: 100px;
+    height: 30px;
+    background-color: black;
+    /* transform: translateY(-50px); */
+    margin: 0 1px 0 1px;
+}
+
+.homer-shoe.left {
+    border-top-left-radius: 25px;
+}
+
+.homer-shoe.right {
+    border-top-right-radius: 25px;
+}
+
+.tavern-and-school {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: end;
+    align-items: center;
+    background-color: var(--general-backgrounds);
+    width: fit-content;
+    margin: 0;
+    padding: 0;
+    align-self: baseline;
+}
+
+.moe-tavern {
+    background-color: var(--general-backgrounds);
+    
+}
+
+.moe-building-background {
+    width: 420px;
+    height: 300px;
+    background-color: var(--moe-tavern-wall);
+}
+
+.moe-tavern-top {
+    width: 100%;
+    height: 30%;
+    background-color: var(--moe-tavern-wood);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 20;
+}
+
+.left-square {
+    height: 75%;
+    width: 15%;
+    background-color: var(--moe-tavern-wall);
+    overflow: hidden;
+}
+
+.left-diagonal {
+    height: 12px;
+    width: 120px;
+    background-color: var(--moe-tavern-wood);
+    transform: rotate(45deg) translateX(-20px);
+    transform-origin: 0;
+}
+
+.rectangle {
+    height: 75%;
+    width: 30%;
+    background-color: var(--moe-tavern-wall);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    /* overflow: hidden; */
+}
+
+.middle-diagonals {
+    clip-path: polygon(50% 0%, 100% 75%, 100% 100%, 0 100%, 0% 75%);
+    width: 100%;
+    height: 100%;
+    background-color: var(--moe-tavern-wood);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.middle-diagonals-triangle {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    width: 100%;
+    height: 75%;
+    background-color: var(--moe-tavern-wall);
+}
+
+.right-square {
+    height: 75%;
+    width: 15%;
+    background-color: var(--moe-tavern-wall);
+    overflow: hidden;
+}
+
+.right-diagonal {
+    height: 12px;
+    width: 120px;
+    background-color: var(--moe-tavern-wood);
+    transform: rotate(-45deg) translateX(-50px) translateY(40px);
+    transform-origin: 0;
+}
+
+.moe-tavern-middle {
+    height: 20%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    overflow: visible;
+    position: relative;
+    z-index: 100;
+}
+
+.moe-sign {
+    width: 32%;
+    height: 140%;
+    background-color: var(--moe-tavern-sign);
+    margin-bottom: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.moes-letters {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 70px;
+    transform: translateY(8px);
+}
+
+.moe-tavern-bottom {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 50%;
+}
+
+.tavern-window {
+    width: 25%;
+    height: 35%;
+    background-color: var(--moe-tavern-window-green);
+    border: 10px solid var(--moe-tavern-wood);
+    overflow: hidden;
+}
+
+.red-glasses {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    width: 180px;
+    height: 180px;
+    transform: rotate(45deg) translateX(-30px) translateY(12px);
+  }
+
+.individual-cells {
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+}
+
+.individual-cells-red {
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+    background-color: var(--moe-tavern-window-red);
+}
+
+.tavern-door {
+    width: 20%;
+    height: 100%;
+    background-color: var(--moe-tavern-door);
+    border: 10px solid var(--moe-tavern-wood);
+    border-bottom: none;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tavern-door-window {
+    width: 25px;
+    height: 25px;
+    background-color: #a2a5ad;
+    border-radius: 50%;
+    margin-top: 20px;
+}
+
+.tavern-door-middle {
+    width: 100%;
+    height: fit-content;
+    margin-top: 12px;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+.tavern-door-push {
+    width: 12px;
+    height: 24px;
+    border-radius: 12px 0 0 12px;
+    background-color: rgb(98, 98, 23);
+}
+
+@keyframes blink {
+    0% {
+        transform: rotatex(0deg);
+    }
+    22% {
+        transform: rotatex(0deg);
+    }
+    25% {
+        transform: rotatex(90deg);
+    }
+    28% {
+        transform: rotatex(0deg)
+    }
+    47% {
+        transform: rotatex(0deg);
+    }
+    50% {
+        transform: rotatex(90deg);
+    }
+    52% {
+        transform: rotatex(0deg);
+    }
+    72% {
+        transform: rotatex(0deg);
+    }
+    75% {
+        transform: rotatex(90deg);
+    }
+    78% {
+        transform: rotatex(0deg)
+    }
+    97% {
+        transform: rotatex(0deg);
+    }
+    99% {
+        transform: rotatex(90deg);
+    }
+    100% {
+        transform: rotatex(0deg);
+    }
+}
+
+.blink {
+    transform-origin: center;
+    animation-name: blink;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes blink-eye-dot {
+    0% {
+        transform: translateX(0px);
+    }
+    24% {
+        transform: translateX(0px);
+    }
+    25% {
+        transform: translateX(15px);
+    }
+    49% {
+        transform: translateX(15px);
+    }
+    50% {
+        transform: translateX(0px);
+    }
+    74% {
+        transform: translateX(0px);
+    }
+    75% {
+        transform: translateX(-15px);
+    }
+    99% {
+        transform: translateX(-15px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.blink-eye-dot {
+    transform-origin: center;
+    animation-name: blink-eye-dot;
+    animation-duration: 6.5s;
+    animation-iteration-count: infinite;
+}
+
+.school-building {
+    transform: scale(0.7);
+    width: fit-content;
+    background-color: var(--general-backgrounds);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.front-building-school {
+
+}
+
+.front-building-top {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    align-items: end;
+}
+
+.front-left-columns {
+    display: flex;
+    justify-content: baseline;
+    align-items: baseline;
+}
+
+.school-column-small {
+    width: 20px;
+    height: 200px;
+    background-color: var(--school-column);
+}
+
+.school-column-medium {
+    width: 20px;
+    height: 250px;
+    background-color: var(--school-column);
+    border-left: 1px solid rgb(156, 103, 182);
+}
+
+.school-column-tall {
+    width: 20px;
+    height: 300px;
+    background-color: var(--school-column);
+    border-left: 1px solid rgb(156, 103, 182);
+}
+
+.columns-inverted {
+    transform: scaleX(-1);
+}
+
+.front-center {
+    width: 120px;
+    height: 280px;
+    background-color: var(--school-wall-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    border-top: 10px solid var(--school-column);
+}
+
+.school-front-door {
+    width: 100%;
+    height: 90px;
+    background-color: rgba(175,103,78,255);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.school-front-door-glass {
+    width: 40%;
+    height: 80%;
+    background-color: var(--glass-color);
+}
+
+.school-front-sign {
+    width: 96%;
+    height: 65px;
+    background-color: var(--school-column);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.school-front-sign-letters {
+    width: 90%;
+    height: 90%;
+    background-color: var(--school-wall-color);
+    text-align: center;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    color: rgb(80, 43, 80);
+}
+
+.school-front-window-bottom {
+    width: 60px;
+    height: 40px;
+    background-color: var(--school-column);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.school-front-window-bottom-glass {
+    width: 15%;
+    height: 80%;
+    background-color: var(--glass-color);
+}
+
+.school-front-window-top {
+    width: 60px;
+    height: 30px;
+    border-radius: 30px 30px 0 0;
+    background-color: var(--school-column);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.school-front-window-top-glass {
+    width: 50px;
+    height: 25px;
+    border-radius: 25px 25px 0 0;
+    background-color: var(--glass-color);
+}
+
+.internal-classrooms {
+    display: flex;
+    justify-content: baseline;
+    align-items: end;
+}
+
+.internal-classrooms-building {
+    height: 180px;
+    width: 160px;
+    background-color: var(--school-wall-color);
+}
+
+.internal-classrooms-first-floor, .internal-classrooms-ground-floor {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.school-regular-window {
+    background-color: var(--school-column);
+    margin-top: 20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.regular-window-glass {
+    width: 80%;
+    height: 35%;
+    background-color: var(--glass-color);
+    display: flex;
+    justify-content: center;
+}
+
+.regular-window-bar {
+    width: 20%;
+    height: 100%;
+    background-color: var(--school-column);
+}
+
+.internal-classrooms-column {
+    width: 20px;
+    height: 200px;
+    background-color: var(--school-column);
+}
+
+external-classrooms {
+    height: 90px;
+    width: 130px;
+    background-color: var(--school-wall-color);
+    display: flex;
+    justify-content: space-around;
+}

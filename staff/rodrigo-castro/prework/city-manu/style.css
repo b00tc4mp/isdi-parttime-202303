@@ -1,0 +1,112 @@
+body {
+    background-color: #222;
+    display: flex;
+    align-items: end;
+    gap: 10px;
+}
+
+.building {
+    width: 100px;
+    height: 600px;
+    /* border: 2px dashed red; */
+    background-color: gray;
+}
+
+.building-floor {
+    height: 60px;
+    /* border: 2px dashed yellow; */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.building-window {
+    height: 25px;
+    width: 20px;
+    /* border: 2px dashed red; */
+    background-color: skyblue;
+}
+
+.building-ground-floor {
+    align-items: end;
+}
+
+.building-door {
+    height: 40px;
+    width: 20px;
+    /* border: 2px dashed red; */
+    background-color: lightgray;
+}
+
+.car {
+    width: 50px;
+    height: 40px;
+    /* border: 2px solid yellow; */
+}
+
+.car-top {
+    height: 15px;
+    /* border: 1px solid greenyellow; */
+    box-sizing: border-box;
+    display: flex;
+    align-items: end;
+}
+
+.car-mid {
+    height: 15px;
+    /* border: 1px solid dodgerblue; */
+    box-sizing: border-box;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.car-bottom {
+    height: 10px;
+    /* border: 1px solid dodgerblue; */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+}
+
+.car-mirror {
+    width: 10px;
+    height: 10px;
+    /* border: 2px solid yellow; */
+    background-color: red;
+}
+
+.car-window {
+    width: 45px;
+    height: 15px;
+    box-sizing: border-box;
+    background-color: skyblue;
+}
+
+.car-light {
+    width: 10px;
+    height: 10px;
+    background-color: yellow;
+}
+
+.car-wheel {
+    width: 10px;
+    height: 10px;
+    background-color: rgb(82, 82, 82);
+}
+
+.building-grid {
+    background-color: rgb(82, 82, 82);
+    display: grid;
+    grid-template-columns: (repeat(3, 1fr));
+    grid-gap: 100px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+.building-grid-inside {
+    grid-column: 1/3;
+    grid-row: 1/3;
+    background-color: rgb(82, 82, 82);
+}

@@ -1,0 +1,95 @@
+
+
+.medium {
+    padding: 5px 22px;
+    border-width: 1px;
+    border-radius: 2px;
+    font-size: small;
+}
+
+.grey {
+    background-color: rgba(234,234,234,255);
+    border-color: rgba(225,225,225,255);
+}
+
+.grey-inverted {
+    background-color: #FFF;
+    color: rgba(225,225,225,255);
+    border-color:rgba(225,225,225,255);
+}
+
+.blue {
+    background-color: rgba(92,157,237,255);
+    color: #FFF;
+    border-color:rgba(88,153,233,255);
+}
+
+.blue-inverted {
+    background-color: #FFF;
+    color: rgba(88,153,233,255);
+    border-color:rgba(88,153,233,255);
+}
+
+.green {
+    background-color:rgba(66,203,110,255);
+    color: #FFF;
+    border-color:rgba(64,199,106,255);
+}
+
+.green-inverted {
+    background-color:#FFF;
+    color: rgba(64,199,106,255);
+    border-color:rgba(64,199,106,255);
+}
+
+.cyan {
+    background-color:rgba(78,194,231,255);
+    color: #FFF;
+    border-color:rgba(74,190,228,255);
+}
+
+.cyan-inverted {
+    background-color: #FFF;
+    color:rgba(74,190,228,255);
+    border-color:rgba(74,190,228,255);
+}
+
+.yellow {
+    background-color:rgba(252,206,84,255);
+    color: #FFF;
+    border-color:rgba(250,201,79,255);
+}
+
+.yellow-inverted {
+    background-color:#FFF;
+    color: rgba(250,201,79,255);
+    border-color:rgba(250,201,79,255);
+}
+
+.red {
+    background-color:rgba(237,85,100,255);
+    color: #FFF;
+    border-color:rgba(232,81,95,255);
+}
+
+.red-inverted {
+    background-color:#FFF;
+    color: rgba(232,81,95,255);
+    border-color:rgba(232,81,95,255);
+}
+
+.rounded {
+    border-radius: 20px;
+}
+
+.small {
+    font-size: 14px;
+    padding: 3px 15px;
+    border-radius: 12px;
+}
+
+.large {
+    font-size: x-large;
+    padding: 8px 30px;
+    border-radius: 14px;
+}
