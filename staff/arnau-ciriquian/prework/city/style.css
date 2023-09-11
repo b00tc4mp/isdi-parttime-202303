@@ -1,0 +1,1231 @@
+body {
+    background-color: black;
+}
+
+.canvas {
+    position: relative;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    gap: 10px;
+    width: 750px;
+    height: 400px;
+    overflow: hidden;
+}
+
+.sky {
+    width: 100%;
+    height: 100%;
+    /*background-image: radial-gradient(circle at top, rgb(250, 250, 250), rgb(2, 22, 76) 10%, rgb(0, 0, 0) 70%);*/
+    background-image: radial-gradient(circle at top, rgb(250, 250, 250), rgb(165, 244, 250) 10%, rgb(23, 169, 248) 70%);
+    display: flex;
+    justify-content: center;
+}
+
+.sun {
+    /*background-image: radial-gradient(circle at 60%, rgb(255, 255, 255), rgb(116, 157, 162) 70%);*/
+    background-image: radial-gradient(circle at 60%, rgb(255, 255, 255), rgb(253, 255, 123) 70%);
+    width: 80px;
+    height: 40px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.background-mountains-farthest {
+    position: absolute;
+    width: 750px;
+    height: 400px;
+    background-image: linear-gradient(to bottom, rgba(42, 33, 27, 0.709), rgba(66, 62, 57, 0.437) 100%);
+    clip-path: polygon(0% 49%, 4% 41%, 7% 35%, 10% 31%, 12% 30%,  14% 32%, 15% 36%, 16% 45%, 18% 51%, 19% 57%, 21% 63%, 24% 68%, 28% 64%, 34% 62%, 42% 58%, 47% 56%, 50% 55%, 52% 57%, 58% 52%, 64% 50%, 66% 45%, 71% 41%, 74% 39%, 78% 41%, 81% 46%, 84% 49%, 88% 50%, 90% 54%, 94% 59%, 96% 67%, 98% 74%, 100% 77%, 100% 100%, 0% 100%, 0% 100%, 0% 100%);
+}
+
+.background-mountains-closest {
+    position: absolute;
+    width: 750px;
+    height: 200px;
+    background-image: linear-gradient(to bottom, rgba(42, 33, 27, 0.709), rgba(0,0,0,0) 100%);
+    clip-path: polygon(0% 68%, 2% 64%, 4% 61%, 5% 63%, 8% 64%, 8% 64%, 11% 59%, 13% 54%, 13% 54%, 14% 47%, 14% 47%, 17% 40%, 17% 40%, 20% 40%, 20% 40%, 23% 42%, 23% 42%, 26% 45%, 26% 45%, 29% 41%, 29% 41%, 32% 38%, 32% 38%, 34% 38%, 34% 38%, 36% 40%, 36% 40%, 39% 45%, 41% 54%, 44% 57%, 44% 57%, 46% 56%, 46% 56%, 48% 50%, 48% 50%, 50% 47%, 50% 47%, 58% 48%, 58% 48%, 61% 48%, 61% 48%, 63% 51%, 63% 51%, 66% 56%, 66% 56%, 69% 49%, 71% 40%, 75% 40%, 75% 40%, 77% 45%, 77% 45%, 79% 53%, 79% 53%, 83% 59%, 83% 59%, 87% 58%, 87% 58%, 90% 63%, 90% 63%, 93% 63%, 93% 63%, 97% 67%, 97% 67%, 98% 75%, 98% 75%, 99% 84%, 99% 84%, 100% 90%, 100% 90%, 100% 100%, 100% 100%, 0% 100%, 0% 100%);
+}
+
+.background-buildings {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+    width: 750px;
+    height: 250px;
+    /*border: 1px dotted palegoldenrod;*/
+}
+
+.bg-b-one {
+    width: 90px;
+    height: 200px;
+    display: flex;
+}
+
+.bg-b-clear{
+    height: 200px;
+    width: 30px;
+    background-image: linear-gradient(to top right, rgb(158, 181, 150) 30%, rgb(191, 205, 188) 90%);
+}
+
+.bg-b-dark {
+    height: 200px;
+    width: 60px;
+    background-image: linear-gradient(to top right, rgb(115, 114, 153) 30%, rgb(133, 103, 140) 90%);
+    clip-path: polygon(0 55%, 53% 55%, 53% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.bg-b-two {
+    width: 60px;
+    height: 150px;
+    /*border: 1px dotted rgb(150, 140, 31);*/
+
+}
+
+.bg-b-three {
+    width: 60px;
+    height: 150px;
+    /*border: 1px dotted rgb(150, 140, 31);*/
+
+}
+
+.bg-b-four {
+    width: 60px;
+    height: 150px;
+    /*border: 1px dotted rgb(150, 140, 31);*/
+    clip-path: polygon(0 0, 50% 0, 50% 55%, 100% 55%, 100% 100%, 0 100%);
+
+}
+
+.bg-b-five {
+    width: 200px;
+    height: 200px;
+}
+
+.bg-b-five-tall {
+    position: absolute;
+    height: 100%;
+    width: 60px;
+    right: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bg-b-five-tall-main {
+    height: 180px;
+    width: 100%;
+    display: flex;
+}
+
+.bg-b-five-tall-clear {
+    height: 180px;
+    width: 60%;
+    background-image: linear-gradient(to top right, rgb(158, 181, 150) 30%, rgb(191, 205, 188) 90%);
+}
+
+.bg-b-five-tall-roof {
+    height: 5px;
+    width: 70%;
+    background-image: linear-gradient(to right, rgb(155, 159, 153) 70%, rgb(90, 91, 90) 75%);
+}
+
+.bg-b-five-tall-dark {
+    height: 180px;
+    width: 40%;
+    background-image: linear-gradient(to top right, rgb(115, 114, 153) 30%, rgb(133, 103, 140) 90%);
+}
+
+.bg-b-five-mid {
+    position: absolute;
+    height: 60%;
+    width: 60px;
+    bottom: 0%;
+    right: 16%;
+    background-color: rgb(75, 146, 208);
+}
+
+.bg-b-five-short {
+    position: absolute;
+    height: 40%;
+    width: 70px;
+    bottom: 0%;
+    right: 9%;
+    background-color: rgb(46, 77, 104);
+}
+
+
+
+
+
+.bg-b-special {
+    width: 120px;
+    height: 250px;
+    display: flex;
+}
+
+.bg-e-clear-side {
+    width: 60px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.bg-e-clear-main {
+    width: 60px;
+    height: 230px;
+    background-image: linear-gradient(to top right, rgb(182, 201, 175) 30%, rgb(229, 235, 228) 90%);
+    display: flex;
+    flex-direction: column;
+}
+
+.bg-e-dark-side {
+    width: 60px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: end;
+}
+
+.bg-e-main {
+    width: 60px;
+    height: 200px;
+    background-image: linear-gradient(to bottom left, rgb(182, 201, 175), rgb(84, 105, 80));
+    clip-path: polygon(0% 0%, 17% 6%, 31% 13%, 47% 20%, 63% 29%, 78% 39%, 89% 49%, 100% 61%, 100% 100%, 0% 100%);
+}
+
+.bg-e-top {
+    width: 60px;
+    height: 30px;
+    clip-path: polygon(0% 0%, 0% 100%, 9% 70%, 18% 49%, 30% 29%, 44% 12%, 59% 0%);
+    background-color: rgb(123, 151, 113);
+}
+
+.bg-e-antenna {
+    width: 40px;
+    height: 20px;
+}
+
+.bg-e-dark-top {
+    width: 30px;
+    height: 30px;
+    clip-path: polygon(100% 0%, 39% 0%, 21% 24%, 9% 50%, 2% 74%, 0% 100%, 100% 100%);
+    background-color: rgb(123, 151, 113);
+}
+
+.bg-e-dark-mid {
+    width: 30px;
+    height: 100px;
+    background-color: rgb(110, 130, 105);
+}
+
+.bg-e-dark-bot {
+    width: 60px;
+    height: 100px;
+}
+
+.bg-e-antenna-top {
+    width: 40px;
+    height: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+}
+
+.bg-e-antenna-bot {
+    width: 40px;
+    height: 10px;
+    background-image: linear-gradient(to bottom, rgb(187, 187, 187), rgb(144, 144, 144));
+}
+
+.bg-e-antenna-small {
+    width: 2px;
+    height: 5px;
+    background-image: linear-gradient(to bottom, rgb(187, 187, 187), rgb(144, 144, 144));
+}
+
+.bg-e-antenna-big {
+    width: 2px;
+    height: 10px;
+    background-image: linear-gradient(to bottom, rgb(187, 187, 187), rgb(144, 144, 144));
+}
+
+
+
+
+
+.building-empire {
+    height: 400px;
+    width: 50px;
+    position: absolute;
+    left: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+}
+
+.building-emp-floor {
+    box-sizing: border-box;
+    
+    width: 100%;
+    display: flex;
+}
+
+.thick-top {
+    height: 55px;
+    width: 35px;
+}
+
+.thick-bot {
+    height: 55px;
+    width: 50px;
+}
+
+.medium {
+    height: 25px;
+    width: 20px;
+}
+
+.thin {
+    height: 5px;
+    display: flex;
+}
+
+.five {
+    width: 15px;
+}
+
+.four {
+    width: 25px;
+}
+
+.three {
+    width: 30px;
+}
+
+.two {
+    width: 40px;
+}
+
+.one {
+    width: 45px;
+}
+
+.antenna-top {
+    height: 20px;
+    width: 3px;
+    background-image: linear-gradient(to left, rgb(10, 10, 10), rgb(129, 129, 129) 50%);
+}
+
+.antenna-bot {
+    height: 30px;
+    width: 10px;
+}
+
+.ground {
+    height: 20px;
+    width: 50px;
+}
+
+.building-emp-left {
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.emp-clear-side {
+    background-color: rgb(255, 237, 196);
+}
+
+.emp-dark-side {
+    background-color: rgb(51, 64, 159);
+}
+
+.emp-clear-side-antenna {
+    background-color: rgb(67, 195, 255);
+}
+
+.emp-dark-side-antenna {
+    background-color: rgb(53, 38, 117);
+}
+
+.building-emp-right {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.emp-window-left {
+    height: 5px;
+    background-color: rgb(67, 195, 255);
+    box-sizing: border-box;
+}
+
+.emp-window-right {
+    height: 5px;
+    background-color: rgb(53, 38, 117);
+}
+
+.emp-thin-clear-side-first {
+    height: 100%;
+    width: 60%;
+    background-image: linear-gradient(to top, rgb(126, 126, 126),rgb(174, 174, 174) 20%);
+}
+
+.emp-thin-dark-side-first {
+    height: 100%;
+    width: 40%;
+    background-image: linear-gradient(to top, rgb(69, 69, 69),rgb(81, 81, 81) 20%);
+}
+
+.emp-thin-clear-side-second {
+    height: 100%;
+    width: 55%;
+    background-image: linear-gradient(to top, rgb(126, 126, 126),rgb(174, 174, 174) 20%);
+}
+
+.emp-thin-dark-side-second {
+    height: 100%;
+    width: 45%;
+    background-image: linear-gradient(to top, rgb(69, 69, 69),rgb(81, 81, 81) 20%);
+}
+
+.emp-top-special-window-left {
+    position: absolute;
+    background-color: rgb(54, 163, 214);
+    width: 10px;
+    height: 55px;
+    box-sizing: border-box;
+    left: 25%;
+}
+
+.emp-especial-left-border {
+    width: 2px;
+    background-color: rgb(53, 38, 117);
+    height: 55px;
+    box-sizing: border-box;
+}
+
+.emp-top-special-window-right {
+    position: absolute;
+    background-color: rgb(47, 35, 103);
+    width: 5px;
+    height: 55px;
+    box-sizing: border-box;
+    left: 67%;
+    display: flex;
+    justify-content: end;
+}
+
+.emp-especial-right-border {
+    width: 1px;
+    background-color: rgb(132, 125, 107);
+    height: 55px;
+    box-sizing: border-box;
+}
+
+.emp-mid-special-window-left {
+    position: absolute;
+    background-color: rgb(54, 163, 214);
+    width: 15px;
+    height: 55px;
+    box-sizing: border-box;
+    left: 25%;
+}
+
+.emp-mid-special-window-right {
+    position: absolute;
+    background-color: rgb(47, 35, 103);
+    width: 10px;
+    height: 55px;
+    box-sizing: border-box;
+    left: 70%;
+    display: flex;
+    justify-content: end;
+}
+
+.emp-mid-special-short-window-left {
+    position: absolute;
+    background-color: rgb(54, 163, 214);
+    width: 15px;
+    height: 25px;
+    box-sizing: border-box;
+    left: 25%;
+}
+
+.emp-mid-special-short-window-right {
+    position: absolute;
+    background-color: rgb(47, 35, 103);
+    width: 10px;
+    height: 25px;
+    box-sizing: border-box;
+    left: 70%;
+    display: flex;
+    justify-content: end;
+}
+
+.emp-especial-left-short-border {
+    width: 2px;
+    background-color: rgb(53, 38, 117);
+    height: 25px;
+    box-sizing: border-box;
+}
+
+.emp-especial-right-short-border {
+    width: 1px;
+    background-color: rgb(132, 125, 107);
+    height: 25px;
+    box-sizing: border-box;
+}
+
+.emp-special-window-left {
+    background-color: rgb(255, 237, 196)
+}
+
+.emp-special-clear-side {
+    background-color: rgb(67, 195, 255);
+}
+
+.emp-special-window-right {
+    background-color: rgb(51, 64, 159);
+}
+
+.emp-special-dark-side {
+    background-color: rgb(53, 38, 117);
+}
+
+
+
+
+
+
+.building-residential {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    right: 20%;
+    justify-content: end;
+}
+
+.building-res-roof {
+    box-sizing: border-box;
+    width: 90%;
+    height: 5px;
+    display: flex;
+}
+
+.res-roof-antenna {
+    width: 90%;
+    height: 10px;
+    display: flex;
+}
+
+.roof-clear-side {
+    width: 72%;
+    height: 5px;
+    background-image: linear-gradient(to top, rgb(126, 126, 126),rgb(174, 174, 174) 20%);
+}
+
+.roof-dark-side {
+    width: 28%;
+    height: 5px;
+    background-image: linear-gradient(to top, rgb(69, 69, 69),rgb(81, 81, 81) 20%);
+}
+
+.res-antenna {
+    width: 85%;
+    height: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.res-antenna-box {
+    width: 20px;
+    height: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.res-antenna-box-bot {
+    height: 8px;
+    width: 100%;
+    background-image: linear-gradient(to left, rgb(37, 21, 41),rgb(101, 93, 100) 30%);
+}
+
+.res-antenna-box-top {
+    height: 2px;
+    width: 50%;
+    background-image: linear-gradient(to left, rgb(52, 34, 56),rgb(129, 126, 129) 30%);
+}
+
+.building-res-floor {
+    box-sizing: border-box;
+    width: 100%;
+    height: 6px;
+    display: flex;
+}
+
+.floor-clear-side {
+    height: 100%;
+    width: 72%;
+    background-image: linear-gradient(to bottom, rgb(128, 137, 110),rgb(70, 75, 58) 40%);
+}
+
+.floor-dark-side {
+    height: 100%;
+    width: 28%;
+    background-image: linear-gradient(to bottom, rgb(55, 59, 48),rgb(35, 38, 29) 40%);
+}
+
+.window-wall {
+    width: 95%;
+    height: 6px;
+    display: flex;
+}
+
+.window-wall-clear-side {
+    height: 100%;
+    width: 70%;
+    background-image: linear-gradient(to bottom, rgb(83, 79, 84),rgb(153, 140, 163) 40%);
+    display: flex;
+    justify-content: space-around;
+}
+
+.window-wall-dark-side {
+    height: 100%;
+    width: 30%;
+    background-image: linear-gradient(to bottom, rgb(41, 26, 41),rgb(68, 54, 75) 40%);
+}
+
+.window-wall-window {
+    height: 100%;
+    width: 5%;
+    background-image: linear-gradient(to bottom left, rgb(1, 97, 120), rgb(81, 217, 255));
+}
+
+.window-wall-door {
+    height: 100%;
+    width: 3%;
+    background-image: linear-gradient(to bottom, rgb(10, 10, 10), rgb(58, 61, 61) 40%);
+}
+
+
+
+
+
+.building-residential-tall {
+    position: absolute;
+    width: 150px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 12%;
+    justify-content: end;
+}
+
+.building-res-tall-roof-green {
+    width: 90%;
+    height: 10px;
+    display: flex;
+    justify-content: end;
+}
+
+.res-tall-plants {
+    width: 40%;
+    height: 100%;
+    background-image: radial-gradient(circle at top, rgb(144, 189, 93) 30%,rgb(20, 108, 5));
+    clip-path: polygon(0% 100%, 0% 75%, 2% 56%, 6% 44%, 9% 50%, 10% 61%, 11% 74%, 12% 61%, 14% 43%, 15% 30%, 17% 24%, 18% 33%, 20% 49%, 21% 42%, 22% 50%, 23% 65%, 25% 72%, 27% 58%, 27% 39%, 30% 27%, 32% 21%, 35% 26%, 36% 43%, 38% 33%, 42% 26%, 44% 31%, 45% 46%, 46% 64%, 46% 83%, 49% 76%, 51% 66%, 51% 49%, 53% 34%, 55% 33%, 58% 36%, 59% 51%, 60% 68%, 61% 58%, 63% 35%, 64% 23%, 66% 19%, 69% 23%, 72% 36%, 73% 53%, 74% 43%, 75% 25%, 78% 10%, 81% 3%, 84% 2%, 87% 6%, 89% 19%, 90% 39%, 91% 60%, 91% 79%, 92% 67%, 95% 63%, 98% 68%, 100% 89%, 100% 100%);
+}
+
+
+
+
+.street-back {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+}
+
+.street-front-left {
+    position: absolute;
+    width: 35%;
+    height: 50px;
+    left: 0%;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+}
+
+.street-front-right {
+    position: absolute;
+    width: 35%;
+    height: 50px;
+    right: 0%;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+}
+
+.street-front-middle {
+    position: absolute;
+    width: 30%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+}
+
+.tree-one {
+    width: 25px;
+    height: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trunk-one {
+    height: 10px;
+    width: 2px;
+}
+
+.trunk-one-front-left {
+    background-image: linear-gradient(to left bottom, rgb(48, 34, 14), rgb(164, 146, 83));
+}
+
+.trunk-one-front-right {
+    background-image: linear-gradient(to right bottom, rgb(48, 34, 14), rgb(164, 146, 83));
+}
+
+.trunk-one-front-middle {
+    background-image: linear-gradient(to bottom, rgb(48, 34, 14), rgb(164, 146, 83));
+}
+
+.trunk-one-back {
+    height: 10px;
+    width: 2px;
+    background-image: linear-gradient(to bottom, rgb(48, 34, 14), rgb(164, 146, 83));
+}
+
+.foliage-one {
+    width: 25px;
+    height: 25px;
+    clip-path: polygon(27% 100%, 18% 95%, 10% 89%, 6% 80%, 3% 68%, 5% 54%, 4% 43%, 3% 35%, 6% 25%, 12% 14%, 26% 7%, 40% 5%, 49% 11%, 60% 7%, 76% 7%, 89% 12%, 93% 24%, 92% 42%, 95% 51%, 97% 60%, 97% 72%, 93% 82%, 85% 91%, 73% 98%, 66% 100%);
+}
+
+.foliage-one-front-left {
+    background-image: radial-gradient(circle at top right, rgb(144, 189, 93),rgb(20, 108, 5));
+}
+
+.foliage-one-front-right {
+    background-image: radial-gradient(circle at top left, rgb(144, 189, 93),rgb(20, 108, 5));
+}
+
+.foliage-one-front-midle {
+    background-image: radial-gradient(circle at top, rgb(144, 189, 93),rgb(20, 108, 5));
+}
+
+.foliage-one-back {
+    width: 25px;
+    height: 25px;
+    clip-path: polygon(27% 100%, 18% 95%, 10% 89%, 6% 80%, 3% 68%, 5% 54%, 4% 43%, 3% 35%, 6% 25%, 12% 14%, 26% 7%, 40% 5%, 49% 11%, 60% 7%, 76% 7%, 89% 12%, 93% 24%, 92% 42%, 95% 51%, 97% 60%, 97% 72%, 93% 82%, 85% 91%, 73% 98%, 66% 100%);
+    background-image: radial-gradient(circle at top, rgb(107, 143, 67),rgb(14, 71, 4));
+}
+
+.tree-two {
+    width: 35px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trunk-two {
+    height: 10px;
+    width: 3px;
+}
+
+.trunk-two-front-left {
+    background-image: linear-gradient(to left bottom, rgb(48, 34, 15), rgb(167, 148, 87));
+}
+
+.trunk-two-front-right {
+    background-image: linear-gradient(to right bottom, rgb(48, 34, 15), rgb(167, 148, 87));
+}
+
+.trunk-two-front-middle {
+    background-image: linear-gradient(to bottom, rgb(48, 34, 15), rgb(167, 148, 87));
+}
+
+.trunk-two-back {
+    height: 10px;
+    width: 3px;
+    background-image: linear-gradient(to bottom, rgb(26, 18, 8), rgb(108, 94, 50));
+}
+
+.foliage-two {
+    width: 35px;
+    height: 40px;
+    clip-path: polygon(39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 25% 93%, 25% 93%, 25% 93%, 25% 93%, 25% 93%, 25% 91%, 25% 93%, 25% 93%, 25% 95%, 14% 79%, 14% 79%, 14% 79%, 14% 79%, 14% 77%, 14% 79%, 14% 79%, 14% 79%, 14% 79%, 8% 60%, 8% 60%, 8% 60%, 8% 60%, 8% 60%, 8% 58%, 8% 60%, 8% 60%, 8% 60%, 6% 42%, 6% 44%, 6% 44%, 6% 44%, 6% 43%, 6% 44%, 6% 44%, 6% 44%, 6% 44%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 31% 13%, 31% 13%, 31% 13%, 31% 13%, 31% 13%, 31% 15%, 31% 15%, 31% 15%, 31% 15%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 76% 12%, 76% 12%, 76% 12%, 76% 12%, 76% 12%, 76% 12%, 76% 14%, 76% 14%, 76% 14%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 50%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 67%, 99% 69%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 91%, 79% 93%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%);
+}
+
+.foliage-two-front-left {
+    background-image: radial-gradient(circle at top right, rgb(68, 185, 99),rgb(16, 85, 52));
+}
+
+.foliage-two-front-right {
+    background-image: radial-gradient(circle at top left, rgb(68, 185, 99),rgb(16, 85, 52));
+}
+
+.foliage-two-front-middle {
+    background-image: radial-gradient(circle at top, rgb(68, 185, 99),rgb(16, 85, 52));
+}
+
+.foliage-two-back {
+    width: 35px;
+    height: 40px;
+    background-image: radial-gradient(circle at top, rgb(46, 132, 69),rgb(5, 47, 27));
+    clip-path: polygon(39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 25% 93%, 25% 93%, 25% 93%, 25% 93%, 25% 93%, 25% 91%, 25% 93%, 25% 93%, 25% 95%, 14% 79%, 14% 79%, 14% 79%, 14% 79%, 14% 77%, 14% 79%, 14% 79%, 14% 79%, 14% 79%, 8% 60%, 8% 60%, 8% 60%, 8% 60%, 8% 60%, 8% 58%, 8% 60%, 8% 60%, 8% 60%, 6% 42%, 6% 44%, 6% 44%, 6% 44%, 6% 43%, 6% 44%, 6% 44%, 6% 44%, 6% 44%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 31% 13%, 31% 13%, 31% 13%, 31% 13%, 31% 13%, 31% 15%, 31% 15%, 31% 15%, 31% 15%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 76% 12%, 76% 12%, 76% 12%, 76% 12%, 76% 12%, 76% 12%, 76% 14%, 76% 14%, 76% 14%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 50%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 67%, 99% 69%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 91%, 79% 93%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%);
+}
+
+.tree-three {
+    width: 30px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trunk-three {
+    height: 12px;
+    width: 2px;
+}
+
+.trunk-three-front-left {
+    background-image: linear-gradient(to left bottom, rgb(82, 44, 32), rgb(192, 147, 75));
+}
+
+.trunk-three-front-right {
+    background-image: linear-gradient(to right bottom, rgb(82, 44, 32), rgb(192, 147, 75));
+}
+
+.trunk-three-front-middle {
+    background-image: linear-gradient(to bottom, rgb(82, 44, 32), rgb(192, 147, 75));
+}
+
+.trunk-three-back {
+    height: 12px;
+    width: 2px;
+    background-image: linear-gradient(to bottom, rgb(42, 21, 14), rgb(117, 86, 37));
+}
+
+.foliage-three {
+    width: 30px;
+    height: 28px;
+    clip-path: polygon(30% 100%, 30% 100%, 30% 100%, 30% 100%, 30% 100%, 14% 97%, 14% 97%, 14% 97%, 14% 97%, 14% 97%, 6% 86%, 6% 86%, 6% 86%, 6% 86%, 6% 86%, 3% 73%, 3% 73%, 3% 73%, 3% 73%, 3% 75%, 1% 56%, 1% 56%, 1% 56%, 1% 56%, 1% 56%, 5% 39%, 5% 39%, 5% 39%, 5% 39%, 5% 39%, 16% 21%, 16% 21%, 16% 21%, 16% 21%, 16% 21%, 32% 9%, 32% 9%, 32% 9%, 32% 9%, 32% 9%, 52% 5%, 52% 5%, 52% 5%, 52% 5%, 52% 5%, 69% 9%, 69% 8%, 69% 9%, 69% 9%, 69% 9%, 89% 26%, 89% 26%, 89% 26%, 89% 26%, 89% 26%, 98% 41%, 98% 40%, 98% 41%, 98% 41%, 98% 41%, 100% 58%, 100% 60%, 100% 60%, 100% 60%, 100% 60%, 97% 80%, 97% 79%, 97% 80%, 97% 80%, 97% 80%, 90% 92%, 90% 92%, 90% 91%, 90% 92%, 90% 92%, 73% 100%, 73% 100%, 73% 100%, 73% 99%, 73% 100%);
+}
+
+.foliage-three-front-left {
+    background-image: radial-gradient(circle at top right, rgb(213, 159, 88),rgb(122, 50, 81));
+}
+
+.foliage-three-front-right {
+    background-image: radial-gradient(circle at top left, rgb(213, 159, 88),rgb(122, 50, 81));
+}
+
+.foliage-three-front-middle {
+    background-image: radial-gradient(circle at top, rgb(213, 159, 88),rgb(122, 50, 81));
+}
+
+.foliage-three-back {
+    width: 30px;
+    height: 28px;
+    clip-path: polygon(30% 100%, 30% 100%, 30% 100%, 30% 100%, 30% 100%, 14% 97%, 14% 97%, 14% 97%, 14% 97%, 14% 97%, 6% 86%, 6% 86%, 6% 86%, 6% 86%, 6% 86%, 3% 73%, 3% 73%, 3% 73%, 3% 73%, 3% 75%, 1% 56%, 1% 56%, 1% 56%, 1% 56%, 1% 56%, 5% 39%, 5% 39%, 5% 39%, 5% 39%, 5% 39%, 16% 21%, 16% 21%, 16% 21%, 16% 21%, 16% 21%, 32% 9%, 32% 9%, 32% 9%, 32% 9%, 32% 9%, 52% 5%, 52% 5%, 52% 5%, 52% 5%, 52% 5%, 69% 9%, 69% 8%, 69% 9%, 69% 9%, 69% 9%, 89% 26%, 89% 26%, 89% 26%, 89% 26%, 89% 26%, 98% 41%, 98% 40%, 98% 41%, 98% 41%, 98% 41%, 100% 58%, 100% 60%, 100% 60%, 100% 60%, 100% 60%, 97% 80%, 97% 79%, 97% 80%, 97% 80%, 97% 80%, 90% 92%, 90% 92%, 90% 91%, 90% 92%, 90% 92%, 73% 100%, 73% 100%, 73% 100%, 73% 99%, 73% 100%);
+
+    background-image: radial-gradient(circle at top, rgb(146, 102, 45),rgb(55, 18, 34));
+}
+
+.tree-four {
+    width: 35px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trunk-four {
+    height: 10px;
+    width: 3px;
+}
+
+.trunk-four-front-left {
+    background-image: linear-gradient(to left bottom, rgb(74, 53, 25), rgb(174, 150, 72));
+}
+
+.trunk-four-front-right {
+    background-image: linear-gradient(to right bottom, rgb(74, 53, 25), rgb(174, 150, 72));
+}
+
+.trunk-four-front-middle {
+    background-image: linear-gradient(to bottom, rgb(74, 53, 25), rgb(174, 150, 72));
+}
+
+.trunk-four-back {
+    height: 10px;
+    width: 3px;
+    background-image: linear-gradient(to bottom, rgb(42, 28, 10), rgb(88, 74, 28));
+}
+
+.foliage-four {
+    width: 35px;
+    height: 40px;
+    clip-path: polygon(38% 100%, 38% 100%, 38% 100%, 38% 100%, 38% 100%, 38% 100%, 38% 100%, 21% 98%, 21% 97%, 21% 98%, 21% 98%, 21% 98%, 21% 98%, 21% 98%, 10% 89%, 10% 89%, 10% 88%, 10% 91%, 10% 91%, 10% 91%, 10% 91%, 2% 79%, 2% 79%, 2% 79%, 2% 78%, 2% 79%, 2% 79%, 2% 79%, 1% 64%, 1% 64%, 1% 62%, 1% 64%, 1% 64%, 1% 64%, 1% 64%, 8% 51%, 8% 51%, 8% 51%, 8% 49%, 8% 52%, 8% 52%, 8% 52%, 14% 47%, 14% 47%, 14% 46%, 14% 47%, 14% 46%, 14% 47%, 14% 47%, 8% 42%, 8% 42%, 8% 42%, 8% 41%, 8% 42%, 8% 42%, 8% 42%, 5% 35%, 5% 35%, 5% 35%, 5% 35%, 5% 34%, 5% 37%, 5% 37%, 3% 24%, 3% 24%, 3% 24%, 3% 24%, 3% 24%, 3% 24%, 3% 24%, 7% 15%, 7% 15%, 7% 15%, 7% 15%, 7% 14%, 7% 15%, 7% 15%, 15% 8%, 15% 8%, 15% 8%, 15% 8%, 15% 8%, 15% 8%, 15% 10%, 30% 4%, 30% 4%, 30% 4%, 30% 4%, 30% 4%, 30% 4%, 30% 4%, 47% 2%, 47% 2%, 47% 2%, 47% 2%, 47% 2%, 47% 2%, 47% 2%, 56% 6%, 56% 6%, 56% 6%, 56% 6%, 56% 6%, 56% 6%, 56% 6%, 68% 15%, 68% 15%, 68% 15%, 68% 15%, 68% 15%, 68% 15%, 68% 15%, 75% 13%, 75% 13%, 75% 13%, 75% 13%, 75% 13%, 75% 13%, 75% 13%, 90% 15%, 90% 15%, 90% 15%, 90% 15%, 90% 15%, 90% 16%, 90% 16%, 96% 23%, 96% 23%, 96% 23%, 96% 23%, 96% 23%, 96% 23%, 96% 23%, 99% 33%, 99% 33%, 99% 33%, 99% 33%, 99% 33%, 99% 33%, 99% 33%, 96% 45%, 96% 45%, 96% 45%, 96% 45%, 96% 45%, 96% 45%, 96% 45%, 87% 55%, 87% 55%, 87% 55%, 87% 55%, 87% 55%, 87% 55%, 87% 55%, 77% 64%, 77% 64%, 77% 63%, 77% 64%, 77% 64%, 77% 64%, 77% 64%, 83% 63%, 83% 63%, 83% 63%, 83% 61%, 83% 63%, 83% 61%, 83% 63%, 90% 62%, 90% 62%, 90% 61%, 90% 62%, 90% 62%, 90% 62%, 90% 62%, 95% 64%, 95% 64%, 95% 64%, 95% 63%, 95% 64%, 95% 63%, 95% 64%, 98% 70%, 98% 70%, 98% 68%, 98% 70%, 98% 68%, 98% 70%, 98% 70%, 98% 80%, 98% 80%, 98% 80%, 98% 79%, 98% 80%, 98% 79%, 98% 80%, 94% 91%, 94% 91%, 94% 91%, 94% 91%, 94% 90%, 94% 91%, 94% 91%, 83% 97%, 83% 97%, 83% 97%, 83% 97%, 83% 97%, 83% 97%, 83% 97%, 61% 100%, 61% 100%, 61% 100%, 61% 100%, 61% 98%, 61% 100%, 61% 100%);
+}
+
+.foliage-four-front-left {
+    background-image: radial-gradient(circle at top right, rgb(62, 175, 62),rgb(34, 84, 36));
+}
+
+.foliage-four-front-right {
+    background-image: radial-gradient(circle at top left, rgb(62, 175, 62),rgb(34, 84, 36));
+}
+
+.foliage-four-front-middle {
+    background-image: radial-gradient(circle at top, rgb(62, 175, 62),rgb(34, 84, 36));
+}
+
+.foliage-four-back {
+    width: 35px;
+    height: 40px;
+    background-image: radial-gradient(circle at top, rgb(25, 98, 25),rgb(13, 39, 13));
+    clip-path: polygon(38% 100%, 38% 100%, 38% 100%, 38% 100%, 38% 100%, 38% 100%, 38% 100%, 21% 98%, 21% 97%, 21% 98%, 21% 98%, 21% 98%, 21% 98%, 21% 98%, 10% 89%, 10% 89%, 10% 88%, 10% 91%, 10% 91%, 10% 91%, 10% 91%, 2% 79%, 2% 79%, 2% 79%, 2% 78%, 2% 79%, 2% 79%, 2% 79%, 1% 64%, 1% 64%, 1% 62%, 1% 64%, 1% 64%, 1% 64%, 1% 64%, 8% 51%, 8% 51%, 8% 51%, 8% 49%, 8% 52%, 8% 52%, 8% 52%, 14% 47%, 14% 47%, 14% 46%, 14% 47%, 14% 46%, 14% 47%, 14% 47%, 8% 42%, 8% 42%, 8% 42%, 8% 41%, 8% 42%, 8% 42%, 8% 42%, 5% 35%, 5% 35%, 5% 35%, 5% 35%, 5% 34%, 5% 37%, 5% 37%, 3% 24%, 3% 24%, 3% 24%, 3% 24%, 3% 24%, 3% 24%, 3% 24%, 7% 15%, 7% 15%, 7% 15%, 7% 15%, 7% 14%, 7% 15%, 7% 15%, 15% 8%, 15% 8%, 15% 8%, 15% 8%, 15% 8%, 15% 8%, 15% 10%, 30% 4%, 30% 4%, 30% 4%, 30% 4%, 30% 4%, 30% 4%, 30% 4%, 47% 2%, 47% 2%, 47% 2%, 47% 2%, 47% 2%, 47% 2%, 47% 2%, 56% 6%, 56% 6%, 56% 6%, 56% 6%, 56% 6%, 56% 6%, 56% 6%, 68% 15%, 68% 15%, 68% 15%, 68% 15%, 68% 15%, 68% 15%, 68% 15%, 75% 13%, 75% 13%, 75% 13%, 75% 13%, 75% 13%, 75% 13%, 75% 13%, 90% 15%, 90% 15%, 90% 15%, 90% 15%, 90% 15%, 90% 16%, 90% 16%, 96% 23%, 96% 23%, 96% 23%, 96% 23%, 96% 23%, 96% 23%, 96% 23%, 99% 33%, 99% 33%, 99% 33%, 99% 33%, 99% 33%, 99% 33%, 99% 33%, 96% 45%, 96% 45%, 96% 45%, 96% 45%, 96% 45%, 96% 45%, 96% 45%, 87% 55%, 87% 55%, 87% 55%, 87% 55%, 87% 55%, 87% 55%, 87% 55%, 77% 64%, 77% 64%, 77% 63%, 77% 64%, 77% 64%, 77% 64%, 77% 64%, 83% 63%, 83% 63%, 83% 63%, 83% 61%, 83% 63%, 83% 61%, 83% 63%, 90% 62%, 90% 62%, 90% 61%, 90% 62%, 90% 62%, 90% 62%, 90% 62%, 95% 64%, 95% 64%, 95% 64%, 95% 63%, 95% 64%, 95% 63%, 95% 64%, 98% 70%, 98% 70%, 98% 68%, 98% 70%, 98% 68%, 98% 70%, 98% 70%, 98% 80%, 98% 80%, 98% 80%, 98% 79%, 98% 80%, 98% 79%, 98% 80%, 94% 91%, 94% 91%, 94% 91%, 94% 91%, 94% 90%, 94% 91%, 94% 91%, 83% 97%, 83% 97%, 83% 97%, 83% 97%, 83% 97%, 83% 97%, 83% 97%, 61% 100%, 61% 100%, 61% 100%, 61% 100%, 61% 98%, 61% 100%, 61% 100%);
+}
+
+.tree-five {
+    width: 30px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trunk-five {
+    height: 12px;
+    width: 2px;
+}
+
+.trunk-five-front-left {
+    background-image: linear-gradient(to left bottom, rgb(61, 45, 21), rgb(230, 182, 22));
+}
+
+.trunk-five-front-right {
+    background-image: linear-gradient(to right bottom, rgb(61, 45, 21), rgb(230, 182, 22));
+}
+
+.trunk-five-front-middle {
+    background-image: linear-gradient(to bottom, rgb(61, 45, 21), rgb(230, 182, 22));
+}
+
+.trunk-five-back {
+    height: 12px;
+    width: 2px;
+    background-image: linear-gradient(to bottom, rgb(28, 20, 8), rgb(93, 74, 11));
+}
+
+.foliage-five {
+    width: 30px;
+    height: 28px;
+    clip-path: polygon(37% 100%, 37% 100%, 37% 99%, 37% 100%, 37% 100%, 37% 100%, 28% 95%, 28% 95%, 28% 95%, 28% 93%, 28% 95%, 28% 95%, 17% 81%, 17% 81%, 17% 79%, 17% 81%, 17% 81%, 17% 81%, 12% 64%, 12% 64%, 12% 64%, 12% 63%, 12% 64%, 12% 64%, 17% 43%, 17% 43%, 17% 43%, 17% 43%, 17% 43%, 17% 43%, 26% 26%, 26% 26%, 26% 26%, 26% 26%, 26% 26%, 26% 26%, 41% 10%, 41% 12%, 41% 12%, 41% 12%, 41% 12%, 41% 12%, 50% 3%, 50% 3%, 50% 3%, 50% 3%, 50% 3%, 50% 3%, 54% 2%, 54% 2%, 54% 2%, 54% 2%, 54% 2%, 54% 2%, 62% 7%, 62% 7%, 62% 7%, 62% 7%, 62% 7%, 62% 8%, 74% 20%, 74% 20%, 74% 20%, 74% 20%, 74% 20%, 74% 20%, 85% 34%, 85% 34%, 85% 34%, 85% 34%, 85% 34%, 85% 34%, 93% 51%, 93% 51%, 93% 51%, 93% 51%, 93% 51%, 93% 51%, 95% 71%, 95% 71%, 95% 73%, 95% 73%, 95% 73%, 95% 73%, 84% 88%, 84% 88%, 84% 88%, 84% 88%, 84% 88%, 84% 88%, 68% 100%, 68% 99%, 68% 100%, 68% 100%, 68% 100%, 68% 100%);
+}
+
+.foliage-five-front-left {
+    background-image: radial-gradient(circle at top right, rgb(102, 167, 70),rgb(54, 76, 11));
+}
+
+.foliage-five-front-right {
+    background-image: radial-gradient(circle at top left, rgb(102, 167, 70),rgb(54, 76, 11));
+}
+
+.foliage-five-front-middle {
+    background-image: radial-gradient(circle at top, rgb(102, 167, 70),rgb(54, 76, 11));
+}
+
+.foliage-five-back {
+    width: 30px;
+    height: 28px;
+    background-image: radial-gradient(circle at top, rgb(51, 94, 29),rgb(24, 34, 4));
+    clip-path: polygon(37% 100%, 37% 100%, 37% 99%, 37% 100%, 37% 100%, 37% 100%, 28% 95%, 28% 95%, 28% 95%, 28% 93%, 28% 95%, 28% 95%, 17% 81%, 17% 81%, 17% 79%, 17% 81%, 17% 81%, 17% 81%, 12% 64%, 12% 64%, 12% 64%, 12% 63%, 12% 64%, 12% 64%, 17% 43%, 17% 43%, 17% 43%, 17% 43%, 17% 43%, 17% 43%, 26% 26%, 26% 26%, 26% 26%, 26% 26%, 26% 26%, 26% 26%, 41% 10%, 41% 12%, 41% 12%, 41% 12%, 41% 12%, 41% 12%, 50% 3%, 50% 3%, 50% 3%, 50% 3%, 50% 3%, 50% 3%, 54% 2%, 54% 2%, 54% 2%, 54% 2%, 54% 2%, 54% 2%, 62% 7%, 62% 7%, 62% 7%, 62% 7%, 62% 7%, 62% 8%, 74% 20%, 74% 20%, 74% 20%, 74% 20%, 74% 20%, 74% 20%, 85% 34%, 85% 34%, 85% 34%, 85% 34%, 85% 34%, 85% 34%, 93% 51%, 93% 51%, 93% 51%, 93% 51%, 93% 51%, 93% 51%, 95% 71%, 95% 71%, 95% 73%, 95% 73%, 95% 73%, 95% 73%, 84% 88%, 84% 88%, 84% 88%, 84% 88%, 84% 88%, 84% 88%, 68% 100%, 68% 99%, 68% 100%, 68% 100%, 68% 100%, 68% 100%);
+}
+
+.tree-six {
+    width: 25px;
+    height: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trunk-six {
+    height: 10px;
+    width: 2px;
+}
+
+.trunk-six-front-left {
+    background-image: linear-gradient(to left bottom, rgb(48, 27, 14), rgb(164, 130, 83));
+}
+
+.trunk-six-front-right {
+    background-image: linear-gradient(to right bottom, rgb(48, 27, 14), rgb(164, 130, 83));
+}
+
+.trunk-six-front-middle {
+    background-image: linear-gradient(to bottom, rgb(48, 27, 14), rgb(164, 130, 83));
+}
+
+.trunk-six-back {
+    background-image: linear-gradient(to bottom, rgb(38, 19, 8), rgb(80, 59, 29));
+    height: 10px;
+    width: 2px;
+}
+
+.foliage-six {
+    width: 25px;
+    height: 25px;
+    clip-path: polygon(39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 25% 93%, 25% 93%, 25% 93%, 25% 93%, 25% 93%, 25% 91%, 25% 93%, 25% 93%, 25% 95%, 14% 79%, 14% 79%, 14% 79%, 14% 79%, 14% 77%, 14% 79%, 14% 79%, 14% 79%, 14% 79%, 8% 60%, 8% 60%, 8% 60%, 8% 60%, 8% 60%, 8% 58%, 8% 60%, 8% 60%, 8% 60%, 6% 42%, 6% 44%, 6% 44%, 6% 44%, 6% 43%, 6% 44%, 6% 44%, 6% 44%, 6% 44%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 31% 13%, 31% 13%, 31% 13%, 31% 13%, 31% 13%, 31% 15%, 31% 15%, 31% 15%, 31% 15%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 76% 12%, 76% 12%, 76% 12%, 76% 12%, 76% 12%, 76% 12%, 76% 14%, 76% 14%, 76% 14%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 50%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 67%, 99% 69%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 91%, 79% 93%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%);
+}
+
+.foliage-six-front-left {
+    background-image: radial-gradient(circle at top right, rgb(189, 176, 93),rgb(90, 19, 36));
+}
+
+.foliage-six-front-right {
+    background-image: radial-gradient(circle at top left, rgb(189, 176, 93),rgb(90, 19, 36));
+}
+
+.foliage-six-front-middle {
+    background-image: radial-gradient(circle at top, rgb(189, 176, 93),rgb(90, 19, 36));
+}
+
+.foliage-six-back {
+    width: 25px;
+    height: 25px;
+    background-image: radial-gradient(circle at top, rgb(55, 102, 38),rgb(27, 42, 5));
+    clip-path: polygon(39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 39% 100%, 25% 93%, 25% 93%, 25% 93%, 25% 93%, 25% 93%, 25% 91%, 25% 93%, 25% 93%, 25% 95%, 14% 79%, 14% 79%, 14% 79%, 14% 79%, 14% 77%, 14% 79%, 14% 79%, 14% 79%, 14% 79%, 8% 60%, 8% 60%, 8% 60%, 8% 60%, 8% 60%, 8% 58%, 8% 60%, 8% 60%, 8% 60%, 6% 42%, 6% 44%, 6% 44%, 6% 44%, 6% 43%, 6% 44%, 6% 44%, 6% 44%, 6% 44%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 16% 24%, 31% 13%, 31% 13%, 31% 13%, 31% 13%, 31% 13%, 31% 15%, 31% 15%, 31% 15%, 31% 15%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 53% 7%, 76% 12%, 76% 12%, 76% 12%, 76% 12%, 76% 12%, 76% 12%, 76% 14%, 76% 14%, 76% 14%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 91% 26%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 48%, 99% 50%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 69%, 99% 67%, 99% 69%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 94% 81%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 93%, 79% 91%, 79% 93%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%, 62% 100%);
+}
+
+
+
+
+.red-car-path {
+    position: absolute;
+    width: 750px;
+    height: 10px;
+}
+
+@keyframes red-car-movement {
+    from {left: -10%}
+    to {left: 120%}
+}
+
+.red-car {
+    position: absolute;
+    left: -10%;
+    width: 20px;
+    height: 10px;
+    animation-name: red-car-movement;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+}
+
+.r-c-top {
+    width: 20px;
+    height: 4px;
+    clip-path: polygon(10% 0, 55% 0, 100% 100%, 0% 100%);
+    background-color: rgb(95, 3, 3);
+}
+
+.r-c-window-back {
+    position: absolute;
+    left: 3%;
+    top: 3%;
+    width: 18px;
+    height: 3.5px;
+    clip-path: polygon(10% 0, 40% 0, 40% 100%, 0% 100%);
+    background-image: linear-gradient(to bottom left, rgb(0, 195, 255) 50%, rgb(255, 255, 255), rgb(0, 195, 255) 80%);
+}
+
+.r-c-window-front {
+    position: absolute;
+    left: 3%;
+    top: 3%;
+    width: 18px;
+    height: 3.5px;
+    clip-path: polygon(45% 0, 55% 0, 100% 100%, 45% 100%);
+    background-image: linear-gradient(to bottom left, rgb(0, 195, 255) 30%, rgb(255, 255, 255), rgb(0, 195, 255) 60%);
+}
+
+.r-c-bot {
+    width: 20px;
+    height: 4px;
+    border-radius: 0% 0% 5% 5%;
+    background-image: linear-gradient(to bottom, rgb(95, 3, 3) 60%, rgb(0, 217, 255));
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.r-c-lights-front {
+    width: 0.75px;
+    height: 1px;
+    background-color: rgb(255, 255, 199);
+}
+
+.r-c-lights-back {
+    width: 0.5px;
+    height: 1px;
+    background-color: rgb(253, 61, 32);
+}
+
+@keyframes hovering-glow {
+    0% {background-image: linear-gradient(to bottom, rgba(0, 213, 255, 1) 20%, rgba(0, 0, 0, 0));}
+    20% {background-image: linear-gradient(to bottom, rgba(0, 213, 255, 0.85) 20%, rgba(0, 0, 0, 0));}
+    40% {background-image: linear-gradient(to bottom, rgba(0, 213, 255, 0.7) 20%, rgba(0, 0, 0, 0));}
+    60% {background-image: linear-gradient(to bottom, rgba(0, 213, 255, 0.85) 20%, rgba(0, 0, 0, 0));}
+    100% {background-image: linear-gradient(to bottom, rgba(0, 213, 255, 1) 20%, rgba(0, 0, 0, 0));}
+}
+
+.r-c-hovering {
+    width: 20px;
+    height: 2px;
+    clip-path: polygon(2% 0, 98% 0, 100% 100%, 0% 100%);
+    animation-name: hovering-glow;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes drone-movement {
+    0% {top: 40%;
+        left: 105%;
+        transform: rotate(-10deg)
+    }
+    8% {top:50%;
+        left: 90%;
+        transform: rotate(-8deg)
+    }
+    15% {top:60%;
+        left: 75%;
+        transform: rotate(-6deg)
+    }
+    30% {top:70%;
+        left: 50%;
+        transform: rotate(-4deg)
+    }
+    40% {top:94%;
+        left: 38%;
+        transform: rotate(0deg)
+    }
+    60% {top:94%;
+        left: 38%;
+        transform: rotate(0deg)
+    }
+    80% {top:70%;
+        left: 35%;
+        transform: rotate(-5deg)
+    }
+    90% {top:50%;
+        left: 20%;
+        transform: rotate(-10deg)
+    }
+    100% {top:40%;
+        left: -10%;
+        transform: rotate(-5deg)
+    }
+}
+
+.drone {
+    position: absolute;
+    left: -50%;
+    width: 50px;
+    height: 25px;
+    animation-name: drone-movement;
+    animation-duration: 20s;
+    animation-timing-function: linear;
+}
+
+.drone-top {
+    width: 100%;
+    height: 50%;
+    display: flex;
+}
+
+.drone-bot {
+    width: 50%;
+    height: 50%;
+}
+
+.drone-pilot {
+    width: 50%;
+    height: 100%;
+    background-image: linear-gradient(to top, rgb(67, 24, 83), rgb(0, 0, 0));
+    clip-path: polygon(26% 50%, 100% 25%, 100% 100%, 0% 100%);
+}
+
+.drone-tail {
+    width: 50%;
+    height: 100%;
+    background-image: linear-gradient(to top, rgb(67, 24, 83), rgb(0, 0, 0));
+    clip-path: polygon(0% 25%, 100% 20%, 100% 30%, 30% 60%, 0% 100%);
+}
+
+.drone-body {
+    width: 100%;
+    height: 70%;
+    background-image: linear-gradient(to bottom, rgb(67, 24, 83), rgb(0, 0, 0));
+    clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 19% 100%, 4% 60%);
+}
+
+.drone-feet {
+    width: 100%;
+    height: 30%;
+    background-color: rgb(0, 0, 0);
+    clip-path: polygon(0% 61%, 0% 81%, 6% 100%, 91% 100%, 100% 80%, 100% 62%, 95% 62%, 95% 74%, 89% 84%, 80% 84%, 79% 0%, 73% 0%, 73% 84%, 25% 84%, 25% 0%, 21% 0%, 19% 84%, 9% 84%, 6% 72%, 6% 62%);
+}
+
+.drone-window {
+    width: 55%;
+    height: 90%;
+    background-image: linear-gradient(to top, rgb(154, 245, 255), rgb(202, 221, 227));
+    clip-path: polygon(50% 60%, 100% 50%, 100% 100%, 18% 100%);
+}
+
+.drone-hover {
+    position: absolute;
+    left: 30%;
+    top: 40%;
+    width: 20px;
+    height: 4px;
+}
+
+.drone-hover-mech {
+    background-image: linear-gradient(to bottom, rgb(67, 24, 83)50%, rgb(0, 247, 255) 90%);
+    border-radius: 15%;
+    height: 2px;
+    width: 100%;
+}

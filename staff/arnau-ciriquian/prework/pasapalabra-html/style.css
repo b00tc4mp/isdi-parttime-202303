@@ -1,0 +1,315 @@
+body {
+    background-color: rgb(2, 7, 51);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.game-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -400px;
+    margin-left: -400px;
+    width: 800px;
+    height: 800px;
+    border-radius: 500px;
+    overflow: hidden;
+}
+
+.timer {
+    color: aliceblue;
+    width: 100px;
+    height: 80px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: xxx-large;
+}
+
+.mainGame {
+    display: inline-block;
+    border: 1px solid rgb(0, 0, 0);
+    background-image: linear-gradient(rgba(99, 238, 248, 0.726), rgba(68, 255, 124, 0.527));
+    width:300px;
+    height: 100px;
+    border-radius: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -150px;
+    display: flex;
+    align-items:center;
+}
+
+.notifications {
+    width: 800px;
+    height: 800px;
+    border-radius: 400;
+    background-image: radial-gradient(rgb(3, 44, 120), rgb(2, 7, 51) 70%);
+    display: flex;
+    align-content: center;
+}
+
+.rules {
+    color:rgb(255, 255, 255);
+    font-size: large;
+    top:10%;
+    position: absolute;
+    width: 400px;
+    left: 50%;
+    text-align: justify;
+    margin-left: -200px;
+}
+
+.question-box {
+    width: 96%;
+    height: 80%;
+    font-size: large;
+    margin-left: 2%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+p {
+    margin: 0%;
+}
+
+button {
+    display: 1em;
+    width: 100px;
+    height: 30px;
+}
+
+.startStopGame {
+    width: 35%;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    
+}
+
+.startGame {
+    margin-left: -50px;
+    background-image: linear-gradient(rgb(255,255,255), rgba(21, 255, 0, 0.75));
+}
+
+.stopGame {
+    margin-left: -50px;
+    background-image: linear-gradient(rgb(255,255,255), rgba(255, 60, 0, 0.75));
+}
+
+
+.answerBox {
+    width: 300px;
+    height: 70px;
+    position: fixed;
+    top: 55.5%;
+    left: 50%;
+    margin-left: -150px;
+}
+
+.send-button {
+    position: absolute;
+    width: 35%;
+    top: 60%;
+    right: 12%;
+    background-image: linear-gradient(rgb(255,255,255), rgba(21, 255, 0, 0.75));
+}
+
+.pasapalabra-button {
+    position: absolute;
+    width: 35%;
+    top: 60%;
+    left: 12%;
+    background-image: linear-gradient(rgb(255,255,255), rgba(255, 196, 0, 0.75));
+}
+
+.userAnswerBox {
+    width: 80%;
+    height: 40%;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+}
+
+.hints {
+    width: 500px;
+    height: 20px;
+    position: absolute;
+    bottom: 5%;
+    margin-left: -250px;
+    left: 50%;
+    color:rgb(255, 255, 255);
+    font-size: large;
+    text-align: center;
+}
+
+.letters-container {
+    z-index: -1;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px;
+    margin-left: -250px;
+    width: 500px;
+    height: 500px;
+    border-radius: 500px;
+    background-image: radial-gradient(rgb(3, 44, 120), rgb(2, 7, 51) 60%);
+}
+
+.letter {
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 30px;
+    position: absolute;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    background-image: radial-gradient(rgb(255,255,255), rgb(255, 196, 0));
+    margin-top: -15px;
+    margin-left: -15px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#a {
+    top: 0%;
+    left: 50%;
+}
+
+#b {
+    top: 1.5%;
+    left: 62%;
+}
+
+#c {
+    top: 6%;
+    left: 74%;
+}
+
+#d {
+    top: 13%;
+    left: 84%;
+}
+
+#e {
+    top: 22%;
+    left: 92%;
+}
+
+#f {
+    top: 33%;
+    left: 97%;
+}
+
+#g {
+    top: 44%;
+    left: 100%;
+}
+
+#h {
+    top: 56%;
+    left: 99.5%;
+}
+
+#i {
+    top: 67%;
+    left: 97%;
+}
+
+#j {
+    top: 76.5%;
+    left: 92.5%;
+}
+
+#k {
+    top: 85%;
+    left: 86%;
+}
+
+#l {
+    top: 92%;
+    left: 77.5%;
+}
+
+#m {
+    top: 97%;
+    left: 68%;
+}
+
+#n {
+    top: 99.5%;
+    left: 57%;
+}
+
+#ñ {
+    top: 99.5%;
+    left: 46%;
+}
+
+#o {
+    top: 97.5%;
+    left: 35%;
+}
+
+#p {
+    top: 92.5%;
+    left: 24%;
+}
+
+#q {
+    top: 86%;
+    left: 15.5%;
+}
+
+#r {
+    top: 77%;
+    left: 8%;
+}
+
+#s {
+    top: 67%;
+    left: 3%;
+}
+
+#t {
+    top: 56%;
+    left: 0%;
+}
+
+#u {
+    top: 44%;
+    left: 0%;
+}
+
+#v {
+    top: 33%;
+    left: 3%;
+}
+
+#w {
+    top: 22%;
+    left: 8%;
+}
+
+#x {
+    top: 13%;
+    left: 16%;
+}
+
+#y {
+    top: 6%;
+    left: 26%;
+}
+
+#z {
+    top: 1.5%;
+    left: 38%;
+}
