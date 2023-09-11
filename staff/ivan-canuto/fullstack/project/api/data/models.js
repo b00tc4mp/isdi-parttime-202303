@@ -33,6 +33,12 @@ const user = new Schema({
         required: true,
         trim: true
     },
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true
+    },
     email: {
         type: String,
         required: true,
@@ -54,6 +60,27 @@ const user = new Schema({
     seenLately: {
         type: [ObjectId],
         ref: 'Post'
+    },
+    postsNumber: {
+        type: Number,
+        default: 0
+    },
+    following: {
+        type: [ObjectId],
+        ref: 'User'
+    },
+    followers: {
+        type: [ObjectId],
+        ref: 'User'
+    },
+    location: {
+        type: String,
+    },
+    occupation: {
+        type: String,
+    },
+    description: {
+        type: String
     }
 })
 

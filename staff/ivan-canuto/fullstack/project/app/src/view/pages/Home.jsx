@@ -304,6 +304,14 @@ export default function Home() {
                                 text: "Create a post",
                                 onClick: () => setModal('addPost')
                             },
+                            {
+                                text: "Search for topics",
+                                onClick: () => {
+                                    setPage('SearchForTopicsPage')
+
+                                    navigate("/suggestions");
+                                },
+                            },
                         ]}
                         chatbotOptions={[
                             {
@@ -386,6 +394,12 @@ export default function Home() {
                                 page={page}
                                 setPage={setPage}
                                 setOpenedProfile={setOpenedProfile}
+                                handleOpenDeletePost={handleOpenDeletePost}
+                                handleOpenEditPost={handleOpenEditPost}
+                                handleToggleVisibility={handleToggleVisibility}
+                                handleLastPostsUpdate={handleLastPostsUpdate}
+                                handleTogglePostModal={handleTogglePostModal}
+                                lastPostsUpdate={lastPostsUpdate}
                             /> : <Navigate to="/login" />
                         }
                     />

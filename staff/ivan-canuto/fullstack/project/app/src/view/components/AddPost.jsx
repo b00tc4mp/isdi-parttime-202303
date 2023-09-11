@@ -19,8 +19,8 @@ export default function AddPost({ onCloseModal, handleLastPostsUpdate }) {
         })
     }
 
-    return <ModalContainer className='EditPostContainer fixed bg-black bg-opacity-20 top-0 left-0 z-30' onClick={event => {
-        if(event.target === document.querySelector('.EditPostContainer'))
+    return <ModalContainer className='AddPostContainer fixed bg-black bg-opacity-20 top-0 left-0 z-30' onClick={event => {
+        if(event.target === document.querySelector('.AddPostContainer'))
             onCloseModal()
     }}>
         <ModalWindow className='w-11/12 h-4/6'>

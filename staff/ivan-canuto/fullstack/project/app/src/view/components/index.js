@@ -19,6 +19,7 @@ import Suggestion from "./Suggestion"
 import CreateSuggestion from "./CreateSuggestion"
 import DeleteSuggestion from "./DeleteSuggestion"
 import EditSuggestion from "./EditSuggestion"
+import AddDescription from "./AddDescription"
 
 export {
     Alert,
@@ -42,4 +43,5 @@ export {
     CreateSuggestion,
     DeleteSuggestion,
     EditSuggestion,
+    AddDescription
 }

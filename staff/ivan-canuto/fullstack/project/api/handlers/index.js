@@ -37,4 +37,7 @@ module.exports = {
   savePostAsSeenHandler: require('./savePostAsSeenHandler'),
   retrieveSearchedPostsHandler: require('./retrieveSearchedPostsHandler'),
   createPostFromScratchHandler: require('./createPostFromScratchHandler'),
+  updateUserDescriptionHandler: require('./updateUserDescriptionHandler'),
+  updateUserLocationHandler: require('./updateUserLocationHandler'),
+  updateUserOccupationHandler: require('./updateUserOccupationHandler'),
 }

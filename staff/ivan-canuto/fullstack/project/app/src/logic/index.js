@@ -41,6 +41,9 @@ import retrieveSeenPosts from './retrieveSeenPosts'
 import savePostAsSeen from './savePostAsSeen'
 import retrieveSearchedPosts from './retrieveSearchedPosts'
 import createPostFromScratch from './createPostFromScratch'
+import updateUserDescription from './updateUserDescription'
+import updateUserLocation from './updateUserLocation'
+import updateUserOccupation from './updateUserOccupation'
 
 export {
     context,
@@ -85,5 +88,8 @@ export {
     retrieveSeenPosts,
     savePostAsSeen,
     retrieveSearchedPosts,
-    createPostFromScratch
+    createPostFromScratch,
+    updateUserOccupation,
+    updateUserLocation,
+    updateUserDescription
 }

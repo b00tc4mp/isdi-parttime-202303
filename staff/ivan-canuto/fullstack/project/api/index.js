@@ -41,7 +41,10 @@ const {
     retrieveSeenPostsHandler,
     savePostAsSeenHandler,
     retrieveSearchedPostsHandler,
-    createPostFromScratchHandler
+    createPostFromScratchHandler,
+    updateUserDescriptionHandler,
+    updateUserLocationHandler,
+    updateUserOccupationHandler
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -118,16 +121,22 @@ mongoose.connect(process.env.MONGODB_URL)
         api.delete('/conversations/deleteAllConversations', jsonBodyParser, deleteAllConversationsHandler)
 
         api.patch('/suggestions/:suggestionId/check', jsonBodyParser, toggleCheckSuggestionHandler)
-
+        
         api.patch('/suggestions/:suggestionId/hidden', jsonBodyParser, hideSuggestionHandler)
-
+        
         api.get('/posts/seenPosts', jsonBodyParser, retrieveSeenPostsHandler)
-
+        
         api.patch('/posts/:postId/saveSeenPost', jsonBodyParser, savePostAsSeenHandler)
-
+        
         api.post('/posts/searchedPosts', jsonBodyParser, retrieveSearchedPostsHandler)
-
+        
         api.post('/newPostFromScratch', jsonBodyParser, createPostFromScratchHandler)
+
+        api.patch('/users/occupation', jsonBodyParser, updateUserOccupationHandler)
+
+        api.patch('/users/location', jsonBodyParser, updateUserLocationHandler)
+        
+        api.patch('/users/description', jsonBodyParser, updateUserDescriptionHandler)
 
         api.listen(process.env.PORT, () => console.log(`Server running in port ${process.env.PORT}`))
     })

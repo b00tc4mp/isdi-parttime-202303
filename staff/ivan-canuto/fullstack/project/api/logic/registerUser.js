@@ -1,5 +1,5 @@
 const { 
-  validators: { validateName, validateEmail, validatePassword },
+  validators: { validateUsername, validateEmail, validatePassword, validateText },
   errors: { DuplicityError }
 } = require('com')
 require('dotenv').config()
@@ -9,9 +9,10 @@ const bcrypt = require('bcryptjs')
 /**
  * Registers a new user
  * 
- * @param {string} name A name entered by the user
- * @param {string} email An email enntered by the user
- * @param {string} password A password entered by the user
+ * @param {string} name The name of the user
+ * @param {string} username The username attached to the user account
+ * @param {string} email The user's email
+ * @param {string} password The user's password
  * 
  * @returns {promise} A Promise that resolves when the registration is successful, or rejects with an error message if registration fails
  * 
@@ -21,16 +22,19 @@ const bcrypt = require('bcryptjs')
  * @throws {DuplicityError} On existing user
  */
 
-module.exports = (name, email, password) => {
-  validateName(name)
-  validateEmail(email)
-  validatePassword(password)
+module.exports = (name, _username, email, password) => {
+  validateText(name, 'name of the user')
+  validateUsername(_username)
+  validateEmail(email, 'user name')
+  validatePassword(password, 'user password')
 
   return (async () => {
     try {
       const hash = await bcrypt.hash(password, 10)
+
+      const username = _username.toLowerCase()
       
-      await User.create({ name, email, password: hash, avatar: null, favs: [] })
+      await User.create({ name, username: username, email, password: hash, avatar: null, favs: [] })
     } catch (error) {
       if(error.message.includes('E11000'))
         throw new DuplicityError(`User with email ${email} already exists.`)

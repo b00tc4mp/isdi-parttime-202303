@@ -1,9 +1,10 @@
 const { ContentError, ExistenceError } = require("./errors")
 const EMAIL_REGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 
-function validateName(name) {
-  if (typeof name !== 'string') throw new TypeError('The name is not a string.')
-  if (!name.trim().length) throw new ContentError('The name field is empty.')
+function validateUsername(username) {
+  if (typeof username !== 'string') throw new TypeError('The username is not a string.')
+  if (!username.trim().length) throw new ContentError('The username field is empty.')
+  if (username.trim().length < 8) throw new RangeError('The username is too short.')
 }
 
 function validateEmail(email, explanation = 'email') {
@@ -95,7 +96,7 @@ function validateNewPostContent(content) {
 }
 
 module.exports = {
-  validateName,
+  validateUsername,
   validateEmail,
   validatePassword,
   validateUrl,

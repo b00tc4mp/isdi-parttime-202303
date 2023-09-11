@@ -2,9 +2,9 @@ const registerUser = require("../logic/registerUser")
 const { handleErrors } = require("./helpers")
 
 module.exports = handleErrors((req, res) => {
-  const { name, email, password } = req.body
+  const { name, username, email, password } = req.body
 
-  const promise = registerUser(name, email, password)
+  const promise = registerUser(name, username, email, password)
 
   return (async () => {
     await promise

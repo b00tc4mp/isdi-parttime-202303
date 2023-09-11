@@ -37,4 +37,7 @@ module.exports = {
   savePostAsSeen: require('./savePostAsSeen'),
   retrieveSearchedPosts: require('./retrieveSearchedPosts'),
   createPostFromScratch: require('./createPostFromScratch'),
+  updateUserOccupation: require('./updateUserOccupation'),
+  updateUserLocation: require('./updateUserLocation'),
+  updateUserDescription: require('./updateUserDescription'),
 }
