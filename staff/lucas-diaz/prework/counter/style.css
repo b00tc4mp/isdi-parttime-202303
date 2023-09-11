@@ -1,0 +1,60 @@
+body {
+    background-color: #1d1c1d;
+}
+.container{
+    animation: blink 5s infinite linear;
+    background-color: rgb(81, 81, 88);
+    border: 5px solid black;
+    border-radius: 20px;
+    margin: 0px auto;
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+    width: 40%;
+}
+.counter{
+    color:white;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    margin: 10px;
+}
+.buttonStyle{
+    background-color: rgb(35, 35, 37);
+    border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 1px 1px 2px rgb(107, 107, 107) inset;
+    cursor: pointer;
+    color: white;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    padding: 15px;
+    width: 30%;
+}
+.buttonStyle:hover{
+    background-color: #1d1c1d;
+}
+.buttonStyle:active{
+    box-shadow: 1px 1px  5px gray ;
+}
+@keyframes blink{
+    0% {
+        border: 5px solid #37bfc9;
+    }
+    20% {
+        border: 5px solid yellow;
+    }
+    40% {
+        border: 5px solid green;
+    }
+    60% {
+        border: 5px solid red;
+    }
+    80% {
+        border: 5px solid purple;
+    }
+    100% {
+        border: 5px solid #37bfc9;
+    }
+}

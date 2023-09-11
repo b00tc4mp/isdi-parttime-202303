@@ -1,0 +1,212 @@
+*{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color:#dddbd7;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+body{
+    background-color: rgb(224, 224, 224);
+}
+.container{
+    width: 100%;
+    height: 770px;
+    margin: 0px auto;
+    margin-top: 15px;
+    background-color: #3665B8;
+    
+}
+h1{
+    margin-top: 20px;
+    padding: 30px;
+    text-align: center;
+}
+.centerBox{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+.questions{
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    flex: 3;
+    border: 3px solid #dddbd7;
+    margin: 15px;
+    height: 180px;
+    border-radius: 10px;
+}
+.questions p {
+
+    height: 100px;
+}
+.donut{
+    
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: #3fa04c;
+    margin-left: 50px;
+    margin-right: 60px;
+}
+li {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #00458B;
+    border: 1px solid rgb(161, 161, 161);
+    font-size: 20px;
+    line-height: 40px;
+    margin-right: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+
+    transition: box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    
+}
+li:hover {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+.letter{
+    position: absolute;
+}
+.letterA{
+    left: 280px;
+    top: 120px;
+}
+.letterB{
+    left: 349px;
+    top: 129px;
+}
+.letterC{
+    left: 408px;
+    top: 151px;
+}
+.letterD{
+    left: 464px;
+    top: 191px;
+}
+.letterE{
+    left: 504px;
+    top: 248px;
+}
+.letterF{
+    left: 523px;
+    top: 307px;
+}
+.letterG{
+    left: 530px;
+    top: 370px;
+}
+.letterH{
+    left: 523px;
+    top: 430px;
+}
+.letterI{
+    left: 503px;
+    top: 487px;
+}
+.letterJ{
+    left: 470px;
+    top: 533px;
+}
+.letterK{
+    left: 427px;
+    top: 568px;
+}
+.letterL{
+    left: 376px;
+    top: 595px;
+}
+.letterM{
+    left: 320px;
+    top: 611px;
+}
+.letterN{
+    left: 262px;
+    top: 613px;
+}
+.letterÑ{
+    left: 204px;
+    top: 604px;
+}
+.letterO{
+    left: 152px;
+    top: 586px;
+}
+.letterP{
+    left: 110px;
+    top: 552px;
+}
+.letterQ{
+    left: 74px;
+    top: 516px;
+}
+.letterR{
+    left: 45px;
+    top: 472px;
+}
+.letterS{
+    left: 30px;
+    top: 421px;
+}
+.letterT{
+    left: 26px;
+    top: 365px;
+}
+.letterU{
+    left: 31px;
+    top: 309px;
+}
+.letterV{
+    left: 47px;
+    top: 258px;
+}
+.letterW{
+    left: 78px;
+    top: 213px;
+}
+.letterX{
+    left: 115px;
+    top: 179px;
+}
+.letterY{
+    left: 156px;
+    top: 149px;
+}
+.letterZ{
+    left: 214px;
+    top: 128px;
+}
+
+.options{
+    display: flex;
+    padding: 20px;
+    padding-top: 30px;
+    align-items:center;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+button{
+    margin: 5px;
+    padding: 10px;
+    background-color: #00509F;
+    border-radius: 10px;
+}
+
+.answer{
+    color: darkblue;
+    padding: 5px;
+}
+
+
+
+
+
+
+
+
