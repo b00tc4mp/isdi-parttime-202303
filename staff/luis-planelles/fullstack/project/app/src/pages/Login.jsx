@@ -1,7 +1,10 @@
+import { Link } from 'react-router-dom';
+import { useAppContext } from '../hooks';
 import loginUser from '../logic/loginUser';
 
 const Login = () => {
-  
+  const { navigate} = useAppContext()
+
   const handleLogin = (event) => {
     event.preventDefault()
     
@@ -28,6 +31,7 @@ const Login = () => {
         <button className="button"type="submit"> Login </button>
       </form>
       
+      <p><Link to="/register">Register</Link></p>
     </div>
   );
 }

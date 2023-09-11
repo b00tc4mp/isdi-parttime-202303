@@ -1,5 +1,5 @@
 import { validators } from 'com';
-import Context from '../Context';
+import context from './context';
 const { validateEmail, validatePassword } = validators;
 
 const loginUser = (email, password) => {
@@ -15,14 +15,14 @@ const loginUser = (email, password) => {
   })
     .then((res) => {
       if (res.status !== 200)
-        return res.json().then(({ error: message }) => {
-          throw new Error(message);
+        return res.json().then((error) => {
+          throw new Error(error.message);
         });
 
       return res.json();
     })
     .then((token) => {
-      Context.token = token;
+      context.token = token;
     });
 };
 
