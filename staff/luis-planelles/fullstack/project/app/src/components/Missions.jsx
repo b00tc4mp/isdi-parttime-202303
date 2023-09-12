@@ -20,12 +20,12 @@ const Missions = ({lastMissionUpdate}) => {
             alert(error.message)
         }
     };
-        
+    
     useEffect(() =>{
         if(lastMissionUpdate) handleRefreshMission()
     }, [lastMissionUpdate]);
 
-    return <section className='container'>            
+    return <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">           
         { missions && missions.map(mission => 
         <Mission
         key={mission.id} 

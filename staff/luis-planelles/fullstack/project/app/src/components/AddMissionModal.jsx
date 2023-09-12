@@ -56,76 +56,123 @@ const AddMissionModal = ({ onCancel, onMissionCreate }) => {
     }
   };
 
-  return <section className="add-Mission container">
-      <form className="container" onSubmit={handleCreateMission}>
-      <label>
-        Travelers:
-        <select
-          name="traveler"
-        >
-          <option value="monkey">Monkey</option>
-          <option value="robot">Robot</option>
-          <option value="dog">Dog</option>
-          <option value="billionaire">Billionaire</option>
-        </select>
-      </label>
-      <br />
-      <label>
-        Destination:
-        <select
-          name="destination"
-        >
-          <option value="moon">Moon</option>
-          <option value="mars">Mars</option>
-          <option value="unexplored_planet">Unexplored Planimageet</option>
-        </select>
-      </label>
-      <br />
-        <label>Participants:</label>
-        {participants.map((participant, index) => (
-          <div key={index}>
-            <input
-              type="text"
-              name={`participants[${index}].name`}
-              value={participant.name}
-              placeholder="Name"
-              onChange={(event) => handleParticipantChange(event, index, 'name')}
-            />
-            <input
-              type="text"
-              name={`participants[${index}].email`}
-              value={participant.email}
-              placeholder="Email"
-              onChange={(event) => handleParticipantChange(event, index, 'email')}
-            />
+  return (
+    <section className="fixed inset-0 flex items-center justify-center z-50">
+      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-semibold mb-4">Create Mission</h2>
+  
+        <form className="space-y-4" onSubmit={handleCreateMission}>
+          <div>
+            <label htmlFor="traveler" className="block text-sm font-medium text-gray-700">
+              Travelers
+            </label>
+            <select
+              className="border border-gray-300 rounded-md p-2 w-full"
+              name="traveler"
+              id="traveler"
+            >
+              <option value="monkey">Monkey</option>
+              <option value="robot">Robot</option>
+              <option value="dog">Dog</option>
+              <option value="billionaire">Billionaire</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="destination" className="block text-sm font-medium text-gray-700">
+              Destination
+            </label>
+            <select
+              className="border border-gray-300 rounded-md p-2 w-full"
+              name="destination"
+              id="destination"
+            >
+              <option value="moon">Moon</option>
+              <option value="mars">Mars</option>
+              <option value="unexplored_planet">Unexplored Planet</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="participants" className="block text-sm font-medium text-gray-700">
+              Participants
+            </label>
+            {participants.map((participant, index) => (
+              <div key={index} className="space-y-2">
+                <input
+                  type="text"
+                  className="border border-gray-300 rounded-md p-2 w-full"
+                  name={`participants[${index}].name`}
+                  value={participant.name}
+                  placeholder="Name"
+                  onChange={(event) => handleParticipantChange(event, index, 'name')}
+                />
+                <input
+                  type="text"
+                  className="border border-gray-300 rounded-md p-2 w-full"
+                  name={`participants[${index}].email`}
+                  value={participant.email}
+                  placeholder="Email"
+                  onChange={(event) => handleParticipantChange(event, index, 'email')}
+                />
+                <button
+                  type="button"
+                  className="bg-red-500 text-white px-2 py-1 rounded-md"
+                  onClick={() => handleRemoveParticipant(index)}
+                >
+                  Remove
+                </button>
+              </div>
+                ))}
+                <input
+                  type="hidden"
+                  name="participants"
+                  value={JSON.stringify(participants)}
+                />
+ 
             <button
               type="button"
-              onClick={() => handleRemoveParticipant(index)}
+              className="bg-blue-500 text-white px-2 py-1 rounded-md"
+              onClick={handleAddParticipant}
             >
-              Remove
+              Add Participant
             </button>
           </div>
-        ))}
-          <button type="button" onClick={handleAddParticipant}>
-            Add Participant
-          </button>
-          <input
-            type="hidden"
-            name="participants"
-            value={JSON.stringify(participants)}
-          />
-      <br />
-      <label>Loser price:</label>
-      <textarea className="input" name="price" cols="30" rows="5" placeholder="loser price"></textarea>
-      <br />
-      <button type="submit">Create Mission</button>
-      <button className="button cancel" type="button" onClick={handleCancelAddMission}>Cancel</button>
-      </form>
-      <br />
-  </section>
+          <div>
+            <label htmlFor="price" className="block text-sm font-medium text-gray-700">
+              Loser price
+            </label>
+            <textarea
+              className="border border-gray-300 rounded-md p-2 w-full"
+              name="price"
+              id="price"
+              cols="30"
+              rows="5"
+              placeholder="Loser price"
+            ></textarea>
+          </div>
+          <div className="flex space-x-4">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md w-full"
+            >
+              Create Mission
+            </button>
+            <button
+              type="button"
+              className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-4 rounded-md w-full"
+              onClick={handleCancelAddMission}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  );
+  
 }
 
 export default AddMissionModal
+
 
 
 
