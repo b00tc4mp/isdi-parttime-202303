@@ -7,6 +7,7 @@ const {
   retrieveMissionHandler,
   retrieveMissionsHandler,
   retrieveNasaDataHandler,
+  retrieveUserHandler,
   updateMissionHandler,
 } = require('./handlers');
 
@@ -31,6 +32,7 @@ mongoose
     api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
     api.post('/missions', jsonBodyParser, createMissionHandler);
 
+    api.get('/users', retrieveUserHandler);
     api.get('/retrieve-nasa-data/', retrieveNasaDataHandler);
     api.get('/missions/:missionId', retrieveMissionHandler);
     api.get('/missions', retrieveMissionsHandler);
