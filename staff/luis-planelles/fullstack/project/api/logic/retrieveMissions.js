@@ -6,8 +6,12 @@ const {
 const { User, Mission } = require('../data/models');
 
 /**
- * @throws {TypeError} - on userId wrong type.
- * @throws {ContentError} - on userId wrong characters.
+ * Retrieve missions associated with a user from the database.
+ * @param {string} userId - The user's unique identifier.
+ * @throws {TypeError} - If userId is of the wrong type.
+ * @throws {ContentError} - If userId contains invalid characters.
+ * @throws {ExistenceError} - If the user with the provided userId doesn't exist.
+ * @returns {Promise<Array<Object>>} - An array of mission objects.
  */
 
 const retrieveMissions = (userId) => {
