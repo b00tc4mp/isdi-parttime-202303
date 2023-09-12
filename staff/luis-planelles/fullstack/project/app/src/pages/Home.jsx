@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import AddMissionModal from '../components/AddMissionModal'
+import Missions from '../components/Missions'
 import { useAppContext } from '../hooks'
 import logoutUser from '../logic/logoutUser'
 
 const Home = () => {
   const { navigate} = useAppContext()
 
-  const [modal, setModal] = useState(null),
+  const [view, setView] = useState('mission'),
+    [modal, setModal] = useState(null),
     [lastUpdate, setLastUpdate] = useState(null)
 
 
@@ -30,6 +32,10 @@ const Home = () => {
           </header>
             <p>Space pursuit</p>
             <main>
+            {view === 'mission' && (
+              <Missions
+              />
+            )}
             {modal === 'add-mission' && (
               <AddMissionModal 
                 onCancel={handleCloseModal} 
