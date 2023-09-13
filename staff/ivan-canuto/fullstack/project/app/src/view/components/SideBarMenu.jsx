@@ -58,15 +58,15 @@ export default function SideBarMenu({
 
     return (
         <ModalContainer
-            className="absolute top-0 left-0 z-20"
+            className="fixed top-0 left-0 z-20"
             onClick={(event) => {
                 if (event.target === document.querySelector(".ModalContainer"))
                     handleToggleMenu();
             }}
         >
             <ul
-                className={`w-44 h-full bg-white fixed top-24 bottom-0 z-20 border-t-2 border-white overflow-scroll ${openedMenu ? "opened-menu" : "closed-menu"
-                    }`}
+                className={`w-44 h-full bg-white absolute top-24 bottom-0 z-20 border-t-2 border-white overflow-scroll ${openedMenu ? "opened-menu" : "closed-menu"
+                }`}
             >
                 {page === "Chatbot" &&
                     chatbotOptions && <>
@@ -98,9 +98,8 @@ export default function SideBarMenu({
                                                     <span className="material-symbols-outlined" onClick={handleCancelDelete}>close</span>
                                                 </div>
                                             :
-                                            ''
+                                                ''
                                         }
-
                                     </div>
                                 </li>
                             );
@@ -112,7 +111,7 @@ export default function SideBarMenu({
                     homeOptions.map((option, index) => {
                         return <li
                             key={index}
-                            className="h-16 bg-slate-100 w-full border-2 border-t-0 border-white flex justify-center overflow-auto items-center px-4 text-center"
+                            className={`w-full border-2 border-t-0 border-white flex justify-center items-center px-4 text-center ${index === homeOptions.length - 1 ? 'h-24 bg-white' : 'bg-slate-100 h-16'}`}
                             onClick={() => {
                                 option.onClick();
 
@@ -146,6 +145,12 @@ export default function SideBarMenu({
                                 :
                                 option.text === 'Create a post' ? 
                                 <p className='w-full flex justify-left items-center gap-2'><span className="material-symbols-outlined text-lg">post</span>{option.text}</p>
+                                :
+                                option.text === 'Search for topics' ? 
+                                <p className='w-full flex justify-left items-center gap-2'><span className="material-symbols-outlined text-lg">search</span>{option.text}</p>
+                                :
+                                option.text === 'Empty box' ? 
+                                <p className='w-full flex justify-left items-center gap-2'></p>
                                 :
                                 ''
                             }

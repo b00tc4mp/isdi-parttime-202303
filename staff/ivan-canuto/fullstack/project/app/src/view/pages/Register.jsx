@@ -23,7 +23,6 @@ export default function Register() {
         })
     }
 
-
     return <Container className="w-screen h-screen bg-white flex flex-col items-center justify-center bg-[url(src/images/wallpaper.jpg)] bg-cover bg-center">
         <div className='flex justify-center items-center w-11/12'>
             <div className="w-4/5 h-[580px] bg-white rounded-[10px] border border-black flex flex-col items-center justify-center">

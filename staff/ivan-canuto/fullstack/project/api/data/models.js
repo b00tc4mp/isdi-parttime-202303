@@ -66,11 +66,11 @@ const user = new Schema({
         default: 0
     },
     following: {
-        type: [ObjectId],
+        type: [Object],
         ref: 'User'
     },
     followers: {
-        type: [ObjectId],
+        type: [Object],
         ref: 'User'
     },
     location: {

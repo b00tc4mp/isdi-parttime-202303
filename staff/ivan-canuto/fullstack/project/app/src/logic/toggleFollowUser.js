@@ -4,21 +4,21 @@ import context from './context'
 const { validateId } = validators
 
 /**
- * Sets and unsets a post as liked by the user
+ * Sets and unsets an app user as 'following' by the current user
  * 
- * @param {string} postId The post id
+ * @param {string} profileUserId The profile user id
  * 
- * @returns {Promise} A Promise that resolves when a post is liked/unliked successfully, or throws an error if the operation fails
+ * @returns {Promise} A Promise that resolves when a user is followed/unfollowed successfully, or throws an error if the operation fails
  * 
  * @throws {TypeError} On non-string post id
  * @throws {ContentError} On post id length not equal to 24 characters
  */
 
-export default function ªtoggleLikePost(postId) {
-    validateId(postId, 'post id')
+export default function toggleLikePost(profileUserId) {
+    validateId(profileUserId, 'profie user id')
 
     return (async () => {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/posts/${postId}/toggleLike`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${profileUserId}/toggleFollow`, {
             method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${context.token}`

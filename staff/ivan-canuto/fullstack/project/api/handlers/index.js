@@ -40,4 +40,7 @@ module.exports = {
   updateUserDescriptionHandler: require('./updateUserDescriptionHandler'),
   updateUserLocationHandler: require('./updateUserLocationHandler'),
   updateUserOccupationHandler: require('./updateUserOccupationHandler'),
+  toggleFollowUserHandler: require('./toggleFollowUserHandler'),
+  retrieveRequestedUserHandler: require('./retrieveRequestedUserHandler'),
+  retrieveRequestedUserPostsHandler: require('./retrieveRequestedUserPostsHandler'),
 }

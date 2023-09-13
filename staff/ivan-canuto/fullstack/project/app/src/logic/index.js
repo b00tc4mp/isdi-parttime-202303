@@ -44,6 +44,10 @@ import createPostFromScratch from './createPostFromScratch'
 import updateUserDescription from './updateUserDescription'
 import updateUserLocation from './updateUserLocation'
 import updateUserOccupation from './updateUserOccupation'
+import toggleFollowUser from './toggleFollowUser'
+import checkFollowingUser from './checkFollowingUser'
+import retrieveRequestedUser from './retrieveRequestedUser'
+import retrieveRequestedUserPosts from './retrieveRequestedUserPosts'
 
 export {
     context,
@@ -91,5 +95,9 @@ export {
     createPostFromScratch,
     updateUserOccupation,
     updateUserLocation,
-    updateUserDescription
+    updateUserDescription,
+    toggleFollowUser,
+    checkFollowingUser,
+    retrieveRequestedUser,
+    retrieveRequestedUserPosts,
 }

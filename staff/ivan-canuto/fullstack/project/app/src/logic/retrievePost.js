@@ -6,6 +6,8 @@ const { validateId } = validators
 /**
  * Retrieves the requested post by post id
  * 
+ * @param {string} postId The post id.
+ * 
  * @returns {Promise<object>} The post object
  * 
  * @throws {TypeError} On non-string post id

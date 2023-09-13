@@ -22,9 +22,9 @@ export default function Header({ handleToggleMenu, handleOpenProfile, setPage, h
             <img className="cursor-pointer h-14 rounded-lg" onClick={handleReturnToHome} src="src/images/logo-home.jpg" />
             {(user && user.avatar)
             ?
-            <img className="h-10 w-10 object-cover rounded-full" src={user.avatar} alt="avatar image" onClick={handleOpenProfile} />
+            <img className="h-10 w-10 object-cover rounded-full" src={user.avatar} alt="avatar image" onClick={() => handleOpenProfile('currentUser')} />
             :
-            user && <div onClick={handleOpenProfile}><RandomAvatar name={user.name} size={40} /></div>}
+            user && <div onClick={() => handleOpenProfile('currentUser')}><RandomAvatar name={user.name} size={40} /></div>}
         </div>
     </header>
 }

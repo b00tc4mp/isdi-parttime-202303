@@ -44,7 +44,10 @@ const {
     createPostFromScratchHandler,
     updateUserDescriptionHandler,
     updateUserLocationHandler,
-    updateUserOccupationHandler
+    updateUserOccupationHandler,
+    toggleFollowUserHandler,
+    retrieveRequestedUserHandler,
+    retrieveRequestedUserPostsHandler,
 } = require('./handlers')
 const mongoose = require('mongoose')
 
@@ -137,6 +140,12 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/users/location', jsonBodyParser, updateUserLocationHandler)
         
         api.patch('/users/description', jsonBodyParser, updateUserDescriptionHandler)
+
+        api.patch('/users/:profileUserId/toggleFollow', jsonBodyParser, toggleFollowUserHandler)
+
+        api.get('/users/:requestedUserId/requestedUser', jsonBodyParser, retrieveRequestedUserHandler)
+
+        api.get('/users/:requestedUserId/posts/requestedUserPosts', jsonBodyParser, retrieveRequestedUserPostsHandler)
 
         api.listen(process.env.PORT, () => console.log(`Server running in port ${process.env.PORT}`))
     })

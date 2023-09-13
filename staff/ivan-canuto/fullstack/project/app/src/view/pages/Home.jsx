@@ -22,8 +22,8 @@ export default function Home() {
     const [user, setUser] = useState()
     const [openedProfile, setOpenedProfile] = useState(false)
     const [writingText, setWritingText] = useState(false)
-    const [search, setSearch] = useState(false)
     const [textToSearch, setTextToSearch] = useState()
+    const [profileModal, setProfileModal] = useState(false)
 
     useEffect(() => {
         console.log("Home -> render");
@@ -88,8 +88,9 @@ export default function Home() {
 
     const handleToggleVisibility = () => setModal("toggleVisibility")
 
-    const handleOpenProfile = () => {
+    const handleOpenProfile = (modal) => {
         navigate('/profile')
+        setProfileModal(modal)
 
         if (menu) handleToggleMenu()
 
@@ -128,8 +129,6 @@ export default function Home() {
 
         if (context.conversationId) context.conversationId = null
 
-        if (context.hideHeader) context.hideHeader = false
-
         navigate("/chatbot");
     };
 
@@ -143,12 +142,6 @@ export default function Home() {
         const homeContainer = document.querySelector('.home-container')
 
         homeContainer.scrollTop = 0
-    }
-
-    const handleToggleSearchBar = () => {
-        document.body.classList.add('fixed-scroll')
-
-        setSearch(!search)
     }
 
     const handleSearch = event => {
@@ -167,10 +160,8 @@ export default function Home() {
         handleLastPostsUpdate()
     }
 
-    console.debug("Home -> render");
-
     return (
-        <Container className="home-container bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover min-h-screen absolute left-0 overflow-scroll">
+        <Container className="home-container bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover fixed top-0 left-0 overflow-scroll">
             <Header
                 handleOpenProfile={handleOpenProfile}
                 handleLogout={handleLogout}
@@ -230,6 +221,7 @@ export default function Home() {
                         handleLastPostsUpdate={handleLastPostsUpdate}
                         handleTogglePostModal={handleTogglePostModal}
                         lastPostsUpdate={lastPostsUpdate}
+                        handleOpenProfile={handleOpenProfile}
                     />
                 )}
 
@@ -305,12 +297,8 @@ export default function Home() {
                                 onClick: () => setModal('addPost')
                             },
                             {
-                                text: "Search for topics",
-                                onClick: () => {
-                                    setPage('SearchForTopicsPage')
-
-                                    navigate("/suggestions");
-                                },
+                                text: "Empty box",
+                                onClick: () => {},
                             },
                         ]}
                         chatbotOptions={[
@@ -400,6 +388,8 @@ export default function Home() {
                                 handleLastPostsUpdate={handleLastPostsUpdate}
                                 handleTogglePostModal={handleTogglePostModal}
                                 lastPostsUpdate={lastPostsUpdate}
+                                profileModal={profileModal}
+                                setProfileModal={setProfileModal}
                             /> : <Navigate to="/login" />
                         }
                     />

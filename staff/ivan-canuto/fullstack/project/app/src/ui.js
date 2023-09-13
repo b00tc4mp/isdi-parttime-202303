@@ -73,4 +73,16 @@ export const context = {
     get summary() {
         return sessionStorage.summary
     },
+    set requestedUserId(requestedUserId) {
+        if (!requestedUserId) {
+            delete sessionStorage.requestedUserId
+
+            return
+        }
+
+        sessionStorage.requestedUserId = requestedUserId
+    },
+    get requestedUserId() {
+        return sessionStorage.requestedUserId
+    },
 }

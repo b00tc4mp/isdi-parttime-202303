@@ -6,9 +6,11 @@ import {
     retrieveUser,
     toggleLikePost,
     toggleSavePost,
+    isCurrentUser
 } from "../../logic";
 import { context } from "../../ui";
 import { ContextualMenu, Comments, SuggestionsModal } from "../components";
+import { RandomAvatar } from "react-random-avatars"
 
 export default function PostModalWindow({
     handleOpenEditPost,
@@ -18,7 +20,8 @@ export default function PostModalWindow({
     handleTogglePostModal,
     lastPostsUpdate,
     page,
-    handleHidePost
+    handleHidePost,
+    handleOpenProfile
 }) {
     const handleErrors = useHandleErrors();
     const { freeze, unfreeze } = useAppContext()
@@ -94,6 +97,16 @@ export default function PostModalWindow({
 
     const handleOpenSuggestions = () => setModal("suggestions");
 
+    const handleVisitProfile = () => {
+        if(page !== 'profile') {
+            context.requestedUserId = post.author.id
+    
+            handleOpenProfile('requestedUser')
+        }
+    }
+
+    // console.log(page, 'page in post modal')
+
     return (
         <ModalContainer
             className="bg-black h-screen bg-opacity-20 fixed z-20 top-0 left-0"
@@ -153,12 +166,18 @@ export default function PostModalWindow({
                             >
                                 arrow_back
                             </span>
-                            <img
-                                className="h-8 w-8 object-cover rounded-full"
-                                src={post.author.avatar}
-                                alt="post-user-avatar"
-                            />
-                            <p className="px-1">{post.author.name}</p>
+                            {post.author.avatar
+                                ?
+                                <img
+                                    className="h-8 w-8 object-cover rounded-full"
+                                    src={post.author.avatar}
+                                    alt="post-user-avatar"
+                                    onClick={handleVisitProfile}
+                                />
+                                :
+                                <RandomAvatar name={post.author.name} size={28} />
+                            }
+                            <p onClick={handleVisitProfile}>{post.author.name}</p>
                         </div>
 
                         {modal === "post" && (
