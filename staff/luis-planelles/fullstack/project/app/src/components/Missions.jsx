@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import retrieveMissions from '../logic/retrieveMissions';
 import { context } from '../ui';
 import Mission from './Mission';
 
 
-const Missions = ({lastMissionUpdate}) => {
+const Missions = ({lastMissionUpdate }) => {
     const [missions, setMissions] = useState();
 
     useEffect(() => handleRefreshMission(), [])
@@ -25,14 +26,17 @@ const Missions = ({lastMissionUpdate}) => {
         if(lastMissionUpdate) handleRefreshMission()
     }, [lastMissionUpdate]);
 
-    return <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">           
-        { missions && missions.map(mission => 
-        <Mission
-        key={mission.id} 
-        mission={mission}
-        />)}
-    </section>
-}
+    return (
+        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {missions &&
+            missions.map((mission) => (
+              <Link to={`/mission/${mission.id}`} key={mission.id}>
+                <Mission mission={mission} />
+              </Link>
+            ))}
+        </section>
+      );
+    };
 
 
 export default Missions

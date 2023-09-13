@@ -58,6 +58,10 @@ const Home = () => {
             lastMissionUpdate={lastUpdate}
             />
           )}
+          {view === 'mission-detail' && (
+            <MissionDetail 
+            />
+          )}
           {modal === 'add-mission' && (
             <AddMissionModal 
               onCancel={handleCloseModal} 
@@ -76,9 +80,6 @@ const Home = () => {
       </footer>
     </div>
   );
-  
-  
-  
 }
 
 export default Home

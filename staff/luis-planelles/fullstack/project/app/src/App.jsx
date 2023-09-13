@@ -4,6 +4,7 @@ import isUserLoggedIn from './logic/isUserLoggedIn';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
+import MissionDetail from './pages/MissionDetail';
 import Register from './pages/Register';
 
 const { Provider } = AppContext
@@ -16,6 +17,7 @@ const App = () => {
               <Route path="/login" element={isUserLoggedIn() ? <Navigate to="/" /> : <Login />} />
               <Route path="/" element={isUserLoggedIn() ? <Home /> : <Navigate to="/login" />} />
               <Route path="/register" element={isUserLoggedIn() ? <Navigate to="/" /> : <Register />} />
+              <Route path="/mission/:missionId" element={<MissionDetail />} />
             </Routes>
           </Provider>
 };
