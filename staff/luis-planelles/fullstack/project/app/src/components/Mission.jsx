@@ -1,13 +1,22 @@
-const Mission = ({ mission: { id, traveler, destination, status, participants, loserPrice, startDate, endDate } }) => {
+import formatDateTime from '../logic/formatDateTime';
+
+const Mission = (
+  { 
+    mission: 
+    { 
+    id, 
+    traveler, 
+    destination, 
+    status, 
+    participants, 
+    loserPrice, 
+    startDate, 
+    endDate 
+    } 
+  }) => {
+
   const { name } = participants[0];
   const { race } = traveler[0];
-
-  function formatDateTime(dateTimeString) {
-    const date = new Date(dateTimeString);
-    const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-    const formattedTime = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
-    return `day: ${formattedDate} hour: ${formattedTime}`;
-  }
 
   return (
     <article className='mission bg-white shadow-md rounded-lg p-4 my-4 border'>
