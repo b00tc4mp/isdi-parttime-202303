@@ -2,7 +2,7 @@ const {
   validators: { validateId },
   errors: { ExistenceError },
 } = require('com');
-const { Mission, User } = require('../data/models');
+const { Mission } = require('../data/models');
 
 /**
  * Creates a new mission by a user.
@@ -14,8 +14,7 @@ const { Mission, User } = require('../data/models');
  * @throws {ContentError} - on userId or missionId wrong characters.
  */
 
-const retrieveMission = (userId, missionId) => {
-  validateId(userId, 'user id');
+const retrieveMission = (missionId) => {
   validateId(missionId, 'mission id');
 
   return (async () => {
@@ -26,13 +25,11 @@ const retrieveMission = (userId, missionId) => {
       '-__v',
     ].join(' ');
 
-    const [foundUser, foundMission] = await Promise.all([
-      User.findById(userId),
-      Mission.findById(missionId, selectedFields).lean(),
-    ]);
+    const foundMission = await Mission.findById(
+      missionId,
+      selectedFields
+    ).lean();
 
-    if (!foundUser)
-      throw new ExistenceError(`user with id ${userId} not exist`);
     if (!foundMission)
       throw new ExistenceError(`mission with id ${missionId} not exist`);
 
