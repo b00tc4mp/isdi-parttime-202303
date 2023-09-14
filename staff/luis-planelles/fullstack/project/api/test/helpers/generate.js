@@ -50,7 +50,7 @@ const generate = {
   nasaEvent: (event, date) => ({
     date,
     event,
-    link: 'event-link',
+    link: `event-link-${Math.random()}`,
   }),
 
   apiCall: (lastUpdate) => ({
