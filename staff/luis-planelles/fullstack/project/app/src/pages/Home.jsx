@@ -14,7 +14,7 @@ const Home = () => {
     [user, setUser] = useState(null);
 
   useEffect(() => {
-  
+
     try {
       retrieveUser()
       .then(setUser)
