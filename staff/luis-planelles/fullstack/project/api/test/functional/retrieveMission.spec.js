@@ -28,10 +28,7 @@ describe('retrieveMission', () => {
   });
 
   it('success on retrieve mission', async () => {
-    const retrievedMission = await retrieveMission(
-      user._id.toString(),
-      mission._id.toString()
-    );
+    const retrievedMission = await retrieveMission(mission._id.toString());
 
     expect(retrievedMission._id).to.deep.equal(mission._id);
     expect(retrievedMission.creator._id).to.deep.equal(user._id);
@@ -55,24 +52,11 @@ describe('retrieveMission', () => {
     expect(retrievedMission.traveler[0]._id).to.be.undefined;
   });
 
-  it('throws ExistenceError when user does not exist', async () => {
-    const nonExistentUserId = new ObjectId().toString();
-
-    try {
-      await retrieveMission(nonExistentUserId, mission._id.toString());
-    } catch (error) {
-      expect(error).to.be.an.instanceOf(ExistenceError);
-      expect(error.message).to.equal(
-        `user with id ${nonExistentUserId} not exist`
-      );
-    }
-  });
-
   it('throws ExistenceError when mission does not exist', async () => {
     const nonExistentMissionId = new ObjectId().toString();
 
     try {
-      await retrieveMission(user._id.toString(), nonExistentMissionId);
+      await retrieveMission(nonExistentMissionId);
     } catch (error) {
       expect(error).to.be.an.instanceOf(ExistenceError);
       expect(error.message).to.equal(
@@ -81,55 +65,11 @@ describe('retrieveMission', () => {
     }
   });
 
-  it('should raise ContentError if user id is empty', async () => {
-    const emptyId = '';
-
-    try {
-      await retrieveMission(emptyId, mission._id.toString());
-    } catch (error) {
-      expect(error).to.be.instanceOf(ContentError);
-      expect(error.message).to.equal('user id is empty');
-    }
-  });
-
-  it('should raise TypeError if user id is not a string', async () => {
-    const noStringId = 11;
-
-    try {
-      await retrieveMission(noStringId, mission._id.toString());
-    } catch (error) {
-      expect(error).to.be.instanceOf(TypeError);
-      expect(error.message).to.equal('user id is not a string');
-    }
-  });
-
-  it('should raise ContentError if user id does not have 24 characters', async () => {
-    const shortId = 'abc123';
-
-    try {
-      await retrieveMission(shortId, mission._id.toString());
-    } catch (error) {
-      expect(error).to.be.instanceOf(ContentError);
-      expect(error.message).to.equal('user id does not have 24 characters');
-    }
-  });
-
-  it('should raise ContentError if user id is not hexagecimal', async () => {
-    const nonHexId = 'invalidValue123456789012';
-
-    try {
-      await retrieveMission(nonHexId, mission._id.toString());
-    } catch (error) {
-      expect(error).to.be.instanceOf(ContentError);
-      expect(error.message).to.equal('user id is not hexagecimal');
-    }
-  });
-
   it('should raise ContentError if mission id is empty', async () => {
     const emptyId = '';
 
     try {
-      await retrieveMission(user._id.toString(), emptyId);
+      await retrieveMission(emptyId);
     } catch (error) {
       expect(error).to.be.instanceOf(ContentError);
       expect(error.message).to.equal('mission id is empty');
@@ -140,7 +80,7 @@ describe('retrieveMission', () => {
     const noStringId = 11;
 
     try {
-      await retrieveMission(user._id.toString(), noStringId);
+      await retrieveMission(noStringId);
     } catch (error) {
       expect(error).to.be.instanceOf(TypeError);
       expect(error.message).to.equal('mission id is not a string');
@@ -151,7 +91,7 @@ describe('retrieveMission', () => {
     const shortId = 'abc123';
 
     try {
-      await retrieveMission(user._id.toString(), shortId);
+      await retrieveMission(shortId);
     } catch (error) {
       expect(error).to.be.instanceOf(ContentError);
       expect(error.message).to.equal('mission id does not have 24 characters');
@@ -162,7 +102,7 @@ describe('retrieveMission', () => {
     const nonHexId = 'invalidValue123456789012';
 
     try {
-      await retrieveMission(user._id.toString(), nonHexId);
+      await retrieveMission(nonHexId);
     } catch (error) {
       expect(error).to.be.instanceOf(ContentError);
       expect(error.message).to.equal('mission id is not hexagecimal');
