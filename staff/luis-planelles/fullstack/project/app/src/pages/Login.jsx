@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../hooks';
 import loginUser from '../logic/loginUser';
+import retrieveNasaData from '../logic/retrieveNasaData';
+import { context } from '../ui';
 
 const Login = () => {
   const { navigate} = useAppContext()
@@ -13,7 +15,10 @@ const Login = () => {
 
     try {
       loginUser(email, password)
-      .then(() => navigate('/'))
+      .then(() => {
+        retrieveNasaData(context.token)
+        navigate('/')
+      })
       .catch((error) => alert(error.message))
 
     }catch (error) {
