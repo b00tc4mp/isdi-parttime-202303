@@ -21,7 +21,7 @@ const updateMission = (userId, missionId) => {
   validateId(userId, 'user id');
   validateId(missionId, 'mission id');
 
-  currentDate = new Date();
+  const currentDate = new Date();
 
   return (async () => {
     const [foundUser, foundMission] = await Promise.all([
@@ -59,7 +59,7 @@ const updateMission = (userId, missionId) => {
         retrievedNasaEvents
       );
 
-      return updatedMission;
+      await updatedMission.save();
     }
   })();
 };

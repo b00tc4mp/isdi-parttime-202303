@@ -36,7 +36,7 @@ mongoose
     api.get('/retrieve-nasa-data/', retrieveNasaDataHandler);
     api.get('/missions/:missionId', retrieveMissionHandler);
     api.get('/missions', retrieveMissionsHandler);
-    api.get(
+    api.patch(
       '/missions/update/:missionId',
       jsonBodyParser,
       updateMissionHandler

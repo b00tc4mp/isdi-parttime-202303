@@ -58,11 +58,11 @@ describe('updateMission', () => {
       ),
       geoStorm1 = generate.nasaEvent(
         'geoStorm',
-        new Date('2023-09-03T00:00:00')
+        new Date('2023-09-03T12:00:00')
       ),
       planetShock1 = generate.nasaEvent(
         'planetShock',
-        new Date('2023-09-03T00:00:00')
+        new Date('2023-09-03T05:00:00')
       ),
       massEjection1 = generate.nasaEvent(
         'massEjection',
@@ -101,14 +101,16 @@ describe('updateMission', () => {
   });
 
   it('success on update mission', async () => {
-    const updatedMission = await updateMission(userId, missionId);
+    await updateMission(userId, missionId);
 
-    expect(updatedMission.traveler[0].health).to.be.equal(9.25);
-    expect(updatedMission.traveler[0].food).to.be.equal(55);
-    expect(updatedMission.traveler[0].water).to.be.equal(60);
-    expect(updatedMission.traveler[0].stress).to.be.equal(65);
-    expect(updatedMission.traveler[0].oxygen).to.be.equal(50);
-    expect(updatedMission.status).to.be.equal('in_progress');
+    missionFound = await Mission.findOne();
+
+    expect(missionFound.traveler[0].health).to.be.equal(9.25);
+    expect(missionFound.traveler[0].food).to.be.equal(55);
+    expect(missionFound.traveler[0].water).to.be.equal(60);
+    expect(missionFound.traveler[0].stress).to.be.equal(65);
+    expect(missionFound.traveler[0].oxygen).to.be.equal(50);
+    expect(missionFound.status).to.be.equal('in_progress');
   });
 
   it('success on no update mission if isnt nasa data events', async () => {
@@ -162,9 +164,11 @@ describe('updateMission', () => {
     foundMission.traveler[0].oxygen = 0;
     await foundMission.save();
 
-    const updatedMission = await updateMission(userId, missionId);
+    await updateMission(userId, missionId);
 
-    expect(updatedMission.status).to.be.equal('failure');
+    const missionFound = await Mission.findOne();
+
+    expect(missionFound.status).to.be.equal('failure');
   });
 
   it('success on set failure status with health at Zero', async () => {
@@ -172,9 +176,11 @@ describe('updateMission', () => {
     foundMission.traveler[0].health = 0;
     await foundMission.save();
 
-    const updatedMission = await updateMission(userId, missionId);
+    await updateMission(userId, missionId);
 
-    expect(updatedMission.status).to.be.equal('failure');
+    const missionFound = await Mission.findOne();
+
+    expect(missionFound.status).to.be.equal('failure');
   });
 
   it('throws ExistenceError when user does not exist', async () => {
