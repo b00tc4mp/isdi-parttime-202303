@@ -1,11 +1,12 @@
 import Posts from '../components/Posts'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Profile from '../components/Profile'
 import AddPostModal from '../components/AddPostModal'
 import EditPostModal from '../components/EditPostModal'
 import getInitials from '../logic/getInitials.js'
 import retrieveUser from '../logic/retrieveUser'
 import { context } from '../main.js'
+import Context from '../Context';
 
 export default function Home({ onLoggedOut }) {
 
@@ -14,15 +15,20 @@ export default function Home({ onLoggedOut }) {
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(null)
     const [user, setUser] = useState()
+    const { alert } = useContext(Context)
+
 
     useEffect(() => {
         try {
-            retrieveUser(context.token)
-                .then(setUser)
-                .catch(error => alert(error.message))
-        } catch (error) {
-            alert(error.message)
-        }
+      
+            retrieveUser()
+              .then(setUser)
+              .catch((error) => alert(error.message, 'error'))
+          } catch (error) {
+
+      
+            alert(error.message, 'warn')
+          }
     }, [])
 
 

@@ -1,32 +1,66 @@
-export function createPost(userId, image, text, callback) {
-const xhr = new XMLHttpRequest()
+import { validators } from 'com'
+import context from './context'
 
-  xhr.onload = () => {
-    const { status } = xhr
+const { validateUrl, validateText, validateCallback } = validators
 
-    if (status !== 201) {
-      const { response: json } = xhr
-      const { error } = JSON.parse(json)
+export default function createPost(image, text, callback) {
+  validateUrl(image, 'Image URL')
+  validateText(text)
 
-      callback(new Error(error))
+  if (callback) {
+    validateCallback(callback)
 
-      return
+    // eslint-disable-next-line no-undef
+    const xhr = new XMLHttpRequest()
+
+    xhr.onload = () => {
+      const { status } = xhr
+
+      if (status !== 201) {
+        const { response: json } = xhr
+        const { error } = JSON.parse(json)
+
+        callback(new Error(error))
+
+        return
+      }
+
+      callback(null)
     }
 
-    callback(null)
+    xhr.onerror = () => {
+      callback(new Error('Connection error'))
+    }
+
+    xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
+
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.setRequestHeader('Authorization', `Bearer ${context.token}`)
+
+    const post = { image, text }
+    const json = JSON.stringify(post)
+
+    xhr.send(json)
+
+    return
   }
 
-  xhr.onerror = () => {
-    callback(new Error('Connection error'))
-  }
+  return (async () => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${context.token}`,
+      },
+      body: JSON.stringify({ image, text }),
+    })
 
-  xhr.open('POST', `${import.meta.env.VITE_API_URL}/posts`)
+    if (res.status === 201) return
 
-  xhr.setRequestHeader('Content-Type', 'application/json')
-  xhr.setRequestHeader('Authorization', `Bearer ${userId}`)
+    const { type, message } = await res.json()
 
-  const post = { image, text }
-  const json = JSON.stringify(post)
+    const clazz = errors[type]
 
-  xhr.send(json)
+    throw new clazz(message)
+  })()
 }

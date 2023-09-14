@@ -1,5 +1,5 @@
 import authenticateUser from '../logic/authenticateUser.js'
-import {context} from '../main.js'
+import context from '../logic/context.js'
 import { useContext, useEffect, useState } from 'react'
 import Context from '../Context.js'
 import retrieveRandomMotivationalQuote from '../logic/retrieveRandomMotivationalQuote'

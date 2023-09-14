@@ -1,5 +1,4 @@
-import { context } from '../main.js' 
-import {createPost} from '../logic/createPost'
+import createPost from '../logic/createPost'
 
 export default function AddPostModal({ onCancel, onPostCreated }) {
     console.log('AddPostModal -> render')
@@ -17,7 +16,7 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
         const text = event.target.text.value
 
         try {
-            createPost(context.userId, image, text, error => {
+            createPost(image, text, error => {
                 if (error) {
                     alert(error.message)
 

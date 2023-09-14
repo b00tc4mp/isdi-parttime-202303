@@ -1,27 +1,33 @@
-export default (token, callback) => {
+import { validators } from 'com'
+import context from './context'
 
-    const xhr = new XMLHttpRequest
+const { validateCallback } = validators
+
+export default function retrieveUser(callback) {
+  if (callback) {
+    validateCallback(callback)
+    const xhr = new XMLHttpRequest()
 
     xhr.onload = () => {
-        const { status } = xhr
+      const { status } = xhr
 
-        if (status !== 200) {
-            const { response: json } = xhr
-            const { error } = JSON.parse(json)
-
-            callback(new Error(error))
-
-            return
-        }
-
+      if (status !== 200) {
         const { response: json } = xhr
-        const user = JSON.parse(json)
+        const { error } = JSON.parse(json)
 
-        callback(null, user)
+        callback(new Error(error))
+
+        return
+      }
+
+      const { response: json } = xhr
+      const user = JSON.parse(json)
+
+      callback(null, user)
     }
 
     xhr.onerror = () => {
-        callback(new Error('connection error'))
+      callback(new Error('Connection error'))
     }
 
     xhr.open('GET', `${import.meta.env.VITE_API_URL}/users`)
@@ -29,4 +35,23 @@ export default (token, callback) => {
     xhr.setRequestHeader('Authorization', `Bearer ${token}`)
 
     xhr.send()
+
+    return
+  }
+
+  return (async () => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/users/`, {
+      headers: {
+        Authorization: `Bearer ${context.token}`,
+      },
+    })
+
+    if (res.status === 200) return await res.json()
+
+    const { type, message } = await res.json()
+
+    const clazz = errors[type]
+
+    throw new clazz(message)
+  })()
 }
