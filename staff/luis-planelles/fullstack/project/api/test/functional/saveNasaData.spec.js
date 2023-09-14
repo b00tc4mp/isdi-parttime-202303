@@ -33,21 +33,21 @@ describe('saveNasaData', () => {
         status: 200,
         text: async () =>
           JSON.stringify([
-            { startTime: correctEventTime, link: 'link-to-event' },
+            { startTime: correctEventTime, link: 'link-to-event1' },
           ]),
       },
       {
         status: 200,
         text: async () =>
           JSON.stringify([
-            { beginTime: correctEventTime, link: 'link-to-event' },
+            { beginTime: correctEventTime, link: 'link-to-event2' },
           ]),
       },
       {
         status: 200,
         text: async () =>
           JSON.stringify([
-            { eventTime: correctEventTime, link: 'link-to-event' },
+            { eventTime: correctEventTime, link: 'link-to-event3' },
           ]),
       },
     ];
@@ -64,7 +64,7 @@ describe('saveNasaData', () => {
 
     nasaEventsSaved.map((nasaEventSaved) => {
       expect(nasaEventSaved.event).to.oneOf(expectedEvents);
-      expect(nasaEventSaved.link).to.be.equal('link-to-event');
+      expect(nasaEventSaved.link).to.contain('link-to-event');
       expect(nasaEventSaved.date).to.deep.equal(correctEventTime);
     });
   });
@@ -93,8 +93,8 @@ describe('saveNasaData', () => {
       status: 200,
       text: async () =>
         JSON.stringify([
-          { startTime: eventTime1, link: 'event-1' },
-          { startTime: eventTime2, link: 'event-2' },
+          { startTime: eventTime1, link: 'link-to-event-1' },
+          { startTime: eventTime2, link: 'link-to-event-2' },
         ]),
     };
 

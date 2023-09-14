@@ -12,6 +12,8 @@ const getApiData = async (eventType, endpoint) => {
   validateText(eventType, 'eventType');
   validateText(endpoint, 'endpoint');
 
+  let res;
+
   try {
     res = await fetch(endpoint, {
       headers: {

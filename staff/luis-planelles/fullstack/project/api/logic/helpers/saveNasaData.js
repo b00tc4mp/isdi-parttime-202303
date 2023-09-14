@@ -25,7 +25,7 @@ const saveNasaData = (res, event) => {
 
       if (resBody) {
         try {
-          data = JSON.parse(resBody);
+          const data = JSON.parse(resBody);
 
           for (const item of data) {
             let eventDate;
@@ -38,13 +38,20 @@ const saveNasaData = (res, event) => {
               eventDate = item.eventTime;
             }
 
-            const newEvent = {
+            const existingEvent = await NasaEvent.findOne({
               date: new Date(eventDate),
               event,
-              link: item.link,
-            };
+            });
 
-            await NasaEvent.create(newEvent);
+            if (!existingEvent) {
+              const newEvent = {
+                date: new Date(eventDate),
+                event,
+                link: item.link,
+              };
+
+              await NasaEvent.create(newEvent);
+            }
           }
         } catch (error) {
           throw new ContentError(

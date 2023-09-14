@@ -35,11 +35,13 @@ const createNasaData = (userId, endpoints) => {
       const res = await getApiData(eventType, endpoint);
 
       await saveNasaData(res, eventType);
-
-      await ApiCall.create({
-        lastUpdate: new Date(),
-      });
     }
+
+    await ApiCall.deleteMany({});
+
+    await ApiCall.create({
+      lastUpdate: new Date(),
+    });
   })();
 };
 
