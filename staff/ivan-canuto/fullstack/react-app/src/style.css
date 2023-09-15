@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .textarea {
+    @apply w-full h-40 border-2 border-gray-200 p-2 rounded-lg
+  }
+}
+
+/* resets */
+html, body {
+  min-height: 100vh;
+  max-height: fit-content;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: var(--basecolor);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* styles */
+
+:root {
+  --basecolor: black;
+  --basebgcolor: rgb(255, 255, 255);
+  --bgheaderfooter: #e3e3e3;
+  --bgpost: #e3e3e3;
+  --inputcolor: rgb(202, 202, 202);
+}
+
+:root.dark {
+  --basecolor: rgb(255, 255, 255);
+  --basebgcolor: rgb(70, 70, 70);
+  --bgheaderfooter: #202020;
+}
+
+.bg-home {
+  background-color: var(--basebgcolor);
+
+}
+
+.bg-header,.bg-footer {
+  background-color: var(--bgheaderfooter);
+  color: var(--basecolor);
+}
+
+.fixed-scroll {
+  overflow: hidden;
+}
+
+.loader-container {
+  z-index: 300
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.filled {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.saved {
+  color: rgb(255, 208, 0);
+}
+
+.liked {
+  color: red;
+}
+
+.opened-menu {
+  left: 0;
+  animation: slide 0.3s linear forwards;
+}
+
+.closed-menu {
+  animation: slide-back 0.3s linear forwards;
+}
+
+@keyframes slide {
+  0% { left: -300px }
+  100% { left: 0 }
+}
+
+@keyframes slide-back {
+  0% { left: 0 }
+  100% { left: -300px }
+}
