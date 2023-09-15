@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { Container, Button, SpeechBubble, LoaderResponse } from "../library"
 import { useAppContext, useHandleErrors } from "../hooks"
-import { askForResponse, retrieveConversation, storeInputInDB, createConversation, generateSummary, createPostFromChatbot } from "../../logic"
+import { askForResponse, retrieveConversation, storeInputInDB, createConversation, generateSummary } from "../../logic"
 import { context } from "../../ui"
 
-export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdate, setWritingText, writingText, setView }) {
+export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdate, setWritingText, writingText, setView, setPostContent, setModal }) {
     const handleErrors = useHandleErrors()
     const { navigate, freeze, unfreeze } = useAppContext()
 
@@ -148,22 +148,19 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
         setSummary(null)
     }
 
-    const handleGeneratePost = content => {
-        const postContent = typeof content === 'string' ? content : summary
-        
-        handleErrors(async () => {
-            freeze()
-            
-            await createPostFromChatbot(postContent, context.conversationId)
+    const handleShowAddPostModal = content => {
+        const _postContent = typeof content === 'string' ? content : summary
 
-            navigate('/')
-            setPage('Home')
-            setView('posts')
+        setModal('AddPostModal')
+        setPostContent(_postContent)
+    }
 
-            handleLastPostsUpdate()
+    const handleReturnToHome = () => {
+        navigate('/')
+        setPage('Home')
+        setView('posts')
 
-            unfreeze()
-        })
+        handleLastPostsUpdate()
     }
 
     const setScrollToBottom = () => {
@@ -185,9 +182,8 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
                     key={index}
                     role={message.role}
                     content={message.content}
-                    handleGeneratePost={handleGeneratePost}
-                    setSummary={setSummary}
-                    setScrollToBottom={setScrollToBottom}
+                    setModal={setModal}
+                    setPostContent={setPostContent}
                 />
             )}
             {/* {document.querySelectorAll('.speechBubble').length === messages.length && setScrollToBottom()} */}
@@ -198,7 +194,7 @@ export default function Chatbot({ lastPostsUpdate, setPage, handleLastPostsUpdat
                     content={summary}
                 />
                 <div className="flex justify-around p-2 gap-2">
-                    <Button className="border border-black leading-tight" onClick={handleGeneratePost}>Create post with this summary</Button>
+                    <Button className="border border-black leading-tight" onClick={handleShowAddPostModal}>Create post with this summary</Button>
                     <Button className="border border-black leading-tight" onClick={handleGenerateSummary}>Generate another summary</Button>
                     <Button className="border border-black leading-tight" onClick={handleDeleteSummary}>Continue with conversation</Button>
                 </div>

@@ -92,8 +92,16 @@ function validateNewPostTitle(title) {
 function validateNewPostContent(content) {
   if (typeof content !=='string') throw new TypeError(`The new post content is not a string.`)
   if (!content.trim().length) throw new ContentError(`The new post content field is empty.`)
-  if(content.trim().length < 600) throw new RangeError('The content of the post is too short.')
+  if(content.trim().length < 500) throw new RangeError('The content of the post is too short.')
 }
+
+function validateSubject(subject) {
+  if (typeof subject !=='string') throw new TypeError(`The subject is not a string.`)
+  if (!subject.trim().length) throw new ContentError(`The subject field is empty.`)
+  if (!subjects.includes(subject)) throw new ContentError('The subject is not valid')
+}
+
+const subjects = ['Language and literature', 'Mathematics', 'Natural sciences', 'Social sciences', 'Geography', 'History', 'Physics', 'Biology', 'Chemistry', 'Philosophy', 'Others']
 
 module.exports = {
   validateUsername,
@@ -110,5 +118,6 @@ module.exports = {
   validateSuggestionContent,
   validateUserInputObject,
   validateNewPostTitle,
-  validateNewPostContent
+  validateNewPostContent,
+  validateSubject
 }

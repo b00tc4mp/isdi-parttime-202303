@@ -106,7 +106,7 @@ export default function SideBarMenu({
                         })}
                     </>
                 }
-                {(page === "Home" || page === 'Suggestions' || page === 'OwnPostsSuggestions') &&
+                {(page === "Home" || page === 'Suggestions' || page === 'OwnPostsSuggestions' || page === 'Search') &&
                     homeOptions &&
                     homeOptions.map((option, index) => {
                         return <li
@@ -146,7 +146,7 @@ export default function SideBarMenu({
                                 option.text === 'Create a post' ? 
                                 <p className='w-full flex justify-left items-center gap-2'><span className="material-symbols-outlined text-lg">post</span>{option.text}</p>
                                 :
-                                option.text === 'Search for topics' ? 
+                                option.text === 'Search posts by subject/topics' ? 
                                 <p className='w-full flex justify-left items-center gap-2'><span className="material-symbols-outlined text-lg">search</span>{option.text}</p>
                                 :
                                 option.text === 'Empty box' ? 

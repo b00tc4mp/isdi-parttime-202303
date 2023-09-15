@@ -1,15 +1,16 @@
 require('dotenv').config()
-const { validators: { validateText, validateId } } = require('com')
+const { validators: { validateId, validateNewPostTitle, validateNewPostContent, validateSubject } } = require('com')
 const { errors: { ExistenceError } } = require('com')
 
-const { User, Post, Conversation } = require('../data/models')
+const { User, Post } = require('../data/models')
 
 /**
- * Creates a post
+ * Creates a post from scratch wit a summary provided by user
  * 
  * @param {string} userId The user id
- * @param {string} conversationId The conversation id
- * @param {string} summary The summary/text of the post
+ * @param {string} title The title of the post
+ * @param {string} summary The summary content of the post
+ * @param {string} postSubject The subject related to the post
  * 
  * @returns {Promise} A Promise that resolves when a post is created successfully, or rejects with an error message if the post creation fails
  * 
@@ -18,22 +19,21 @@ const { User, Post, Conversation } = require('../data/models')
  * @throws {ExistenceError} On non-existing user or conversation
  */
 
-module.exports = (userId, conversationId, summary) => {
+module.exports = (userId, title, summary, postSubject) => {
   validateId(userId, 'user id')
-  validateId(conversationId, 'conversation id')
-  validateText(summary, 'summary text')
+  validateNewPostTitle(title)
+  validateNewPostContent(summary)
+  validateSubject(postSubject)
 
   return (async () => {
     const user = await User.findById(userId)
     if(!user) throw new ExistenceError(`User not found.`)
-    
-    const conversation = await Conversation.findById(conversationId).lean()
-    if(!conversation) throw new ExistenceError(`Conversation not found.`)
 
     await Post.create({
       author: user._id,
-      title: conversation.title,
-      text: summary
+      title,
+      text: summary,
+      subject: postSubject
     })
   })()
 }

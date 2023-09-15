@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const {
     updateUserAvatarHandler,
     createCommentHandler,
-    createPostFromChatbotHandler,
+    createPostHandler,
     deleteCommentHandler,
     deletePostHandler,
     retrievePostHandler,
@@ -41,7 +41,6 @@ const {
     retrieveSeenPostsHandler,
     savePostAsSeenHandler,
     retrieveSearchedPostsHandler,
-    createPostFromScratchHandler,
     updateUserDescriptionHandler,
     updateUserLocationHandler,
     updateUserOccupationHandler,
@@ -69,15 +68,15 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/users/posts/:postId/comment', jsonBodyParser, createCommentHandler)
 
-        api.post('/users/conversations/:conversationId/newPost', jsonBodyParser, createPostFromChatbotHandler)
-
+        api.post('/newPost', jsonBodyParser, createPostHandler)
+        
         api.patch('/posts/:postId/comments/:commentId/delete', deleteCommentHandler)
 
         api.delete('/posts/:postId/delete', deletePostHandler)
 
         api.get('/users/posts/:postId/post', retrievePostHandler)
 
-        api.get('/posts', retrievePostsHandler)
+        api.post('/posts', jsonBodyParser, retrievePostsHandler)
 
         api.get('/posts/savedPosts', retrieveSavedPostsHandler)
 
@@ -133,8 +132,6 @@ mongoose.connect(process.env.MONGODB_URL)
         
         api.post('/posts/searchedPosts', jsonBodyParser, retrieveSearchedPostsHandler)
         
-        api.post('/newPostFromScratch', jsonBodyParser, createPostFromScratchHandler)
-
         api.patch('/users/occupation', jsonBodyParser, updateUserOccupationHandler)
 
         api.patch('/users/location', jsonBodyParser, updateUserLocationHandler)

@@ -13,13 +13,14 @@ import SuggestionsModal from "./SuggestionsModal"
 import SuggestionsPage from "./SuggestionsPage"
 import EditPost from "./EditPost"
 import AddPost from "./AddPost"
+import AddPostFromChatbot from "./AddPostFromChatbot"
 import PostModalWindow from "./PostModalWindow"
 import ContextualMenu from "./ContextualMenu"
 import Suggestion from "./Suggestion"
 import CreateSuggestion from "./CreateSuggestion"
 import DeleteSuggestion from "./DeleteSuggestion"
 import EditSuggestion from "./EditSuggestion"
-import AddDescription from "./AddDescription"
+import SearchPage from "./SearchPage"
 
 export {
     Alert,
@@ -37,11 +38,12 @@ export {
     SuggestionsPage,
     EditPost,
     AddPost,
+    AddPostFromChatbot,
     PostModalWindow,
     ContextualMenu,
     Suggestion,
     CreateSuggestion,
     DeleteSuggestion,
     EditSuggestion,
-    AddDescription
+    SearchPage,
 }

@@ -17,15 +17,21 @@ const {
  * @throws {ExistenceError} On non-existing user
  */
   
-  module.exports = (userId, textToSearch) => {
+  module.exports = (userId, postSubject, textToSearch) => {
     validateId(userId, 'user id')
+    validateText(postSubject, 'subject')
     validateText(textToSearch, 'text to search')
   
     return (async () => {
       const user = await User.findById(userId)
       if(!user) throw new ExistenceError('User not found.')
-      
-      const posts = await Post.find({ title: {$regex: textToSearch, $options: 'i'} }).populate('author', 'name avatar').sort({ likes: -1 }).lean()
+
+      let posts
+
+      if(postSubject === 'Show all posts')
+        posts = await Post.find({ title: { $regex: textToSearch, $options: 'i' } }).populate('author', 'name avatar').sort({ likes: -1 }).lean()
+      else
+        posts = await Post.find({ subject: postSubject, title: {$regex: textToSearch, $options: 'i'} }).populate('author', 'name avatar').sort({ likes: -1 }).lean()
   
       posts.forEach(post => {
         post.id = post._id.toString()

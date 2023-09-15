@@ -1,11 +1,14 @@
 import { useState } from "react"
 
-export default function SpeechBubble({ role, content, handleGeneratePost, className }) {
+export default function SpeechBubble({ role, content, setModal, setPostContent, className }) {
     const [showButton, setShowButton] = useState(false)
 
     const handleToggleButton = () => setShowButton(!showButton)
 
-    const handleCreatePost = () => handleGeneratePost(content)
+    const handleCreatePost = () => {
+        setModal('AddPostModal')
+        setPostContent(content)
+    }
 
     return <div className={`w-full flex ${role === 'assistant' ? 'justify-start' : role === 'user' ? 'justify-end' : 'justify-center'}`}>
         <div className={`speechBubble p-4 mx-4 my-2 rounded-lg ${className ? className : ''} ${role === 'assistant' ? 'bg-green-300 rounded-tl-none' : role === 'user' ? 'bg-blue-300 rounded-tr-none' : 'bg-red-300'}`}>

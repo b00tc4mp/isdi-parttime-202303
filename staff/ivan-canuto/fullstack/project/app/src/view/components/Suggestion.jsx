@@ -2,6 +2,7 @@ import { context } from "../../ui";
 import { useState } from "react";
 import { useHandleErrors } from "../hooks";
 import { savePostAsSeen, toggleCheckSuggestion, hideSuggestion } from '../../logic'
+import { RandomAvatar } from "react-random-avatars"
 
 export default function Suggestion({ suggestion, openDeleteSuggestionModal, openEditSuggestionModal, user, handleLastPostsUpdate, handleShowPost, setSuggestion, modal }) {
     const handleErrors = useHandleErrors()
@@ -67,13 +68,26 @@ export default function Suggestion({ suggestion, openDeleteSuggestionModal, open
         <div className=" mx-2 flex flex-col justify-between border p-2 rounded min-h-40 bg-white shadow-md shadow-slate-400">
             <div className="overflow-hidden flex justify-between px-1">
                 <div className="flex gap-1 items-center">
-                    <img className="h-5 w-5 object-cover rounded-full" src={suggestion.author.avatar} alt="Suggestion author avatar" />
+                {suggestion.author.avatar
+                    ?
+                    <img
+                        className="h-8 w-8 object-cover rounded-full"
+                        src={suggestion.author.avatar}
+                        alt="post-user-avatar"
+                        onClick={handleVisitProfile}
+                    />
+                    :
+                    <RandomAvatar name={suggestion.author.name} size={20} />
+                }
                     <p>{suggestion.author.name}</p>
                 </div>
                 <div className="flex gap-3 w-48 flex-wrap justify-end">
                     {suggestion.postAuthor === user.id && checked && !hidden && <p className="flex items-center gap-1"><span className="material-symbols-outlined text-lg" onClick={handleHideSuggestion}>visibility_off</span>Hide</p>}
+
                     {suggestion.postAuthor === user.id && <p className="overflow-hidden flex items-center"><span className={`material-symbols-outlined ${checked && 'bg-green-300 rounded-full'} mr-1`} onClick={handleToggleCheckSuggestion}>check</span>{checked ? 'Checked' : 'Check'}</p>}
+
                     {modal === 'suggestionModal' && <p className="rounded-full border border-gray-400 px-1 flex itmes-center" onClick={() => handleShowPostModal(suggestion.post)}>Go to post<span className="material-symbols-outlined text-base">arrow_forward_ios</span></p>}
+                    
                     {suggestion.author.id === user.id && <>
                         {!checked && <span className="material-symbols-outlined" onClick={handleOpenEditSuggestion}>edit_note</span>}
                         <span className="material-symbols-outlined" onClick={handleOpenDeleteSuggestion}>delete</span>

@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import { ModalContainer } from "../library";
 import { useHandleErrors, useAppContext } from "../hooks";
-import {
-    retrievePost,
-    retrieveUser,
-    toggleLikePost,
-    toggleSavePost,
-    isCurrentUser
-} from "../../logic";
+import { retrievePost, retrieveUser, toggleLikePost, toggleSavePost, } from "../../logic";
 import { context } from "../../ui";
 import { ContextualMenu, Comments, SuggestionsModal } from "../components";
 import { RandomAvatar } from "react-random-avatars"
@@ -105,14 +99,13 @@ export default function PostModalWindow({
         }
     }
 
-    // console.log(page, 'page in post modal')
-
     return (
         <ModalContainer
             className="bg-black h-screen bg-opacity-20 fixed z-20 top-0 left-0"
             onClick={(event) => {
                 if (event.target === document.querySelector(".ModalContainer")) {
                     if (page !== 'mySuggestions') {
+                        console.log('holaaaaaaaaaa')
                         handleTogglePostModal();
                         handleLastPostsUpdate();
                     }
@@ -207,13 +200,16 @@ export default function PostModalWindow({
 
                 {post && modal === "post" && (
                     <>
-                        <h1 className="px-2 text-xl text-center w-5/6">{post.title}</h1>
+                        <div className='w-full flex flex-col items-center'>
+                            <h1 className="px-2 text-xl text-center w-5/6">{post.title}</h1>
+                            <p>{post.subject}</p>
+                        </div>
 
                         <p className="px-2 h-2/3 overflow-scroll border border-gray-300 rounded py-1 mx-2">{post.text}</p>
 
                         <div className="px-2 w-full flex justify-between mb-2">
                             <div>
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 items-center">
                                     <i onClick={handleToggleFav}>
                                         {user && post.fav ? (
                                             <span className="material-symbols-outlined cursor-pointer filled text-yellow-400">
@@ -245,14 +241,14 @@ export default function PostModalWindow({
                                                 favorite
                                             </span>
                                         ) : (
-                                            <span className="material-symbols-outlined cursor-pointer">
+                                            <span className="material-symbols-outlined">
                                                 favorite
                                             </span>
                                         )}
                                     </i>
                                 </div>
 
-                                <p className="mt-[-5px] ml-1">
+                                <p className="mt-[-5px] ml-[-3px]">
                                     {post.likes ? post.likes.length + " likes" : "0 likes"}
                                 </p>
                             </div>

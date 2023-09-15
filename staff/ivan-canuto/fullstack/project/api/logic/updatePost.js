@@ -1,5 +1,5 @@
 const {
-  validators: { validateId, validateText },
+  validators: { validateId, validateText, validateSubject },
   errors: { ExistenceError, ContentError }
 } = require('com')
 const { User, Post } = require('../data/models')
@@ -11,6 +11,7 @@ const { User, Post } = require('../data/models')
  * @param {string} postId The post id
  * @param {string} title The post title
  * @param {string} content The post content
+ * @param {string} postSubject The subject related to the post
  * 
  * @returns {Promise} A Promise that resolves when a post is updated successfully, or rejects with an error message if the operation fails
  * 
@@ -20,11 +21,12 @@ const { User, Post } = require('../data/models')
  * @throws {Error} On current user is not the post owner
  */
 
-module.exports = (userId, postId, title, content) => {
+module.exports = (userId, postId, title, content, postSubject) => {
   validateId(userId, 'user id')
   validateId(postId, 'post id')
   validateText(title, 'post title')
   validateText(content, 'post text')
+  validateSubject(postSubject)
 
   if(title.length > 60) throw new ContentError('The title of the post is too long.')
 
@@ -41,7 +43,8 @@ module.exports = (userId, postId, title, content) => {
       { _id: postId },
       { $set: { 
         title: title,
-        text: content
+        text: content,
+        subject: postSubject
       }}
     )
   })()

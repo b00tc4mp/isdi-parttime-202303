@@ -1,6 +1,6 @@
 import context from './context'
 import createComment from './createComment'
-import createPostFromChatbot from './createPostFromChatbot'
+import createPost from './createPost'
 import deleteComment from './deleteComment'
 import deletePost from './deletePost'
 import getUserId from './getUserId'
@@ -40,7 +40,6 @@ import hideSuggestion from './hideSuggestion'
 import retrieveSeenPosts from './retrieveSeenPosts'
 import savePostAsSeen from './savePostAsSeen'
 import retrieveSearchedPosts from './retrieveSearchedPosts'
-import createPostFromScratch from './createPostFromScratch'
 import updateUserDescription from './updateUserDescription'
 import updateUserLocation from './updateUserLocation'
 import updateUserOccupation from './updateUserOccupation'
@@ -52,7 +51,7 @@ import retrieveRequestedUserPosts from './retrieveRequestedUserPosts'
 export {
     context,
     createComment,
-    createPostFromChatbot,
+    createPost,
     deleteComment,
     deletePost,
     getUserId,
@@ -92,7 +91,6 @@ export {
     retrieveSeenPosts,
     savePostAsSeen,
     retrieveSearchedPosts,
-    createPostFromScratch,
     updateUserOccupation,
     updateUserLocation,
     updateUserDescription,

@@ -153,6 +153,11 @@ const post = new Schema({
         require: true,
         trim: true
     },
+    subject: {
+        type: String,
+        required: true,
+        trim: true
+    },
     date: {
         type: String,
         required: true,

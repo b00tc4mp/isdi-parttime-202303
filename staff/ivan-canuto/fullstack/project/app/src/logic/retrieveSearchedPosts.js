@@ -7,6 +7,7 @@ const { validateText } = validators
  * Retrieves the posts matching the user search
  * 
  * @param {string} textToSearch The text used for searching posts
+ * @param {string} subject The subject of the posts
  * 
  * @returns {Promise<array>} The array of posts
  * 
@@ -14,7 +15,8 @@ const { validateText } = validators
  * @throws {ContentError} On empty text to search
 */
 
-export default function retrieveSearchedPosts(textToSearch) {
+export default function retrieveSearchedPosts(subject, textToSearch) {
+    validateText(subject, 'subject')
     validateText(textToSearch, 'text to search')
 
     return (async () => {
@@ -24,7 +26,7 @@ export default function retrieveSearchedPosts(textToSearch) {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${context.token}`
             },
-            body: JSON.stringify({ textToSearch })
+            body: JSON.stringify({ textToSearch, subject })
         })
 
         if (res.status === 200)

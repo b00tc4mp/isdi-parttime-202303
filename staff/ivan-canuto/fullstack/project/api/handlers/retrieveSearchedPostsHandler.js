@@ -3,9 +3,9 @@ const { retrieveSearchedPosts } = require('../logic')
 
 module.exports = handleErrors((req, res) => {
   const userId = extractUserId(req)
-  const { textToSearch } = req.body
+  const { subject, textToSearch } = req.body
 
-  const promise = retrieveSearchedPosts(userId, textToSearch)
+  const promise = retrieveSearchedPosts(userId, subject, textToSearch)
 
   return (async () => {
     const searchedPosts = await promise

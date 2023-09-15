@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppContext, useHandleErrors } from "../hooks";
 import { Container } from "../library";
-import { Profile, Posts, SideBarMenu, Header, VisibilityPost, EditPost, DeletePost, PostModalWindow, Chatbot, SuggestionsPage, AddPost } from "../components";
+import { Profile, Posts, SideBarMenu, Header, VisibilityPost, EditPost, DeletePost, PostModalWindow, Chatbot, SuggestionsPage, AddPost, AddPostFromChatbot, SearchPage } from "../components";
 import { logoutUser, retrieveUser, retrieveConversations } from "../../logic";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { isUserLoggedIn } from "../../logic";
@@ -22,8 +22,8 @@ export default function Home() {
     const [user, setUser] = useState()
     const [openedProfile, setOpenedProfile] = useState(false)
     const [writingText, setWritingText] = useState(false)
-    const [textToSearch, setTextToSearch] = useState()
     const [profileModal, setProfileModal] = useState(false)
+    const [postContent, setPostContent] = useState(null)
 
     useEffect(() => {
         console.log("Home -> render");
@@ -144,22 +144,6 @@ export default function Home() {
         homeContainer.scrollTop = 0
     }
 
-    const handleSearch = event => {
-        event.preventDefault()
-
-        const text = event.target.textToSearch.value
-
-        if(!text.length) return
-
-        setTextToSearch(text)
-
-        setView('searchedPosts')
-
-        handleToggleSearchBar()
-
-        handleLastPostsUpdate()
-    }
-
     return (
         <Container className="home-container bg-[url(src/images/chatbot-3.1.jpg)] bg-fixed bg-center bg-cover fixed top-0 left-0 overflow-scroll">
             <Header
@@ -180,8 +164,6 @@ export default function Home() {
                     lastPostsUpdate={lastPostsUpdate}
                     view={view}
                     handleTogglePostModal={handleTogglePostModal}
-                    textToSearch={textToSearch}
-                    handleSearch={handleSearch}
                 />}
 
                 {modal === "addPost" && (
@@ -297,6 +279,14 @@ export default function Home() {
                                 onClick: () => setModal('addPost')
                             },
                             {
+                                text: "Search posts by subject/topics",
+                                onClick: () => {
+                                    navigate('search')
+
+                                    setPage('Search')
+                                },
+                            },
+                            {
                                 text: "Empty box",
                                 onClick: () => {},
                             },
@@ -341,6 +331,12 @@ export default function Home() {
                     />
                 )}
 
+                {modal === 'AddPostModal' && <AddPostFromChatbot
+                    postContent={postContent}
+                    setView={setView}
+                    handleCloseModal={handleCloseModal}
+                />}
+
                 <Routes>
                     <Route
                         path="chatbot"
@@ -353,6 +349,8 @@ export default function Home() {
                                     setWritingText={setWritingText}
                                     writingText={writingText}
                                     setView={setView}
+                                    setPostContent={setPostContent}
+                                    setModal={setModal}
                                 />
                             ) : (
                                 <Navigate to="/login" />
@@ -390,6 +388,19 @@ export default function Home() {
                                 lastPostsUpdate={lastPostsUpdate}
                                 profileModal={profileModal}
                                 setProfileModal={setProfileModal}
+                            /> : <Navigate to="/login" />
+                        }
+                    />
+                    <Route
+                        path="search"
+                        element={
+                            isUserLoggedIn() ? <SearchPage
+                            handleOpenDeletePost={handleOpenDeletePost}
+                            handleOpenEditPost={handleOpenEditPost}
+                            handleToggleVisibility={handleToggleVisibility}
+                            handleLastPostsUpdate={handleLastPostsUpdate}
+                            lastPostsUpdate={lastPostsUpdate}
+                            handleOpenProfile={handleOpenProfile}
                             /> : <Navigate to="/login" />
                         }
                     />

@@ -1,6 +1,6 @@
 import { validators, errors } from 'com'
 import context from './context'
-const { validateId, validateText } = validators
+const { validateId, validateText, validateSubject } = validators
 const { ContentError } = errors
 
 /**
@@ -9,6 +9,7 @@ const { ContentError } = errors
  * @param {string} postId The post id
  * @param {string} title The post title
  * @param {string} content The post content
+ * @param {string} subject The subject related to the post
  * 
  * @returns {Promise} A Promise that resolves when a post is updated successfully, or throws an error if the operation fails
  * 
@@ -16,13 +17,15 @@ const { ContentError } = errors
  * @throws {ContentError} On user id or post id length not equal to 24 characters, or empty title or content
  */
 
-export default function updatePost(postId, _title, _content) {
+export default function updatePost(postId, _title, _content, _subject) {
     validateId(postId, 'post id')
     validateText(_title, 'post title')
     validateText(_content, 'post title')
+    validateSubject(_subject)
 
     const title = _title.trim()
     const content = _content.trim()
+    const subject = _subject.trim()
     
     if(title.length > 60) throw new ContentError('The title of the post is too long.')
 
@@ -33,7 +36,7 @@ export default function updatePost(postId, _title, _content) {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${context.token}`
             },
-            body: JSON.stringify({ title, content })
+            body: JSON.stringify({ title, content, subject })
         })
 
         if (res.status === 204)
