@@ -104,6 +104,31 @@ describe('saveNasaData', () => {
     expect(nasaEventsSaved).to.have.lengthOf(2);
   });
 
+  it('should not save NASA event if exist in data', async () => {
+    const eventTime1 = new Date('2050-09-01');
+    const eventTime2 = new Date('2050-09-02');
+
+    await NasaEvent.create({
+      date: eventTime1,
+      event: 'massEjection',
+      link: 'link-to-event-1',
+    });
+
+    const mockedResponse = {
+      status: 200,
+      text: async () =>
+        JSON.stringify([
+          { startTime: eventTime1, link: 'link-to-event-1' },
+          { startTime: eventTime2, link: 'link-to-event-2' },
+        ]),
+    };
+
+    await saveNasaData(mockedResponse, 'massEjection');
+
+    const nasaEventsSaved = await NasaEvent.find();
+    expect(nasaEventsSaved).to.have.lengthOf(2);
+  });
+
   it('should raise ConnectionError if response status is not 200', async () => {
     const correctEventTime = new Date('2050-09-01');
 
