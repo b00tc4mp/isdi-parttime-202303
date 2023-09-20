@@ -1,8 +1,8 @@
 const { ObjectId } = require('mongodb');
 
-const startDate = new Date();
-const endDate = new Date(startDate);
-endDate.setDate(startDate.getDate() + 1);
+const currentDate = new Date();
+
+const endDate = new Date(currentDate.getTime() + 2 * 24 * 60 * 60 * 1000);
 
 const generate = {
   user: () => ({
@@ -15,7 +15,6 @@ const generate = {
 
   participant: () => ({
     name: `name-${Math.random()}`,
-    email: `e-${Math.random()}@mail.com`,
   }),
 
   explorer: (race) => ({
@@ -32,11 +31,11 @@ const generate = {
     explorer,
     participant,
     lastUpdate = new Date(),
-    startDate = new Date(),
-    endDate = new Date()
+    startDate = new Date()
   ) => ({
     _id: new ObjectId(),
     creator: user._id,
+    creatorName: user.name,
     traveler: explorer,
     destination: 'moon',
     status: 'in_progress',
