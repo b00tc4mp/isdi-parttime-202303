@@ -42,8 +42,48 @@ describe('retrieveUser', () => {
     });
   });
 
-  it('fails on empty id', () => {
-    expect(() => retrieveUser('')).to.throw(ContentError, 'user id is empty');
+  it('should raise ContentError if user id is empty', async () => {
+    const emptyId = '';
+
+    try {
+      await retrieveUser(emptyId);
+    } catch (error) {
+      expect(error).to.be.instanceOf(ContentError);
+      expect(error.message).to.equal('user id is empty');
+    }
+  });
+
+  it('should raise TypeError if user id is not a string', async () => {
+    const noStringId = 11;
+
+    try {
+      await retrieveUser(noStringId);
+    } catch (error) {
+      expect(error).to.be.instanceOf(TypeError);
+      expect(error.message).to.equal('user id is not a string');
+    }
+  });
+
+  it('should raise ContentError if user id does not have 24 characters', async () => {
+    const shortId = 'abc123';
+
+    try {
+      await retrieveUser(shortId);
+    } catch (error) {
+      expect(error).to.be.instanceOf(ContentError);
+      expect(error.message).to.equal('user id does not have 24 characters');
+    }
+  });
+
+  it('should raise ContentError if user id is not hexagecimal', async () => {
+    const nonHexId = 'invalidValue123456789012';
+
+    try {
+      await retrieveUser(nonHexId);
+    } catch (error) {
+      expect(error).to.be.instanceOf(ContentError);
+      expect(error.message).to.equal('user id is not hexagecimal');
+    }
   });
 
   after(() => cleanUp().then(() => mongoose.disconnect()));
