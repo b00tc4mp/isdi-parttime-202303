@@ -5,7 +5,7 @@ import createMission from '../logic/createMission';
 const AddMissionModal = ({ onCancel, onMissionCreate }) => {
   const { alert } = useAppContext()
 
-  const [participants, setParticipants] = useState([{ name: '', email: '' }]);
+  const [participants, setParticipants] = useState([{ name: ''}]);
 
   const handleCancelAddMission = (event) => {
     event.preventDefault()
@@ -14,7 +14,7 @@ const AddMissionModal = ({ onCancel, onMissionCreate }) => {
   }
 
   const handleAddParticipant = () => {
-    setParticipants([...participants, { name: '', email: '' }]);
+    setParticipants([...participants, { name: ''}]);
   };
 
   const handleParticipantChange = (event, index, field) => {
@@ -45,7 +45,7 @@ const AddMissionModal = ({ onCancel, onMissionCreate }) => {
     try {
       createMission(traveler, destination, parsedParticipants, loserPrice)
       .then(() => {
-        setParticipants([{ name: '', email: '' }])
+        setParticipants([{ name: ''}])
         
         onMissionCreate()
       })
@@ -104,14 +104,6 @@ const AddMissionModal = ({ onCancel, onMissionCreate }) => {
                   value={participant.name}
                   placeholder="Name"
                   onChange={(event) => handleParticipantChange(event, index, 'name')}
-                />
-                <input
-                  type="text"
-                  className="border border-gray-300 rounded-md p-2 w-full"
-                  name={`participants[${index}].email`}
-                  value={participant.email}
-                  placeholder="Email"
-                  onChange={(event) => handleParticipantChange(event, index, 'email')}
                 />
                 <button
                   type="button"
