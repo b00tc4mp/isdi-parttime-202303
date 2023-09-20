@@ -65,6 +65,7 @@ const createMission = (
 
     await Mission.create({
       creator: userId,
+      creatorName: foundUser.name,
       traveler: _traveler,
       destination,
       status: 'in_progress',
