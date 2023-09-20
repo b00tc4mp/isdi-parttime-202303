@@ -13,12 +13,9 @@ const {
 } = require('com');
 
 describe('createNasaData', () => {
-  let user, userId;
+  let user, userId, currentDate;
 
   const anyId = new ObjectId();
-
-  const nasaApiKey = process.env.NASA_KEY,
-    NASADonki = 'https://api.nasa.gov/DONKI';
 
   before(() => mongoose.connect(process.env.MONGODB_URL));
 
@@ -27,24 +24,18 @@ describe('createNasaData', () => {
 
     userId = user._id.toString();
 
-    return cleanUp().then(() => populate([user], []));
+    currentDate = new Date();
+    const tenMinutesAgo = new Date(currentDate.getTime() - 10 * 60 * 1000);
+
+    const apiCall = generate.apiCall(tenMinutesAgo);
+
+    return cleanUp().then(() => populate([user], [], [], [apiCall]));
   });
 
   it('success on create nasa data', async function () {
     this.timeout(9000);
 
-    const successEndpoints = {
-      massEjection: `${NASADonki}/CME?startDate=2017-01-03&endDate=2017-01-03&api_key=${nasaApiKey}`,
-      geoStorm: `${NASADonki}/GST?startDate=2016-01-01&endDate=2016-01-30&api_key=${nasaApiKey}`,
-      planetShock: `${NASADonki}/IPS?startDate=2016-01-01&endDate=2016-01-30&api_key=${nasaApiKey}`,
-      solarFlare: `${NASADonki}/FLR?startDate=2016-01-01&endDate=2016-01-30&api_key=${nasaApiKey}`,
-      solarParticle: `${NASADonki}/SEP?startDate=2016-01-01&endDate=2016-01-30&api_key=${nasaApiKey}`,
-      magnetoPause: `${NASADonki}/MPC?startDate=2016-01-01&endDate=2016-03-31&api_key=${nasaApiKey}`,
-      radiationBelt: `${NASADonki}/RBE?startDate=2016-01-01&endDate=2016-01-31&api_key=${nasaApiKey}`,
-      speedSteam: `${NASADonki}/HSS?startDate=2016-01-01&endDate=2016-01-31&api_key=${nasaApiKey}`,
-    };
-
-    await createNasaData(userId, successEndpoints);
+    await createNasaData(userId);
 
     const retrievedNasaEvent = await NasaEvent.find();
 
@@ -65,51 +56,58 @@ describe('createNasaData', () => {
     });
   });
 
-  it('success with some enpoints', async function () {
+  it('success no save data if apicall date doent exist', async function () {
     this.timeout(9000);
 
-    const someEndpoints = {
-      massEjection: `${NASADonki}/CME?startDate=2017-01-03&endDate=2017-01-03&api_key=${nasaApiKey}`,
-      speedSteam: `${NASADonki}/HSS?startDate=2016-01-01&endDate=2016-01-31&api_key=${nasaApiKey}`,
-    };
+    await cleanUp();
 
-    await createNasaData(userId, someEndpoints);
+    await populate([user], [], [], []);
 
-    const retrievedNasaEvent = await NasaEvent.find();
+    await createNasaData(userId);
 
-    const expectedEvents = ['massEjection', 'speedSteam'];
+    const retrievedNasaEvents = await NasaEvent.find();
 
-    retrievedNasaEvent.map((eventType) => {
+    const expectedEvents = [
+      'massEjection',
+      'geoStorm',
+      'planetShock',
+      'solarFlare',
+      'solarParticle',
+      'magnetoPause',
+      'radiationBelt',
+      'speedSteam',
+    ];
+
+    retrievedNasaEvents.map((eventType) => {
       expect(eventType.event).to.oneOf(expectedEvents);
       expect(eventType.date).to.be.an.instanceof(Date);
     });
   });
 
-  it('success with not save event with not response data', async function () {
+  it('should no save data if apicall date is less than ten minutes ago', async function () {
     this.timeout(9000);
 
-    const noBodyResponse = `${NASADonki}/FLR?startDate=2020-01-01&endDate=2020-01-30&api_key=${nasaApiKey}`;
+    await cleanUp();
 
-    const endpoint = {
-      solarFlare: noBodyResponse,
-    };
+    const apiCall = generate.apiCall(currentDate);
+    await populate([user], [], [], [apiCall]);
 
-    await createNasaData(userId, endpoint);
+    await createNasaData(userId);
 
-    const retrievedNasaEvent = await NasaEvent.find();
+    const retrievedNasaEvents = await NasaEvent.find();
 
-    expect(retrievedNasaEvent.length).to.be.equal(0);
+    expect(retrievedNasaEvents.length).to.be.equal(0);
   });
 
   it('should raise ExistenceError if user doesnt exist', () => {
-    return createNasaData(anyId.toString(), {}).catch((error) => {
+    return createNasaData(anyId.toString()).catch((error) => {
       expect(error).to.be.instanceOf(ExistenceError);
       expect(error.message).to.equal(`user with id ${anyId} doesnt exist`);
     });
   });
 
   it('should raise ExistenceError if user doesnt exist', () => {
-    return createNasaData(anyId.toString(), {}).catch((error) => {
+    return createNasaData(anyId.toString()).catch((error) => {
       expect(error).to.be.instanceOf(ExistenceError);
       expect(error.message).to.equal(`user with id ${anyId} doesnt exist`);
     });
@@ -156,39 +154,6 @@ describe('createNasaData', () => {
     } catch (error) {
       expect(error).to.be.instanceOf(ContentError);
       expect(error.message).to.equal('user id is not hexagecimal');
-    }
-  });
-
-  it('should raise TypeError if endpoints is empty', async () => {
-    const emptyEndpoints = '';
-
-    try {
-      await createNasaData(userId, emptyEndpoints);
-    } catch (error) {
-      expect(error).to.be.instanceOf(TypeError);
-      expect(error.message).to.equal(`endpoints is not an object`);
-    }
-  });
-
-  it('should raise TypeError if endpoints is an empty object', async () => {
-    const emptyObject = {};
-
-    try {
-      await createNasaData(userId, emptyObject);
-    } catch (error) {
-      expect(error).to.be.instanceOf(TypeError);
-      expect(error.message).to.equal(`endpoints is not an object`);
-    }
-  });
-
-  it('should raise TypeError if endpoints is not an object', async () => {
-    const notAnObject = ['wrong'];
-
-    try {
-      await createNasaData(userId, notAnObject);
-    } catch (error) {
-      expect(error).to.be.instanceOf(TypeError);
-      expect(error.message).to.equal(`endpoints is not an object`);
     }
   });
 
