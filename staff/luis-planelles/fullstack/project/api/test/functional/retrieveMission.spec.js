@@ -10,15 +10,17 @@ const { cleanUp, populate, generate } = require('../helpers');
 const {
   errors: { ExistenceError, ContentError },
 } = require('com');
+const { Mission } = require('../../data/models');
 
 describe('retrieveMission', () => {
   before(() => mongoose.connect(process.env.MONGODB_URL));
 
-  let user, explorer, participant, mission;
+  let user, explorer, participant, mission, currentDate;
 
   beforeEach(() => {
     user = generate.user();
 
+    currentDate = new Date();
     explorer = generate.explorer('monkey');
     participant = generate.participant();
 
@@ -47,9 +49,79 @@ describe('retrieveMission', () => {
     expect(retrievedMission.loserPrice).to.equal('beer');
 
     expect(retrievedMission.__v).to.be.undefined;
-    expect(retrievedMission.participants[0].email).to.be.undefined;
     expect(retrievedMission.participants[0]._id).to.be.undefined;
     expect(retrievedMission.traveler[0]._id).to.be.undefined;
+  });
+
+  it('should call updateMission when endDate is more than events date', async () => {
+    let foundMission = await Mission.findOne();
+    foundMission.endDate = new Date(
+      currentDate.getTime() + 2 * 24 * 60 * 60 * 1000
+    );
+    await foundMission.save();
+
+    const planetShock = generate.nasaEvent('planetShock', new Date());
+    const massEjection = generate.nasaEvent('massEjection', new Date());
+
+    await populate([], [], [planetShock, massEjection]);
+
+    await retrieveMission(mission._id.toString());
+
+    foundMission = await Mission.findOne();
+
+    expect(foundMission.traveler[0].health).to.equal(66.75);
+    expect(foundMission.traveler[0].food).to.equal(75);
+    expect(foundMission.traveler[0].water).to.equal(90);
+    expect(foundMission.traveler[0].stress).to.equal(90);
+    expect(foundMission.traveler[0].oxygen).to.equal(100);
+  });
+
+  it('should not call updateMission when status is success', async () => {
+    let foundMission = await Mission.findOne();
+    foundMission.status = 'success';
+    foundMission.endDate = new Date(
+      currentDate.getTime() + 2 * 24 * 60 * 60 * 1000
+    );
+    await foundMission.save();
+
+    const planetShock = generate.nasaEvent('planetShock', new Date());
+    const massEjection = generate.nasaEvent('massEjection', new Date());
+
+    await populate([], [], [planetShock, massEjection], []);
+
+    await retrieveMission(mission._id.toString());
+
+    foundMission = await Mission.findOne();
+
+    expect(foundMission.traveler[0].health).to.equal(100);
+    expect(foundMission.traveler[0].food).to.equal(100);
+    expect(foundMission.traveler[0].water).to.equal(100);
+    expect(foundMission.traveler[0].stress).to.equal(100);
+    expect(foundMission.traveler[0].oxygen).to.equal(100);
+  });
+
+  it('should not call updateMission when status is failure', async () => {
+    let foundMission = await Mission.findOne();
+    foundMission.status = 'failure';
+    foundMission.endDate = new Date(
+      currentDate.getTime() + 2 * 24 * 60 * 60 * 1000
+    );
+    await foundMission.save();
+
+    const planetShock = generate.nasaEvent('planetShock', new Date());
+    const massEjection = generate.nasaEvent('massEjection', new Date());
+
+    await populate([], [], [planetShock, massEjection], []);
+
+    await retrieveMission(mission._id.toString());
+
+    foundMission = await Mission.findOne();
+
+    expect(foundMission.traveler[0].health).to.equal(100);
+    expect(foundMission.traveler[0].food).to.equal(100);
+    expect(foundMission.traveler[0].water).to.equal(100);
+    expect(foundMission.traveler[0].stress).to.equal(100);
+    expect(foundMission.traveler[0].oxygen).to.equal(100);
   });
 
   it('throws ExistenceError when mission does not exist', async () => {

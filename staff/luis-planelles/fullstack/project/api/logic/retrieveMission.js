@@ -3,15 +3,15 @@ const {
   errors: { ExistenceError },
 } = require('com');
 const { Mission } = require('../data/models');
+const updateMission = require('./updateMission');
 
 /**
- * Creates a new mission by a user.
- * @param {string} userId - The ID of the user creating the mission.
+ * retrieve mission by mission id.
  * @param {string} missionId - The ID of the mission to retrieve.
  * @returns {<object>} - Resolves to return the mission object.
  * @throws {ExistenceError} - If the user or mission with the provided IDs does not exist.
- * @throws {TypeError} - On userId or missionId wrong type.
- * @throws {ContentError} - on userId or missionId wrong characters.
+ * @throws {TypeError} - On missionId wrong type.
+ * @throws {ContentError} - On missionId wrong characters.
  */
 
 const retrieveMission = (missionId) => {
@@ -32,6 +32,10 @@ const retrieveMission = (missionId) => {
 
     if (!foundMission)
       throw new ExistenceError(`mission with id ${missionId} not exist`);
+
+    if (foundMission.status === 'in_progress') {
+      await updateMission(missionId);
+    }
 
     return foundMission;
   })();
