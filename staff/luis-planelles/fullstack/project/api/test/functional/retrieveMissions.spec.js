@@ -10,6 +10,7 @@ const { cleanUp, populate, generate } = require('../helpers');
 const {
   errors: { ExistenceError, ContentError },
 } = require('com');
+const { Mission } = require('../../data/models');
 
 describe('retrieveMissions', () => {
   before(() => mongoose.connect(process.env.MONGODB_URL));
@@ -17,13 +18,27 @@ describe('retrieveMissions', () => {
   let user, explorer, participant, mission1, mission2;
 
   beforeEach(() => {
-    user = generate.user();
+    const currentDate = new Date();
 
+    user = generate.user();
     explorer = generate.explorer('monkey');
     participant = generate.participant();
 
-    mission1 = generate.mission(user, explorer, participant);
-    mission2 = generate.mission(user, explorer, participant);
+    mission1 = generate.mission(
+      user,
+      explorer,
+      participant,
+      currentDate,
+      currentDate
+    );
+
+    mission2 = generate.mission(
+      user,
+      explorer,
+      participant,
+      currentDate,
+      currentDate
+    );
 
     return cleanUp().then(() => populate([user], [mission1, mission2]));
   });
@@ -34,8 +49,6 @@ describe('retrieveMissions', () => {
     retrievedMissions.map((mission, index) => {
       const expectedMission = index === 0 ? mission1 : mission2;
 
-      expect(mission.id).to.deep.equal(expectedMission._id.toString());
-      expect(mission.creator._id).to.deep.equal(user._id);
       expect(mission.traveler[0].race).to.equal(explorer.race);
       expect(mission.traveler[0].health).to.equal(explorer.health);
       expect(mission.traveler[0].food).to.equal(explorer.food);
@@ -48,10 +61,76 @@ describe('retrieveMissions', () => {
       expect(mission.startDate).to.deep.equal(expectedMission.startDate);
       expect(mission.endDate).to.deep.equal(expectedMission.endDate);
       expect(mission.participants[0].name).to.equal(participant.name);
-      expect(mission.participants[0].email).to.equal(participant.email);
       expect(mission.loserPrice).to.equal('beer');
 
+      expect(mission.id).to.be.undefined;
+      expect(mission.creator).to.be.undefined;
       expect(mission.__v).to.be.undefined;
+    });
+  });
+
+  it('should call updateMission when endDate is more than events date', async () => {
+    const planetShock = generate.nasaEvent('planetShock', new Date());
+    const massEjection = generate.nasaEvent('massEjection', new Date());
+
+    await populate([], [], [planetShock, massEjection]);
+
+    const retrievedMissions = await retrieveMissions(user._id.toString());
+
+    retrievedMissions.map((mission) => {
+      expect(mission.traveler[0].health).to.equal(66.75);
+      expect(mission.traveler[0].food).to.equal(75);
+      expect(mission.traveler[0].water).to.equal(90);
+      expect(mission.traveler[0].stress).to.equal(90);
+      expect(mission.traveler[0].oxygen).to.equal(100);
+    });
+  });
+
+  it('should not call updateMission when status is success', async () => {
+    let missionsfound = await Mission.find();
+
+    missionsfound.forEach(async (mission) => {
+      mission.status = 'success';
+      await mission.save();
+    });
+
+    const planetShock = generate.nasaEvent('planetShock', new Date());
+    const massEjection = generate.nasaEvent('massEjection', new Date());
+
+    await populate([], [], [planetShock, massEjection], []);
+
+    const retrievedMissions = await retrieveMissions(user._id.toString());
+
+    retrievedMissions.map((mission) => {
+      expect(mission.traveler[0].health).to.equal(100);
+      expect(mission.traveler[0].food).to.equal(100);
+      expect(mission.traveler[0].water).to.equal(100);
+      expect(mission.traveler[0].stress).to.equal(100);
+      expect(mission.traveler[0].oxygen).to.equal(100);
+    });
+  });
+
+  it('should not call updateMission when status is failure', async () => {
+    let missionsfound = await Mission.find();
+
+    missionsfound.forEach(async (mission) => {
+      mission.status = 'failure';
+      await mission.save();
+    });
+
+    const planetShock = generate.nasaEvent('planetShock', new Date());
+    const massEjection = generate.nasaEvent('massEjection', new Date());
+
+    await populate([], [], [planetShock, massEjection], []);
+
+    const retrievedMissions = await retrieveMissions(user._id.toString());
+
+    retrievedMissions.map((mission) => {
+      expect(mission.traveler[0].health).to.equal(100);
+      expect(mission.traveler[0].food).to.equal(100);
+      expect(mission.traveler[0].water).to.equal(100);
+      expect(mission.traveler[0].stress).to.equal(100);
+      expect(mission.traveler[0].oxygen).to.equal(100);
     });
   });
 

@@ -4,6 +4,7 @@ const {
 } = require('com');
 
 const { User, Mission } = require('../data/models');
+const updateMission = require('./updateMission');
 
 /**
  * Retrieve missions associated with a user from the database.
@@ -19,18 +20,27 @@ const retrieveMissions = (userId) => {
 
   return (async () => {
     const foundUser = await User.findById(userId);
+
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exist`);
 
-    const foundMissions = await Mission.find().lean();
+    const foundMissions = await Mission.find({ creator: userId });
 
-    foundMissions.forEach((mission) => {
-      mission.id = mission._id.toString();
-      delete mission._id;
-      delete mission.__v;
-    });
+    if (foundMissions.length) {
+      await Promise.all(
+        foundMissions.map(async (mission) => {
+          mission.id = mission._id.toString();
 
-    return foundMissions;
+          if (mission.status === 'in_progress') {
+            await updateMission(mission.id);
+          }
+        })
+      );
+    }
+
+    const missions = await Mission.find({}, '-__v -creator').lean();
+
+    return missions;
   })();
 };
 
