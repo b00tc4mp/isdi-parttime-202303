@@ -6,6 +6,6 @@ module.exports = {
   retrieveMission: require('./retrieveMission'),
   retrieveMissions: require('./retrieveMissions'),
   createNasaData: require('./createNasaData'),
-  retrieveNasaData: require('./retrieveNasaData'),
+  retrieveNasaEvents: require('./retrieveNasaEvents'),
   updateMission: require('./updateMission'),
 };
