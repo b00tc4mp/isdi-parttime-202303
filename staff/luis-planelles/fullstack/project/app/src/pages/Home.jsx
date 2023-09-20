@@ -45,8 +45,12 @@ const Home = () => {
       <header className='bg-blue-500 p-4 text-white'>
         {user && (
           <nav className="flex justify-between items-center">
-            <p className="text-2xl">Space Pursuit</p>
             <p className="text-lg">{user.name}</p>
+                  <img
+        src="/assets/logo.png"
+        alt="Logo de la aplicación"
+        style={{ width: '6rem'}} 
+      />
             <button className='text-sm' onClick={hadleLogOutButton}>Logout</button>
           </nav>
         )}
