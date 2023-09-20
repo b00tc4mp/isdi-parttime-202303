@@ -7,7 +7,7 @@ import { Bar } from 'react-chartjs-2';
 import { Link, useParams } from 'react-router-dom';
 import formatDateTime from '../logic/formatDateTime';
 import retrieveMission from '../logic/retrieveMission';
-import retrieveUser from '../logic/retrieveUser';
+import retrieveNasaEvents from '../logic/retrieveNasaEvents';
 import calculateTimeRemaining from "./helpers/calculateTimeRemaining";
 import copyToClipboard from './helpers/copyToClipboard';
   
@@ -22,7 +22,7 @@ Chart.register(
 
 const MissionDetail = () => {
   const { missionId } = useParams();
-  const [user, setUser] = useState();
+  const [events, setEvents] = useState();
   const [mission, setMission] = useState();
   const [timeRemaining, setTimeRemaining] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -45,9 +45,9 @@ const MissionDetail = () => {
 
   useEffect(() => {
     try {
-      retrieveUser()
-      .then(setUser)
-      .catch(error => alert(error.message))
+      retrieveNasaEvents(missionId)
+      .then(setEvents)
+      .catch(error => alert(error))
       
     } catch (error){
       alert(error.message)
@@ -115,14 +115,33 @@ const MissionDetail = () => {
       />;
     }
   }
-
   return (
-    <div className='flex justify-center items-start mt-8'>
-      <article className='mission bg-white shadow-md rounded-lg p-4 my-4 border'>
-      <div className='text-xl font-semibold'>
-        MISSION: {missionId.slice(-3)}
+<div className='flex justify-center items-start mt-8'>
+  <article className='mission bg-white shadow-md rounded-lg p-4 my-4 border'>
+    <div className='flex justify-between'>
+      <div>
+        <div className='text-xl font-semibold'>
+          MISSION: {missionId.slice(-3)}
+        </div>
+        {mission && (
+        <div className='text-lg'>
+          DEFIANT: {mission.creatorName}
+        </div>
+        )}
       </div>
-      <br />
+      <div className="flex flex-col">
+        <button
+          onClick={copyToClipboard}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
+        >
+          Copy link
+        </button>
+        <br />
+        <p className="mt-2">
+          <Link to="/" className="text-blue-500 hover:underline">Back to Home</Link>
+        </p>
+      </div>
+    </div>
         <div>
           <div className='flex flex-row items-start'>
             <div 
@@ -142,7 +161,6 @@ const MissionDetail = () => {
         </div>
         <br />
         <div className='mission-header'>
-
           {mission && (
             <div>
               <div className='text-lg'>
@@ -192,11 +210,11 @@ const MissionDetail = () => {
           {mission && mission.status === 'failure' && (
             <div className='flex justify-center items-start mt-8'>
               <article className='mission bg-white shadow-md rounded-lg p-4 my-4 border'>
-                <div className='text-lg text-red-500'>
+                <div className='text-lg text-green-500'>
                   Congratulations {mission.participants[0].name}! You are the winner.
                 </div>
                 <div className='text-lg'>
-                  The mission creator owes you a {mission.loserPrice}.
+                 {mission.creatorName} owes you a {mission.loserPrice}.
                 </div>
               </article>
             </div>
@@ -204,20 +222,36 @@ const MissionDetail = () => {
           {mission && mission.status === 'success' && (
             <div className='text-lg text-green-500'>
               The {mission.traveler[0].race} has reached the {mission.destination}. 
-              Therefore, {mission.participants[0].name} owes {user.name} a {mission.loserPrice}.
+              Therefore, {mission.participants[0].name} owes {mission.creatorName} a {mission.loserPrice}.
             </div>
           )}
-          <br />
-          <button
-            onClick={copyToClipboard}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Copy link
-          </button>
+          {events && events.length > 0 && (
+            <div className="mt-4 p-4 border border-gray-300 rounded-lg">
+              <h2 className="text-lg font-semibold mb-2">EVENTS DAMAGE REPORT:</h2>
+              {events.map((event, index) => (
+                <div key={index} className="mb-4">
+                  <div className="text-sm">
+                    <span className="font-semibold">Date:</span> {event.date}
+                  </div>
+                  <div className="text-sm">
+                    <span className="font-semibold">Event:</span> {event.event}
+                  </div>
+                  <div className="text-sm">
+                    <span className="font-semibold">Link:</span>{" "}
+                    <a
+                      href={event.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 hover:underline"
+                    >
+                      {event.link}
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      <p className="mt-4">
-        <Link to="/" className="text-blue-500 hover:underline">Back to Home</Link>
-      </p>
       </article>
     </div>
   );
