@@ -2,7 +2,7 @@ const {
   validators: { validateId },
   errors: { ExistenceError },
 } = require('com');
-const { Mission, User, NasaEvent } = require('../data/models');
+const { Mission, NasaEvent } = require('../data/models');
 const { updateExplorerHealth } = require('./helpers');
 
 /**
@@ -12,32 +12,19 @@ const { updateExplorerHealth } = require('./helpers');
  * @throws {ExistenceError} - If the user or mission with the provided IDs do not exist.
  * @throws {TypeError} - If the input parameters are not of the expected types.
  * @throws {ContentError} - If the input parameters are not of the expected content.
- *
- * @returns {Promise<Object|undefined>} - Resolves to the updated mission object with explorer's health and status,
- * or undefined if the mission status is 'failure' or 'success'.
  */
 
-const updateMission = (userId, missionId) => {
-  validateId(userId, 'user id');
+const updateMission = (missionId) => {
   validateId(missionId, 'mission id');
 
   const currentDate = new Date();
 
   return (async () => {
-    const [foundUser, foundMission] = await Promise.all([
-      User.findById(userId),
-      Mission.findById(missionId),
-    ]);
+    const foundMission = await Mission.findById(missionId);
 
-    if (!foundUser) {
-      throw new ExistenceError(`user with id ${userId} not exist`);
-    }
     if (!foundMission) {
       throw new ExistenceError(`mission with id ${missionId} not exist`);
     }
-
-    if (foundMission.status === 'failure' || foundMission.status === 'success')
-      return;
 
     if (foundMission.endDate <= currentDate) {
       foundMission.status = 'success';
@@ -59,6 +46,7 @@ const updateMission = (userId, missionId) => {
         retrievedNasaEvents
       );
 
+      updatedMission.lastUpdate = currentDate;
       await updatedMission.save();
     }
   })();

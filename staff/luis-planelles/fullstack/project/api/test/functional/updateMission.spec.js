@@ -24,11 +24,10 @@ describe('updateMission', () => {
     return mongoose.connect(process.env.MONGODB_URL);
   });
 
-  let user, userId, missionId, explorer, participant, mission;
+  let user, missionId, explorer, participant, mission;
 
   beforeEach(() => {
     user = generate.user();
-    userId = user._id.toString();
 
     explorer = generate.explorer('monkey');
     participant = generate.participant();
@@ -101,22 +100,22 @@ describe('updateMission', () => {
   });
 
   it('success on update mission', async () => {
-    await updateMission(userId, missionId);
+    await updateMission(missionId);
 
-    missionFound = await Mission.findOne();
+    const foundMission = await Mission.findOne();
 
-    expect(missionFound.traveler[0].health).to.be.equal(9.25);
-    expect(missionFound.traveler[0].food).to.be.equal(55);
-    expect(missionFound.traveler[0].water).to.be.equal(60);
-    expect(missionFound.traveler[0].stress).to.be.equal(65);
-    expect(missionFound.traveler[0].oxygen).to.be.equal(50);
-    expect(missionFound.status).to.be.equal('in_progress');
+    expect(foundMission.traveler[0].health).to.be.equal(9.25);
+    expect(foundMission.traveler[0].food).to.be.equal(55);
+    expect(foundMission.traveler[0].water).to.be.equal(60);
+    expect(foundMission.traveler[0].stress).to.be.equal(65);
+    expect(foundMission.traveler[0].oxygen).to.be.equal(50);
+    expect(foundMission.status).to.be.equal('in_progress');
   });
 
   it('success on no update mission if isnt nasa data events', async () => {
     await NasaEvent.deleteMany();
 
-    const updatedMission = await updateMission(userId, missionId);
+    const updatedMission = await updateMission(missionId);
 
     expect(updatedMission).to.be.undefined;
   });
@@ -126,7 +125,7 @@ describe('updateMission', () => {
     foundMission.status = 'failure';
     await foundMission.save();
 
-    const updatedMission = await updateMission(userId, missionId);
+    const updatedMission = await updateMission(missionId);
 
     expect(updatedMission).to.be.undefined;
 
@@ -138,7 +137,7 @@ describe('updateMission', () => {
     foundMission.status = 'success';
     await foundMission.save();
 
-    const updatedMission = await updateMission(userId, missionId);
+    const updatedMission = await updateMission(missionId);
 
     expect(updatedMission).to.be.undefined;
 
@@ -150,7 +149,7 @@ describe('updateMission', () => {
     foundMission.endDate = new Date('2022-08-03T12:48:00');
     await foundMission.save();
 
-    const updatedMission = await updateMission(userId, missionId);
+    const updatedMission = await updateMission(missionId);
 
     expect(updatedMission).to.be.undefined;
 
@@ -164,7 +163,7 @@ describe('updateMission', () => {
     foundMission.traveler[0].oxygen = 0;
     await foundMission.save();
 
-    await updateMission(userId, missionId);
+    await updateMission(missionId);
 
     const missionFound = await Mission.findOne();
 
@@ -176,31 +175,18 @@ describe('updateMission', () => {
     foundMission.traveler[0].health = 0;
     await foundMission.save();
 
-    await updateMission(userId, missionId);
+    await updateMission(missionId);
 
     const missionFound = await Mission.findOne();
 
     expect(missionFound.status).to.be.equal('failure');
   });
 
-  it('throws ExistenceError when user does not exist', async () => {
-    const nonExistentUserId = new ObjectId().toString();
-
-    try {
-      await updateMission(nonExistentUserId, missionId);
-    } catch (error) {
-      expect(error).to.be.an.instanceOf(ExistenceError);
-      expect(error.message).to.equal(
-        `user with id ${nonExistentUserId} not exist`
-      );
-    }
-  });
-
   it('throws ExistenceError when mission does not exist', async () => {
     const nonExistentMissionId = new ObjectId().toString();
 
     try {
-      await updateMission(userId, nonExistentMissionId);
+      await updateMission(nonExistentMissionId);
     } catch (error) {
       expect(error).to.be.an.instanceOf(ExistenceError);
       expect(error.message).to.equal(
@@ -209,55 +195,11 @@ describe('updateMission', () => {
     }
   });
 
-  it('should raise ContentError if user id is empty', async () => {
-    const emptyId = '';
-
-    try {
-      await updateMission(emptyId, missionId);
-    } catch (error) {
-      expect(error).to.be.instanceOf(ContentError);
-      expect(error.message).to.equal('user id is empty');
-    }
-  });
-
-  it('should raise TypeError if user id is not a string', async () => {
-    const noStringId = 11;
-
-    try {
-      await updateMission(noStringId, missionId);
-    } catch (error) {
-      expect(error).to.be.instanceOf(TypeError);
-      expect(error.message).to.equal('user id is not a string');
-    }
-  });
-
-  it('should raise ContentError if user id does not have 24 characters', async () => {
-    const shortId = 'abc123';
-
-    try {
-      await updateMission(shortId, missionId);
-    } catch (error) {
-      expect(error).to.be.instanceOf(ContentError);
-      expect(error.message).to.equal('user id does not have 24 characters');
-    }
-  });
-
-  it('should raise ContentError if user id is not hexagecimal', async () => {
-    const nonHexId = 'invalidValue123456789012';
-
-    try {
-      await updateMission(nonHexId, missionId);
-    } catch (error) {
-      expect(error).to.be.instanceOf(ContentError);
-      expect(error.message).to.equal('user id is not hexagecimal');
-    }
-  });
-
   it('should raise ContentError if mission id is empty', async () => {
     const emptyId = '';
 
     try {
-      await updateMission(userId, emptyId);
+      await updateMission(emptyId);
     } catch (error) {
       expect(error).to.be.instanceOf(ContentError);
       expect(error.message).to.equal('mission id is empty');
@@ -268,7 +210,7 @@ describe('updateMission', () => {
     const noStringId = 11;
 
     try {
-      await updateMission(userId, noStringId);
+      await updateMission(noStringId);
     } catch (error) {
       expect(error).to.be.instanceOf(TypeError);
       expect(error.message).to.equal('mission id is not a string');
@@ -279,7 +221,7 @@ describe('updateMission', () => {
     const shortId = 'abc123';
 
     try {
-      await updateMission(userId, shortId);
+      await updateMission(shortId);
     } catch (error) {
       expect(error).to.be.instanceOf(ContentError);
       expect(error.message).to.equal('mission id does not have 24 characters');
@@ -290,7 +232,7 @@ describe('updateMission', () => {
     const nonHexId = 'invalidValue123456789012';
 
     try {
-      await updateMission(userId, nonHexId);
+      await updateMission(nonHexId);
     } catch (error) {
       expect(error).to.be.instanceOf(ContentError);
       expect(error.message).to.equal('mission id is not hexagecimal');
