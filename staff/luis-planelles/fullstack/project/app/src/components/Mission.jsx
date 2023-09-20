@@ -4,7 +4,7 @@ const Mission = (
   { 
     mission: 
     {
-      id, 
+      _id,
       traveler, 
       destination, 
       status, 
@@ -15,12 +15,10 @@ const Mission = (
     }
   }) => {
 
-  const missionNumber = id.slice(-3);
-
   return (
     <article className='mission bg-white shadow-md rounded-lg p-4 my-4 border'>
       <div className='mission-header'>
-      <div className='text-xl font-semibold'> Mission {missionNumber} </div>
+      <div className='text-xl font-semibold'> Mission {_id.toString().slice(-3)} </div>
       <br />
         <div className='text-lg'>Explorer:</div>
         <ul className='list-disc ml-6'>
