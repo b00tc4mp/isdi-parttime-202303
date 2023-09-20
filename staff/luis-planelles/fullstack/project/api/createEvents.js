@@ -13,7 +13,10 @@ const events = [
   'radiationBelt',
   'speedSteam',
 ];
-const startDateEvent = '2023-09-14';
+
+const date = new Date();
+
+date.setDate(currentDate.getDate() + 1);
 
 mongoose
   .connect(process.env.MONGODB_URL)
@@ -21,7 +24,7 @@ mongoose
     const createEvent = async (events, startDateEvent) => {
       const nasaEventPromises = events.map((event) => {
         return NasaEvent.create({
-          date: new Date(startDateEvent),
+          date,
           event,
           link: 'https://link-to-event.com',
         });
@@ -30,7 +33,7 @@ mongoose
       await Promise.all(nasaEventPromises);
     };
 
-    await createEvent(events, startDateEvent);
+    await createEvent(events, currentDate);
 
     mongoose.disconnect();
   })
