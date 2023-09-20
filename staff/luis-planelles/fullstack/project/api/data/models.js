@@ -66,15 +66,16 @@ const participant = new Schema({
     type: String,
     required: true,
   },
-  email: {
-    type: String,
-  },
 });
 
 const mission = new Schema({
   creator: {
     type: ObjectId,
     ref: 'User',
+    required: true,
+  },
+  creatorName: {
+    type: String,
     required: true,
   },
   traveler: {
