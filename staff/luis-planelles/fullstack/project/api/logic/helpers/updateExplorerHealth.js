@@ -1,5 +1,5 @@
 const {
-  validators: { validateObject, validateArrayOfObjects },
+  validators: { validateObject },
 } = require('com');
 
 /**
@@ -14,14 +14,13 @@ const {
 
 const updateExplorerHealth = (foundMission, retrievedNasaEvents) => {
   validateObject(foundMission, 'found mission');
-  validateArrayOfObjects(retrievedNasaEvents, 'retrieve nasa events');
 
   const eventDamage = {
-    massEjection: { suplies: 'water', damage: 10 },
-    geoStorm: { suplies: 'food', damage: 20 },
-    planetShock: { suplies: 'food', damage: 25 },
-    solarFlare: { suplies: 'water', damage: 10 },
-    solarParticle: { suplies: 'water', damage: 30 },
+    massEjection: { suplies: 'water', damage: 15 },
+    geoStorm: { suplies: 'food', damage: 35 },
+    planetShock: { suplies: 'food', damage: 40 },
+    solarFlare: { suplies: 'water', damage: 25 },
+    solarParticle: { suplies: 'water', damage: 40 },
     magnetoPause: { suplies: 'oxygen', damage: 50 },
     radiationBelt: { suplies: 'oxygen', damage: 50 },
     speedSteam: { suplies: 'oxygen', damage: 50 },
@@ -51,19 +50,25 @@ const updateExplorerHealth = (foundMission, retrievedNasaEvents) => {
   });
 
   const totalEventsCount = retrievedNasaEvents.length;
-  const stressReductiondamage = 5;
+  const stressReductiondamage = 15;
 
   explorer.stress -= totalEventsCount * stressReductiondamage;
 
   let totalStress = explorer.stress;
 
-  const stressReduction = (100 - totalStress) * 0.2;
-  const foodReduction = (100 - totalFood) * 0.75;
-  const waterReduction = (100 - totalWater) * 1.25;
+  if (explorer.stress < 0) {
+    explorer.stress = 0;
+  }
 
-  const healthReduction = stressReduction + foodReduction + waterReduction;
+  const stressReduction = 100 - totalStress;
+  const foodReduction = 100 - totalFood;
+  const waterReduction = 100 - totalWater;
 
-  explorer.health -= healthReduction;
+  let healthReduction = stressReduction + foodReduction + waterReduction;
+
+  explorer.health -= healthReduction / 3;
+
+  explorer.health = Math.round(explorer.health * 100) / 100;
 
   if (explorer.health < 0) {
     explorer.health = 0;

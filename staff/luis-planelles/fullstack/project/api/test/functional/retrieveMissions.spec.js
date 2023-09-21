@@ -78,10 +78,10 @@ describe('retrieveMissions', () => {
     const retrievedMissions = await retrieveMissions(user._id.toString());
 
     retrievedMissions.map((mission) => {
-      expect(mission.traveler[0].health).to.equal(66.75);
-      expect(mission.traveler[0].food).to.equal(75);
-      expect(mission.traveler[0].water).to.equal(90);
-      expect(mission.traveler[0].stress).to.equal(90);
+      expect(mission.traveler[0].health).to.equal(71.67);
+      expect(mission.traveler[0].food).to.equal(60);
+      expect(mission.traveler[0].water).to.equal(85);
+      expect(mission.traveler[0].stress).to.equal(70);
       expect(mission.traveler[0].oxygen).to.equal(100);
     });
   });

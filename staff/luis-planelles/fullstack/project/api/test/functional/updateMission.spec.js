@@ -104,10 +104,10 @@ describe('updateMission', () => {
 
     const foundMission = await Mission.findOne();
 
-    expect(foundMission.traveler[0].health).to.be.equal(9.25);
-    expect(foundMission.traveler[0].food).to.be.equal(55);
-    expect(foundMission.traveler[0].water).to.be.equal(60);
-    expect(foundMission.traveler[0].stress).to.be.equal(65);
+    expect(foundMission.traveler[0].health).to.be.equal(13.33);
+    expect(foundMission.traveler[0].food).to.be.equal(25);
+    expect(foundMission.traveler[0].water).to.be.equal(20);
+    expect(foundMission.traveler[0].stress).to.be.equal(0);
     expect(foundMission.traveler[0].oxygen).to.be.equal(50);
     expect(foundMission.status).to.be.equal('in_progress');
   });

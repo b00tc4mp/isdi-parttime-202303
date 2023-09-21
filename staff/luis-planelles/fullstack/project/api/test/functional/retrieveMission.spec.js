@@ -69,10 +69,10 @@ describe('retrieveMission', () => {
 
     foundMission = await Mission.findOne();
 
-    expect(foundMission.traveler[0].health).to.equal(66.75);
-    expect(foundMission.traveler[0].food).to.equal(75);
-    expect(foundMission.traveler[0].water).to.equal(90);
-    expect(foundMission.traveler[0].stress).to.equal(90);
+    expect(foundMission.traveler[0].health).to.equal(71.67);
+    expect(foundMission.traveler[0].food).to.equal(60);
+    expect(foundMission.traveler[0].water).to.equal(85);
+    expect(foundMission.traveler[0].stress).to.equal(70);
     expect(foundMission.traveler[0].oxygen).to.equal(100);
   });
 
