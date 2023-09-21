@@ -68,6 +68,27 @@ const participant = new Schema({
   },
 });
 
+const apiCall = new Schema({
+  lastUpdate: {
+    type: Date,
+    required: true,
+  },
+});
+
+const nasaEvent = new Schema({
+  date: {
+    type: Date,
+    required: true,
+  },
+  event: {
+    type: String,
+    required: true,
+  },
+  link: {
+    type: String,
+  },
+});
+
 const mission = new Schema({
   creator: {
     type: ObjectId,
@@ -108,29 +129,14 @@ const mission = new Schema({
     type: [participant],
     required: true,
   },
+  processedEvents: [
+    {
+      type: ObjectId,
+      ref: 'NasaEvent',
+    },
+  ],
   loserPrice: {
     type: String,
-    required: true,
-  },
-});
-
-const nasaEvent = new Schema({
-  date: {
-    type: Date,
-    required: true,
-  },
-  event: {
-    type: String,
-    required: true,
-  },
-  link: {
-    type: String,
-  },
-});
-
-const apiCall = new Schema({
-  lastUpdate: {
-    type: Date,
     required: true,
   },
 });
