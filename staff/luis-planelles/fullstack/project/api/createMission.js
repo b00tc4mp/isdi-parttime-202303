@@ -8,6 +8,10 @@ const { Mission, User } = require('./data/models');
 const participant = generate.participant();
 const explorer = generate.explorer('monkey');
 
+const endDate = new Date();
+
+endDate.setDate(endDate.getDate() + 2);
+
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(async () => {
@@ -16,13 +20,15 @@ mongoose
     await Mission.create({
       _id: new ObjectId(),
       creator: user._id,
+      creatorName: user.name,
       traveler: explorer,
       destination: 'moon',
-      status: 'success',
+      status: 'in_progress',
       lastUpdate: new Date(),
       startDate: new Date(),
-      endDate: new Date(),
+      endDate,
       participants: [participant],
+      processedEvents: [],
       loserPrice: 'beer',
     });
 
