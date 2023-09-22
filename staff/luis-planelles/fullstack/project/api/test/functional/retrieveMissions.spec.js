@@ -43,7 +43,9 @@ describe('retrieveMissions', () => {
     return cleanUp().then(() => populate([user], [mission1, mission2]));
   });
 
-  it('success on retrieve mission', async () => {
+  it('success on retrieve mission', async function () {
+    this.timeout(9000);
+
     const retrievedMissions = await retrieveMissions(user._id.toString());
 
     retrievedMissions.map((mission, index) => {
@@ -69,7 +71,9 @@ describe('retrieveMissions', () => {
     });
   });
 
-  it('should call updateMission when endDate is more than events date', async () => {
+  it('should call updateMission when endDate is more than events date', async function () {
+    this.timeout(9000);
+
     const planetShock = generate.nasaEvent('planetShock', new Date());
     const massEjection = generate.nasaEvent('massEjection', new Date());
 
@@ -86,7 +90,9 @@ describe('retrieveMissions', () => {
     });
   });
 
-  it('should not call updateMission when status is success', async () => {
+  it('should not call updateMission when status is success', async function () {
+    this.timeout(9000);
+
     let missionsfound = await Mission.find();
 
     missionsfound.forEach(async (mission) => {
@@ -110,7 +116,9 @@ describe('retrieveMissions', () => {
     });
   });
 
-  it('should not call updateMission when status is failure', async () => {
+  it('should not call updateMission when status is failure', async function () {
+    this.timeout(9000);
+
     let missionsfound = await Mission.find();
 
     missionsfound.forEach(async (mission) => {

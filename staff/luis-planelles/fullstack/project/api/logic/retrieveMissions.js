@@ -5,6 +5,7 @@ const {
 
 const { User, Mission } = require('../data/models');
 const updateMission = require('./updateMission');
+const createNasaData = require('./createNasaData');
 
 /**
  * Retrieve missions associated with a user from the database.
@@ -23,6 +24,8 @@ const retrieveMissions = (userId) => {
 
     if (!foundUser)
       throw new ExistenceError(`user with id ${userId} not exist`);
+
+    await createNasaData(userId);
 
     const foundMissions = await Mission.find({ creator: userId });
 
