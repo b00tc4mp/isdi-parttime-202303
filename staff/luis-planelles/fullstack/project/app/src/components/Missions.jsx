@@ -28,7 +28,7 @@ const Missions = ({lastMissionUpdate }) => {
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {missions &&
             missions.map((mission) => (
-              <Link to={`/mission/${mission._id.toString()}`} key={mission.id}>
+              <Link to={`/mission/${mission._id.toString()}`} key={mission._id.toString()}>
                 <Mission mission={mission} />
               </Link>
             ))}
