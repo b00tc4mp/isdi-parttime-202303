@@ -8,7 +8,7 @@ import { Link, useParams } from 'react-router-dom';
 import formatDateTime from '../logic/formatDateTime';
 import retrieveMission from '../logic/retrieveMission';
 import retrieveNasaEvents from '../logic/retrieveNasaEvents';
-import calculateTimeRemaining from "./helpers/calculateTimeRemaining";
+import calculateTimeRemaining from './helpers/calculateTimeRemaining';
 import copyToClipboard from './helpers/copyToClipboard';
   
 Chart.register(
@@ -26,22 +26,35 @@ const MissionDetail = () => {
   const [mission, setMission] = useState();
   const [timeRemaining, setTimeRemaining] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
+
   useEffect(() => {
-    const interval = setInterval(() => {
+    const updateMission = () => {
       try {
         retrieveMission(missionId)
           .then((mission) => {
             setMission(mission);
-            updateTimer(mission.endDate);
           })
           .catch((error) => alert(error));
       } catch (error) {
         alert(error.message);
       }
-    }, 1000);
+    };
 
-    return () => clearInterval(interval);
-  }, [missionId]);
+    updateMission()
+
+    const missionInterval = setInterval(updateMission, 100000);
+
+    return () => clearInterval(missionInterval);
+  }, []);
+
+
+  useEffect(() => {
+    const timerInterval = setInterval(() => {
+        updateTimer(mission.endDate);
+    }, 1000);
+  
+    return () => clearInterval(timerInterval);
+  }, [mission]);
 
   useEffect(() => {
     try {
@@ -95,23 +108,19 @@ const MissionDetail = () => {
 
     if (travelerRace === 'monkey') {
       travelerImage = <img
-        className='w-2 mr-4 rounded-full object-cover'
-        src='https://images.saatchiart.com/saatchi/2179415/art/10294067/9356691-MAMZSVLX-7.jpg'
+        className='w-2 mr-4 rounded-full object-cover' src='/assets/monkey.jpg'
       />;
     } else if (travelerRace === 'dog') {
       travelerImage = <img
-        className='w-2 mr-4 rounded-full object-cover'
-        src='https://cdnb.artstation.com/p/assets/images/images/054/242/543/large/futur3-art-46-dog-astronaut.jpg?1664100695'
+        className='w-2 mr-4 rounded-full object-cover' src='/assets/dog.jpg'
       />;
     } else if (travelerRace === 'robot') {
       travelerImage = <img
-        className='w-2 mr-4 rounded-full object-cover'
-        src='https://t4.ftcdn.net/jpg/05/95/79/25/360_F_595792521_C1933LqJehWuldSDzdgbd8eNGre5ObT7.jpg'
+        className='w-2 mr-4 rounded-full object-cover' src='/assets/robot.jpg'
       />;
     } else if (travelerRace === 'billionaire') {
       travelerImage = <img
-        className='w-2 mr-4 rounded-full object-cover'
-        src='https://img.freepik.com/premium-photo/woman-space-suit-with-blue-green-face_888757-173.jpg'
+        className='w-2 mr-4 rounded-full object-cover' src='/assets/billionaire.jpg'
       />;
     }
   }
@@ -129,16 +138,16 @@ const MissionDetail = () => {
         </div>
         )}
       </div>
-      <div className="flex flex-col">
+      <div className='flex flex-col'>
         <button
           onClick={copyToClipboard}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
+          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2'
         >
           Copy link
         </button>
         <br />
-        <p className="mt-2">
-          <Link to="/" className="text-blue-500 hover:underline">Back to Home</Link>
+        <p className='mt-2'>
+          <Link to='/' className='text-blue-500 hover:underline'>Back to Home</Link>
         </p>
       </div>
     </div>
@@ -226,23 +235,23 @@ const MissionDetail = () => {
             </div>
           )}
           {events && events.length > 0 && (
-            <div className="mt-4 p-4 border border-gray-300 rounded-lg">
-              <h2 className="text-lg font-semibold mb-2">EVENTS DAMAGE REPORT:</h2>
+            <div className='mt-4 p-4 border border-gray-300 rounded-lg'>
+              <h2 className='text-lg font-semibold mb-2'>EVENTS DAMAGE REPORT:</h2>
               {events.map((event, index) => (
-                <div key={index} className="mb-4">
-                  <div className="text-sm">
-                    <span className="font-semibold">Date:</span> {event.date}
+                <div key={index} className='mb-4'>
+                  <div className='text-sm'>
+                    <span className='font-semibold'>Date:</span> {formatDateTime(event.date)}
                   </div>
-                  <div className="text-sm">
-                    <span className="font-semibold">Event:</span> {event.event}
+                  <div className='text-sm'>
+                    <span className='font-semibold'>Event:</span> {event.event}
                   </div>
-                  <div className="text-sm">
-                    <span className="font-semibold">Link:</span>{" "}
+                  <div className='text-sm'>
+                    <span className='font-semibold'>Link:</span>{' '}
                     <a
                       href={event.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-500 hover:underline"
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='text-blue-500 hover:underline'
                     >
                       {event.link}
                     </a>
