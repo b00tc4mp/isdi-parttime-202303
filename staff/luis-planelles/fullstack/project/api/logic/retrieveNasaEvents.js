@@ -25,7 +25,7 @@ const retrieveNasaEvents = (missionId) => {
     const retrievedNasaEvents = await NasaEvent.find(
       {
         date: {
-          $gte: foundMission.lastUpdate,
+          $gte: foundMission.startDate,
           $lte: foundMission.endDate,
         },
       },

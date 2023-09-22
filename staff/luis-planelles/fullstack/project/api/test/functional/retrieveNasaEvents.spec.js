@@ -62,13 +62,13 @@ describe('retrieveNasaEvents', () => {
     });
   });
 
-  it('should not save event if mission last update is more than event date', async () => {
+  it('should not save event if mission start date is more than event date', async () => {
     const currentDate = new Date();
-    const superiorLastUpdate = new Date(currentDate);
-    superiorLastUpdate.setDate(currentDate.getDate() + 1);
+    const superiorStardate = new Date(currentDate);
+    superiorStardate.setDate(currentDate.getDate() + 1);
 
     const foundMission = await Mission.findOne();
-    foundMission.lastUpdate = superiorLastUpdate;
+    foundMission.startDate = superiorStardate;
     await foundMission.save();
 
     const retrievedNasaEvents = await retrieveNasaEvents(
