@@ -22,14 +22,12 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-    <div className="bg-white p-8 rounded shadow-md w-full max-w-md relative">
-      <img
-        src="/assets/logo.png"
-        alt="Logo de la aplicación"
-        className="w-20 h-20 mx-auto -mt-10 absolute left-1/2 transform -translate-x-1/2"
-      />
-      <h1 className="text-2xl font-semibold mb-4">Login</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      <div className="text-center">
+        <img src="/assets/logo.png" style={{ width: '14rem' }} alt="Logo" />
+      </div>
+      <div className="bg-white p-8 rounded shadow-md w-full max-w-md mt-4">
+        <h1 className="text-2xl font-semibold mb-4">Login</h1>
         <form className="space-y-4" onSubmit={handleLogin}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -66,11 +64,11 @@ const Login = () => {
         </form>
         
         <p className="text-center mt-4">
-          <Link to="/register" className="text-blue-500 hover:underline">Register</Link>
-        </p>
-      </div>
+        <Link to="/register" className="text-blue-500 hover:underline">Register</Link>
+      </p>
     </div>
-  );
+  </div>
+);
   }  
 
 export default Login 

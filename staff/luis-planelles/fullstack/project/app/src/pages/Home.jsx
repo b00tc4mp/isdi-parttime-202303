@@ -46,11 +46,10 @@ const Home = () => {
         {user && (
           <nav className="flex justify-between items-center">
             <p className="text-lg">{user.name}</p>
-                  <img
-        src="/assets/logo.png"
-        alt="Logo de la aplicación"
-        style={{ width: '6rem'}} 
-      />
+            <img
+              src="/assets/logo.png"
+              style={{ width: '6rem'}} 
+            />  
             <button className='text-sm' onClick={hadleLogOutButton}>Logout</button>
           </nav>
         )}
