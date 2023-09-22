@@ -25,10 +25,7 @@ const retrieveMission = (missionId) => {
       '-__v',
     ].join(' ');
 
-    const foundMission = await Mission.findById(
-      missionId,
-      selectedFields
-    ).lean();
+    const foundMission = await Mission.findById(missionId);
 
     if (!foundMission)
       throw new ExistenceError(`mission with id ${missionId} not exist`);
@@ -37,7 +34,9 @@ const retrieveMission = (missionId) => {
       await updateMission(missionId);
     }
 
-    return foundMission;
+    const mission = await Mission.findById(missionId, selectedFields).lean();
+
+    return mission;
   })();
 };
 
