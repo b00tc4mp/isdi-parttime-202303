@@ -1,9 +1,9 @@
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useMemo } from "react";
-import { Container, Form, Input, Button, TextArea, Label } from '../library'
+import { Button } from '../library'
 import { formatCategory, formatOtherFeatures, formatDistrict, formatWifi, formatPlugs, formatNoise } from './helpers/dataFormatters'
 import { getWifiDescriptions, getPlugDescriptions, getNoiseDescriptions } from './helpers/dataDescriptions'
-import { useAppContext, useHandleErrors } from '../hooks'
+import { useHandleErrors } from '../hooks'
 import deleteWorkspot from "../../logic/deleteWorkspot"
 import toggleLikeWorkspot from "../../logic/toggleLikeWorkspot"
 import toggleFavWorkspot from "../../logic/toggleFavWorkspot"
@@ -11,14 +11,12 @@ import getUserId from '../../logic/getUserId'
 import isCurrentUser from '../../logic/isCurrentUser'
 import { WheelchairIcon, PetFriendlyIcon, KitchenIcon, RestaurantIcon, MeetingRoomsIcon, ParkingIcon, BikeRackIcon, StorageIcon, PrintIcon, ProjectorIcon, WindowViewIcon, WifiIcon, PlugIcon, NoiseIcon, LocationIcon, HeartIcon, RedHeartIcon, FavSolidIcon, FavRegularIcon, EditIcon, DeleteIcon, CancelIcon } from "../library/Icons";
 import { dateFormater } from "./helpers/dateFormatter";
-import { useState, useEffect } from 'react'
-import retrieveWorkspot from "../../logic/retrieveWorkspot";
-
-
-const API_KEY = 'AIzaSyAHtNeBELo0YBI0lmCVbd0lQ9BGTVd_fhQ'
+import { useState } from 'react'
 
 export default function WorkspotCardDetailed({ workspot: {
     id, image, name, location, description, category, features, likes, reviews, author, fav }, onEditWorkspot, onAddReview, onToggledLikeWorkspot, onToggledSavedWorkspot, onWorkspotDeleted, onCancel }) {
+
+    const API_KEY = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: API_KEY,
@@ -297,9 +295,5 @@ export default function WorkspotCardDetailed({ workspot: {
                
             </div>
         </div>
-
-
-
-
-    );
+    )
 }
