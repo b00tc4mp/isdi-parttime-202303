@@ -1,0 +1,111 @@
+.post-container{
+    height: 400px;
+    width: 800px;
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.post-image{
+    width: 50%;
+    border-radius: 0.5rem;
+    border-top-right-radius: 0%;
+    border-bottom-right-radius: 0%;
+}
+
+.post-data-container{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;   
+    align-items: center;
+    justify-content: center; 
+}
+
+
+.post-top-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--pink);
+    border-top-right-radius: 0.5rem;
+}
+
+.post-info-container{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;   
+    align-items: left;
+    justify-content: center; 
+}
+
+.post-author-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    gap: 0.5rem;  
+    box-sizing: border-box;
+    padding-left: 1rem;
+}
+
+.post-author-avatar{
+    width: 2.5rem;
+    border-radius: 50%;
+}
+
+.post-date-container{
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+.post-buttons-container{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items:first baseline;
+    justify-content: right;
+    box-sizing: border-box;
+    padding: 1rem;
+    /* background-color: red; */
+}
+
+.post-bottom-container{
+    height: 100%;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:0.5rem;
+    background-color: var(--white);
+    box-sizing: border-box;
+    border-bottom-right-radius: 0.5rem;      
+    word-break:break-all;
+    text-align: center;
+}
+
+.post-button{
+    background-color: transparent;
+    border-style: hidden;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+
+.post-location-text{
+    color: var(--red);
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+

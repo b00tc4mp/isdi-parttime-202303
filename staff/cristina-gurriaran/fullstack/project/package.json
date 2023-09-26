@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@react-google-maps/api": "^2.19.2",
+    "mongoose": "^7.5.0",
+    "react-checkbox-group": "^5.0.2"
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0"
+  }
+}
