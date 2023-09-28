@@ -27,23 +27,23 @@ const retrieveMissions = (userId) => {
 
     await createNasaData(userId);
 
-    const foundMissions = await Mission.find({ creator: userId });
+    const foundMissions = await Mission.find({ creator: foundUser._id });
 
-    if (foundMissions.length) {
+    if (foundMissions.length)
       await Promise.all(
         foundMissions.map(async (mission) => {
-          mission.id = mission._id.toString();
-
           if (mission.status === 'in_progress') {
-            await updateMission(mission.id);
+            await updateMission(mission._id.toString());
           }
         })
       );
-    }
 
-    const missions = await Mission.find({}, '-__v -creator').lean();
+    const retrievedUpdatedmissions = await Mission.find(
+      { creator: foundUser._id },
+      '-__v -creator'
+    ).lean();
 
-    return missions;
+    return retrievedUpdatedmissions;
   })();
 };
 

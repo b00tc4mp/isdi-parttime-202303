@@ -15,12 +15,14 @@ const { Mission } = require('../../data/models');
 describe('retrieveMissions', () => {
   before(() => mongoose.connect(process.env.MONGODB_URL));
 
-  let user, explorer, participant, mission1, mission2;
+  const currentDate = new Date();
+  let user, userId, explorer, participant, mission1, mission2;
 
   beforeEach(() => {
-    const currentDate = new Date();
-
     user = generate.user();
+
+    userId = user._id.toString();
+
     explorer = generate.explorer('monkey');
     participant = generate.participant();
 
@@ -46,7 +48,7 @@ describe('retrieveMissions', () => {
   it('success on retrieve mission', async function () {
     this.timeout(9000);
 
-    const retrievedMissions = await retrieveMissions(user._id.toString());
+    const retrievedMissions = await retrieveMissions(userId);
 
     retrievedMissions.map((mission, index) => {
       const expectedMission = index === 0 ? mission1 : mission2;
@@ -71,6 +73,26 @@ describe('retrieveMissions', () => {
     });
   });
 
+  it('success on retrieve mission is user is creator', async function () {
+    this.timeout(9000);
+
+    await cleanUp();
+
+    const otherUser = generate.user();
+    const missionOtherCreator = generate.mission(
+      otherUser,
+      explorer,
+      participant,
+      currentDate,
+      currentDate
+    );
+
+    await populate([user], [missionOtherCreator]);
+
+    const retrievedMissions = await retrieveMissions(userId);
+    expect(retrievedMissions).to.deep.equal([]);
+  });
+
   it('should call updateMission when endDate is more than events date', async function () {
     this.timeout(9000);
 
@@ -79,7 +101,7 @@ describe('retrieveMissions', () => {
 
     await populate([], [], [planetShock, massEjection]);
 
-    const retrievedMissions = await retrieveMissions(user._id.toString());
+    const retrievedMissions = await retrieveMissions(userId);
 
     retrievedMissions.map((mission) => {
       expect(mission.traveler[0].health).to.equal(71.67);
@@ -105,7 +127,7 @@ describe('retrieveMissions', () => {
 
     await populate([], [], [planetShock, massEjection], []);
 
-    const retrievedMissions = await retrieveMissions(user._id.toString());
+    const retrievedMissions = await retrieveMissions(userId);
 
     retrievedMissions.map((mission) => {
       expect(mission.traveler[0].health).to.equal(100);
@@ -131,7 +153,7 @@ describe('retrieveMissions', () => {
 
     await populate([], [], [planetShock, massEjection], []);
 
-    const retrievedMissions = await retrieveMissions(user._id.toString());
+    const retrievedMissions = await retrieveMissions(userId);
 
     retrievedMissions.map((mission) => {
       expect(mission.traveler[0].health).to.equal(100);
