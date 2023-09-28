@@ -24,7 +24,17 @@ describe('updateMission', () => {
     return mongoose.connect(process.env.MONGODB_URL);
   });
 
-  let user, missionId, explorer, participant, mission;
+  let user,
+    missionId,
+    explorer,
+    participant,
+    solarFlare1,
+    solarFlare2,
+    geoStorm,
+    planetShock,
+    massEjection1,
+    massEjection2,
+    speedSteam;
 
   beforeEach(() => {
     user = generate.user();
@@ -34,47 +44,41 @@ describe('updateMission', () => {
 
     const lastUpdate = new Date('2023-09-03T00:00:00'),
       startDate = new Date('2023-09-03T00:00:00'),
-      endDate = new Date('2023-09-04T00:00:00');
-
-    mission = generate.mission(
-      user,
-      explorer,
-      participant,
-      lastUpdate,
-      startDate,
-      endDate
-    );
+      mission = generate.mission(
+        user,
+        explorer,
+        participant,
+        lastUpdate,
+        startDate
+      );
 
     missionId = mission._id.toString();
 
-    const solarFlare1 = generate.nasaEvent(
-        'solarFlare',
-        new Date('2023-09-03T05:18:00')
-      ),
-      solarFlare2 = generate.nasaEvent(
-        'solarFlare',
-        new Date('2023-09-03T12:03:00')
-      ),
-      geoStorm1 = generate.nasaEvent(
-        'geoStorm',
-        new Date('2023-09-03T12:00:00')
-      ),
-      planetShock1 = generate.nasaEvent(
-        'planetShock',
-        new Date('2023-09-03T05:00:00')
-      ),
-      massEjection1 = generate.nasaEvent(
-        'massEjection',
-        new Date('2023-09-03T09:12:00')
-      ),
-      massEjection2 = generate.nasaEvent(
-        'massEjection',
-        new Date('2023-09-03T12:48:00')
-      ),
-      speedSteam = generate.nasaEvent(
-        'speedSteam',
-        new Date('2023-09-03T12:48:00')
-      );
+    solarFlare1 = generate.nasaEvent(
+      'solarFlare',
+      new Date('2023-09-03T05:18:00')
+    );
+    solarFlare2 = generate.nasaEvent(
+      'solarFlare',
+      new Date('2023-09-03T12:03:00')
+    );
+    geoStorm = generate.nasaEvent('geoStorm', new Date('2023-09-03T12:00:00'));
+    planetShock = generate.nasaEvent(
+      'planetShock',
+      new Date('2023-09-03T05:00:00')
+    );
+    massEjection1 = generate.nasaEvent(
+      'massEjection',
+      new Date('2023-09-03T09:12:00')
+    );
+    massEjection2 = generate.nasaEvent(
+      'massEjection',
+      new Date('2023-09-03T12:48:00')
+    );
+    speedSteam = generate.nasaEvent(
+      'speedSteam',
+      new Date('2023-09-03T12:48:00')
+    );
 
     const currentDate = new Date();
     const tenMinutesAgo = new Date(currentDate.getTime() - 10 * 60 * 1000);
@@ -88,8 +92,8 @@ describe('updateMission', () => {
         [
           solarFlare1,
           solarFlare2,
-          geoStorm1,
-          planetShock1,
+          geoStorm,
+          planetShock,
           massEjection1,
           massEjection2,
           speedSteam,
@@ -112,36 +116,38 @@ describe('updateMission', () => {
     expect(foundMission.status).to.be.equal('in_progress');
   });
 
-  it('success on no update mission if isnt nasa data events', async () => {
+  it('should no update mission if isnt nasa data events', async () => {
     await NasaEvent.deleteMany();
 
-    const updatedMission = await updateMission(missionId);
+    await updateMission(missionId);
 
-    expect(updatedMission).to.be.undefined;
+    const noUpdatedMission = await Mission.findOne();
+
+    expect(noUpdatedMission.traveler[0].health).to.be.equal(100);
+    expect(noUpdatedMission.traveler[0].food).to.be.equal(100);
+    expect(noUpdatedMission.traveler[0].water).to.be.equal(100);
+    expect(noUpdatedMission.traveler[0].stress).to.be.equal(100);
+    expect(noUpdatedMission.traveler[0].oxygen).to.be.equal(100);
+    expect(noUpdatedMission.status).to.be.equal('in_progress');
   });
 
-  it('success on no update mission on failure status', async () => {
-    foundMission = await Mission.findOne();
-    foundMission.status = 'failure';
+  it('should no update mission if events are in processedEvents', async () => {
+    const foundMission = await Mission.findOne();
+    foundMission.processedEvents = [
+      solarFlare1._id,
+      solarFlare2._id,
+      geoStorm._id,
+      planetShock._id,
+      massEjection1._id,
+      massEjection2._id,
+      speedSteam._id,
+    ];
+
     await foundMission.save();
 
     const updatedMission = await updateMission(missionId);
 
     expect(updatedMission).to.be.undefined;
-
-    expect(foundMission.status).to.be.equal('failure');
-  });
-
-  it('success on no update mission on success status', async () => {
-    foundMission = await Mission.findOne();
-    foundMission.status = 'success';
-    await foundMission.save();
-
-    const updatedMission = await updateMission(missionId);
-
-    expect(updatedMission).to.be.undefined;
-
-    expect(foundMission.status).to.be.equal('success');
   });
 
   it('success on set success status if mission is over', async () => {

@@ -1,5 +1,5 @@
 const {
-  validators: { validateObject, validateArrayOfObjects },
+  validators: { validateObject, validateArray },
 } = require('com');
 
 /**
@@ -14,7 +14,7 @@ const {
 
 const updateExplorerHealth = (foundMission, retrievedNasaEvents) => {
   validateObject(foundMission, 'found mission');
-  validateArrayOfObjects(retrievedNasaEvents, 'retrieved nasa events');
+  validateArray(retrievedNasaEvents, 'retrieved nasa events');
 
   const eventDamage = {
     massEjection: { suplies: 'water', damage: 15 },
