@@ -5,24 +5,26 @@ import { context } from '../ui';
 import Mission from './Mission';
 
 
-const Missions = ({lastMissionUpdate }) => {
+const Missions = () => {
     const [missions, setMissions] = useState();
 
-    useEffect(() => handleRefreshMission(), [])
-
-    const handleRefreshMission = () => {
-      try {
-        retrieveMissions(context.token)
-          .then((missions) => setMissions(missions))
-          .catch((error) => alert(error));
-      } catch (error) {
-        alert(error.message);
-      }
-    };
-    
-    useEffect(() =>{
-        if(lastMissionUpdate) handleRefreshMission()
-    }, [lastMissionUpdate]);
+    useEffect(() => {
+      const updateMission = () => {
+        try {
+          retrieveMissions(context.token)
+            .then((missions) => setMissions(missions))
+            .catch((error) => alert(error));
+        } catch (error) {
+          alert(error.message);
+        }
+      };
+  
+      updateMission()
+  
+      const missionInterval = setInterval(updateMission, 15000);
+  
+      return () => clearInterval(missionInterval);
+    }, []);
 
     return (
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
