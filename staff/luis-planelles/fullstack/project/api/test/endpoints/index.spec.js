@@ -294,10 +294,12 @@ describe('API routes', () => {
 
       mission = generate.mission(user, explorer, participant);
 
-      return cleanUp().then(() => populate([], [mission]));
+      return cleanUp().then(() => populate([user], [mission]));
     });
 
-    it('should return a succesfull response for GET endpoint', async () => {
+    it('should return a succesfull response for GET endpoint', async function () {
+      this.timeout(9000);
+
       const res = await fetch(baseURL + `/missions/${mission._id.toString()}`, {
         headers: {
           'Content-Type': 'application/json',

@@ -14,7 +14,10 @@ const generate = {
   }),
 
   participant: () => ({
+    _id: new ObjectId(),
     name: `name-${Math.random()}`,
+    confirmation: 'pending',
+    feedback: '',
   }),
 
   explorer: (race) => ({
@@ -31,7 +34,8 @@ const generate = {
     explorer,
     participant,
     lastUpdate = new Date(),
-    startDate = new Date()
+    startDate = new Date(),
+    processedEvents = []
   ) => ({
     _id: new ObjectId(),
     creator: user._id,
@@ -42,11 +46,13 @@ const generate = {
     lastUpdate,
     startDate,
     endDate,
+    processedEvents,
     participants: [participant],
     loserPrice: 'beer',
   }),
 
   nasaEvent: (event, date) => ({
+    _id: new ObjectId(),
     date,
     event,
     link: `event-link-${Math.random()}`,
