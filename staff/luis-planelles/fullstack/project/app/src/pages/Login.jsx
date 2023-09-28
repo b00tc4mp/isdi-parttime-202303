@@ -1,25 +1,33 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import AboutToPlay from '../components/AboutToPlay';
 import { useAppContext } from '../hooks';
 import loginUser from '../logic/loginUser';
 
 const Login = () => {
-  const { navigate} = useAppContext()
+  const { navigate } = useAppContext();
+
+  const [aboutToPlay, setAboutToPlay] = useState(false);
 
   const handleLogin = (event) => {
-    event.preventDefault()
-    
+    event.preventDefault();
+
     const email = event.target.email.value,
-    password = event.target.password.value;
+      password = event.target.password.value;
 
     try {
       loginUser(email, password)
-      .then(() => navigate('/'))
-      .catch((error) => alert(error.message))
-
-    }catch (error) {
-      alert(error.message)
+        .then(() => navigate('/'))
+        .catch((error) => alert(error.message));
+    } catch (error) {
+      alert(error.message);
     }
   };
+
+  const handleAboutToPlay = () => setAboutToPlay(true)
+
+  const handleClose = () => setAboutToPlay(false)
+  
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
@@ -61,14 +69,30 @@ const Login = () => {
               Login
             </button>
           </div>
-        </form>
-        
-        <p className="text-center mt-4">
-        <Link to="/register" className="text-blue-500 hover:underline">Register</Link>
-      </p>
-    </div>
-  </div>
-);
-  }  
+          </form>
 
-export default Login 
+          <p className="text-center mt-4">
+          <Link to="/register" className="text-blue-500 hover:underline">
+            Register
+          </Link>
+        </p>
+        <button
+          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-auto mt-4"
+          onClick={handleAboutToPlay}
+        >
+          About to play
+        </button>
+        {aboutToPlay && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="bg-white p-4 rounded-lg max-w-md">
+              <AboutToPlay 
+              onClose={handleClose}/>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Login;
