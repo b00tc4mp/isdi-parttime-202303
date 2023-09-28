@@ -8,8 +8,7 @@ import retrieveUser from '../logic/retrieveUser'
 const Home = () => {
   const { navigate} = useAppContext()
 
-  const [view, setView] = useState('mission'),
-    [modal, setModal] = useState(null),
+  const [view, setView] = useState('missions'),
     [lastUpdate, setLastUpdate] = useState(null),
     [user, setUser] = useState(null);
 
@@ -25,13 +24,15 @@ const Home = () => {
       }
     }, [])
 
-  const handleOpenAddMission = () => setModal('add-mission')
+  const handleOpenAddMission = () => 
+    setView('add-mission')
 
-  const handleCloseModal = () => setModal(null)
+  const handleCloseModal = () => 
+    setView('missions')
   
   const handleMissionUpdated = () => {
-    setModal(null)
     setLastUpdate(Date.now()) 
+    setView('missions')
   };
 
   const hadleLogOutButton = () =>  {
@@ -56,16 +57,12 @@ const Home = () => {
       </header>
       <main className='flex-grow flex justify-center items-center'>
         <div className="flex flex-col items-center">
-          {view === 'mission' && (
+          {view === 'missions' && (
             <Missions 
             lastMissionUpdate={lastUpdate}
             />
           )}
-          {view === 'mission-detail' && (
-            <MissionDetail 
-            />
-          )}
-          {modal === 'add-mission' && (
+          {view === 'add-mission' && (
             <AddMissionModal 
               onCancel={handleCloseModal} 
               onMissionCreate={handleMissionUpdated}
