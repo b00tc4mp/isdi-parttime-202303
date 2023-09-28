@@ -4,7 +4,7 @@ const { expect } = require('chai');
 const mongoose = require('mongoose');
 const { ObjectId } = require('mongodb');
 
-const { retrieveNasaEvents } = require('../../logic');
+const { retrieveMissionEvents } = require('../../logic');
 const { cleanUp, populate, generate } = require('../helpers');
 
 const {
@@ -12,7 +12,7 @@ const {
 } = require('com');
 const { Mission } = require('../../data/models');
 
-describe('retrieveNasaEvents', () => {
+describe('retrieveMissionEvents', () => {
   before(() => mongoose.connect(process.env.MONGODB_URL));
 
   let user,
@@ -30,12 +30,19 @@ describe('retrieveNasaEvents', () => {
     explorer = generate.explorer('monkey');
     participant = generate.participant();
 
-    mission = generate.mission(user, explorer, participant);
-
     solarFlare = generate.nasaEvent('solarFlare', new Date());
     geoStorm = generate.nasaEvent('geoStorm', new Date());
     planetShock = generate.nasaEvent('planetShock', new Date());
     massEjection = generate.nasaEvent('massEjection', new Date());
+
+    mission = generate.mission(
+      user,
+      explorer,
+      participant,
+      new Date(),
+      new Date(),
+      [solarFlare._id, geoStorm._id, planetShock._id, massEjection._id]
+    );
 
     return cleanUp().then(() =>
       populate(
@@ -47,19 +54,32 @@ describe('retrieveNasaEvents', () => {
     );
   });
 
-  it('success on retrieve nasa events', async () => {
-    const retrievedNasaEvents = await retrieveNasaEvents(
+  it('success on retrieve mission events', async () => {
+    const retrievedNasaEvents = await retrieveMissionEvents(
       mission._id.toString()
     );
+
     const expectedEvents = [solarFlare, geoStorm, planetShock, massEjection];
 
     expectedEvents.map((expectedEvent, index) => {
+      expect(retrievedNasaEvents[index]._id).to.deep.equal(expectedEvent._id);
       expect(retrievedNasaEvents[index].date).to.deep.equal(expectedEvent.date);
       expect(retrievedNasaEvents[index].event).to.equal(expectedEvent.event);
       expect(retrievedNasaEvents[index].link).to.contain('event-link');
       expect(retrievedNasaEvents[index].__v).to.be.undefined;
-      expect(retrievedNasaEvents[index]._id).to.be.undefined;
     });
+  });
+
+  it('should on retrieve mission events if events not in mission processed events ', async () => {
+    const foundMission = await Mission.findOne();
+    foundMission.processedEvents = [];
+    await foundMission.save();
+
+    const retrievedNasaEvents = await retrieveMissionEvents(
+      mission._id.toString()
+    );
+
+    expect(retrievedNasaEvents).to.deep.equal([]);
   });
 
   it('should not save event if mission start date is more than event date', async () => {
@@ -71,7 +91,7 @@ describe('retrieveNasaEvents', () => {
     foundMission.startDate = superiorStardate;
     await foundMission.save();
 
-    const retrievedNasaEvents = await retrieveNasaEvents(
+    const retrievedNasaEvents = await retrieveMissionEvents(
       mission._id.toString()
     );
 
@@ -82,7 +102,7 @@ describe('retrieveNasaEvents', () => {
     const nonExistentMissionId = new ObjectId().toString();
 
     try {
-      await retrieveNasaEvents(nonExistentMissionId);
+      await retrieveMissionEvents(nonExistentMissionId);
     } catch (error) {
       expect(error).to.be.an.instanceOf(ExistenceError);
       expect(error.message).to.equal(
@@ -95,7 +115,7 @@ describe('retrieveNasaEvents', () => {
     const emptyId = '';
 
     try {
-      await retrieveNasaEvents(emptyId);
+      await retrieveMissionEvents(emptyId);
     } catch (error) {
       expect(error).to.be.instanceOf(ContentError);
       expect(error.message).to.equal('mission id is empty');
@@ -106,7 +126,7 @@ describe('retrieveNasaEvents', () => {
     const noStringId = 11;
 
     try {
-      await retrieveNasaEvents(noStringId);
+      await retrieveMissionEvents(noStringId);
     } catch (error) {
       expect(error).to.be.instanceOf(TypeError);
       expect(error.message).to.equal('mission id is not a string');
@@ -117,7 +137,7 @@ describe('retrieveNasaEvents', () => {
     const shortId = 'abc123';
 
     try {
-      await retrieveNasaEvents(shortId);
+      await retrieveMissionEvents(shortId);
     } catch (error) {
       expect(error).to.be.instanceOf(ContentError);
       expect(error.message).to.equal('mission id does not have 24 characters');
@@ -128,7 +148,7 @@ describe('retrieveNasaEvents', () => {
     const nonHexId = 'invalidValue123456789012';
 
     try {
-      await retrieveNasaEvents(nonHexId);
+      await retrieveMissionEvents(nonHexId);
     } catch (error) {
       expect(error).to.be.instanceOf(ContentError);
       expect(error.message).to.equal('mission id is not hexagecimal');

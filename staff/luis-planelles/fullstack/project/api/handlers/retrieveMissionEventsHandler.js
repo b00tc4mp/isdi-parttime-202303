@@ -1,8 +1,8 @@
-const { retrieveNasaEvents } = require('../logic');
+const { retrieveMissionEvents } = require('../logic');
 const { handleErrors } = require('./helpers');
 
 module.exports = handleErrors((req, res) => {
   const { missionId } = req.params;
 
-  return retrieveNasaEvents(missionId).then((events) => res.json(events));
+  return retrieveMissionEvents(missionId).then((events) => res.json(events));
 });

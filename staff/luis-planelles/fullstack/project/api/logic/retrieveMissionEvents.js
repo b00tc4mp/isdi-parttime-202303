@@ -13,7 +13,7 @@ const { NasaEvent, Mission } = require('../data/models');
  * @throws {ContentError} - On missionId wrong characters.
  */
 
-const retrieveNasaEvents = (missionId) => {
+const retrieveMissionEvents = (missionId) => {
   validateId(missionId, 'mission id');
 
   return (async () => {
@@ -29,11 +29,15 @@ const retrieveNasaEvents = (missionId) => {
           $lte: foundMission.endDate,
         },
       },
-      '-_id -__v'
-    ).lean();
+      '-__v'
+    );
 
-    return retrievedNasaEvents;
+    const missionEvents = retrievedNasaEvents.filter((event) =>
+      foundMission.processedEvents.includes(event._id)
+    );
+
+    return missionEvents;
   })();
 };
 
-module.exports = retrieveNasaEvents;
+module.exports = retrieveMissionEvents;
