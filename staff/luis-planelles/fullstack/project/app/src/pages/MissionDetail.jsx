@@ -5,11 +5,12 @@ import {
 import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Link, useParams } from 'react-router-dom';
-import formatDateTime from '../logic/formatDateTime';
+import context from '../../../../app/src/logic/context';
 import retrieveMission from '../logic/retrieveMission';
-import retrieveNasaEvents from '../logic/retrieveNasaEvents';
+import retrieveMissionEvents from '../logic/retrieveMissionEvents';
 import calculateTimeRemaining from './helpers/calculateTimeRemaining';
 import copyToClipboard from './helpers/copyToClipboard';
+import formatDateTime from './helpers/formatDateTime';
   
 Chart.register(
   CategoryScale,
@@ -42,7 +43,7 @@ const MissionDetail = () => {
 
     updateMission()
 
-    const missionInterval = setInterval(updateMission, 100000);
+    const missionInterval = setInterval(updateMission, 15000);
 
     return () => clearInterval(missionInterval);
   }, []);
@@ -58,7 +59,7 @@ const MissionDetail = () => {
 
   useEffect(() => {
     try {
-      retrieveNasaEvents(missionId)
+      retrieveMissionEvents(missionId)
       .then(setEvents)
       .catch(error => alert(error))
       
@@ -146,9 +147,11 @@ const MissionDetail = () => {
           Copy link
         </button>
         <br />
+        {context.token && 
         <p className='mt-2'>
           <Link to='/' className='text-blue-500 hover:underline'>Back to Home</Link>
         </p>
+        }
       </div>
     </div>
         <div>
@@ -187,7 +190,20 @@ const MissionDetail = () => {
               >
                 MISSION STATUS: {mission.status}
               </div>
-              <div className='text-lg'>BET VS: {mission.participants[0].name}</div>
+              BET VS:
+              {mission.participants.filter((participant) => participant.confirmation === 'accept').length > 0 ? (
+                mission.participants
+                  .filter((participant) => participant.confirmation === 'accept')
+                  .map((participant, index) => (
+                    <div key={index}>
+                      <div className="text-lg">{participant.name}</div>
+                    </div>
+                  ))
+              ) : (
+                <div className="text-red-500">
+                  No participants have accepted the mission yet, we are waiting for feedback.
+                </div>
+              )}
               <div className='text-lg'>LOSER PRICE: {mission.loserPrice}</div>
               <div className='text-sm'>
                 <time className='text-xs' dateTime={mission.startDate}>
@@ -215,15 +231,16 @@ const MissionDetail = () => {
               )}
             </div>
           )}
-
           {mission && mission.status === 'failure' && (
             <div className='flex justify-center items-start mt-8'>
               <article className='mission bg-white shadow-md rounded-lg p-4 my-4 border'>
-                <div className='text-lg text-green-500'>
-                  Congratulations {mission.participants[0].name}! You are the winner.
-                </div>
+                {mission.participants.map((participant, index) => (
+                  <div key={index} className='text-lg text-green-500'>
+                    Congratulations {participant.name}! You are the winner.
+                  </div>
+                ))}
                 <div className='text-lg'>
-                 {mission.creatorName} owes you a {mission.loserPrice}.
+                  {mission.creatorName} owes you a {mission.loserPrice}.
                 </div>
               </article>
             </div>
@@ -231,7 +248,13 @@ const MissionDetail = () => {
           {mission && mission.status === 'success' && (
             <div className='text-lg text-green-500'>
               The {mission.traveler[0].race} has reached the {mission.destination}. 
-              Therefore, {mission.participants[0].name} owes {mission.creatorName} a {mission.loserPrice}.
+              Therefore, {mission.participants.map((participant, index) => (
+                <span key={index}>
+                  {participant.name}
+                  {index < mission.participants.length - 1 ? ', ' : ''}
+                </span>
+              ))} 
+              owes {mission.creatorName} a {mission.loserPrice}.
             </div>
           )}
           {events && events.length > 0 && (
