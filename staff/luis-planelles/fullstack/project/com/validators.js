@@ -58,7 +58,12 @@ const validateText = (text, explain = 'text') => {
   if (!text.trim().length) throw new ContentError(`${explain} is empty`);
 };
 
-const validateArrayOfObjects = (array, explain = 'array of objects') => {
+const validateFeedback = (feedback, explain = 'feedback') => {
+  if (typeof feedback !== 'string')
+    throw new TypeError(`${explain} is not a string`);
+};
+
+const validateArray = (array, explain = 'array') => {
   if (!Array.isArray(array)) {
     throw new TypeError(`${explain} is not an array`);
   }
@@ -130,11 +135,12 @@ module.exports = {
   validatePassword,
   validateId,
   validateText,
+  validateFeedback,
   validateObject,
   validateDate,
   validateTraveler,
   validateDestination,
   validateParticipants,
-  validateArrayOfObjects,
+  validateArray,
   validateToken,
 };

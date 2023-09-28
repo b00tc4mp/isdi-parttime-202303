@@ -10,7 +10,7 @@ const copyToClipboard = () => {
 
   document.body.removeChild(tempInput);
 
-  alert('Enlace copiado al portapapeles: ' + currentURL);
+  alert('Link copied to clickboard: ' + currentURL);
 };
 
 export default copyToClipboard;

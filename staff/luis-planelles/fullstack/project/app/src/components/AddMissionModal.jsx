@@ -13,9 +13,8 @@ const AddMissionModal = ({ onCancel, onMissionCreate }) => {
     onCancel()
   }
 
-  const handleAddParticipant = () => {
-    setParticipants([...participants, { name: ''}]);
-  };
+  const handleAddParticipant = () => setParticipants([...participants, { name: ''}]);
+  
 
   const handleParticipantChange = (event, index, field) => {
     const updatedParticipants = [...participants];
@@ -86,9 +85,9 @@ const AddMissionModal = ({ onCancel, onMissionCreate }) => {
               name="destination"
               id="destination"
             >
-              <option value="moon">Moon</option>
-              <option value="mars">Mars</option>
-              <option value="unexplored_planet">Unexplored Planet</option>
+              <option value="moon">Moon (one day) </option>
+              <option value="mars">Mars (two days) </option>
+              <option value="unexplored_planet">Unexplored Planet (5 days) </option>
             </select>
           </div>
           <div>
