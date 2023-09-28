@@ -4,10 +4,11 @@ const {
   registerUserHandler,
   authenticateUserHandler,
   createMissionHandler,
+  participantFeedbackHandler,
+  retrieveUserHandler,
+  retrieveMissionEventsHandler,
   retrieveMissionHandler,
   retrieveMissionsHandler,
-  retrieveNasaEventsHandler,
-  retrieveUserHandler,
   updateMissionHandler,
 } = require('./handlers');
 
@@ -28,14 +29,20 @@ mongoose
     // api routes
     api.get('/', (req, res) => res.send('Hello, Space Poursuit.v1!'));
 
+    api.get('/users', retrieveUserHandler);
+    api.get('/retrieve-nasa-events/:missionId', retrieveMissionEventsHandler);
+    api.get('/missions/:missionId', retrieveMissionHandler);
+    api.get('/missions', retrieveMissionsHandler);
+
     api.post('/users', jsonBodyParser, registerUserHandler);
     api.post('/users/auth', jsonBodyParser, authenticateUserHandler);
     api.post('/missions', jsonBodyParser, createMissionHandler);
+    api.post(
+      '/participant-feedback/:missionId/:participantId',
+      jsonBodyParser,
+      participantFeedbackHandler
+    );
 
-    api.get('/users', retrieveUserHandler);
-    api.get('/retrieve-nasa-events/:missionId', retrieveNasaEventsHandler);
-    api.get('/missions/:missionId', retrieveMissionHandler);
-    api.get('/missions', retrieveMissionsHandler);
     api.patch(
       '/missions/update/:missionId',
       jsonBodyParser,
