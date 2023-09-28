@@ -2,7 +2,7 @@ import { validators } from 'com';
 
 const { validateId } = validators;
 
-const retrieveNasaEvents = (missionId) => {
+const retrieveMissionEvents = (missionId) => {
   validateId(missionId, 'mission id');
 
   return fetch(
@@ -21,4 +21,4 @@ const retrieveNasaEvents = (missionId) => {
   });
 };
 
-export default retrieveNasaEvents;
+export default retrieveMissionEvents;
