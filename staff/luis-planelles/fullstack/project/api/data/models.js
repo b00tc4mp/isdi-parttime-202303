@@ -66,6 +66,14 @@ const participant = new Schema({
     type: String,
     required: true,
   },
+  confirmation: {
+    type: String,
+    enum: ['accept', 'decline', 'pending'],
+    default: 'pending',
+  },
+  feedback: {
+    type: String,
+  },
 });
 
 const apiCall = new Schema({
