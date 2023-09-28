@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const mongoose = require('mongoose');
 const { ObjectId } = require('mongodb');
 
@@ -8,9 +9,11 @@ const { Mission, User } = require('./data/models');
 const participant = generate.participant();
 const explorer = generate.explorer('monkey');
 
-const endDate = new Date();
+const currentDate = new Date();
+const fiveMinutesLater = new Date(currentDate.getTime() + 3 * 60000);
 
-endDate.setDate(endDate.getDate() + 2);
+// const moonEndDate = new Date();
+// moonEndDate.setDate(endDate.getDate() + 2);
 
 mongoose
   .connect(process.env.MONGODB_URL)
@@ -26,7 +29,7 @@ mongoose
       status: 'in_progress',
       lastUpdate: new Date(),
       startDate: new Date(),
-      endDate,
+      endDate: fiveMinutesLater,
       participants: [participant],
       processedEvents: [],
       loserPrice: 'beer',
