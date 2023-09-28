@@ -29,7 +29,9 @@ describe('retrieveMission', () => {
     return cleanUp().then(() => populate([user], [mission]));
   });
 
-  it('success on retrieve mission', async () => {
+  it('success on retrieve mission', async function () {
+    this.timeout(9000);
+
     const retrievedMission = await retrieveMission(mission._id.toString());
 
     expect(retrievedMission._id).to.deep.equal(mission._id);
@@ -53,7 +55,9 @@ describe('retrieveMission', () => {
     expect(retrievedMission.traveler[0]._id).to.be.undefined;
   });
 
-  it('should call updateMission when endDate is more than events date', async () => {
+  it('should call updateMission when endDate is more than events date', async function () {
+    this.timeout(9000);
+
     let foundMission = await Mission.findOne();
     foundMission.endDate = new Date(
       currentDate.getTime() + 2 * 24 * 60 * 60 * 1000
@@ -76,7 +80,9 @@ describe('retrieveMission', () => {
     expect(foundMission.traveler[0].oxygen).to.equal(100);
   });
 
-  it('should not call updateMission when status is success', async () => {
+  it('should not call updateMission when status is success', async function () {
+    this.timeout(9000);
+
     let foundMission = await Mission.findOne();
     foundMission.status = 'success';
     foundMission.endDate = new Date(
@@ -100,7 +106,9 @@ describe('retrieveMission', () => {
     expect(foundMission.traveler[0].oxygen).to.equal(100);
   });
 
-  it('should not call updateMission when status is failure', async () => {
+  it('should not call updateMission when status is failure', async function () {
+    this.timeout(9000);
+
     let foundMission = await Mission.findOne();
     foundMission.status = 'failure';
     foundMission.endDate = new Date(

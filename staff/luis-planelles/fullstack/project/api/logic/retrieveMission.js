@@ -4,6 +4,7 @@ const {
 } = require('com');
 const { Mission } = require('../data/models');
 const updateMission = require('./updateMission');
+const createNasaData = require('./createNasaData');
 
 /**
  * retrieve mission by mission id.
@@ -30,9 +31,9 @@ const retrieveMission = (missionId) => {
     if (!foundMission)
       throw new ExistenceError(`mission with id ${missionId} not exist`);
 
-    if (foundMission.status === 'in_progress') {
-      await updateMission(missionId);
-    }
+    await createNasaData(foundMission.creator.toString());
+
+    if (foundMission.status === 'in_progress') await updateMission(missionId);
 
     const mission = await Mission.findById(missionId, selectedFields).lean();
 
