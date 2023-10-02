@@ -78,6 +78,46 @@ describe('participantFeedback', () => {
     expect(foundMission.participants[0].feedback).to.equal('');
   });
 
+  it('should not set feddback if misison status is success', async () => {
+    const missionInData = await Mission.findOne({});
+    missionInData.status = 'success';
+    await missionInData.save();
+
+    await participantFeedback(
+      participantId,
+      missionId,
+      'accept',
+      'participant answer'
+    );
+
+    const foundMission = await Mission.findOne({});
+
+    expect(foundMission.participants[0]._id).to.deep.equal(participant._id);
+    expect(foundMission.participants[0].name).to.equal(participant.name);
+    expect(foundMission.participants[0].confirmation).to.equal('pending');
+    expect(foundMission.participants[0].feedback).to.equal('');
+  });
+
+  it('should not set feddback if misison status is failure', async () => {
+    const missionInData = await Mission.findOne({});
+    missionInData.status = 'failure';
+    await missionInData.save();
+
+    await participantFeedback(
+      participantId,
+      missionId,
+      'decline',
+      'participant answer'
+    );
+
+    const foundMission = await Mission.findOne({});
+
+    expect(foundMission.participants[0]._id).to.deep.equal(participant._id);
+    expect(foundMission.participants[0].name).to.equal(participant.name);
+    expect(foundMission.participants[0].confirmation).to.equal('pending');
+    expect(foundMission.participants[0].feedback).to.equal('');
+  });
+
   it('should raise TypeError when confirmation is not a string', async () => {
     try {
       await participantFeedback(participantId, missionId, undefined, '');

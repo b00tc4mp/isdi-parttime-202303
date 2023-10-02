@@ -32,27 +32,29 @@ const participantFeedback = (
     if (!foundMission)
       throw new ExistenceError(`mission with id ${missionId} not exist`);
 
-    const participantIndex = foundMission.participants.findIndex(
-      (participant) => {
-        return participant._id.toString() === participantId;
-      }
-    );
-
-    if (participantIndex !== -1) {
-      if (confirmation === 'accept')
-        foundMission.participants[participantIndex].confirmation = 'accept';
-
-      if (confirmation === 'decline')
-        foundMission.participants[participantIndex].confirmation = 'decline';
-
-      if (feedback)
-        foundMission.participants[participantIndex].feedback = feedback;
-
-      await foundMission.save();
-    } else {
-      throw new ExistenceError(
-        `participant with id ${participantId} not exist`
+    if (foundMission.status === 'in_progress') {
+      const participantIndex = foundMission.participants.findIndex(
+        (participant) => {
+          return participant._id.toString() === participantId;
+        }
       );
+
+      if (participantIndex !== -1) {
+        if (confirmation === 'accept')
+          foundMission.participants[participantIndex].confirmation = 'accept';
+
+        if (confirmation === 'decline')
+          foundMission.participants[participantIndex].confirmation = 'decline';
+
+        if (feedback)
+          foundMission.participants[participantIndex].feedback = feedback;
+
+        await foundMission.save();
+      } else {
+        throw new ExistenceError(
+          `participant with id ${participantId} not exist`
+        );
+      }
     }
   })();
 };
