@@ -41,7 +41,9 @@ const retrieveMissions = (userId) => {
     const retrievedUpdatedmissions = await Mission.find(
       { creator: foundUser._id },
       '-__v -creator'
-    ).lean();
+    )
+      .sort('-startDate')
+      .lean();
 
     return retrievedUpdatedmissions;
   })();
