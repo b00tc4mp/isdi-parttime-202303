@@ -30,7 +30,7 @@ const retrieveMissionEvents = (missionId) => {
         },
       },
       '-__v'
-    );
+    ).sort('-startDate');
 
     const missionEvents = retrievedNasaEvents.filter((event) =>
       foundMission.processedEvents.includes(event._id)
