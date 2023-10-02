@@ -45,18 +45,18 @@ const Home = () => {
     <div className='min-h-screen bg-gray-100 flex flex-col'>
       <header className='bg-blue-500 p-4 text-white'>
         {user && (
-          <nav className="flex justify-between items-center">
-            <p className="text-lg">{user.name}</p>
+          <nav className='flex justify-between items-center'>
+            <p className='text-lg font-serif font-semibold'>{user.name}</p>
             <img
-              src="/assets/logo.png"
+              src='/assets/logo.png'
               style={{ width: '6rem'}} 
             />  
-            <button className='text-sm' onClick={hadleLogOutButton}>Logout</button>
+            <button className='text-lg font-serif font-semibold' onClick={hadleLogOutButton}>Logout</button>
           </nav>
         )}
       </header>
       <main className='flex-grow flex justify-center items-center'>
-        <div className="flex flex-col items-center">
+        <div className='flex flex-col items-center'>
           {view === 'missions' && (
             <Missions 
             lastMissionUpdate={lastUpdate}
