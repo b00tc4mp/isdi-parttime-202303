@@ -76,34 +76,37 @@ const Mission = (
               <ul className="list-disc ml-6">
               {participants.map((participant, index) => (
                 <li key={index} className="text-lg font-roboto">
-                  <div className="text-lg font-roboto">{participant.name}</div>
-
-                  {participant.confirmation === 'pending' && (
+                  <div className="text-lg font-roboto">
+                    {participant.name}
+                    {participant.confirmation === 'pending' && status !== 'in_progress' && (
+                      <span className="text-red-500"> no answer</span>
+                    )}
+                  </div>
+                  {participant.confirmation === 'pending' && status === 'in_progress' && (
                     <button
-                      className='bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-auto'
+                      className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-auto"
                       onClick={(event) => handleCopyInvitationLink(event, participant._id)}
                     >
                       Copy Invitation Link
                     </button>
                   )}
-
                   {participant.confirmation !== 'pending' && (
                     <div className={`text-${participant.confirmation === 'decline' ? 'red' : 'green'}-500`}>
                       {participant.confirmation}
                       <div>
-                      {participant.feedback !== undefined && (
-                      <>
-                        <button
-                          className="button-feedback"
-                          onClick={(event) => handleFeedback(event)}
-                        >
-                          Show Feedback
-                        </button>
-                        {showFeedback && (
-                          <div className="text-lg font-roboto">{participant.feedback}</div>
+                        {participant.feedback !== undefined && (
+                          <>
+                            <button
+                              className="button-feedback"
+                              onClick={(event) => handleFeedback(event)}
+                            >
+                              Show Feedback
+                            </button>
+                            {showFeedback && (
+                              <div className="text-lg font-roboto">{participant.feedback}</div>
+                            )}
+                          </>
                         )}
-                      </>
-                      )}
                       </div>
                     </div>
                   )}
