@@ -6,7 +6,7 @@ const retrieveMissionEvents = (missionId) => {
   validateId(missionId, 'mission id');
 
   return fetch(
-    `${import.meta.env.VITE_API_URL}/retrieve-nasa-events/${missionId}`,
+    `${import.meta.env.VITE_API_URL}/retrieve-mission-events/${missionId}`,
     {
       headers: {
         'Content-type': 'application/json',
