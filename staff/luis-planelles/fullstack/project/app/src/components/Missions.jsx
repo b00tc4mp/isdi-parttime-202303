@@ -8,30 +8,35 @@ import Mission from './Mission';
 const Missions = () => {
     const [missions, setMissions] = useState();
 
+    const updateMissions = () => {
+      try {
+        retrieveMissions(context.token)
+        .then(missions => setMissions(missions))
+        .catch(error => alert(error))
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+  
     useEffect(() => {
-      const updateMission = () => {
-        try {
-          retrieveMissions(context.token)
-            .then((missions) => setMissions(missions))
-            .catch((error) => alert(error));
-        } catch (error) {
-          alert(error.message);
-        }
-      };
-  
-      updateMission()
-  
-      const missionInterval = setInterval(updateMission, 15000);
+      const missionInterval = setInterval(updateMissions, 15000);
+      updateMissions();
   
       return () => clearInterval(missionInterval);
     }, []);
+  
+
+    const handleDeleteMission = () => updateMissions()
 
     return (
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {missions &&
             missions.map((mission) => (
               <Link to={`/mission/${mission._id.toString()}`} key={mission._id.toString()}>
-                <Mission mission={mission} />
+                <Mission 
+                mission={mission}
+                onDelete={handleDeleteMission}
+                />
               </Link>
             ))}
         </section>
