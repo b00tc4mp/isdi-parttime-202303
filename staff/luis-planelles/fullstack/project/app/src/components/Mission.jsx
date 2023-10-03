@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import deleteMission from '../logic/deleteMission';
 import formatDateTime from '../pages/helpers/formatDateTime';
 import copyInvitationLink from './helpers/copyInvitationLink';
 
@@ -15,7 +16,7 @@ const Mission = (
       loserPrice, 
       startDate, 
       endDate
-    }
+    }, onDelete
   }) => {
 
     const [showFeedback, setShowFeedback] = useState(false);
@@ -33,6 +34,22 @@ const Mission = (
 
       copyInvitationLink(link)
     }
+
+    const handleDeleteMission = (event) => {
+      event.preventDefault()
+      
+      try {
+          deleteMission(_id.toString())
+          .then(() => {
+            alert('mission deleted')
+            onDelete()
+          })
+          .catch(error => alert(error))
+  
+      } catch (error) {
+          alert(error.message)
+      }
+    };
 
     return (
       <article className="mission bg-white shadow-md rounded-lg p-4 my-4 border">
@@ -113,6 +130,12 @@ const Mission = (
                 </li>
               ))}
               </ul>
+            </div>
+              <div>
+                <br />
+            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded-full mx-auto" onClick={(event) => handleDeleteMission(event)}>
+              delete 
+            </button>
             </div>
           </div>
         </div>
