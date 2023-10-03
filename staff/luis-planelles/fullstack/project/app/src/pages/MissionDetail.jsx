@@ -27,37 +27,17 @@ const MissionDetail = () => {
   const [mission, setMission] = useState();
   const [timeRemaining, setTimeRemaining] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
-
-  useEffect(() => {
-    const updateMission = () => {
-      try {
-        retrieveMission(missionId)
-          .then((mission) => {
-            setMission(mission);
-          })
-          .catch((error) => alert(error));
-      } catch (error) {
-        alert(error.message);
-      }
-    };
-
-    updateMission()
-
-    const missionInterval = setInterval(updateMission, 15000);
-
-    return () => clearInterval(missionInterval);
-  }, []);
-
-
-  useEffect(() => {
-    const timerInterval = setInterval(() => {
-        updateTimer(mission.endDate);
-    }, 1000);
+  const updateMission = () => {
+    try {
+      retrieveMission(missionId)
+        .then(mission => setMission(mission))
+        .catch(error => alert(error))
+    } catch (error) {
+      alert(error.message);
+    }
+  };
   
-    return () => clearInterval(timerInterval);
-  }, [mission]);
-
-  useEffect(() => {
+  const updateEvents = () => {
     try {
       retrieveMissionEvents(missionId)
       .then(setEvents)
@@ -66,13 +46,34 @@ const MissionDetail = () => {
     } catch (error){
       alert(error.message)
       }
-    }, [events]);
+  }
+
+  useEffect(() => {
+    updateMission();
+    updateEvents();
+
+    const updateInterval = setInterval(() => {
+      updateMission();
+      updateEvents();
+    }, 15000);
+
+    return () => clearInterval(updateInterval);
+  }, []);
+
+  useEffect(() => {
+    const timerInterval = setInterval(() => {
+      updateTimer(mission.endDate);
+    }, 1000);
+  
+    return () => clearInterval(timerInterval);
+  }, [mission]);
+
 
   const updateTimer = (endDate) => {
     const timeRemainingData = calculateTimeRemaining(endDate);
     setTimeRemaining(timeRemainingData);
   };
-
+  
   const chartData = {
     labels: ['Food', 'Water', 'Oxygen', 'Stress', 'health'],
     datasets: [
@@ -127,6 +128,7 @@ const MissionDetail = () => {
       />;
     }
   }
+
   return (
     <div className='flex justify-center items-start mt-8'>
       <article className='mission bg-white shadow-md rounded-lg p-4 my-4 border'>
@@ -199,35 +201,28 @@ const MissionDetail = () => {
                 </div>
                 <div className="text-sm mt-2">
                   <strong>BET VS:</strong>
-                  {mission.status === 'in_progress'
-                    ? mission.participants.map((participant, index) => (
-                        <div key={index}>
-                          <div className='text-lg font-roboto'>
-                            {participant.name}
-                            <span 
-                            className={
-                              `${participant.confirmation === 'pending' 
-                                ? 'text-blue-500' 
-                                : participant.confirmation === 'accept' 
-                                ? 'text-green-500' 
-                                : 'text-red-500'
-                              }`
-                            }
-                              > 
-                              {' '}{participant.confirmation}
-                              </span>
-                          </div>
-                        </div>
-                      ))
-                    : mission.participants
-                        .filter((participant) => participant.confirmation === 'accept')
-                        .map((participant, index) => (
-                          <div key={index}>
-                            <div className='text-lg font-roboto'>
-                              {participant.name} <span className='text-green-500'> {participant.confirmation}</span>
-                            </div>
-                          </div>
-                        ))}
+                  {mission.participants.map((participant, index) => (
+                    <div key={index}>
+                      <div className='text-lg font-roboto'>
+                        {mission.status === 'in_progress' ? (
+                          <>
+                            {participant.name}{' '}
+                            <span className={`${
+                              participant.confirmation === 'pending' 
+                                ? 'text-gray-500' 
+                                : participant.confirmation === 'decline' 
+                                ? 'text-red-500' 
+                                : 'text-green-500'
+                            }`}>
+                              {participant.confirmation}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="text-red-500">out</span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
                 <div className='flex-1'>
@@ -254,7 +249,7 @@ const MissionDetail = () => {
                   )}
                   {mission.status !== 'in_progress' && (
                     <div className='text-sm'>
-                      <strong >MISSION ENDS:</strong> {formatDateTime(events[0].date)}
+                      <strong >MISSION ENDS:</strong> {formatDateTime(events[ events.length -1].date)}
                     </div>
                   )}
                 </div>
