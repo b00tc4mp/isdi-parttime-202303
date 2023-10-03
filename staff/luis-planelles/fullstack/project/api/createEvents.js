@@ -25,7 +25,7 @@ const events = [
 
 const date = new Date();
 
-date.setDate(date.getDate() + 1);
+date.setDate(date.getDate());
 
 mongoose
   .connect(process.env.MONGODB_URL)
