@@ -4,6 +4,7 @@ const {
   registerUserHandler,
   authenticateUserHandler,
   createMissionHandler,
+  deleteMissionHandler,
   participantFeedbackHandler,
   retrieveUserHandler,
   retrieveMissionEventsHandler,
@@ -56,6 +57,8 @@ mongoose
       jsonBodyParser,
       updateMissionHandler
     );
+
+    api.delete('/mission/delete/:missionId', deleteMissionHandler);
 
     api.listen(process.env.PORT, () =>
       console.log(`server running in port ${process.env.PORT}`)

@@ -3,6 +3,7 @@ module.exports = {
   registerUser: require('./registerUser'),
   retrieveUser: require('./retrieveUser'),
   createMission: require('./createMission'),
+  deleteMission: require('./deleteMission'),
   retrieveMission: require('./retrieveMission'),
   retrieveMissions: require('./retrieveMissions'),
   retrieveParticipant: require('./retrieveParticipant'),
