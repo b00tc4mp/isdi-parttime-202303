@@ -7,13 +7,11 @@ const { generate } = require('../api/test/helpers');
 const { Mission, User } = require('./data/models');
 
 const participant = generate.participant();
+participant.name = 'hulk';
 const explorer = generate.explorer('monkey');
 
 const currentDate = new Date();
 const fiveMinutesLater = new Date(currentDate.getTime() + 3 * 60000);
-
-// const moonEndDate = new Date();
-// moonEndDate.setDate(endDate.getDate() + 2);
 
 mongoose
   .connect(process.env.MONGODB_URL)
@@ -33,6 +31,7 @@ mongoose
       participants: [participant],
       processedEvents: [],
       loserPrice: 'beer',
+      archived: false,
     });
 
     mongoose.disconnect();
