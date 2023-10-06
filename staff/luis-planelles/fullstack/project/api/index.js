@@ -10,7 +10,9 @@ const {
   retrieveMissionEventsHandler,
   retrieveMissionHandler,
   retrieveMissionsHandler,
+  retrieveArchivedMissionsHandler,
   retrieveParticipantHandler,
+  archiveMissionHandler,
   updateMissionHandler,
 } = require('./handlers');
 
@@ -38,6 +40,7 @@ mongoose
     );
     api.get('/missions/:missionId', retrieveMissionHandler);
     api.get('/missions', retrieveMissionsHandler);
+    api.get('/archived-missions', retrieveArchivedMissionsHandler);
     api.get(
       '/retrieve-participant/:missionId/:participantId',
       retrieveParticipantHandler
@@ -57,6 +60,7 @@ mongoose
       jsonBodyParser,
       updateMissionHandler
     );
+    api.patch('/missions/archived/:missionId', archiveMissionHandler);
 
     api.delete('/mission/delete/:missionId', deleteMissionHandler);
 
