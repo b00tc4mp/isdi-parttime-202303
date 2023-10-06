@@ -22,10 +22,6 @@ const user = new Schema({
     type: String,
     required: true,
   },
-  avatar: {
-    type: String,
-    default: null,
-  },
 });
 
 const explorer = new Schema({
@@ -68,7 +64,7 @@ const participant = new Schema({
   },
   confirmation: {
     type: String,
-    enum: ['accept', 'decline', 'pending'],
+    enum: ['accept', 'decline', 'pending', 'out'],
     default: 'pending',
   },
   feedback: {
@@ -146,6 +142,10 @@ const mission = new Schema({
   loserPrice: {
     type: String,
     required: true,
+  },
+  archived: {
+    type: Boolean,
+    default: false,
   },
 });
 
