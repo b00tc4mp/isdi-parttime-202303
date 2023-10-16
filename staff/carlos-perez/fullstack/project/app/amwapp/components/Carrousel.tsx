@@ -4,7 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Carrousel = () => {
 return(
-    <Carousel dynamicHeight={true} infiniteLoop={true} centerMode={true} centerSlidePercentage={90} emulateTouch={true}>
+    <Carousel dynamicHeight={true} infiniteLoop={true} centerMode={true} centerSlidePercentage={90} emulateTouch={true} swipeable={true}>
         <div className='carrousel-image'>
           <img src="banner-2.JPG" />
         </div>
