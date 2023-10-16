@@ -12,7 +12,8 @@ import Event from './Event';
 import Events from './Events';
 import CalendarDay from './CalendarDay';
 import ContactForm from './ContactForm';
+import Carrousel from './Carrousel';
 export {
    CustomButton, NavBar, Footer, Banner, Welcome, BannerAndWelcome, UpdatesHome, Update,
-   Song, Songs, Event, Events, CalendarDay, ContactForm
+   Song, Songs, Event, Events, CalendarDay, ContactForm, Carrousel
 };

@@ -1,10 +1,9 @@
-import { Banner, Welcome } from ".";
+import { Banner, Welcome, Carrousel } from ".";
 
 const BannerAndWelcome = () => {
     return (
         <div className="banner-welcome-container">
-            <Banner />
-            <Welcome />
+            <Carrousel/>
         </div>
     )
 }
