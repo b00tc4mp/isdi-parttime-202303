@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+}
+
+/* START: General styles */
+.max-width {
+  @apply max-w-[1440px] mx-auto;
+}
+
+.padding-x {
+  @apply sm:px-16 px-6;
+}
+
+.padding-y {
+  @apply py-4;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}
+
+.custom-btn {
+  @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
+}
+
+.container{
+  @apply grid grid-cols-1
+}
+/* END: General styles */
+
+
+/* START: NavBar styles */
+
+.navbar-text{
+  @apply font-bold text-3xl
+}
+.navbar-bg{
+  @apply bg-blue-100
+}
+
+/* END: NavBar styles */
+
+
+/* START: Footer styles */
+.footer {
+  @apply grid grid-cols-1 sm:flex sm:flex-col text-black-100 max-w-[1440px] w-full mx-auto navbar-bg justify-center h-fit;
+}
+
+.footer__elements{
+  @apply grid grid-cols-1 sm:flex sm:justify-between items-center sm:flex-wrap sm:px-16 px-6 py-10 gap-8
+}
+
+.footer__links-container{
+  @apply grid grid-cols-1 gap-5
+}
+
+.footer__links {
+  @apply  grid grid-cols-1 sm:flex-1 w-full sm:flex-row sm:flex justify-center sm:justify-start sm:flex-wrap max-md:mt-10 gap-20;
+}
+
+.footer__link {
+  @apply flex flex-col sm:flex-row gap-6 text-base min-w-[170px];
+}
+
+.footer__copyright{
+  @apply justify-self-center font-bold
+}
+/* END: Footer styles */
+
+/* START: Banner styles*/
+
+.banner-welcome-container{
+  @apply bg-inherit;
+}
+
+.carrousel-image{
+  @apply bg-inherit;
+}
+
+.banner-container{
+ @apply max-w-[600px] h-auto object-contain justify-self-center
+}
+
+/* END: Banner styles*/
+
+/* START: Welcome styles*/
+
+.welcome-container{
+  @apply w-full flex items-center
+ }
+
+ .welcome-text{
+  @apply text-justify text-base sm:text-lg md:text-xl mr-5 ml-5 mt-3 mb-3
+ }
+ 
+ /* END: Welcome styles*/
