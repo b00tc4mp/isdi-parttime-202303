@@ -33,6 +33,7 @@ export default ({ list: { id, owner, name, dateToEnd}, onEditUsersList, onAddSto
             {isCurrentUserList ? <Button onClick={handleEditUsersList}>👥</Button> : ''} 
             <Button onClick={handleAddStoresList}>🏬</Button> 
             <Button onClick={handleOpenList}>🛒</Button> 
+            <Button onClick={handleOpenList}>🗑</Button> 
         </Container>
     </>
 }

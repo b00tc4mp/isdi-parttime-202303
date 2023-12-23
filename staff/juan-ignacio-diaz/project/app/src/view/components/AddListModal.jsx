@@ -33,14 +33,20 @@ export default ({ onCancel, onCreatedList }) => {
 
     return <>
         <Container tag="section" className="modal">
-            <Form onSubmit={handleCreateList}>
-                <Label htmlFor="nameRegister">Name:</Label>
-                <Input type="text" name="name" placeholder="name" />
-                <Label htmlFor="emailRegister">Date End:</Label>
-                <Input type="date" name="date" />
-                <Button type="submit">Create</Button>
-                <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
-            </Form>
+            <Container>
+                <Form onSubmit={handleCreateList}>
+                    <Container>
+                        Check copiar lista
+                        Select listas guests acopiar
+                    </Container>
+                    <Label htmlFor="nameRegister">Name:</Label>
+                    <Input type="text" name="name" placeholder="name" />
+                    <Label htmlFor="emailRegister">Date End:</Label>
+                    <Input type="date" name="date" />
+                    <Button type="submit">Create</Button>
+                    <Button className="cancel" type="button" onClick={handleCancel}>Cancel</Button>
+                </Form>
+            </Container>
         </Container>
     </>
 }
