@@ -1,0 +1,10 @@
+[
+    {
+        "id": "user-1",
+        "name": "rufus1",
+        "email": "rufus1@email.es",
+        "password": "Aa-1234",
+        "avatar": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fstatic.fundacion-affinity.org%2Fcdn%2Ffarfuture%2FPVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE%2Fmtime%3A1643275542%2Fsites%2Fdefault%2Ffiles%2Flos-10-sonidos-principales-del-perro.jpg&tbnid=UmrqAOU7A1ZfBM&vet=12ahUKEwiTteqRgsr_AhWJpycCHXdxDFYQMygCegUIARDqAQ..i&imgrefurl=https%3A%2F%2Fwww.fundacion-affinity.org%2Fperros-gatos-y-personas%2Ftengo-un-animal-de-compania%2Flos-8-sonidos-principales-del-perro&docid=ZWlgXPnpRZO4TM&w=1300&h=867&q=perro&hl=es&ved=2ahUKEwiTteqRgsr_AhWJpycCHXdxDFYQMygCegUIARDqAQ",
+        "favs": []
+    }
+]
