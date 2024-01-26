@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-native-paper": "^5.10.1",
+    "react-navigation-props-mapper": "^3.1.0"
+  }
+}
