@@ -4,12 +4,11 @@ import { useAppContext } from '../hooks'
 
 import registerUser from '../../logic/users/registerUser';
 import retrieveUserEmail from '../../logic/users/retrieveUserEmail';
-import loginUser from '../../logic/users/loginUser';
 import { Button } from '../library'
 
 const Login = ({ city, ipGeoLocation }) => {
     console.debug('// Login/Register  -> Render');
-    const { alert, freeze, unfreeze, navigate } = useAppContext()
+    // const { alert, freeze, unfreeze, navigate } = useAppContext()
     const [showPasswordLayer, setShowPasswordLayer] = useState(null);
     const [email, setEmail] = useState("");
 
@@ -18,7 +17,6 @@ const Login = ({ city, ipGeoLocation }) => {
         const userEmail = event.target.email.value;
         setEmail(userEmail)
         try {
-            freeze()
             retrieveUserEmail(userEmail)
                 .then(() => {
                     alert(`${userEmail} is in our db!`)
@@ -30,30 +28,9 @@ const Login = ({ city, ipGeoLocation }) => {
                 })
 
         } catch (error) {
-            unfreeze()
-
             alert(error.message)
         }
-        unfreeze()
     }
-
-    const handleLogin = event => {
-        event.preventDefault()
-
-        const password = event.target.password.value
-
-        try {
-            freeze()
-            loginUser(email, password)
-                .then(() => navigate('/'))
-                .catch(error => alert(error.message, 'error'))
-        } catch (error) {
-            unfreeze()
-            alert(error.message, 'warn')
-        }
-        unfreeze()
-    }
-
 
     function handleRegister(event) {
         event.preventDefault()

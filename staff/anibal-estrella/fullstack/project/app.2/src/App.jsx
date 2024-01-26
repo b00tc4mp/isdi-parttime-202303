@@ -19,7 +19,6 @@ function App() {
     const [loader, setLoader] = useState(false)
     // const freeze = () => setLoader(true)
     // const unfreeze = () => setLoader(false)
-    const navigate = () => useNavigate(); // Using useNavigate hook here
 
 
     const [loaderPercentage, setLoaderPercentage] = useState(0);

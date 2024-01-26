@@ -23,7 +23,6 @@ module.exports = (name, nickName, email, password, city, ipGeoLocationCoordinate
     validateIpGeoLocation(ipGeoLocationCoordinates)
     const [latitude, longitude] = ipGeoLocationCoordinates;
 
-    debugger
     return (async () => {
         try {
             const hash = await bcrypt.hash(password, 10)

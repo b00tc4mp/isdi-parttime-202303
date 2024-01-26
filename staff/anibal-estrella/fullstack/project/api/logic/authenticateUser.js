@@ -4,6 +4,7 @@ const {
 } = require('com')
 
 const { User } = require('../data-project/models.js')
+const bcrypt = require('bcryptjs')
 
 /**
  * Api/AuthenticateUser:
@@ -20,17 +21,19 @@ const { User } = require('../data-project/models.js')
  * @throws { ExistenceError} on non-existing user
  * @throws {AuthError} on wrong credentials
  */
-module.exports = (email, password,) => {
+module.exports = (email, password) => {
     validateEmail(email)
     validatePassword(password)
 
-    return User.findOne({ email })
-        .then(user => {
-            if (!user) throw new ExistenceError('user not found')
+    return (async () => {
+        const user = await User.findOne({ email })
+        if (!user) throw new ExistenceError('user not found')
 
-            debugger
-            if (user.password !== password) throw new AuthError('wrong credentials')
+        const match = await bcrypt.compare(password, user.password)
+        if (!match) {
+            throw new AuthError('wrong credentials');
+        }
 
-            return user.id
-        })
+        return user.id
+    })()
 }
