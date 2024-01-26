@@ -1,0 +1,23 @@
+.piece {
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  cursor: move;
+  transition: transform 0.2s;
+}
+
+.piece.red {
+  background-color: tomato;
+}
+
+.piece.blue {
+  background-color: steelblue;
+}
+
+.piece.green {
+  background-color: forestgreen;
+}
+
+.piece.dragging {
+  transform: scale(1.25);
+}

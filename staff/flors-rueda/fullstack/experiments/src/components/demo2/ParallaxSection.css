@@ -1,0 +1,25 @@
+.parallax-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax-content {
+  position: relative;
+  z-index: 1;
+  height: fit-content;
+}
+
+.parallax-background {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 200%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: translate(0, -50%, 0);
+}
+
+.last-section {
+  min-height: calc(100vh - var(--parallax-section-height) - var(--last-section-height));
+}
