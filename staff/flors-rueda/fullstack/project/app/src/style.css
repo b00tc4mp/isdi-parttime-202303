@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary-100: #ff4d00;
+    --color-primary-200: #ff8000;
+    --color-primary-300: #ff8f2f;
+    --color-primary-400: #ff905e;
+    --color-primary-500: #ffa378;
+    --color-primary-600: #ffb97f;
+    --color-primary-shadow: #ff4d00a0;
+    --color-secondary-100: #0c0045;
+    --color-secondary-200: #0c1b68;
+    --color-secondary-300: #2238a1;
+    --color-secondary-400: #3049c9;
+    --color-secondary-500: #4d66df;
+    --color-secondary-600: #f1f1f9;
+    --color-secondary-shadow: #0223c7a0;
+    --color-light-100: #b5b5b5;
+    --color-light-200: #cbcbcb;
+    --color-light-300: #e8e8e8;
+    --color-light-400: #f8f8f8;
+    --color-light-500: #fbfbfb;
+    --color-dark-100: #1a1a1a;
+    --color-dark-200: #222222;
+    --color-dark-300: #2c2c2c;
+    --color-dark-400: #303030;
+    --color-dark-500: #494949;
+    --color-dark-shadow: #494949b5;
+    --color-warning-100: #b78a00;
+    --color-warning-200: #ffbf00;
+    --color-warning-300: #ffe2a1;
+    --color-danger-100: #7c0903;
+    --color-danger-200: #e3332a;
+    --color-danger-300: #ffd2d6;
+    --color-success-100: #377e3f;
+    --color-success-200: #53b65a;
+    --color-success-300: #ddf8e4;
+    --color-gray: #6b7280;
+    --color-red: #dc2626;
+    --color-orange: #f97316;
+    --color-ambar: #f59e0b;
+    --color-yellow: #facc15;
+    --color-lime: #a3e635;
+    --color-green: #16a34a;
+    --color-teal: #2dd4bf;
+    --color-cyan: #06b6d4;
+    --color-blue: #0284c7;
+    --color-indigo: #8f99fa;
+    --color-violet: #7137fa;
+    --color-fuchsia: #c026d3;
+    --color-pink: #ec4899;
+    --color-rose: #fb7185;
+  }
+}
+
+body {
+  background-color: var(--color-light-400);
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+}
+
+.contain-overscroll {
+  overscroll-behavior: contain;
+}
+
+.canvas-container {
+  width: 100%;
+  max-width: 530px;
+  height: 530px;
+  max-height: 75vh;
+  margin: 0.5rem auto 0;
+  overflow: hidden;
+}
+
+
+@media (max-height: 640px) {
+  .canvas-container {
+    margin: 2rem auto 0;
+    max-width: 500px;
+    height: 500px;
+    max-height: 70vh;
+  }
+
+}
+
+@media (min-width: 1024px) {
+  .canvas-container {
+    margin: 0 auto;
+  }
+
+}
