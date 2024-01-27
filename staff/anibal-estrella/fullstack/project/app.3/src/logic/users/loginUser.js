@@ -5,7 +5,7 @@ const { validateEmail, validatePassword } = validators
 
 /* 
 * app/logic/loginUser.js
-* Authenticates a user by email and password and keeps the session token in logic context
+* Authenticates a user by email and password  andd keeps the session token in logic context
 * @param {String} email The user's email
 * @param {String} password The user's passaword
 *

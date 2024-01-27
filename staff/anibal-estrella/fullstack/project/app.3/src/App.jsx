@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import retrieveUserGeolocation from './logic/users/retrieveUserGeolocation'
 import AppContext from './AppContext'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
-import isUserLoggedIn from './logic/users/isUserLoggedIn'
-import { Home, Profile, Login } from './view/pages'
-import { Menu, Alert } from './view/components'
+
+import { Home, Profile, Login } from './view/pages';
+import { Menu, Alert } from './view/components';
 import { Loader } from './view/library'
 
 const { Provider } = AppContext
@@ -19,6 +19,7 @@ function App() {
     const [loader, setLoader] = useState(false)
     // const freeze = () => setLoader(true)
     // const unfreeze = () => setLoader(false)
+    const navigate = () => useNavigate(); // Using useNavigate hook here
 
 
     const [loaderPercentage, setLoaderPercentage] = useState(0);
@@ -83,7 +84,7 @@ function App() {
             {(() => console.log("ROUTES = render"))()}
 
             <Route path="/" element={<Home city={city} ipGeoLocation={ipGeoLocation} />} />
-            <Route path="/login" element={isUserLoggedIn() ? <Navigate to="/" /> : <Login city={city} ipGeoLocation={ipGeoLocation} />} />
+            <Route path="/login" element={<Login city={city} ipGeoLocation={ipGeoLocation} />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/events" element={<Home />} />
             <Route path="/reviews" element={<Home />} />

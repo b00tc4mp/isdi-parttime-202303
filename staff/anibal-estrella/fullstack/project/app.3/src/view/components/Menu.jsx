@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { ArrowRightOnRectangleIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline'
 import { MenuItem } from '../library'
-import { MenuLayer } from '.'
-import isUserLoggedIn from '../../logic/users/isUserLoggedIn'
-import logOutUser from '../../logic/users/logOutUser'
-import retrieveUser from '../../logic/users/retrieveUser'
-import { Link, Navigate } from 'react-router-dom';
+import { MenuLayer } from '.' // Adjust the path as needed
+
+import { Link } from 'react-router-dom';
 
 function Menu() {
     const [isVisible, setIsVisible] = useState(false);
@@ -13,35 +11,15 @@ function Menu() {
     function closeMenuLayer() {
         setIsVisible(false);
     }
-
-    const handleLogOut = () => {
-        closeMenuLayer()
-        logOutUser()
-        navigate('/')
-    }
-
-
-
-    const loginItem = isUserLoggedIn() ? (
-        { id: "logout", link: "/", label: "logout", click: handleLogOut }
-    ) : (
-        { id: "login/register", link: "/login", label: "login/register" }
-    )
-
-
     const menuItems = [
         { id: "events", link: "/events", label: "events" },
         { id: "reviews", link: "/reviews", label: "reviews" },
         { id: "artists", link: "/artists", label: "artists" },
-        loginItem,
+        { id: "login", link: "/login", label: "login" }
     ];
-
-
-
-
     return (<>
 
-        {isVisible && <MenuLayer onLogOut={handleLogOut} onClose={closeMenuLayer} items={menuItems} isUserLoggedIn={isUserLoggedIn} />}
+        {isVisible && <MenuLayer onClose={closeMenuLayer} items={menuItems} />}
 
         <nav className="flex-no-wrap sticky top-0 z-10 flex w-full items-center justify-between pt-2"  >
             <div className=" flex w-full flex-wrap items-center justify-between px-3  shadow-black/10 sm:flex-wrap sm:justify-start  rounded-full  bg-gray-100/90 py-2 shadow-md backdrop-blur-lg">
@@ -72,20 +50,19 @@ function Menu() {
 
                 {/* <!-- Right elements --> */}
                 <div className="flex items-center flex-row">
-
-
-                    {/* <!-- User avatar --> */}
-                    {isUserLoggedIn() ? (<div div='user-avatar' className="relative">
-                        <Link className="hidden-arrow flex items-center whitespace-nowrap" to="/profile" >
-                            <img className="h-10 w-10 rounded-full border-2 hover:border-red border-solid transition duration-150 ease-in-out  motion-reduce:transition-none" src="https://picsum.photos/1500?random=1" alt="" />
-                        </Link>
-                    </ div>) : (<ul className='list-none' >
-                        <MenuItem to="/login" tag={Link} liClassName='text-gray-400 w-6 h-6 mr-2 '  >
+                    <ul className='list-none' >
+                        <MenuItem to="/login" tag={Link} liClassName='text-gray-400 w-6 h-6 mr-2 ' >
                             <ArrowLeftOnRectangleIcon className='scale-x-[-1]' />
                             {/* <ArrowRightOnRectangleIcon /> */}
                         </MenuItem>
-                    </ul>)}
+                    </ul>
 
+                    {/* <!-- User avatar --> */}
+                    <div div='user-avatar' className="relative">
+                        <Link className="hidden-arrow flex items-center whitespace-nowrap" to="/profile" >
+                            <img className="h-10 w-10 rounded-full border-2 hover:border-red border-solid transition duration-150 ease-in-out  motion-reduce:transition-none" src="https://picsum.photos/1500?random=1" alt="" />
+                        </Link>
+                    </ div>
 
                     {/* <!-- Hamburger button for mobile view --> */}
                     <button className="block border-0 px-2 text-gray-400 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 sm:hidden " onClick={() => setIsVisible(prev => !prev)} >
@@ -106,7 +83,6 @@ function Menu() {
                 </div>
             </div>
         </nav >
-
     </>
     )
 }
