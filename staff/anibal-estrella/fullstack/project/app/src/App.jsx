@@ -4,7 +4,7 @@ import AppContext from './AppContext'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import isUserLoggedIn from './logic/users/isUserLoggedIn'
 import { Home, Profile, Login } from './view/pages'
-import { Menu, Alert } from './view/components'
+import { Menu, Alert, Footer } from './view/components'
 import { Loader } from './view/library'
 
 const { Provider } = AppContext
@@ -95,6 +95,7 @@ function App() {
         />}
         {/* {loader && <Loader />} */}
         {loaderPercentage > 0 && <Loader percentage={loaderPercentage} />}
+        <Footer />
 
     </Provider>
 }

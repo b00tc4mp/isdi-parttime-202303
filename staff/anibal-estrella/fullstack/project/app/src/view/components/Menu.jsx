@@ -5,14 +5,43 @@ import { MenuLayer } from '.'
 import isUserLoggedIn from '../../logic/users/isUserLoggedIn'
 import logOutUser from '../../logic/users/logOutUser'
 import retrieveUser from '../../logic/users/retrieveUser'
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 
 function Menu() {
     const [isVisible, setIsVisible] = useState(false);
 
+    const location = useLocation();
+
+    const handleLoginReload = location.pathname === '/login' ? () => {
+        window.location.reload();
+        console.log('Reloading on /login');
+    } : undefined;
+
+
+
     function closeMenuLayer() {
         setIsVisible(false);
     }
+    const [user, setUser] = useState()
+
+    useEffect(() => {
+        console.log('Fetching user data...');
+        if (isUserLoggedIn()) {
+            try {
+                retrieveUser()
+                    .then(data => {
+                        console.log('User data:', data);
+                        setUser(data);
+                    })
+                    .catch(error => {
+                        alert(error.message);
+                    });
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+    }, [isUserLoggedIn()]);
+
 
     const handleLogOut = () => {
         closeMenuLayer()
@@ -25,7 +54,7 @@ function Menu() {
     const loginItem = isUserLoggedIn() ? (
         { id: "logout", link: "/", label: "logout", click: handleLogOut }
     ) : (
-        { id: "login/register", link: "/login", label: "login/register" }
+        { id: "login/register", link: "/login", label: "login/register", click: handleLoginReload }
     )
 
 
@@ -38,15 +67,14 @@ function Menu() {
 
 
 
-
     return (<>
 
         {isVisible && <MenuLayer onLogOut={handleLogOut} onClose={closeMenuLayer} items={menuItems} isUserLoggedIn={isUserLoggedIn} />}
 
         <nav className="flex-no-wrap sticky top-0 z-10 flex w-full items-center justify-between pt-2"  >
-            <div className=" flex w-full flex-wrap items-center justify-between px-3  shadow-black/10 sm:flex-wrap sm:justify-start  rounded-full  bg-gray-100/90 py-2 shadow-md backdrop-blur-lg">
-                <Link to='/'>
-                    <h1 className="text-gray-400 flex items-center mx-4 font-extrabold bg-[url('../../../assets/LiveDive-Logo-B.svg')] bg-no-repeat bg-left bg-contain  w-10 h-10  text-center text-[0] " >LiveDive</h1>
+            <div className=" flex w-full flex-wrap items-center justify-between px-3 shadow-black/10 sm:flex-wrap sm:justify-start  rounded-full  bg-gray-100/90 py-2 shadow-md backdrop-blur-lg">
+                <Link to='/' className="hover:text-red">
+                    <h1 className="text-gray-400 flex items-center mx-4 font-extrabold bg-[url('../../../assets/LiveDive-Logo-B.svg')] bg-no-repeat bg-left bg-contain hover:text-red w-10 h-10  text-center text-[0] " >LiveDive</h1>
                 </Link>
 
                 <div className=" hidden flex-grow  items-center sm:!flex sm:basis-auto"
@@ -73,14 +101,15 @@ function Menu() {
                 {/* <!-- Right elements --> */}
                 <div className="flex items-center flex-row">
 
-
                     {/* <!-- User avatar --> */}
                     {isUserLoggedIn() ? (<div div='user-avatar' className="relative">
                         <Link className="hidden-arrow flex items-center whitespace-nowrap" to="/profile" >
-                            <img className="h-10 w-10 rounded-full border-2 hover:border-red border-solid transition duration-150 ease-in-out  motion-reduce:transition-none" src="https://picsum.photos/1500?random=1" alt="" />
+                            {user && <>
+                                <img className="h-10 w-10 rounded-full border-2 hover:border-red border-solid transition duration-150 bg-gray-200 hover:bg-red ease-in-out  motion-reduce:transition-none" src={user.avatar} alt={user.avatar} /> </>}
                         </Link>
                     </ div>) : (<ul className='list-none' >
-                        <MenuItem to="/login" tag={Link} liClassName='text-gray-400 w-6 h-6 mr-2 '  >
+                        <MenuItem to="/login" tag={Link} liClassName='text-gray-400 w-6 h-6 mr-2' handleItemClick={handleLoginReload}
+                        >
                             <ArrowLeftOnRectangleIcon className='scale-x-[-1]' />
                             {/* <ArrowRightOnRectangleIcon /> */}
                         </MenuItem>
@@ -88,7 +117,7 @@ function Menu() {
 
 
                     {/* <!-- Hamburger button for mobile view --> */}
-                    <button className="block border-0 px-2 text-gray-400 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 sm:hidden " onClick={() => setIsVisible(prev => !prev)} >
+                    <button className="block border-0 px-2 text-gray-400  hover:text-red hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 sm:hidden " onClick={() => setIsVisible(prev => !prev)} >
 
                         {/* <!-- Hamburger icon --> */}
                         <span className="[&>svg]:w-7">
@@ -106,7 +135,17 @@ function Menu() {
                 </div>
             </div>
         </nav >
-
+        <div>
+            {isUserLoggedIn() &&
+                // Render elements for logged-in user
+                <div>
+                    <p>Welcome,
+                        {user && <> {user.name} from {user.city}</>}!
+                    </p>
+                    {/* Other elements for logged-in user */}
+                </div>
+            }
+        </div>
     </>
     )
 }

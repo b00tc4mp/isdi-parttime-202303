@@ -18,9 +18,6 @@ export default ({ city, ipGeoLocation }) => {
         setShowMenuLayer(prevState => !prevState);
     }
 
-
-
-
     return <>
         <div className='m-2'>
             {city && <p>Your City: {city} </p>}
@@ -61,8 +58,6 @@ export default ({ city, ipGeoLocation }) => {
 
             </section>
         </section>
-        <footer className='flex justify-end h-32 flex-col items-end'>
-            <p>Live Dive · 2023®</p>
-        </footer>
+
     </>
 }

@@ -3,6 +3,7 @@ import SearchArtistList from './SearchArtistList'
 import SearchPlace from './SearchPlace'
 import EventCard from './EventCard'
 import Menu from './Menu'
+import Footer from './Footer'
 import Alert from './Alert'
 import MenuLayer from './MenuLayer'
 import CreateReview from './createReview'
@@ -17,5 +18,6 @@ export {
     MenuLayer,
     CreateReview,
     Alert,
-    DraggableSlider
+    DraggableSlider,
+    Footer
 }
