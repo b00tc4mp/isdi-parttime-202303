@@ -11,7 +11,7 @@ const SearchArtist = () => {
     const { alert, freeze, unfreeze } = useAppContext()
 
     const [artistName, setArtistName] = useState('');
-    const [SearchArtist, setSearchArtist] = useState(null);
+    const [searchArtists, setSearchArtists] = useState(null);
     const [error, setError] = useState(null); // Add state for error
 
     const handleInputChange = (event) => {
@@ -23,12 +23,12 @@ const SearchArtist = () => {
         try {
             freeze();
             const details = await retrieveArtistDetailsFromDiscogs(artistName);
-            setSearchArtist(details);
+            setSearchArtists(details);
             setError(null);
         } catch (error) {
             alert(error.message, 'error');
             setError(`Artist "${artistName}" was not found`);
-            setSearchArtist(null);
+            setSearchArtists(null);
         } finally {
             unfreeze();
         }
@@ -49,39 +49,41 @@ const SearchArtist = () => {
 
             {error && <p className="text-lime-200">{error}</p>}
 
-            {SearchArtist && !error && (
+            {searchArtists && !error && (
                 <div>
-                    {SearchArtist.image && (
+                    {searchArtists.image && (
                         <div className='my-2'>
-                            <img className='w-full object-cover aspect-square grayscale rounded-lg border-4 border-white' src={SearchArtist.image} alt={SearchArtist.name} />
+                            <img className='w-full object-cover aspect-square grayscale rounded-lg border-4 border-white' src={searchArtists.image} alt={searchArtists.name} />
                         </div>
                     )}
-                    <h2 className=' font-light text-5xl '>{SearchArtist.name}</h2>
-                    {/* <h3>From: {SearchArtist.from}</h3> */}
+                    <h2 className=' font-light text-5xl '>{searchArtists.name}</h2>
+                    <h3 className=' font-light text-5xl '>{searchArtists.discogsId}</h3>
 
-                    {SearchArtist.bio && (
+                    {/* <h3>From: {searchArtists.from}</h3> */}
+
+                    {searchArtists.bio && (
                         <div>
                             <h2>Artist Bio </h2>
 
-                            <p dangerouslySetInnerHTML={{ __html: SearchArtist.bio }} />
+                            <p dangerouslySetInnerHTML={{ __html: searchArtists.bio }} />
                         </div>
                     )}
                     <div className="flex gap-6">
                         <div>
                             <h2>Albums</h2>
                             <ul>
-                                {SearchArtist.albums.slice(0, 5).map((album, index) => (
+                                {searchArtists.albums.slice(0, 5).map((album, index) => (
                                     <li key={index}> {album}</li>
                                 ))}
-                                {SearchArtist.albums.length > 5 && <li><a href={SearchArtist.discogsUrl} target="_blank">more ...</a></li>}
+                                {searchArtists.albums.length > 5 && <li><a href={searchArtists.discogsUrl} target="_blank">more ...</a></li>}
                             </ul>
                         </div>
 
-                        {SearchArtist.urls && (
+                        {searchArtists.urls && (
                             <div>
                                 <h3>Links</h3>
                                 <ul>
-                                    {SearchArtist.urls.map((url, index) => {
+                                    {searchArtists.urls.map((url, index) => {
                                         const urlObject = new URL(url)
                                         const siteName = urlObject.hostname.replace('www.', '')
                                         return (
@@ -96,10 +98,11 @@ const SearchArtist = () => {
                     </div>
 
                     <div className='pt-4 pr-2 flex justify-end' >
-                        <a className='' href={SearchArtist.discogsUrl} target="_blank">Find more {SearchArtist.name}'s Info at Discogs.com</a>
+                        <a className='' href={searchArtists.discogsUrl} target="_blank">Find more {searchArtists.name}'s Info at Discogs.com</a>
                     </div>
                 </div>
             )}
+
         </div>
     );
 };

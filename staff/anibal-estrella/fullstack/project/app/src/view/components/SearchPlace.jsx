@@ -40,6 +40,7 @@ const SearchPlace = () => {
         <div>
             <div className="flex flex-row w-full">
                 <div className='relative w-full'>
+                    <h2>Search for a venue:</h2>
                     <input
                         className='pl-8'
                         type="text"

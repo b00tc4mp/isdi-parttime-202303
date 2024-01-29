@@ -9,7 +9,7 @@ export default function EventCard() {
     return <div id='event-card' className=" bg-gray-300 flex-shrink-0 text-white p-2  w-48 h-auto rounded">
         <a id='event-link' href="#" className="">
             <div className="w-full aspect-square mb-2">
-                <img srcset="" alt="" loading="lazy" className="h-full w-full" />
+                <img srcSet="" alt="" loading="lazy" className="h-full w-full" />
             </div>
             <div id='event-details' className=" text-sm">
                 <div id='event-name' className="font-bold

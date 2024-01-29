@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useAppContext } from '../hooks'
 
-import { EventCard, SearchArtistList as SearchArtist, SearchPlace, DraggableSlider } from '../components'
+import { EventCard, SearchArtist, SearchPlace, DraggableSlider } from '../components'
 
 export default ({ city, ipGeoLocation }) => {
     console.debug('// Home  -> Render')
@@ -19,11 +19,11 @@ export default ({ city, ipGeoLocation }) => {
     }
 
     return <>
-        <div className='m-2'>
+        <div className=' px-3'>
             {city && <p>Your City: {city} </p>}
             {city && <p>Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </p>}
         </div >
-        <section id="home" className="pt-8 px-2">
+        <section id="home" className=" px-3">
 
             <section id=''>
                 <SearchArtist />

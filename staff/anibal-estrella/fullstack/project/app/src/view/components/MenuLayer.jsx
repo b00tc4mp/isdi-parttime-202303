@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { MenuItem } from '../library'
 import { XCircleIcon } from '@heroicons/react/24/solid'
 
-export default function MenuLayer({ onClose, items, isUserLoggedIn }) {
+export default function MenuLayer({ onClose, items }) {
     console.debug('/// MENULayer  -> Render')
 
     return (

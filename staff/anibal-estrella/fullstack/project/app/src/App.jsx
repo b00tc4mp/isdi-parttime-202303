@@ -3,7 +3,7 @@ import retrieveUserGeolocation from './logic/users/retrieveUserGeolocation'
 import AppContext from './AppContext'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import isUserLoggedIn from './logic/users/isUserLoggedIn'
-import { Home, Profile, Login } from './view/pages'
+import { Home, Profile, Login, Create } from './view/pages'
 import { Menu, Alert, Footer } from './view/components'
 import { Loader } from './view/library'
 
@@ -88,6 +88,7 @@ function App() {
             <Route path="/events" element={<Home />} />
             <Route path="/reviews" element={<Home />} />
             <Route path="/artists" element={<Home />} />
+            <Route path="/Create" element={<Create city={city} ipGeoLocation={ipGeoLocation} />} />
         </Routes>
 
         {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert}

@@ -18,7 +18,6 @@ function Menu() {
     } : undefined;
 
 
-
     function closeMenuLayer() {
         setIsVisible(false);
     }
@@ -44,6 +43,7 @@ function Menu() {
 
 
     const handleLogOut = () => {
+        console.log('<<<< FLoging out!');
         closeMenuLayer()
         logOutUser()
         navigate('/')
@@ -59,6 +59,7 @@ function Menu() {
 
 
     const menuItems = [
+        { id: "create", link: "/create", label: "create" },
         { id: "events", link: "/events", label: "events" },
         { id: "reviews", link: "/reviews", label: "reviews" },
         { id: "artists", link: "/artists", label: "artists" },
@@ -71,7 +72,7 @@ function Menu() {
 
         {isVisible && <MenuLayer onLogOut={handleLogOut} onClose={closeMenuLayer} items={menuItems} isUserLoggedIn={isUserLoggedIn} />}
 
-        <nav className="flex-no-wrap sticky top-0 z-10 flex w-full items-center justify-between pt-2"  >
+        <nav className="flex-no-wrap sticky top-0 z-10 flex w-full items-center justify-between pt-2 px-2"  >
             <div className=" flex w-full flex-wrap items-center justify-between px-3 shadow-black/10 sm:flex-wrap sm:justify-start  rounded-full  bg-gray-100/90 py-2 shadow-md backdrop-blur-lg">
                 <Link to='/' className="hover:text-red">
                     <h1 className="text-gray-400 flex items-center mx-4 font-extrabold bg-[url('../../../assets/LiveDive-Logo-B.svg')] bg-no-repeat bg-left bg-contain hover:text-red w-10 h-10  text-center text-[0] " >LiveDive</h1>
@@ -90,7 +91,9 @@ function Menu() {
                                 tag={Link}
                                 id={item.id}
                                 className="p-4 text-gray-400"
-                                to={item.link} >
+                                to={item.link}
+                                handleItemClick={item.click ? item.click : closeMenuLayer}
+                            >
                                 {item.label}
                             </MenuItem>
                         ))}
@@ -138,7 +141,7 @@ function Menu() {
         <div>
             {isUserLoggedIn() &&
                 // Render elements for logged-in user
-                <div>
+                <div className='pt-2 px-3'>
                     <p>Welcome,
                         {user && <> {user.name} from {user.city}</>}!
                     </p>

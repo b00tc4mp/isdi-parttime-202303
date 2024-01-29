@@ -6,7 +6,7 @@ function Footer() {
     const currentYear = getCurrentYear();
 
     return (<>
-        <footer className='flex justify-end h-32 flex-col items-end'>
+        <footer className='flex justify-end h-32 flex-col items-end pt-2 px-3'>
             <p>Live Dive® · {currentYear}</p>
         </footer>    </>
     )
