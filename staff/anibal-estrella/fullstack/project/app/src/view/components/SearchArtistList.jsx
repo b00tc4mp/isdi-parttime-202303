@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../hooks'
 
 import searchArtist from '../../logic/searchArtist'
-import retrieveArtistDetailsFromDiscogs from '../../logic/retrieveArtistDetailsFromDiscogs'
+import retrieveIdArtistDetailsFromDiscogs from '../../logic/retrieveIdArtistDetailsFromDiscogs'
 
 import { Button } from '../library'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
@@ -50,15 +50,15 @@ const SearchArtist = () => {
         }
     }
 
-    const handleRetrieveDetails = async () => {
+    const handleRetrieveDetails = async (artistId) => {
         try {
             freeze();
-            const details = await retrieveArtistDetailsFromDiscogs(artistName);
+            const details = await retrieveIdArtistDetailsFromDiscogs(artistId);
             setSearchArtists(details);
             setError(null);
         } catch (error) {
             alert(error.message, 'error');
-            setError(`Artist "${artistName}" was not found`);
+            setError(`Artist "${artistId}" was not found`);
             setSearchArtists(null);
         } finally {
             unfreeze();
@@ -86,19 +86,21 @@ const SearchArtist = () => {
 
             {searchArtistList && !error && (
                 <div>
-                    <ul>Result:</ul>
                     <table className=' w-full '>
-                        {/* <thead>
+                        <thead>
                             <tr>
-                                <th>name</th>
+                                <th>artistName</th>
+                                <th>ID</th>
                                 <th>action</th>
+
                             </tr>
-                        </thead> */}
+                        </thead>
                         <tbody>
                             {searchArtistList.slice(0, 5).map((item) => (
                                 <React.Fragment key={item.id}>
-                                    <tr className={selectedArtistId === item.id ? 'text-red bg-white/20   ' : ' hover:bg-gray-300'}>
-                                        <td className='pl-3 text-left hover:bg-gray-300'>{item.name} {item.id} </td>
+                                    <tr className={selectedArtistId === item.id ? ' text-lime-100 bg-white/20   ' : ' hover:bg-gray-300'}>
+                                        <td className='pl-3 text-left hover:bg-gray-300'>{item.name}  </td>
+                                        <td className='pl-3 text-left hover:bg-gray-300'> {item.id} </td>
                                         <td className=' text-center align-middle pb-2'>
                                             {/* If the artist is selected */}
                                             {selectedArtistId === item.id && (
@@ -108,7 +110,7 @@ const SearchArtist = () => {
                                                     </Button>
 
                                                     <Button
-                                                        onClick={() => handleSelectArtist(item.id)}
+                                                        onClick={() => handleRetrieveDetails(item.id)}
                                                     >
                                                         next
                                                     </Button>

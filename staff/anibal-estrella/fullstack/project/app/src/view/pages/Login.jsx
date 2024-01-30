@@ -39,7 +39,6 @@ const Login = ({ city, ipGeoLocation }) => {
 
     const handleLogin = event => {
         event.preventDefault()
-
         const password = event.target.password.value
 
         try {

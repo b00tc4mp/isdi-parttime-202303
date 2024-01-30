@@ -67,9 +67,9 @@ const review = ({
         trim: true,
         minLength: 1
     },
-    image: String,
-    audio: String,
-    video: String,
+    images: [String],
+    audio: [String],
+    video: [String],
     date: {
         type: Date,
         required: true,
@@ -89,11 +89,17 @@ const event = new Schema({
         ref: 'User',
         required: true
     },
+    name: {
+        type: String,
+        required: true,
+        trim: true,
+        minLength: 3,
+    },
     text: {
         type: String,
         required: true,
         trim: true,
-        minLength: 1,
+        minLength: 3,
     },
     lineUp: {
         type: [String],

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAppContext } from '../hooks'
 
-import retrieveArtistDetailsFromDiscogs from '../../logic/retrieveArtistDetailsFromDiscogs'
+import retrieveIdArtistDetailsFromDiscogs from '../../logic/retrieveIdArtistDetailsFromDiscogs'
 import { Button } from '../library'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
@@ -22,7 +22,7 @@ const SearchArtist = () => {
     const handleRetrieveDetails = async () => {
         try {
             freeze();
-            const details = await retrieveArtistDetailsFromDiscogs(artistName);
+            const details = await retrieveIdArtistDetailsFromDiscogs(artistName);
             setSearchArtists(details);
             setError(null);
         } catch (error) {
