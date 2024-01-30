@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 
-
-function CreateReview() {
-    console.log('CreateReview => RENDER');
+function createEventReview() {
+    console.log('createEventReview => RENDER');
 
     const [file, setFile] = useState(null);
     const [fileType, setFileType] = useState('');
@@ -47,7 +46,6 @@ function CreateReview() {
         }
     };
 
-
     return (
         <section id='create-review' className=''>
             <div>
@@ -58,4 +56,4 @@ function CreateReview() {
     )
 }
 
-export default CreateReview
+export default createEventReview

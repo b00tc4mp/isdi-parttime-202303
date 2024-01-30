@@ -46,7 +46,60 @@ const user = new Schema({
     }
 })
 
-const review = ({
+const event = new Schema({
+    author: {
+        // to reference another object from user
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
+    poster: {
+        type: String,
+        ref: 'User',
+        required: true
+    },
+    name: {
+        type: String,
+        required: true,
+        trim: true,
+        minLength: 3,
+    },
+    description: {
+        type: String,
+        required: true,
+        trim: true,
+        minLength: 10,
+    },
+    lineUp: {
+        type: [String],
+        minLength: 1,
+        required: true
+    },
+    dates: [{
+        type: Date,
+        minLength: 1,
+        required: true
+    }],
+    place: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        default: 0
+    },
+    likes: {
+        type: [ObjectId],
+        ref: 'User'
+    },
+    eventReviews: {
+        type: [ObjectId],
+        ref: 'EventReview',
+        required: true
+    },
+})
+
+const eventReview = new Schema({
     author: {
         type: ObjectId,
         ref: 'User',
@@ -70,69 +123,16 @@ const review = ({
     images: [String],
     audio: [String],
     video: [String],
-    date: {
-        type: Date,
-        required: true,
-        default: Date.now
-    }
 })
 
-const event = new Schema({
-    author: {
-        // to reference another object from user
-        type: ObjectId,
-        ref: 'User',
-        required: true
-    },
-    image: {
-        type: String,
-        ref: 'User',
-        required: true
-    },
-    name: {
-        type: String,
-        required: true,
-        trim: true,
-        minLength: 3,
-    },
-    text: {
-        type: String,
-        required: true,
-        trim: true,
-        minLength: 3,
-    },
-    lineUp: {
-        type: [String],
-        required: true
-    },
-    dates: [{
-        type: Date,
-        required: true
-    }],
-    place: {
-        type: String,
-        required: true,
-    },
-    price: {
-        type: Number,
-        default: 0
-    },
-    likes: {
-        type: [ObjectId],
-        ref: 'User'
-    },
-
-})
-
-user.index({ "location": "2dsphere" });
-
+user.index({ "ipGeoLocation.coordinates": "2dsphere" });
 
 const User = model('User', user)
 const Event = model('Event', event)
-const Review = model('Review', review)
+const EventReview = model('EventReview', eventReview)
 
 module.exports = {
     User,
     Event,
-    Review
+    EventReview
 }

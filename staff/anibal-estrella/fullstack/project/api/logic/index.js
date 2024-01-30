@@ -4,6 +4,7 @@ module.exports = {
     authenticateUser: require('./authenticateUser'),
     retrieveUser: require('./retrieveUser'),
     createEvent: require('./createEvent'),
+    createEventReview: require('./createEventReview'),
     // updateUserPassword: require('./updateUserPassword'),
     // updateUserAvatar: require('./updateUserAvatar'),
     // deleteEvent: require('./deleteEvent'),

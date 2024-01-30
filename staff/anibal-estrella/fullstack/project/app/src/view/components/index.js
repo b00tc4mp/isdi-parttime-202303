@@ -6,7 +6,7 @@ import Menu from './Menu'
 import Footer from './Footer'
 import Alert from './Alert'
 import MenuLayer from './MenuLayer'
-import CreateReview from './createReview'
+import createEventReview from './createEventReview'
 import DraggableSlider from './DraggableSlider'
 
 export {
@@ -16,7 +16,7 @@ export {
     EventCard,
     Menu,
     MenuLayer,
-    CreateReview,
+    createEventReview,
     Alert,
     DraggableSlider,
     Footer

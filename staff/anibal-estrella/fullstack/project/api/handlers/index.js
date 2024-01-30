@@ -6,5 +6,7 @@ module.exports = {
     authenticateUserEmailHandler: require('./authenticateUserEmailHandler'),
     authenticateUserHandler: require('./authenticateUserHandler'),
     retrieveUserHandler: require('./retrieveUserHandler'),
-    uploadMediaHandler: require('./uploadMediaHandler')
+    uploadMediaHandler: require('./uploadMediaHandler'),
+    createEventHandler: require('./createEventHandler'),
+    createEventReviewHandler: require('./createEventReviewHandler')
 }

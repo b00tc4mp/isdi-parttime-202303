@@ -5,7 +5,7 @@ const {
 
 const { User, Event } = require('../data-project/models.js');
 
-module.exports = (author, poster, name, description, lineUp, dates, place, price, eventReviews) => {
+module.exports = (event, author, text, lineUp, dates, place, price, score, image, audio, video) => {
     validateId(userId, 'user id');
     validateUrl(image, 'Image URL');
     validateText(text, 'Event\'s text');
@@ -24,7 +24,7 @@ module.exports = (author, poster, name, description, lineUp, dates, place, price
             if (!user) throw new ExistenceError(`user with id ${userId} does not exist`);
             return Event.create({
                 author: userId,
-                poster, name, description, lineUp, dates, place, eventReviews,
+                event, text, lineUp, dates, place, score, image, audio, video,
                 price: priceInCents
             });
         })

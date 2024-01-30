@@ -34,7 +34,9 @@ const {
     authenticateUserEmailHandler,
     authenticateUserHandler,
     uploadMediaHandler,
-    retrieveUserHandler
+    retrieveUserHandler,
+    createEventHandler,
+    createEventReviewHandler
 } = require('./handlers')
 
 
@@ -60,15 +62,17 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.post('/upload', jsonBodyParser, uploadMediaHandler)
 
-        // api.post('/events', jsonBodyParser, createEventHandler)
+        api.post('/create-event', jsonBodyParser, createEventHandler)
 
-        // api.get('/posts', retrievePostsHandler)
+        api.post('/create-event-review', jsonBodyParser, createEventReviewHandler)
 
-        // api.get('/posts/:postId', retrievePostHandler)
+        // api.get('/events', retrieveEventsHandler)
 
-        // api.get('/posts/likes/', retrieveLikedPostsHandler)
+        // api.get('/events/:postId', retrieveEventHandler)
 
-        // api.get('/posts/favs', retrieveFavPostsHandler)
+        // api.get('/events/likes/', retrieveLikedEventsHandler)
+
+        // api.get('/events/favs', retrieveFavEventsHandler)
 
         // api.patch('/users/avatar', jsonBodyParser, updateUserAvatarHandler)
 
@@ -76,17 +80,17 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // api.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
 
-        // api.patch('/posts/:postId/likes', toggleLikePostHandler)
+        // api.patch('/events/:postId/likes', toggleLikeEventHandler)
 
-        // api.patch('/users/favs/:postId', toggleFavPostHandler)
+        // api.patch('/users/favs/:postId', toggleFavEventHandler)
 
-        // api.delete('/posts/:postId', deletePostHandler)
+        // api.delete('/events/:postId', deleteEventHandler)
 
-        // api.patch('/posts/post/:postId', jsonBodyParser, updatePostHandler)
+        // api.patch('/events/post/:postId', jsonBodyParser, updateEventHandler)
 
-        // api.post('/posts/:postId/comments', jsonBodyParser, addCommentToPostHandler)
+        // api.post('/events/:postId/comments', jsonBodyParser, addCommentToEventHandler)
 
-        // api.delete('/posts/:postId/comments/:commentId', removeCommentFromPostHandler)
+        // api.delete('/events/:postId/comments/:commentId', removeCommentFromEventHandler)
 
         api.listen(process.env.PORT, () => console.log(`//////////////\nSERVER RUNNING\nIN PORT *${process.env.PORT}*\n//////////////`))
 
