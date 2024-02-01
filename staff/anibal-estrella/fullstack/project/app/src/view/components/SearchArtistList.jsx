@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../hooks'
+import { handleKeyPress } from '../../logic/utilities/keyPressUtils'
+
 
 import searchArtist from '../../logic/searchArtist'
 import retrieveIdArtistDetailsFromDiscogs from '../../logic/retrieveIdArtistDetailsFromDiscogs'
@@ -23,7 +25,6 @@ const SearchArtist = () => {
     const handleInputChange = (event) => {
         setArtistName(event.target.value);
     };
-
 
     const handleRetrieveArtistsList = async () => {
         try {
@@ -72,7 +73,14 @@ const SearchArtist = () => {
                     <h2>Search for an Artist:</h2>
 
                     <div className='relative '>
-                        <input type="text" value={artistName} onChange={handleInputChange} placeholder="Enter artist name" className='pl-8' />
+
+                        <input type="text" value={artistName}
+                            onChange={handleInputChange}
+                            onKeyDown={(event) => handleKeyPress(event, handleRetrieveArtistsList)}
+
+                            placeholder="Enter artist name"
+                            className='pl-8' />
+
                         <span className='absolute top-3 right-3 h-6 w-6  rounded-full' onClick={handleRetrieveArtistsList}>
                             <MagnifyingGlassIcon className='text-gray-500 ' />
                         </span>
@@ -160,9 +168,20 @@ const SearchArtist = () => {
                             <h2>Albums</h2>
                             <ul>
                                 {searchArtists.albums.slice(0, 5).map((album, index) => (
-                                    <li key={index}> {album}</li>
+                                    <li key={index}>
+                                        {album}
+                                    </li>
                                 ))}
-                                {searchArtists.albums.length > 5 && <li><a href={searchArtists.discogsUrl} target="_blank">more ...</a></li>}
+                                {searchArtists.albums.length > 5 && <li>
+                                    <a
+                                        href={searchArtists.discogsUrl}
+                                        className="hover:text-red transition-all duration-300"
+                                        target="_blank"
+                                    >
+                                        more ...
+                                    </a>
+                                </li>
+                                }
                             </ul>
                         </div>
 
@@ -175,7 +194,7 @@ const SearchArtist = () => {
                                         const siteName = urlObject.hostname.replace('www.', '')
                                         return (
                                             <li key={index}>
-                                                <a href={url} target="_blank">{siteName}</a>
+                                                <a href={url} className="hover:text-red transition-all duration-300" target="_blank">{siteName}</a>
                                             </li>
                                         );
                                     })}
@@ -185,7 +204,13 @@ const SearchArtist = () => {
                     </div>
 
                     <div className='pt-4 pr-2 flex justify-end' >
-                        <a className='' href={searchArtists.discogsUrl} target="_blank">Find more {searchArtists.name}'s Info at Discogs.com</a>
+                        <a
+                            target="_blank"
+                            href={searchArtists.discogsUrl}
+                            className="hover:text-red transition-all duration-300"
+                        >
+                            Find more {searchArtists.name}'s Info at Discogs.com
+                        </a>
                     </div>
                 </div>
             )}

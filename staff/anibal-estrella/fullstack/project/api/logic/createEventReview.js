@@ -5,7 +5,7 @@ const {
 
 const { User, Event } = require('../data-project/models.js');
 
-module.exports = (event, author, text, lineUp, dates, place, price, score, image, audio, video) => {
+module.exports = (event, userId, text, lineUp, dates, place, price, score, image, audio, video) => {
     validateId(userId, 'user id');
     validateUrl(image, 'Image URL');
     validateText(text, 'Event\'s text');

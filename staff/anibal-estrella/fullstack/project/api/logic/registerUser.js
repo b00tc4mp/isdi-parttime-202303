@@ -36,7 +36,9 @@ module.exports = (name, nickName, email, password, city, ipGeoLocationCoordinate
                 ipGeoLocation: {
                     type: "Point",
                     coordinates: [latitude, longitude]
-                }, avatar: "./assets/avatar-default.svg", favArtists: []
+                },
+                avatar: "./assets/avatar-default.svg",
+                favArtists: []
             })
 
         } catch (error) {

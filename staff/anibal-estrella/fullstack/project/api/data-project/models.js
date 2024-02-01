@@ -81,7 +81,8 @@ const event = new Schema({
         required: true
     }],
     place: {
-        type: String,
+        type: ObjectId,
+        ref: 'Place',
         required: true,
     },
     price: {
@@ -120,9 +121,23 @@ const eventReview = new Schema({
         trim: true,
         minLength: 1
     },
-    images: [String],
+    image: [String],
     audio: [String],
     video: [String],
+})
+
+const place = new Schema({
+    id: {
+        type: String,
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true,
+    },
 })
 
 user.index({ "ipGeoLocation.coordinates": "2dsphere" });
@@ -130,9 +145,12 @@ user.index({ "ipGeoLocation.coordinates": "2dsphere" });
 const User = model('User', user)
 const Event = model('Event', event)
 const EventReview = model('EventReview', eventReview)
+const Place = model('Place', place)
+
 
 module.exports = {
     User,
     Event,
-    EventReview
+    EventReview,
+    Place
 }

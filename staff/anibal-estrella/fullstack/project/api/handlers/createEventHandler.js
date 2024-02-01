@@ -9,7 +9,7 @@ module.exports = handleErrors((req, res) => {
 
     const { author, poster, name, description, lineUp, dates, place, price, eventReviews } = req.body
 
-    return createEvent(author, poster, name, description, lineUp, dates, place, price, eventReviews).then(() => res.status(201).send())
+    return createEvent(userId, poster, name, description, lineUp, dates, place, price, eventReviews).then(() => res.status(201).send())
 })
 
 

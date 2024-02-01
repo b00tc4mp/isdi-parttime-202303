@@ -11,6 +11,9 @@ export default {
         extend: {
             fontFamily: {
                 'primary': ['Jost', 'Helvetica', 'Arial', 'sans-serif']
+            },
+            borderColor: {
+                'red': 'hsl(340, 100%, 60%)',
             }
         },
         colors: {

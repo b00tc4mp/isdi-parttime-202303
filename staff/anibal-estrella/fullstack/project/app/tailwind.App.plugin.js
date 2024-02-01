@@ -18,6 +18,7 @@ export default plugin(({ addBase, addComponents, addUtilities, theme, config }) 
             borderWidth: config('theme.borderWidth.2'),
             borderRadius: config('theme.borderRadius.full'),
         },
+
         'strong': {
             fontWeight: '500',
         },
@@ -68,5 +69,10 @@ export default plugin(({ addBase, addComponents, addUtilities, theme, config }) 
             "-ms-overflow-style": "none",
             "scrollbar-width": "none",
         },
-    })
+        //     '.hover\:a:hover': {
+        //         borderColor: config('theme.borderColor.red'),
+        //         borderWidth: config('theme.borderWidth.2'),
+        //         borderRadius: config('theme.borderRadius.full')
+        //     },
+    }, ['responsive', 'hover']);
 })
