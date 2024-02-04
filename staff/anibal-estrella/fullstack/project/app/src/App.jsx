@@ -4,22 +4,19 @@ import AppContext from './AppContext'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import isUserLoggedIn from './logic/users/isUserLoggedIn'
 import { Home, Profile, Login, Create } from './view/pages'
-import { Menu, Alert, Footer } from './view/components'
+import { MenuTop, MenuBottom, Alert, Footer } from './view/components'
 import { Loader } from './view/library'
 
 const { Provider } = AppContext
 
-
-
 function App() {
-
+    const [isVisible, setIsVisible] = useState(false);
     const [city, setCity] = useState('');
     const [feedback, setFeedback] = useState(null)
 
     const [loader, setLoader] = useState(false)
     // const freeze = () => setLoader(true)
     // const unfreeze = () => setLoader(false)
-
 
     const [loaderPercentage, setLoaderPercentage] = useState(0);
 
@@ -59,15 +56,16 @@ function App() {
     function handlePanelClick(event) {
         event.stopPropagation();
     }
+
     const handleAcceptAlert = () => setFeedback(null)
 
-
     const [ipGeoLocation, setGeolocation] = useState('');
+
+
 
     useEffect(() => {
         async function fetchGeolocation() {
             const geolocationData = await retrieveUserGeolocation();
-
             const closestCity = geolocationData.closestCity;
             const originalLocation = geolocationData.originalLocation;
             setCity(closestCity)
@@ -76,9 +74,14 @@ function App() {
         fetchGeolocation();
     }, []);
 
-    return <Provider value={{ alert, freeze, unfreeze }}>
+    return <Provider value={{ alert, freeze, unfreeze }} >
 
-        <Menu />
+        <MenuTop
+            isVisible={isVisible}
+            setIsVisible={setIsVisible}
+        />
+
+
         <Routes>
             {(() => console.log("ROUTES = render"))()}
 
@@ -94,11 +97,15 @@ function App() {
         {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert}
             onPanelClick={handlePanelClick}
         />}
-        {/* {loader && <Loader />} */}
         {loaderPercentage > 0 && <Loader percentage={loaderPercentage} />}
-        <Footer />
 
-    </Provider>
+        {/* <button onClick={openDrawer}>
+            open drawer
+        </button> */}
+
+        <Footer />
+        <MenuBottom />
+    </Provider >
 }
 
 export default App;

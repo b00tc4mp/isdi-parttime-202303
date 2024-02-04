@@ -2,10 +2,12 @@ import SearchArtist from './SearchArtist'
 import SearchArtistList from './SearchArtistList'
 import SearchPlace from './SearchPlace'
 import EventCard from './EventCard'
-import Menu from './Menu'
+import MenuTop from './MenuTop'
+import MenuBottom from './MenuBottom'
 import Footer from './Footer'
 import Alert from './Alert'
-import MenuLayer from './MenuLayer'
+import MenuTopLayer from './MenuTopLayer'
+import Drawer from './Drawer'
 import createEventReview from './createEventReview'
 import DraggableSlider from './DraggableSlider'
 
@@ -14,10 +16,12 @@ export {
     SearchArtist,
     SearchArtistList,
     EventCard,
-    Menu,
-    MenuLayer,
+    MenuTop,
+    MenuTopLayer,
+    MenuBottom,
     createEventReview,
     Alert,
     DraggableSlider,
-    Footer
+    Footer,
+    Drawer
 }

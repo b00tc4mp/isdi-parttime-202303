@@ -6,7 +6,7 @@ import { SearchArtistList as SearchArtist, SearchPlace } from '../components'
 import retrieveArtistDetailsFromDiscogs from '../../logic/retrieveArtistDetailsFromDiscogs';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
-const Create = ({ city, ipGeoLocation }) => {
+const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen }) => {
     const { alert, freeze, unfreeze, navigate } = useAppContext()
 
     const [Profile, setProfile] = useState(null);
