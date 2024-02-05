@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "vite",
         "start": "vite --force",
+        "start-host": "vite --host",
         "build": "vite build",
         "preview": "vite preview"
     },

@@ -35,13 +35,14 @@ const SearchPlace = () => {
 
     const handleCreatePlace = () => {
         console.log('Create new Place');
-    };
+    }
+
+
 
     return (
         <div>
             <div className="flex flex-row w-full">
                 <div className='relative w-full'>
-                    <h2>Search for a venue:</h2>
                     <div className="relative">
 
                         <input
@@ -49,7 +50,7 @@ const SearchPlace = () => {
                             type="text"
                             value={placeName}
                             onChange={handleInputChange}
-                            onKeyDown={(event) => handleKeyPress(event, handleRetrieveArtistsList)}
+                            onKeyDown={(event) => handleKeyPress(event, handleSearchPlaces)}
                             placeholder="Enter place name" />
                         <span className='absolute top-3 right-3 h-6 w-6  rounded-full'>
 

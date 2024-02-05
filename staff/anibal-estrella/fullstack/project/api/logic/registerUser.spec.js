@@ -1,10 +1,10 @@
 require('dotenv').config()
 
 const { expect } = require('chai')
-const registerUser = require('./registerUser')
-const { cleanUp, populate, generate } = require('./helpers/tests')
 const { MongoClient } = require('mongodb')
+const { cleanUp, populate, generate } = require('./helpers/tests')
 const context = require('./context')
+const registerUser = require('./registerUser')
 
 describe('registerUser', () => {
     let client
@@ -20,6 +20,7 @@ describe('registerUser', () => {
                 context.events = db.collection('events')
                 context.eventReview = db.collection('eventReviews')
                 context.place = db.collection('places')
+                console.log('connected!!!');
             })
     })
 
@@ -27,7 +28,6 @@ describe('registerUser', () => {
 
     beforeEach(() => {
         user = generate.user()
-
         return cleanUp()
     })
 

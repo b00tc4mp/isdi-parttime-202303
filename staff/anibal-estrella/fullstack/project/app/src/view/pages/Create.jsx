@@ -12,6 +12,7 @@ const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen }) => {
     const [Profile, setProfile] = useState(null);
     const [error, setError] = useState(null); // Add state for error
 
+
     return (<>
 
         <div className=' px-3'>

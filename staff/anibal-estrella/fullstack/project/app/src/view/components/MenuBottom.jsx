@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import isUserLoggedIn from '../../logic/users/isUserLoggedIn'
 import retrieveUser from '../../logic/users/retrieveUser'
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 
 import { Drawer } from './'
 import { PlusIcon, HomeIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid'
@@ -60,7 +60,7 @@ function menuBottom() {
     return (<>
         {isUserLoggedIn() &&
             <nav className="flex-no-wrap sticky bottom-2 z-10 flex w-full items-center  px-2 h-15"  >
-                <div className=" h-15 flex w-full flex-wrap px-3 shadow-black/10  rounded-full  bg-gray-100/90 shadow-md backdrop-blur-lg  ">
+                <div className="h-12 flex-wrap w-full flex-wrap px-3 shadow-black/10  rounded-full  bg-gray-100/90 shadow-md backdrop-blur-lg  ">
                     <ul className="list-style-none mr-auto flex pl-0 flex-row items-center justify-evenly w-full">
                         <li>
                             <button className="flex items-center flex-col border-0 px-2 text-gray-400  hover:text-red hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0" onClick={() => setIsVisible(prev => !prev)} >

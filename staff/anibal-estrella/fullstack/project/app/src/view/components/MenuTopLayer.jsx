@@ -7,7 +7,7 @@ export default function MenuLayer({ onClose, items }) {
     console.debug('/// MENULayer  -> Render')
 
     return (
-        <nav className="flex bg-gray-400/80 z-40 fixed top-0 left-0 w-full h-full backdrop-blur-lg uppercase">
+        <nav className="flex bg-gray-400/80 z-50 fixed top-0 left-0 w-full h-full backdrop-blur-lg uppercase">
             <ul className="px-4 self-center [&>*]:font-normal [&>*]:text-3xl">
 
                 <MenuItem className="absolute top-2 right-2 " handleItemClick={onClose} >

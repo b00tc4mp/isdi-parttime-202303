@@ -14,6 +14,7 @@ module.exports = () => {
 
     // in parallel (faster)
     return Promise.all([
+        console.log('>>> cleanup!!!'),
         users.deleteMany(),
         events.deleteMany(),
         eventReviews.deleteMany(),

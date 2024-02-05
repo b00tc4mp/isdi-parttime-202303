@@ -6,12 +6,12 @@ export default function EventCard() {
 
     console.debug('// EventCard  -> Render')
 
-    return <div id='event-card' className=" bg-gray-300 flex-shrink-0 text-white p-2  w-48 h-auto rounded">
+    return <div id='event-card' className="flex-shrink-0 text-white p-2 w-48 h-auto rounded-lg bg-gray-300 hover:bg-gray-200  transition-all duration-200 ">
         <a id='event-link' href="#" className="">
             <div className="w-full aspect-square mb-2">
-                <img srcSet="" alt="" loading="lazy" className="h-full w-full" />
+                <img srcSet="https://picsum.photos/1500?random=2" alt="" loading="lazy" className="h-full w-full rounded-md" />
             </div>
-            <div id='event-details' className=" text-sm">
+            <div id='event-details' className="text-sm">
                 <div id='event-name' className="font-bold
 ">EVENT/ARTIST NAME</div>
                 <div id='event-date' className="">Sun, Jan 21, 2024</div>

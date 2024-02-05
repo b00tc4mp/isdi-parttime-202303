@@ -70,8 +70,6 @@ const SearchArtist = () => {
         <div className='py-2'>
             <div className="flex flex-row w-full my-2">
                 <div className='w-full'>
-                    <h2>Search for an Artist:</h2>
-
                     <div className='relative '>
 
                         <input type="text" value={artistName}
@@ -158,8 +156,6 @@ const SearchArtist = () => {
 
                     {searchArtists.bio && (
                         <div>
-                            <h2>Artist Bio </h2>
-
                             <p dangerouslySetInnerHTML={{ __html: searchArtists.bio }} />
                         </div>
                     )}

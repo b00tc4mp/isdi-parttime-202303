@@ -2,7 +2,7 @@ const context = require('../../context')
 
 module.exports = (_users, _events, _places, _eventReviews) => {
     const { users, events, places, eventReviews } = context
-
+    console.log('populate!!!!!');
     const promises = []
 
     promises.push(users.insertMany(_users))
