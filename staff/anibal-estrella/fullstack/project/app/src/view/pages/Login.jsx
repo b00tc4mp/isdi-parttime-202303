@@ -21,7 +21,6 @@ const Login = ({ city, ipGeoLocation }) => {
             freeze()
             retrieveUserEmail(userEmail)
                 .then(() => {
-                    alert(`${userEmail} is in our db!`)
                     setShowPasswordLayer(true)
                 })
                 .catch(error => {
@@ -75,8 +74,8 @@ const Login = ({ city, ipGeoLocation }) => {
         // unfreeze()
     }
 
-    return <div>
-        <div className='m-2'>
+    return <div className='flex flex-col items-center'>
+        <div className='m-2 self-start'>
             {city && <p>Your City: {city} </p>}
             {city && <p>Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </p>}
         </div >
@@ -86,8 +85,8 @@ const Login = ({ city, ipGeoLocation }) => {
                 <h2>Register / Login</h2>
                 <form action="" onSubmit={handleLoginEmail}>
                     <label htmlFor="email">E-mail:</label>
-                    <input type="text" className="email" name="email" placeholder="Enter your e-mail" autoComplete="on" />
-                    <Button type="submit" value="validateEmail">next</Button>
+                    <input type="text" className="h-10" name="email" placeholder="Enter your e-mail" autoComplete="on" />
+                    <Button type="submit" value="validateEmail">continue with email</Button>
                 </form>
             </div>
         )}
@@ -99,7 +98,7 @@ const Login = ({ city, ipGeoLocation }) => {
                     <p>{email}</p>
                     <label htmlFor="password">Password:</label>
                     <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="on" />
-                    <Button type="submit" value="loginUser">login</Button>
+                    <Button type="submit" value="loginUser">Continue with password</Button>
                 </form>
             </div>
         )}

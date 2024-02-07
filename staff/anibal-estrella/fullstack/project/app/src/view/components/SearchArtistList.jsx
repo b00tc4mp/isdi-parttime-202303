@@ -67,28 +67,27 @@ const SearchArtist = () => {
     }
 
     return (
-        <div className='py-2'>
-            <div className="flex flex-row w-full my-2">
-                <div className='w-full'>
-                    <div className='relative '>
+        <div>
 
-                        <input type="text" value={artistName}
-                            onChange={handleInputChange}
-                            onKeyDown={(event) => handleKeyPress(event, handleRetrieveArtistsList)}
+            <div className='py-2'>
+                <div className='relative'>
 
-                            placeholder="Enter artist name"
-                            className='pl-8' />
+                    <input type="text" value={artistName}
+                        onChange={handleInputChange}
+                        onKeyDown={(event) => handleKeyPress(event, handleRetrieveArtistsList)}
+                        placeholder="Enter artist name"
+                        className='pl-4 w-full block '
+                    />
 
-                        <span className='absolute top-3 right-3 h-6 w-6  rounded-full' onClick={handleRetrieveArtistsList}>
-                            <MagnifyingGlassIcon className='text-gray-500 ' />
-                        </span>
-                        <Button onClick={handleRetrieveArtistsList}>Search Artist</Button>
-                    </div>
+                    <span className='absolute top-3 right-3 h-6 w-6 rounded-full cursor-pointer' onClick={handleRetrieveArtistsList}>
+                        <MagnifyingGlassIcon className='text-gray-500 ' />
+                    </span>
+                    <Button onClick={handleRetrieveArtistsList}>Search Artist</Button>
+                    {error && <p className="text-red-100 pt-4">{error}</p>}
                 </div>
 
             </div>
 
-            {error && <p className="text-lime-200">{error}</p>}
 
             {searchArtistList && !error && (
                 <div>

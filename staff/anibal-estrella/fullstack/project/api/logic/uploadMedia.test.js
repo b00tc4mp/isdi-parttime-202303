@@ -6,9 +6,8 @@ const path = require('path')
 
 mongoose.connect('mongodb://127.0.0.1:27017/data-project')
     .then(() => {
-
-        const filePath = path.join(__dirname, '../data-project/test/menItrust-01.jpg');
-        return uploadMedia(filePath, 'menItrust-01.jpg')
+        const filePath = path.join(__dirname, '../data-project/test/aliceInChains-01.webp');
+        return uploadMedia(filePath, 'aliceInChains-04.web')
     })
     .then(response => {
         console.log("Upload response:", response);

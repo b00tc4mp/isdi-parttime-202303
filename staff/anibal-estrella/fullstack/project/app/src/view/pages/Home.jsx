@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useAppContext } from '../hooks'
-
-import { EventCard, SearchArtist, SearchPlace, DraggableSlider } from '../components'
+import isUserLoggedIn from '../../logic/users/isUserLoggedIn'
+import { Button } from '../library'
+import { EventCard, SearchArtist, SearchPlace, DraggableSlider, HeaderWelcome } from '../components'
 
 export default ({ city, ipGeoLocation }) => {
     console.debug('// Home  -> Render')
@@ -12,17 +13,30 @@ export default ({ city, ipGeoLocation }) => {
     const [selectedNavItem, setSelectedNavItem] = useState('artist');
     const [showMenuLayer, setShowMenuLayer] = useState(false);
 
-
-
     const handleBurguerMenuClick = () => {
         setShowMenuLayer(prevState => !prevState);
     }
 
     return <>
-        <div className=' px-3'>
+        <div className=' text-xs'>
             {city && <p>Your City: {city} </p>}
             {city && <p>Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </p>}
         </div >
+
+        < HeaderWelcome />
+
+        {isUserLoggedIn() ? (
+            <div>
+                <h2>logged!</h2>
+            </div>
+        ) :
+            (
+                <div>
+                    <h3>not logged!</h3>
+                </div>
+
+            )}
+
         <section id="home" className=" px-3">
 
             <section id=''>
@@ -33,7 +47,7 @@ export default ({ city, ipGeoLocation }) => {
             </section>
 
             <section id='events-featured'>
-                <h2>Upcoming Events</h2>
+                <h3>Upcoming Events</h3>
                 <DraggableSlider>
                     {Array.from({ length: 5 }).map((_, index) => (
                         <EventCard key={index} />
@@ -41,7 +55,7 @@ export default ({ city, ipGeoLocation }) => {
                 </DraggableSlider>
             </section>
             <section>
-                <h2>Featured Review</h2>
+                <h3>Featured Review</h3>
                 <DraggableSlider>
                     {Array.from({ length: 1 }).map((_, index) => (
                         <EventCard key={index} />
@@ -49,7 +63,7 @@ export default ({ city, ipGeoLocation }) => {
                 </DraggableSlider>
             </section>
             <section id='Events'>
-                <h2>Events in <span>your area</span></h2>
+                <h3>Events in <span>your area</span></h3>
                 <DraggableSlider>
                     {Array.from({ length: 10 }).map((_, index) => (
                         <EventCard key={index} />

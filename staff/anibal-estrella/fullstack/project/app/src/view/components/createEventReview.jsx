@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import { Button } from '../library'
+// import uploadMedia from '../../logic/'
 
-function createEventReview() {
-    console.log('createEventReview => RENDER');
+
+function CreateEventReview() {
+    console.log('CreateEventReview => RENDER');
 
     const [file, setFile] = useState(null);
     const [fileType, setFileType] = useState('');
@@ -47,13 +50,32 @@ function createEventReview() {
     };
 
     return (
-        <section id='create-review' className=''>
+        <section id='create-review' className='flex flex-col'>
             <div>
-                <input type="file" onChange={handleFileChange} />
-                <button onClick={handleUpload}>Upload</button>
+                <h3>Choose images, audio or video to share.</h3>
+                <input
+                    onChange={handleFileChange}
+                    accept="image/*"
+                    type="file"
+                    multiple
+                    className='
+                    block max-w-fit h-full text-sm pl-0 font-normal
+                    file:font-normal 
+                    file:mr-4
+                    file:py-2
+                    file:px-4
+                    file:rounded-full file:border-0
+                    file:text-xs
+                    file:text-white
+                    file:uppercase
+                    file:bg-lime-300 
+                    hover:file:bg-violet-100
+                    '
+                />
+                <Button onClick={handleUpload} className={'max-w-fit'}> Upload</Button>
             </div>
         </section>
     )
 }
 
-export default createEventReview
+export default CreateEventReview

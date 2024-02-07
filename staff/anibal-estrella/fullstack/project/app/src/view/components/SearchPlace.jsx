@@ -12,6 +12,7 @@ const SearchPlace = () => {
     console.debug('// SearchPlace -> Render')
 
     const { alert, freeze, unfreeze } = useAppContext()
+    const [error, setError] = useState(null)
 
     const [placeName, setPlaceName] = useState('');
     const [placeDetails, setPlaceDetails] = useState(null);
@@ -25,8 +26,10 @@ const SearchPlace = () => {
             freeze();
             const details = await searchPlace(placeName);
             setPlaceDetails(details);
+            setError(null);
         } catch (error) {
             alert(error.message, 'error');
+            setError(`Place "${placeName}" was not found`)
             setPlaceDetails(null);
         } finally {
             unfreeze();
@@ -40,38 +43,34 @@ const SearchPlace = () => {
 
 
     return (
-        <div>
-            <div className="flex flex-row w-full">
-                <div className='relative w-full'>
-                    <div className="relative">
-
-                        <input
-                            className='pl-8'
-                            type="text"
-                            value={placeName}
-                            onChange={handleInputChange}
-                            onKeyDown={(event) => handleKeyPress(event, handleSearchPlaces)}
-                            placeholder="Enter place name" />
-                        <span className='absolute top-3 right-3 h-6 w-6  rounded-full'>
-
-                            <MagnifyingGlassIcon className='text-gray-500 ' />
-                        </span>
-                        <Button onClick={handleSearchPlaces}>Search for a place</Button>
-                    </div>
-                </div>
+        <div className='my-2'>
+            <div className="relative">
+                <input
+                    className='pl-4 w-full block'
+                    type="text"
+                    value={placeName}
+                    onChange={handleInputChange}
+                    onKeyDown={(event) => handleKeyPress(event, handleSearchPlaces)}
+                    placeholder="Enter place name" />
+                <span className='absolute top-3 right-3 h-6 w-6 rounded-full cursor-pointer'>
+                    <MagnifyingGlassIcon className='text-gray-500 ' />
+                </span>
+                <Button onClick={handleSearchPlaces}>Search for a place</Button>
+                {error &&
+                    <p className="text-red-100 pt-4">{error}</p>
+                }
             </div>
-            <Button onClick={handleCreatePlace}>Create a new place</Button>
 
-            {placeDetails && (
+
+            {placeDetails && !error && (
                 <div>
                     <ul>Result:</ul>
 
-                    <table className=' w-full '>
+                    <table className=' w-full text-left'>
                         <thead>
                             <tr>
                                 <th>name</th>
                                 <th>city</th>
-                                <th>web</th>
                                 <th>action</th>
                             </tr>
                         </thead>
@@ -94,7 +93,6 @@ const SearchPlace = () => {
                                             )}
                                         </td>
                                         <td>{item.city}</td>
-                                        <td>{item.homePage}</td>
                                         <td>
                                             <Button>select</Button>
                                         </td>
@@ -103,6 +101,8 @@ const SearchPlace = () => {
                             ))}
                         </tbody>
                     </table>
+                    <Button onClick={handleCreatePlace}>Create a new place</Button>
+
                 </div >
             )}
         </div >

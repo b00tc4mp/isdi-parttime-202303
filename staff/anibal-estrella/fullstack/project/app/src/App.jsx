@@ -99,9 +99,6 @@ function App() {
         />}
         {loaderPercentage > 0 && <Loader percentage={loaderPercentage} />}
 
-        {/* <button onClick={openDrawer}>
-            open drawer
-        </button> */}
 
         <Footer />
         <MenuBottom />

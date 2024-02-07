@@ -48,7 +48,7 @@ const retrievePlacesList = async (placeName) => {
         }
         throw new Error(`No place found as ${placeName}, try again!`);
     } catch (error) {
-        console.error('Error fetching place details:', error);
+        throw new Error(`Error fetching place data ${error.message}`);
     }
 };
 

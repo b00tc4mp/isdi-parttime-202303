@@ -109,17 +109,20 @@ function menuTop({ isVisible, setIsVisible }) {
                     <div className="flex items-center flex-row">
 
                         {/* <!-- User avatar --> */}
-                        {isUserLoggedIn() ? (<div div='user-avatar' className="relative">
-                            <Link className="hidden-arrow flex items-center whitespace-nowrap" to="/profile" >
-                                {user && <>
-                                    <img className="h-10 w-10 rounded-full border-2 hover:border-red border-solid transition duration-150 bg-gray-200 hover:bg-red ease-in-out  motion-reduce:transition-none" src={user.avatar} alt={user.avatar} /> </>}
-                            </Link>
-                        </ div>) : (<ul className='list-none' >
-                            <MenuItem to="/login" tag={Link} liClassName='text-gray-400 w-6 h-6 mr-2' handleItemClick={handleLoginReload}
-                            >
-                                <ArrowLeftOnRectangleIcon className='scale-x-[-1]' />
-                            </MenuItem>
-                        </ul>)}
+                        {isUserLoggedIn() ? (
+                            <div div='user-avatar' className="relative">
+                                <Link className="hidden-arrow flex items-center whitespace-nowrap" to="/profile" >
+                                    {user && <>
+                                        <img className="h-10 w-10 rounded-full border-2 hover:border-red border-solid transition duration-150 bg-gray-200 hover:bg-red ease-in-out  motion-reduce:transition-none" src={user.avatar} alt={user.avatar} /> </>}
+                                </Link>
+                            </ div>
+                        ) : (
+                            <ul className='list-none' >
+                                <MenuItem to="/login" tag={Link} liClassName='text-gray-400 w-6 h-6 mr-2' handleItemClick={handleLoginReload}
+                                >
+                                    <ArrowLeftOnRectangleIcon className='scale-x-[-1]' />
+                                </MenuItem>
+                            </ul>)}
 
 
                         {/* <!-- Hamburger button for mobile view --> */}

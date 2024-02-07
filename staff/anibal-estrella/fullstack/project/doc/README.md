@@ -30,13 +30,11 @@ This web application is a community designed for musicians, music events enthusi
 - password: Encrypted password for user authentication (string).
 - avatar: URL or path to the user's avatar image (string).
 - location: prefered location of the user.
-- favEvents: An array of object ids referring to the user's favorite events.
 - favArtists: an array of ids from api of artists
-- favEvents: following future and past events array of objects ids (srting)
+- favEvents: following future and past events array of objects ids (srting).An array of object ids referring to the user's favorite events.
 - scored events: scores given to an event array of objects includiding events object id and a score.
 
 #### Event
-
 - id: Unique identifier for the event (oid).
 - author: Object id referring to the user who created the event (oid).
 - image: URL or path to the event's image (string).
@@ -69,26 +67,27 @@ https://github.com/users/anibalestrella/projects/1
 #### Access Control
 - Me as a user, I want to register my credentials and access with them to the App
 #### Create an Event and Refresh Events
-- As a user, I want to be able to Create an Event and visualize an updated list of events.
-- As a user, I want to be able to add an artist's details to the event's lineup automatically using musicbrainz API.
-- As a user, I want to be able to add a title to an event.
+- As a user, I want to be able to Create an Event 
+- As a user, I want to be able to add an upcomming or past event and it's date.
+- As a user, I want to be able to add an image poster of the event.
+- As a user, I want to be able to add an artist's details to the event's lineup automatically.
+- As a user, I want to be able to add a title/name to an event.
 - As a user, I want to be able to add a text to an event.
-- As a user, I want to be able to add a date to an event.
-- As a user, I want to be able to add a adress to an event.
+- As a user, I want to be able to add a location to an event.
+- As a user, I want to and visualize an updated list of events from all users and events i've created.
 #### Edit an Event and Refresh List
 - As a user, I want to be able to edit a title to an event.
 - As a user, I want to be able to edit a text to an event.
 - As a user, I want to be able to edit a date to an event.
-- As a user, I want to be able to edit the adress to an event.
-- Delete an Event and Refresh List
+- As a user, I want to be able to edit the location to an event.
+- Delete an Event
+- Refresh events' List
 #### Add an Event review and To an exixting event
 - As a user, I want to be able to add a title to an event review.
 - As a user, I want to be able to add a text to an event review.
-- As a user, I want to be able to upload an image/video/image to an event review.
+- As a user, I want to be able to upload  image/video/sounds to an event review.
 - As a user, I want to be able to publish the event review.
 - As a user, I want to be able to delete the event review.
-#### Add an Event review and To an exixting event
-- refer to create an event steps then to add a review steps
 #### Toggle fav an event
 - As a user, I want to be able to toggle an event if fav or not.
 - As a user, I want to be able to add an event to my event favorite list.

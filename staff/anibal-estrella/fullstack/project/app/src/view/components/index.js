@@ -8,8 +8,9 @@ import Footer from './Footer'
 import Alert from './Alert'
 import MenuTopLayer from './MenuTopLayer'
 import Drawer from './Drawer'
-import createEventReview from './createEventReview'
+import CreateEventReview from './CreateEventReview'
 import DraggableSlider from './DraggableSlider'
+import HeaderWelcome from './HeaderWelcome'
 
 export {
     SearchPlace,
@@ -19,9 +20,10 @@ export {
     MenuTop,
     MenuTopLayer,
     MenuBottom,
-    createEventReview,
+    CreateEventReview,
     Alert,
     DraggableSlider,
     Footer,
-    Drawer
+    Drawer,
+    HeaderWelcome,
 }
