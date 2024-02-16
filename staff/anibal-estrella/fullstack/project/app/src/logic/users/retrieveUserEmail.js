@@ -8,11 +8,19 @@ export default email => {
     })
         .then(res => {
             if (res.status === 200)
-                return res.json();
+                return res.json()
+
+            if (res.status === 406)
+                return res.json()
+                    .then(body => {
+                        throw { status: res.status, message: body.error };
+                    })
 
             return res.json()
                 .then(body => {
-                    throw new Error(body.error);
+                    throw new Error(body.error,);
                 });
+
+
         });
 }

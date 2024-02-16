@@ -8,5 +8,5 @@ module.exports = {
     retrieveUserHandler: require('./retrieveUserHandler'),
     uploadMediaHandler: require('./uploadMediaHandler'),
     createEventHandler: require('./createEventHandler'),
-    createEventReviewHandler: require('./createEventReviewHandler')
+    updateUserProfileHandler: require('./updateUserProfileHandler'),
 }

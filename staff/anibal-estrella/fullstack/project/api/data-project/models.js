@@ -68,10 +68,11 @@ const event = new Schema({
         type: String,
         required: true,
         trim: true,
-        minLength: 10,
+        minLength: 10
     },
     lineUp: {
-        type: [String],
+        type: [ObjectId],
+        ref: 'Artist',
         minLength: 1,
         required: true
     },
@@ -83,7 +84,7 @@ const event = new Schema({
     place: {
         type: ObjectId,
         ref: 'Place',
-        required: true,
+        required: true
     },
     price: {
         type: Number,
@@ -100,11 +101,21 @@ const event = new Schema({
     },
 })
 
+const artist = new Schema({
+    id: {
+        type: String,
+    },
+    name: {
+        type: String,
+        required: true
+    }
+})
+
 const eventReview = new Schema({
     author: {
         type: ObjectId,
         ref: 'User',
-        required: true,
+        required: true
     },
     event: {
         type: ObjectId,
@@ -126,6 +137,22 @@ const eventReview = new Schema({
     video: [String],
 })
 
+const scoreStats = new Schema({
+    event: {
+        type: Schema.Types.ObjectId,
+        ref: 'Event',
+        required: true
+    },
+    avgScore: {
+        type: Number,
+        required: true
+    },
+    count: {
+        type: Number,
+        required: true
+    }
+});
+
 const place = new Schema({
     id: {
         type: String,
@@ -144,13 +171,16 @@ user.index({ "ipGeoLocation.coordinates": "2dsphere" });
 
 const User = model('User', user)
 const Event = model('Event', event)
+const Artist = model('Artist', artist)
 const EventReview = model('EventReview', eventReview)
 const Place = model('Place', place)
-
+const ScoreStats = model('ScoreStats', scoreStats);
 
 module.exports = {
     User,
     Event,
+    Artist,
     EventReview,
-    Place
+    Place,
+    ScoreStats
 }

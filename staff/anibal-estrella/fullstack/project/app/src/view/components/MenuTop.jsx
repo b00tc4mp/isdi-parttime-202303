@@ -2,19 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { ArrowRightOnRectangleIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline'
 import { MenuItem } from '../library'
 import { MenuTopLayer } from '.'
-import isUserLoggedIn from '../../logic/users/isUserLoggedIn'
 import logOutUser from '../../logic/users/logOutUser'
 import retrieveUser from '../../logic/users/retrieveUser'
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-function menuTop({ isVisible, setIsVisible }) {
-
+function menuTop({ isVisible, setIsVisible, isUserLoggedIn, navigate }) {
     const location = useLocation();
-
-    const handleLoginReload = location.pathname === '/login' ? () => {
-        window.location.reload();
-        console.log('Reloading on /login');
-    } : undefined;
 
 
     function closeMenuTopLayer() {
@@ -46,24 +39,25 @@ function menuTop({ isVisible, setIsVisible }) {
         navigate('/')
     }
 
-
+    const handleLoginReload = location.pathname === '/login' ? () => {
+        window.location.reload();
+        console.log('Reloading on /login');
+    } : undefined;
 
     const loginItem = isUserLoggedIn() ? (
-        { id: "logout", link: "/", label: "logout", click: handleLogOut }
+        { id: "logout", link: "/", label: "logout", title: 'Log me out', click: handleLogOut }
     ) : (
-        { id: "login/register", link: "/login", label: "login/register", click: handleLoginReload }
+        { id: "login/register", link: "/login", label: "login/register", title: 'Log me in/ register', click: handleLoginReload }
     )
 
 
     const menuItems = [
-        { id: "create", link: "/create", label: "create" },
-        { id: "events", link: "/events", label: "events" },
-        { id: "reviews", link: "/reviews", label: "reviews" },
-        { id: "artists", link: "/artists", label: "artists" },
+        { id: "create", link: "/create", label: "create", title: 'Create', },
+        { id: "events", link: "/events", label: "events", title: 'events' },
+        { id: "reviews", link: "/reviews", label: "reviews", title: 'reviews' },
+        { id: "artists", link: "/artists", label: "artists", title: 'artists' },
         loginItem,
     ];
-
-
 
     return (
         <>
@@ -78,7 +72,7 @@ function menuTop({ isVisible, setIsVisible }) {
 
             <nav className="flex-no-wrap sticky top-0 z-10 flex w-full items-center justify-between pt-2 px-2"  >
                 <div className=" flex w-full flex-wrap items-center justify-between px-3 shadow-black/10 sm:flex-wrap sm:justify-start  rounded-full  bg-gray-100/90 py-2 shadow-md backdrop-blur-lg">
-                    <Link to='/' className="hover:text-red">
+                    <Link to='/' className="hover:text-red" alt="Home" title='Home'>
                         <h1 className="text-gray-400 flex items-center mx-4 font-extrabold bg-[url('../../../assets/LiveDive-Logo-B.svg')] bg-no-repeat bg-left bg-contain hover:text-red w-10 h-10  text-center text-[0] " >LiveDive</h1>
                     </Link>
 
@@ -96,6 +90,7 @@ function menuTop({ isVisible, setIsVisible }) {
                                     id={item.id}
                                     className="p-4 text-gray-400"
                                     to={item.link}
+                                    title={item.title}
                                     handleItemClick={item.click ? item.click : closeMenuTopLayer}
                                 >
                                     {item.label}
@@ -109,20 +104,22 @@ function menuTop({ isVisible, setIsVisible }) {
                     <div className="flex items-center flex-row">
 
                         {/* <!-- User avatar --> */}
-                        {isUserLoggedIn() ? (
-                            <div div='user-avatar' className="relative">
-                                <Link className="hidden-arrow flex items-center whitespace-nowrap" to="/profile" >
-                                    {user && <>
-                                        <img className="h-10 w-10 rounded-full border-2 hover:border-red border-solid transition duration-150 bg-gray-200 hover:bg-red ease-in-out  motion-reduce:transition-none" src={user.avatar} alt={user.avatar} /> </>}
-                                </Link>
-                            </ div>
-                        ) : (
-                            <ul className='list-none' >
-                                <MenuItem to="/login" tag={Link} liClassName='text-gray-400 w-6 h-6 mr-2' handleItemClick={handleLoginReload}
-                                >
-                                    <ArrowLeftOnRectangleIcon className='scale-x-[-1]' />
-                                </MenuItem>
-                            </ul>)}
+
+                        {
+                            isUserLoggedIn() ? (
+                                <div div='user-avatar' className="relative">
+                                    <Link className="hidden-arrow flex items-center whitespace-nowrap" to="/profile" >
+                                        {user && <>
+                                            <img className="h-10 w-10 rounded-full border-2 hover:border-red border-solid transition duration-150 bg-gray-200 hover:bg-red ease-in-out  motion-reduce:transition-none" src={user.avatar} alt={user.avatar} label={'go to ptofile'} /> </>}
+                                    </Link>
+                                </ div>
+                            ) : (
+                                <ul className='list-none' >
+                                    <MenuItem to="/login" tag={Link} liClassName='text-gray-400 w-6 h-6 mr-2' handleItemClick={handleLoginReload}
+                                        alt="log me in" title='Log me in' >
+                                        <ArrowLeftOnRectangleIcon className='scale-x-[-1]' />
+                                    </MenuItem>
+                                </ul>)}
 
 
                         {/* <!-- Hamburger button for mobile view --> */}
@@ -144,17 +141,7 @@ function menuTop({ isVisible, setIsVisible }) {
                     </div>
                 </div>
             </nav >
-            <div>
-                {isUserLoggedIn() &&
-                    // Render elements for logged-in user
-                    <div className='pt-2 px-3'>
-                        <p>Welcome,
-                            {user && <> {user.name} from {user.city}</>}!
-                        </p>
-                        {/* Other elements for logged-in user */}
-                    </div>
-                }
-            </div>
+
         </>
     )
 }

@@ -9,7 +9,7 @@ function validateEmail(email, explain = "email") {
     const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     if (typeof email !== 'string') throw new TypeError(`${explain} must be a string`)
     if (!email.trim().length) throw new ContentError(`${explain} is blank`)
-    if (!emailRegex.test(email)) throw new ContentError(`${explain} is not an email`)
+    if (!emailRegex.test(email)) throw new ContentError(`${email}, is not an ${explain}.`)
 }
 
 /**
@@ -116,6 +116,44 @@ function validateEuroPrice(price, explain = "price") {
 }
 
 
+const fs = require('fs');
+
+function validateFileUpload(fileInfo, explain = 'file') {
+    if (!fileInfo) {
+        throw new Error(`${explain} is missing`);
+    }
+
+    if (!fileInfo.filePath || !fileInfo.fileName) {
+        throw new Error(`${explain} is invalid`);
+    }
+
+    const stats = fs.statSync(fileInfo.filePath);
+    const fileSizeInBytes = stats.size;
+    const fileSizeInMegabytes = fileSizeInBytes / (1024 * 1024);
+
+    if (fileSizeInMegabytes > 25) {
+        throw new Error(`${fileInfo.fileName} exceeds the maximum file size of 25 MB`);
+    }
+
+    // Supported file extensions for video, audio, and image formats
+    const videoExtensions = ['.mp4', '.avi', '.mov', '.wmv', '.mkv'];
+    const audioExtensions = ['.mp3', '.wav', '.ogg', '.flac'];
+    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
+
+    const fileExtension = fileInfo.fileName.split('.').pop().toLowerCase();
+
+    if (
+        !videoExtensions.includes(fileExtension) &&
+        !audioExtensions.includes(fileExtension) &&
+        !imageExtensions.includes(fileExtension)
+    ) {
+        throw new Error(`${fileInfo.fileName} must be a video, audio, or image file`);
+    }
+
+}
+
+module.exports = validateFileUpload;
+
 module.exports = {
     validatePassword,
     validateEmail,
@@ -128,5 +166,6 @@ module.exports = {
     validateCity,
     validateToken,
     validateIpGeoLocation,
-    validateEuroPrice
+    validateEuroPrice,
+    validateFileUpload
 }

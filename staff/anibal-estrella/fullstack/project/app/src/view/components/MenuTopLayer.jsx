@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { MenuItem } from '../library'
 import { XCircleIcon } from '@heroicons/react/24/solid'
 
-export default function MenuLayer({ onClose, items }) {
+export default function MenuLayer({ onClose, items, isUserLoggedIn }) {
     console.debug('/// MENULayer  -> Render')
 
     return (
@@ -14,9 +14,15 @@ export default function MenuLayer({ onClose, items }) {
                     <XCircleIcon className='w-8 h-8' />
                 </MenuItem>
 
-                <MenuItem tag={Link} id="profile" className="m-2 text-gray-100" to="/profile" handleItemClick={onClose} >
-                    profile
+                <MenuItem tag={Link} id="home" className="m-2 text-gray-100" to="/" handleItemClick={onClose} >
+                    Home
                 </MenuItem>
+
+                {isUserLoggedIn() ?? (
+                    <MenuItem tag={Link} id="profile" className="m-2 text-gray-100" to="/profile" handleItemClick={onClose} >
+                        profile
+                    </MenuItem>
+                )}
 
                 {items.map(item => (
                     <MenuItem

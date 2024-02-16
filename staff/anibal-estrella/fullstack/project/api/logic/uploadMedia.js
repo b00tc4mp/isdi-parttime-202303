@@ -1,7 +1,10 @@
-const fs = require('fs')
+const fs = require('fs');
 const ImageKit = require("imagekit");
+const {
+    errors: { ExistenceError, ContentError },
+    validators: { validateText, validateId }
+} = require('com');
 
-// You can initialize ImageKit here or in your main application.
 
 const imagekit = new ImageKit({
     publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
@@ -9,19 +12,35 @@ const imagekit = new ImageKit({
     urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT
 });
 
-const uploadMedia = (filePath, fileName) => {
-    return new Promise((resolve, reject) => {
-        const fileData = fs.readFileSync(filePath);
-        const base64Image = fileData.toString('base64'); // Convert buffer to base64
+const uploadMedia = (files) => {
+    if (files.length > 5) {
+        return Promise.reject(new Error("Exceeded maximum number of files. Maximum allowed: 5"));
+    }
 
-        imagekit.upload({
-            file: base64Image, // Base64 encoded string
-            fileName: fileName
-        }, function (error, result) {
-            if (error) reject(error);
-            else resolve(result);
+    const uploadPromises = files.map(({ filePath, fileName }) => {
+        return new Promise((resolve, reject) => {
+            const stats = fs.statSync(filePath);
+            const fileSizeInBytes = stats.size;
+            const fileSizeInMegabytes = fileSizeInBytes / (1024 * 1024);
+
+            if (fileSizeInMegabytes > 25) {
+                reject(new Error(`${fileName} exceeds the maximum file size of 25 MB`));
+            }
+
+            const fileData = fs.readFileSync(filePath);
+            const base64Image = fileData.toString('base64');
+
+            imagekit.upload({
+                file: base64Image,
+                fileName: fileName
+            }, function (error, result) {
+                if (error) reject(error);
+                else resolve(result);
+            });
         });
     });
+
+    return Promise.all(uploadPromises);
 };
 
 module.exports = uploadMedia;

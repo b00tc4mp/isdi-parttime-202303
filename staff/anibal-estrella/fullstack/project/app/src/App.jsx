@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import retrieveUserGeolocation from './logic/users/retrieveUserGeolocation'
 import AppContext from './AppContext'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
-import isUserLoggedIn from './logic/users/isUserLoggedIn'
+import { isUserLoggedIn, retrieveUser } from './logic/users/'
 import { Home, Profile, Login, Create } from './view/pages'
 import { MenuTop, MenuBottom, Alert, Footer } from './view/components'
 import { Loader } from './view/library'
@@ -10,9 +10,12 @@ import { Loader } from './view/library'
 const { Provider } = AppContext
 
 function App() {
+    console.log('>>> App');
+
     const [isVisible, setIsVisible] = useState(false);
     const [city, setCity] = useState('');
     const [feedback, setFeedback] = useState(null)
+    const [user, setUser] = useState()
 
     const [loader, setLoader] = useState(false)
     // const freeze = () => setLoader(true)
@@ -61,9 +64,15 @@ function App() {
 
     const [ipGeoLocation, setGeolocation] = useState('');
 
-
-
     useEffect(() => {
+        try {
+            retrieveUser()
+                .then(setUser)
+                .catch(error => alert(error.message))
+        } catch (error) {
+            alert(error.message)
+        }
+
         async function fetchGeolocation() {
             const geolocationData = await retrieveUserGeolocation();
             const closestCity = geolocationData.closestCity;
@@ -79,26 +88,26 @@ function App() {
         <MenuTop
             isVisible={isVisible}
             setIsVisible={setIsVisible}
+            isUserLoggedIn={isUserLoggedIn}
         />
 
 
         <Routes>
             {(() => console.log("ROUTES = render"))()}
 
-            <Route path="/" element={<Home city={city} ipGeoLocation={ipGeoLocation} />} />
-            <Route path="/login" element={isUserLoggedIn() ? <Navigate to="/" /> : <Login city={city} ipGeoLocation={ipGeoLocation} />} />
+            <Route path="/" element={<Home city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
+            <Route path="/login" element={isUserLoggedIn() ? <Navigate to="/" /> : <Login city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/events" element={<Home />} />
             <Route path="/reviews" element={<Home />} />
             <Route path="/artists" element={<Home />} />
-            <Route path="/Create" element={<Create city={city} ipGeoLocation={ipGeoLocation} />} />
+            <Route path="/Create" element={<Create city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
         </Routes>
 
         {feedback && <Alert message={feedback.message} level={feedback.level} onAccept={handleAcceptAlert}
             onPanelClick={handlePanelClick}
         />}
         {loaderPercentage > 0 && <Loader percentage={loaderPercentage} />}
-
 
         <Footer />
         <MenuBottom />

@@ -21,6 +21,9 @@ export default {
                 'h2': '85%',
                 'p': '1.5',
             },
+            gridTemplateColumns: {
+                'profile': 'auto 1fr'
+            },
             textColor: ['hover'],
             variants: {
                 extend: {

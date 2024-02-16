@@ -1,13 +1,18 @@
-require('dotenv').config()
+require('dotenv').config();
 
-const mongoose = require('mongoose')
-const uploadMedia = require('./uploadMedia')
-const path = require('path')
+const mongoose = require('mongoose');
+const uploadMedia = require('./uploadMedia');
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/data-project')
     .then(() => {
-        const filePath = path.join(__dirname, '../data-project/test/aliceInChains-01.webp');
-        return uploadMedia(filePath, 'aliceInChains-04.web')
+        const files = [
+            { filePath: './data-project/test/menItrust-01-poster.jpg', fileName: 'menItrust-01-poster.jpg' },
+            // { filePath: './data-project/test/menItrust-01.mp4', fileName: 'menItrust-video' },
+            // Add more files as needed
+        ];
+
+        return uploadMedia(files);
     })
     .then(response => {
         console.log("Upload response:", response);

@@ -6,7 +6,7 @@ import { Button } from '../library'
 // import { SearchArtistList as SearchArtist, SearchPlace } from '../components'
 // import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
-const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen }) => {
+const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen, user }) => {
     const { alert, freeze, unfreeze, navigate } = useAppContext()
 
     const [Profile, setProfile] = useState(null);
@@ -45,31 +45,31 @@ const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen }) => {
     }
 
     return (
-        <section id="create" className=" px-3">
+        <section id="create" className=" px-3 pt-4">
 
             <div className=' px-3'>
                 {city && <p>Your City: {city} </p>}
                 {city && <p>Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </p>}
             </div >
-
-            <h2>What do you want to create?</h2>
+            <div>
+                {user && <h2>{user.name}, What do you want to do?</h2>
+                }
+            </div>
 
             <div className='grid grid-cols-2  gap-2 pt-4  h-72 '>
-                <div className='flex flex-col p-4 pt-16 bg-gray-300 hover:bg-gray-200 duration-300 rounded-2xl '>
-                    <h3>I just want to create an event</h3>
-                    <p>Fill up the fields, date, place, poster, line up artists...</p>
-                    <Button onClick={handleCreate} className={'mt-auto max-w-fit'}>Create Event</Button>
-                </div>
-                <div className='flex flex-col rounded-2xl p-4 pt-16  bg-gray-300 hover:bg-gray-200 duration-300'>                    <h3>I want to create an event review</h3>
+                <div className='flex flex-col rounded-2xl p-4  bg-pattern-02 bg-gray-300 hover:bg-gray-200 duration-300 bg-center'>
+                    <h3 className=' text-4xl'>Create an event review</h3>
                     <p>Fill up the fields, create event, text review, images, audio, video, score...</p>
                     <Button onClick={handleCreate} className={' mt-auto max-w-fit'}>Create Review</Button>
                 </div>
+                <div className='flex flex-col rounded-2xl p-4  bg-pattern-02 bg-gray-300 hover:bg-gray-200 duration-300 bg-right'>
+                    <h3 className=' text-4xl'>Create just an event</h3>
+                    <p>Fill up the fields, date, place, poster, line up artists...</p>
+                    <Button onClick={handleCreate} className={'mt-auto max-w-fit'}>Create Event</Button>
+                </div>
             </div>
 
-
-
         </section>
-
     )
 };
 

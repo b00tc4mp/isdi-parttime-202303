@@ -24,3 +24,5 @@ module.exports = (email) => {
             return user.id
         })
 }
+
+// return { status: 406, message: error.message }; 

@@ -28,6 +28,8 @@ export default plugin(({ addBase, addComponents, addUtilities, theme, config }) 
             borderColor: config('theme.borderColor.lime'),
             borderWidth: config('theme.borderWidth.2'),
             borderRadius: config('theme.borderRadius.full'),
+            fontWeight: '400',
+
         },
 
         'strong': {
@@ -48,11 +50,13 @@ export default plugin(({ addBase, addComponents, addUtilities, theme, config }) 
             color: 'black',
             borderRadius: '9999px',
             cursor: 'text',
+            fontWeight: '300',
+            margin: '0.5rem 0'
         },
 
         backgroundImage: {
             'logo-background': "url('./assets/LiveDive-Logo-W.svg')",
-        },
+        }
     })
 
     addComponents({
@@ -80,10 +84,19 @@ export default plugin(({ addBase, addComponents, addUtilities, theme, config }) 
             "-ms-overflow-style": "none",
             "scrollbar-width": "none",
         },
-        //     '.hover\:a:hover': {
-        //         borderColor: config('theme.borderColor.red'),
-        //         borderWidth: config('theme.borderWidth.2'),
-        //         borderRadius: config('theme.borderRadius.full')
-        //     },
+        '.button-cancel': {
+            backgroundColor: theme('backgroundColor.gray.300'),
+        },
+        '.button-cancel-hover': {
+            backgroundColor: theme('backgroundColor.gray.200'),
+        },
+        ".bg-pattern-01": {
+            background: "repeat url('./assets/pattern-01.svg')",
+        },
+        ".bg-pattern-02": {
+            backgroundImage: "url('./assets/pattern-02.svg')",
+            backgroundSize: "400%",
+        },
+
     }, ['responsive', 'hover']);
 })

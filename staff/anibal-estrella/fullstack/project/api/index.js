@@ -17,8 +17,7 @@ if (
     process.exit(1);
 }
 
-
-var imagekit = new ImageKit({
+const imagekit = new ImageKit({
     publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
     privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
     urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT
@@ -33,10 +32,11 @@ const {
     registerUserHandler,
     authenticateUserEmailHandler,
     authenticateUserHandler,
-    uploadMediaHandler,
     retrieveUserHandler,
+    updateUserProfileHandler,
+    uploadMediaHandler,
     createEventHandler,
-    createEventReviewHandler
+    createEventReviewHandler,
 } = require('./handlers')
 
 
@@ -60,11 +60,14 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/users', retrieveUserHandler)
 
-        api.post('/upload', jsonBodyParser, uploadMediaHandler)
+        api.patch('/users/user-update-profile', jsonBodyParser, updateUserProfileHandler)
 
-        api.post('/create-event', jsonBodyParser, createEventHandler)
+        // api.post('/upload', jsonBodyParser, uploadMediaHandler)
 
-        api.post('/create-event-review', jsonBodyParser, createEventReviewHandler)
+        // api.post('/create-event', jsonBodyParser, createEventHandler)
+
+        // api.post('/create-event-review', jsonBodyParser, createEventReviewHandler)
+
 
         // api.get('/events', retrieveEventsHandler)
 
@@ -78,7 +81,6 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // api.patch('/users/password', jsonBodyParser, updateUserPasswordHandler)
 
-        // api.patch('/users/email', jsonBodyParser, updateUserEmailHandler)
 
         // api.patch('/events/:postId/likes', toggleLikeEventHandler)
 

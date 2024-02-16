@@ -2,12 +2,10 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { useAppContext } from '../hooks'
 
-import registerUser from '../../logic/users/registerUser';
-import retrieveUserEmail from '../../logic/users/retrieveUserEmail';
-import loginUser from '../../logic/users/loginUser';
+import { loginUser, retrieveUserEmail, registerUser, retrieveUser } from '../../logic/users/';
 import { Button } from '../library'
 
-const Login = ({ city, ipGeoLocation }) => {
+const Login = ({ city, ipGeoLocation, user }) => {
     console.debug('// Login/Register  -> Render');
     const { alert, freeze, unfreeze, navigate } = useAppContext()
     const [showPasswordLayer, setShowPasswordLayer] = useState(null);
@@ -21,36 +19,42 @@ const Login = ({ city, ipGeoLocation }) => {
             freeze()
             retrieveUserEmail(userEmail)
                 .then(() => {
+                    alert(`${userEmail} is in our db!`)
                     setShowPasswordLayer(true)
                 })
                 .catch(error => {
                     alert(error.message)
-                    setShowPasswordLayer(false)
+                    if (error.status === 406) {
+                        setShowPasswordLayer(null)
+                    } else {
+                        setShowPasswordLayer(false)
+                    }
                 })
 
         } catch (error) {
             unfreeze()
-
             alert(error.message)
         }
         unfreeze()
     }
 
-    const handleLogin = event => {
-        event.preventDefault()
-        const password = event.target.password.value
+    const handleLogin = async event => {
+        event.preventDefault();
+        const password = event.target.password.value;
 
         try {
-            freeze()
-            loginUser(email, password)
-                .then(() => navigate('/'))
-                .catch(error => alert(error.message, 'error'))
+            freeze();
+            await loginUser(email, password);
+            const userData = await retrieveUser();
+            navigate('/', { state: { user: userData } })
+
         } catch (error) {
-            unfreeze()
-            alert(error.message, 'warn')
+            unfreeze();
+            alert(error.message, 'error');
+        } finally {
+            unfreeze();
         }
-        unfreeze()
-    }
+    };
 
 
     function handleRegister(event) {
@@ -74,8 +78,12 @@ const Login = ({ city, ipGeoLocation }) => {
         // unfreeze()
     }
 
-    return <div className='flex flex-col items-center'>
-        <div className='m-2 self-start'>
+    const handleCancel = () => {
+        setShowPasswordLayer(null);
+    }
+
+    return <div className='flex flex-col items-center px-4'>
+        <div className='self-start'>
             {city && <p>Your City: {city} </p>}
             {city && <p>Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </p>}
         </div >
@@ -85,42 +93,54 @@ const Login = ({ city, ipGeoLocation }) => {
                 <h2>Register / Login</h2>
                 <form action="" onSubmit={handleLoginEmail}>
                     <label htmlFor="email">E-mail:</label>
-                    <input type="text" className="h-10" name="email" placeholder="Enter your e-mail" autoComplete="on" />
+                    <input type="text" className="h-10" name="email" placeholder="Enter your e-mail" autoComplete="on" autoFocus />
                     <Button type="submit" value="validateEmail">continue with email</Button>
                 </form>
             </div>
         )}
 
-        {showPasswordLayer === true && (
+        {showPasswordLayer && (
             <div id='login'>
                 <form action="" onSubmit={handleLogin}>
                     <label htmlFor="Email">Email:</label>
                     <p>{email}</p>
                     <label htmlFor="password">Password:</label>
-                    <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="on" />
+                    <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="on" autoFocus />
                     <Button type="submit" value="loginUser">Continue with password</Button>
                 </form>
             </div>
         )}
 
         {showPasswordLayer === false && (
-            <div id="register" tag='section' className="p-4" >
+            <div id="register" tag='section'  >
                 <h2>Register </h2>
-                <form method="get" className="register-form border-top-gradient" onSubmit={handleRegister}>
-                    <label htmlFor="Email">Email:</label>
-                    <p>{email}</p>
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" className="name" name="name" placeholder="Enter your name" autoComplete="enter name" />
+                <label htmlFor="Email">Email:</label>
+                <p>There's no related account by the <span className=' font-bold'>{email}</span> email.</p>
+                <form method="get" className="grid grid-cols-2 gap-4" onSubmit={handleRegister}>
 
-                    <label htmlFor="nickName"> Nick name:</label>
-                    <input type="text" className="nickName" name="nickName" placeholder="Enter your nickName" autoComplete="on" />
+                    <div>
 
-                    <label htmlFor="password">Password:</label>
-                    <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="off" />
+                        <label htmlFor="name">Name:</label>
+                        <input type="text" className="name" name="name" placeholder="Enter your name" autoComplete="enter name" autoFocus />
+                    </div>
+                    <div>
 
-                    <label htmlFor="password">Repeat password:</label>
-                    <input type="password" className="password" name="repeatPassword" placeholder="Repeat your password" autoComplete="off" />
-                    <Button type="submit" value="register">Register</Button>
+                        <label htmlFor="nickName">Nick name:</label>
+                        <input type="text" className="nickName" name="nickName" placeholder="Enter your nickName" autoComplete="on" />
+                    </div>
+                    <div>
+
+                        <label htmlFor="password">Password:</label>
+                        <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="off" />
+
+                    </div>
+                    <div>
+                        <label htmlFor="password">Repeat password:</label>
+                        <input type="password" className="password" name="repeatPassword" placeholder="Repeat your password" autoComplete="off" />
+                    </div>
+                    <Button type="button" className={'button-cancel hover:button-cancel-hover'} onClick={handleCancel}>Cancel</Button>
+
+                    <Button type="submit" value="register" on>Register</Button>
                 </form>
             </ div >
         )}
