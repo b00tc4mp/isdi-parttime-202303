@@ -12,7 +12,7 @@ const { User } = require('../data-project/models')
 module.exports = userId => {
     validateId(userId, 'user Id')
 
-    return User.findById(userId, "name avatar city").lean()
+    return User.findById(userId, "name avatar city email nickName").lean()
         .then(user => {
             if (!user) throw new ExistenceError('user not found')
 

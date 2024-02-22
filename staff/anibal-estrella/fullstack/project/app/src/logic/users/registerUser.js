@@ -1,5 +1,8 @@
-export default (name, nickName, email, password, repeatPassword, city, ipGeoLocation) => {
-    debugger
+export default (name, nickName, email, emailConfirm, password, repeatPassword, city, ipGeoLocation) => {
+    if (email !== emailConfirm) {
+        throw new Error("eMails do not match, please try again");
+    }
+
     if (password !== repeatPassword) {
         throw new Error("Passwords do not match, please try again");
     }

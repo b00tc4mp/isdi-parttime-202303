@@ -1,25 +1,23 @@
 const {
     validators: { validateEmail, validatePassword },
-    errors: { AuthError, ExistenceError }
+    errors: { ExistenceError, AuthError }
 } = require('com')
-
-const { User } = require('../data-project/models.js')
+const { User } = require('../data-project/models')
 const bcrypt = require('bcryptjs')
 
 /**
- * Api/AuthenticateUser:
- * Authenticate a user against its credentials
+ * Authenticates a user against his/her credentials
  * 
- * @param {string} email 
- * @param {string} password 
+ * @param {string} email The user email
+ * @param {string} password The user password
  * 
- * @returns {Promise<string>} The user ID
- * Errors:
- * @throws {TypeError} on non-string email or password
- * @throws {ContentError} on empty email
- * @throws { RangeError} on password length lower than 8 characters
- * @throws { ExistenceError} on non-existing user
- * @throws {AuthError} on wrong credentials
+ * @returns {Promise<string>} The user id
+ * 
+ * @throws {TypeError} On non-string email or password
+ * @throws {ContentError} On empty email
+ * @throws {RangeError} On password length lower than 8 characters
+ * @throws {ExistenceError} On non-existing user
+ * @throws {AuthError} On wrong credentials
  */
 module.exports = (email, password) => {
     validateEmail(email)
@@ -27,12 +25,12 @@ module.exports = (email, password) => {
 
     return (async () => {
         const user = await User.findOne({ email })
+
         if (!user) throw new ExistenceError('user not found')
 
         const match = await bcrypt.compare(password, user.password)
-        if (!match) {
-            throw new AuthError('wrong credentials');
-        }
+
+        if (!match) throw new AuthError('wrong credentials')
 
         return user.id
     })()

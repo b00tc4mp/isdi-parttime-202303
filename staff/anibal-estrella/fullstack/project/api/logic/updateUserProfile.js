@@ -21,6 +21,16 @@ module.exports = (userId, userNewEmail, userNewEmailConfirm) => {
 
     if (userNewEmail !== userNewEmailConfirm) throw new ExistenceError(`the new Emails confirmation doesn't match`)
 
+    return (async () => {
+        const user = await User.findOne({ email })
+        if (!user) throw new ExistenceError('user not found')
+
+        const match = await bcrypt.compare(password, user.password)
+        if (!match) {
+            throw new AuthError('wrong credentials');
+        }
+
+    })()
 
     return Promise.all([
         User.findById(userId, 'Email').lean(),

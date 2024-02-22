@@ -2,56 +2,41 @@ import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 
 import { useAppContext } from '../hooks'
-import { isUserLoggedIn } from '../../logic/users/'
 import { EventCard, DraggableSlider, HeaderWelcome } from '../components'
 
-export default ({ city, ipGeoLocation }) => {
-    const location = useLocation();
-    const { user } = location.state || {};
-    console.debug('// Home  -> Render ', user);
-
-
+export default ({ city, isUserLoggedIn, retrieveUser }) => {
+    console.debug('// Home  -> Render');
+    const [user, setUser] = useState()
     const items = Array(10).fill(0).map((_, index) => index + 1) //temporary for the cards slider
-
     const { alert, freeze, unfreeze, navigate } = useAppContext(); // Access the context using your custom hook
-    const [selectedNavItem, setSelectedNavItem] = useState('artist');
-    const [showMenuLayer, setShowMenuLayer] = useState(false);
-
-    const handleBurguerMenuClick = () => {
-        setShowMenuLayer(prevState => !prevState);
-    }
+    // const [selectedNavItem, setSelectedNavItem] = useState('artist');
+    const [showMenuLayer, setShowMenuLayer] = useState(false)
 
     useEffect(() => {
-        // Update context when user data changes
-        if (user) {
-            navigate('/', { state: { user } });
+        freeze()
+        try {
+            retrieveUser()
+                .then(setUser)
+                .catch(error => alert(error.message))
+        } catch (error) {
+            unfreeze()
+            alert(error.message)
         }
-    }, [user, navigate]);
+        unfreeze()
+    }, [])
 
 
-    return <section id="home" className="px-3">
-        <div>
+    return <section id="home" className="px-3 [&>section]:pt-4">
+        < HeaderWelcome city={city} user={user} isUserLoggedIn={isUserLoggedIn} />
+        <section id='Events'>
+            <h3>Events in <span>your area: {city}</span></h3>
+            <DraggableSlider>
+                {Array.from({ length: 10 }).map((_, index) => (
+                    <EventCard key={index} />
+                ))}
+            </DraggableSlider>
 
-            {isUserLoggedIn() &&
-                <div className='pt-2 px-3'>
-                    <h1>
-                        Hi {user && user.name}!
-                    </h1>
-                    <h3>Welcome,
-                        {user && <> {user.name} from {user.city}</>}!
-                    </h3>
-                    <div className=' text-xs px-4'>
-                        {city && <p>Your City: {city} Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </p>}
-                    </div >
-                </div>
-            }
-        </div>
-
-        < HeaderWelcome />
-
-
-
-
+        </section>
         <section id='events-featured'>
             <h3>Upcoming Events</h3>
             <DraggableSlider>
@@ -68,15 +53,7 @@ export default ({ city, ipGeoLocation }) => {
                 ))}
             </DraggableSlider>
         </section>
-        <section id='Events'>
-            <h3>Events in <span>your area</span></h3>
-            <DraggableSlider>
-                {Array.from({ length: 10 }).map((_, index) => (
-                    <EventCard key={index} />
-                ))}
-            </DraggableSlider>
 
-        </section>
     </section>
 
 

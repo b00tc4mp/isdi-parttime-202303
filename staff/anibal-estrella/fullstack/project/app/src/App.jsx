@@ -95,12 +95,12 @@ function App() {
         <Routes>
             {(() => console.log("ROUTES = render"))()}
 
-            <Route path="/" element={<Home city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
-            <Route path="/login" element={isUserLoggedIn() ? <Navigate to="/" /> : <Login city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/events" element={<Home />} />
-            <Route path="/reviews" element={<Home />} />
-            <Route path="/artists" element={<Home />} />
+            <Route path="/" element={<Home city={city} ipGeoLocation={ipGeoLocation} user={user} retrieveUser={retrieveUser} />} />
+            <Route path="/login" element={isUserLoggedIn() ? <Navigate to="/" city={city} ipGeoLocation={ipGeoLocation} user={user} /> : <Login city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
+            <Route path="/profile" element={<Profile city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
+            <Route path="/events" element={<Home city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
+            <Route path="/reviews" element={<Home city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
+            <Route path="/artists" element={<Home city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
             <Route path="/Create" element={<Create city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
         </Routes>
 
@@ -109,7 +109,7 @@ function App() {
         />}
         {loaderPercentage > 0 && <Loader percentage={loaderPercentage} />}
 
-        <Footer />
+        <Footer isUserLoggedIn={isUserLoggedIn} city={city} ipGeoLocation={ipGeoLocation} user={user} />
         <MenuBottom />
     </Provider >
 }

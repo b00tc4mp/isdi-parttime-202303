@@ -1,28 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '../library'
 import { Link } from 'react-router-dom';
+import { isUserLoggedIn } from '../../logic/users/'
 
 
-function HeaderWelcome({ handleClick }) {
+function HeaderWelcome({ handleClick, user }) {
+    console.log('HeaderWelcome >> RENDER');
 
     return (
-        <div className="grid p-4 grid-cols-2 gap-x-20 h-[calc(100vh_-_6rem)]">
+        <div className="grid gap-x-20  md:grid-cols-2 pt-4 md:h-[calc(100vh_-_8rem)] ">
             {/* <div className="grid p-4 grid-cols-2 gap-x-20 h-screen"> */}
             <div className='flex flex-col justify-end '>
-
                 <h2 className='  '>
+                    {isUserLoggedIn() ? (<> Hi {user && user.name}!! </>) : (<> Hi! </>)}
                     Review events and keep them forever
                 </h2>
                 <p>
-                    Step into a dynamic hub pulsating with the energy of live concerts and events, where every beat is a thread connecting individuals from all walks of life. Here, vibrant communities converge to share their passion for music and create unforgettable memories. Join us in this lively space, where the thrill of live entertainment ignites a sense of belonging and camaraderie like no other.
+                    Step into a dynamic hub with the energy of live concerts and events, where every beat is a thread connecting individuals from all walks of life. Here, vibrant communities converge to share their passion for music and create unforgettable memories.
                 </p>
-                <Link to="/create">
-                    <Button className={'max-w-fit'} >let's go</Button>
-                </Link>
-
+                <div className=' text-right'>
+                    <Link to="/create">
+                        <Button className={'max-w-fit mb-4 md:mb-0'} >let's go</Button>
+                    </Link>
+                </div>
             </div>
-            <div className='overflow-hidden rounded-lg w-full h-full'>
-                <img src="https://picsum.photos/1500?random=2" alt="" className='object-cover h-full w-full' />
+            <div className='overflow-hidden rounded-lg w-full h-full row-start-1 mb-4 md:mb-0 md:row-auto'>
+                <img src="https://picsum.photos/1500?random=2" alt="" className='object-cover h-full md:h-full w-full' />
             </div>
         </div>
     );

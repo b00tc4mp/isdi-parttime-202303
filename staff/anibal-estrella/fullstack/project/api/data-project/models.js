@@ -22,6 +22,10 @@ const user = new Schema({
         trim: true,
         minLength: 8
     },
+    registrationDate: {
+        type: Date,
+        default: Date.now
+    },
     ipGeoLocation: {
         type: {
             type: String,

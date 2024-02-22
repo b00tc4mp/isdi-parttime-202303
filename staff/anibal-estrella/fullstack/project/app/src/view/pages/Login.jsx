@@ -7,9 +7,10 @@ import { Button } from '../library'
 
 const Login = ({ city, ipGeoLocation, user }) => {
     console.debug('// Login/Register  -> Render');
-    const { alert, freeze, unfreeze, navigate } = useAppContext()
     const [showPasswordLayer, setShowPasswordLayer] = useState(null);
     const [email, setEmail] = useState("");
+    const { alert, freeze, unfreeze, navigate } = useAppContext()
+
 
     function handleLoginEmail(event) {
         event.preventDefault()
@@ -63,13 +64,17 @@ const Login = ({ city, ipGeoLocation, user }) => {
         const nickName = event.target.nickName.value
         const password = event.target.password.value
         const repeatPassword = event.target.repeatPassword.value
+        const emailConfirm = event.target.emailConfirm.value
 
         try {
             // freeze()
-            registerUser(name, nickName, email, password, repeatPassword, city, ipGeoLocation)
-                .then(() => alert('user registered!'))
+            debugger
+            registerUser(name, nickName, email, emailConfirm, password, repeatPassword, city, ipGeoLocation)
+                .then(() => {
+                    alert(`${name}, you have been succesfully registered!`)
+                    setShowPasswordLayer(null)
+                })
                 .catch(error => alert(error.message))
-            console.log(ipGeoLocation);
             // unfreeze()
         } catch (error) {
             alert(error.message)
@@ -82,68 +87,77 @@ const Login = ({ city, ipGeoLocation, user }) => {
         setShowPasswordLayer(null);
     }
 
-    return <div className='flex flex-col items-center px-4'>
-        <div className='self-start'>
-            {city && <p>Your City: {city} </p>}
-            {city && <p>Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </p>}
-        </div >
+    return <div className='flex items-center justify-center px-4 h-[calc(100vh-7rem)]'>
+        <div className=''>
 
-        {showPasswordLayer === null && (
-            <div id='login-register' className="p-4">
-                <h2>Register / Login</h2>
-                <form action="" onSubmit={handleLoginEmail}>
-                    <label htmlFor="email">E-mail:</label>
-                    <input type="text" className="h-10" name="email" placeholder="Enter your e-mail" autoComplete="on" autoFocus />
-                    <Button type="submit" value="validateEmail">continue with email</Button>
-                </form>
-            </div>
-        )}
+            {showPasswordLayer === null && (
+                <div id='login-register' >
+                    <h2>Register / Login</h2>
+                    <form action="" onSubmit={handleLoginEmail}>
+                        <label htmlFor="email">E-mail:</label>
+                        <input type="text" className="h-10" name="email" placeholder="Enter your e-mail" autoComplete="on" autoFocus />
+                        <Button type="submit" value="validateEmail">continue with email</Button>
+                    </form>
+                </div>
+            )}
 
-        {showPasswordLayer && (
-            <div id='login'>
-                <form action="" onSubmit={handleLogin}>
-                    <label htmlFor="Email">Email:</label>
-                    <p>{email}</p>
-                    <label htmlFor="password">Password:</label>
-                    <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="on" autoFocus />
-                    <Button type="submit" value="loginUser">Continue with password</Button>
-                </form>
-            </div>
-        )}
-
-        {showPasswordLayer === false && (
-            <div id="register" tag='section'  >
-                <h2>Register </h2>
-                <label htmlFor="Email">Email:</label>
-                <p>There's no related account by the <span className=' font-bold'>{email}</span> email.</p>
-                <form method="get" className="grid grid-cols-2 gap-4" onSubmit={handleRegister}>
-
-                    <div>
-
-                        <label htmlFor="name">Name:</label>
-                        <input type="text" className="name" name="name" placeholder="Enter your name" autoComplete="enter name" autoFocus />
-                    </div>
-                    <div>
-
-                        <label htmlFor="nickName">Nick name:</label>
-                        <input type="text" className="nickName" name="nickName" placeholder="Enter your nickName" autoComplete="on" />
-                    </div>
-                    <div>
-
+            {showPasswordLayer && (
+                <div id='login'>
+                    <h2>Login</h2>
+                    <form action="" onSubmit={handleLogin}>
+                        <label htmlFor="Email">Email:</label>
+                        <p>{email}</p>
                         <label htmlFor="password">Password:</label>
-                        <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="off" />
+                        <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="on" autoFocus />
+                        <Button type="submit" value="loginUser">Continue with password</Button>
+                    </form>
+                </div>
+            )}
 
-                    </div>
+            {showPasswordLayer === false && (
+                <div id="register" tag='section'  >
+                    <h2>Register</h2>
+                    <div className='self-start'>
+                        {city && <p>Your City: {city} Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </p>}
+                    </div >
+                    <label htmlFor="Email">Email:</label>
+                    <p>There's no related account by the <span className=' font-bold'>{email}</span> email.</p>
                     <div>
-                        <label htmlFor="password">Repeat password:</label>
-                        <input type="password" className="password" name="repeatPassword" placeholder="Repeat your password" autoComplete="off" />
-                    </div>
-                    <Button type="button" className={'button-cancel hover:button-cancel-hover'} onClick={handleCancel}>Cancel</Button>
 
-                    <Button type="submit" value="register" on>Register</Button>
-                </form>
-            </ div >
-        )}
+                        <input type="text" className="email" name="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="enter email" autoFocus />
+                    </div>
+                    <form method="get" className="grid grid-cols-2 gap-4" onSubmit={handleRegister}>
+
+                        <div>
+                            <label htmlFor="emailConfirm">Email Confirmation:</label>
+                            <input type="text" className="" name="emailConfirm" placeholder="please confirm your eeMail" autoComplete="enter eMail confiormation" autoFocus />
+
+                            <label htmlFor="name">Name:</label>
+                            <input type="text" className="name" name="name" placeholder="Enter your name" autoComplete="enter name" autoFocus />
+                        </div>
+                        <div>
+
+                            <label htmlFor="nickName">Nick name:</label>
+                            <input type="text" className="nickName" name="nickName" placeholder="Enter your nickName" autoComplete="on" />
+                        </div>
+                        <div>
+
+                            <label htmlFor="password">Password:</label>
+                            <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="off" />
+
+                        </div>
+                        <div>
+                            <label htmlFor="password">Repeat password:</label>
+                            <input type="password" className="password" name="repeatPassword" placeholder="Repeat your password" autoComplete="off" />
+                        </div>
+
+                        <Button type="button" className={'button-cancel hover:button-cancel-hover'} onClick={handleCancel}>Cancel</Button>
+
+                        <Button type="submit" value="register" on>Register</Button>
+                    </form>
+                </ div >
+            )}
+        </div>
     </div>
 }
 

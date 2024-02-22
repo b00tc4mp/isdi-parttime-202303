@@ -47,10 +47,6 @@ const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen, user }) => {
     return (
         <section id="create" className=" px-3 pt-4">
 
-            <div className=' px-3'>
-                {city && <p>Your City: {city} </p>}
-                {city && <p>Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </p>}
-            </div >
             <div>
                 {user && <h2>{user.name}, What do you want to do?</h2>
                 }

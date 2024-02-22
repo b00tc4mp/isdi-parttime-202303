@@ -1,17 +1,22 @@
 import { validators } from 'com'
+import loginUser from './loginUser'
+
 const { validateToken, validateEmail, validateCallback, validateName, validateNickName, validatePassword } = validators
 
 /**
  * 
  */
 
-export default (token, name, nickName, newEmail, newEmailConfirm, password, callback) => {
+export default (token, name, nickName, email, password, newEmail, newEmailConfirm, userNewPassword, userNewPasswordConfirm, callback) => {
     validateToken(token)
-    validateEmail(newEmail, 'Email')
+    validateEmail(email, 'Email')
+    validateEmail(newEmail, 'new Email')
     validateEmail(newEmailConfirm, 'Email')
     validateName(name, 'name')
     validateNickName(nickName, 'nickname')
-    validatePassword(password, 'password')
+    validateEmail(password, 'password')
+    validatePassword(userNewPassword, 'New Password')
+    validatePassword(userNewPasswordConfirm, 'New Password Confirmation')
 
     if (callback) {
         validateCallback(callback, 'callback function')
@@ -46,13 +51,19 @@ export default (token, name, nickName, newEmail, newEmailConfirm, password, call
             nickName: nickName,
             newEmail: newEmail,
             newEmailConfirm: newEmailConfirm,
-            password: password
+            password: userNewPassword
         }
 
         const json = JSON.stringify(data)
 
         xhr.send(json)
         return
+    }
+
+    try {
+        loginUser(email, password);
+    } catch (error) {
+        throw new Error('Authentication failed. Please check your credentials.');
     }
 
     return fetch(`${import.meta.env.VITE_API_URL}/Users/user-update-profile/`, {
