@@ -34,10 +34,13 @@ function menuTop({ isVisible, setIsVisible, isUserLoggedIn, navigate }) {
 
 
     const handleLogOut = () => {
-        closeMenuTopLayer()
-        logOutUser()
-        navigate('/')
-    }
+        closeMenuTopLayer();
+        const isConfirmed = window.confirm(`${user.name}, are you sure you want to log out ? `);
+        if (isConfirmed) {
+            logOutUser();
+            navigate('/');
+        }
+    };
 
     const handleLoginReload = location.pathname === '/login' ? () => {
         window.location.reload();

@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { useState } from 'react';
 import { useAppContext } from '../hooks'
 
-import { loginUser, retrieveUserEmail, registerUser, retrieveUser } from '../../logic/users/';
+import { loginUser, retrieveUserEmail, registerUser } from '../../logic/users/';
 import { Button } from '../library'
 
-const Login = ({ city, ipGeoLocation, user }) => {
+const Login = ({ city, ipGeoLocation }) => {
     console.debug('// Login/Register  -> Render');
     const [showPasswordLayer, setShowPasswordLayer] = useState(null);
     const [email, setEmail] = useState("");
     const { alert, freeze, unfreeze, navigate } = useAppContext()
-
 
     function handleLoginEmail(event) {
         event.preventDefault()
@@ -20,7 +18,6 @@ const Login = ({ city, ipGeoLocation, user }) => {
             freeze()
             retrieveUserEmail(userEmail)
                 .then(() => {
-                    alert(`${userEmail} is in our db!`)
                     setShowPasswordLayer(true)
                 })
                 .catch(error => {
@@ -31,12 +28,12 @@ const Login = ({ city, ipGeoLocation, user }) => {
                         setShowPasswordLayer(false)
                     }
                 })
-
         } catch (error) {
             unfreeze()
             alert(error.message)
+        } finally {
+            unfreeze();
         }
-        unfreeze()
     }
 
     const handleLogin = async event => {
@@ -45,18 +42,14 @@ const Login = ({ city, ipGeoLocation, user }) => {
 
         try {
             freeze();
-            await loginUser(email, password);
-            const userData = await retrieveUser();
-            navigate('/', { state: { user: userData } })
-
+            await loginUser(email, password)
+            navigate('/', { replace: true })
         } catch (error) {
-            unfreeze();
             alert(error.message, 'error');
         } finally {
             unfreeze();
         }
-    };
-
+    }
 
     function handleRegister(event) {
         event.preventDefault()
@@ -67,20 +60,17 @@ const Login = ({ city, ipGeoLocation, user }) => {
         const emailConfirm = event.target.emailConfirm.value
 
         try {
-            // freeze()
-            debugger
+            freeze()
             registerUser(name, nickName, email, emailConfirm, password, repeatPassword, city, ipGeoLocation)
                 .then(() => {
                     alert(`${name}, you have been succesfully registered!`)
                     setShowPasswordLayer(null)
                 })
                 .catch(error => alert(error.message))
-            // unfreeze()
         } catch (error) {
             alert(error.message)
-            // unfreeze()
         }
-        // unfreeze()
+        unfreeze()
     }
 
     const handleCancel = () => {
@@ -116,36 +106,41 @@ const Login = ({ city, ipGeoLocation, user }) => {
 
             {showPasswordLayer === false && (
                 <div id="register" tag='section'  >
-                    <h2>Register</h2>
-                    <div className='self-start'>
-                        {city && <p>Your City: {city} Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </p>}
-                    </div >
-                    <label htmlFor="Email">Email:</label>
-                    <p>There's no related account by the <span className=' font-bold'>{email}</span> email.</p>
-                    <div>
 
-                        <input type="text" className="email" name="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="enter email" autoFocus />
-                    </div>
+                    <h2>Register</h2>
+                    <div className='self-start mb-8'>
+                        {city && <p>Your City: {city} Your geolocaltion: {ipGeoLocation[0]},{ipGeoLocation[1]} </p>}
+                        <p>There's no related account by the <span className=' font-bold'>{email}</span> email.</p>
+                    </div >
                     <form method="get" className="grid grid-cols-2 gap-4" onSubmit={handleRegister}>
 
                         <div>
-                            <label htmlFor="emailConfirm">Email Confirmation:</label>
-                            <input type="text" className="" name="emailConfirm" placeholder="please confirm your eeMail" autoComplete="enter eMail confiormation" autoFocus />
+                            <label htmlFor="email">Email:</label>
+                            <input type="text" className="email" name="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="enter email" autoFocus />
+                        </div>
 
+                        <div>
+                            <label htmlFor="emailConfirm">Email Confirmation:</label>
+                            <input type="text" className="" name="emailConfirm" placeholder="Please confirm your eMail" autoComplete="Enter eMail confiormation" autoFocus />
+                        </div>
+
+                        <div>
                             <label htmlFor="name">Name:</label>
                             <input type="text" className="name" name="name" placeholder="Enter your name" autoComplete="enter name" autoFocus />
                         </div>
+
                         <div>
 
                             <label htmlFor="nickName">Nick name:</label>
-                            <input type="text" className="nickName" name="nickName" placeholder="Enter your nickName" autoComplete="on" />
+                            <input type="text" className="nickName" name="nickName" placeholder="Enter your nickname" autoComplete="on" />
                         </div>
-                        <div>
 
+                        <div>
                             <label htmlFor="password">Password:</label>
                             <input type="password" className="password" name="password" placeholder="Enter your password" autoComplete="off" />
 
                         </div>
+
                         <div>
                             <label htmlFor="password">Repeat password:</label>
                             <input type="password" className="password" name="repeatPassword" placeholder="Repeat your password" autoComplete="off" />

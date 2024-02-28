@@ -12,6 +12,7 @@ export default (token, avatar, callback) => {
     validateToken(token)
     validateUrl(avatar, 'avatar image url')
 
+
     if (callback) {
         validateCallback(callback, 'callback function')
 

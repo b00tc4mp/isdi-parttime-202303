@@ -3,15 +3,13 @@ import context from './context'
 
 const { validateEmail, validatePassword } = validators
 
-
-/**
+/***
  * Authenticates a user by email and password and keeps the session token in context
- * 
  * @param {string} email The user's email
  * @param {string} password The user's password
- * 
  * @returns {string} The user's id
- */
+ ***/
+
 export default (email, password) => {
     validateEmail(email)
     validatePassword(password)
@@ -53,10 +51,11 @@ export default (email, password) => {
             return
         }
 
-        const { type, message } = await res.json()
+        const { type, error } = await res.json()
 
-        const clazz = errors[type]
+        const errorClass = errors[type]
 
-        throw new clazz(message)
+        throw new errorClass(error)
     })()
+
 }

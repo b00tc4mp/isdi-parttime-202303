@@ -15,3 +15,6 @@ export default () =>
                     throw new Error(body.message)
                 })
         })
+        .catch(error => {
+            throw new Error('Failed to retrieve user data. Please try again later.');
+        });

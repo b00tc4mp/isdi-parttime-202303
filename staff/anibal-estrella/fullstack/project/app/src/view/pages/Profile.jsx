@@ -28,6 +28,8 @@ const Profile = () => {
         userNewPasswordConfirm: ''
     })
 
+    const [updatedName, setUpdatedName] = useState('');
+
     const [Profile, setProfile] = useState(null);
     const [error, setError] = useState(null); // Add state for error
 
@@ -43,7 +45,12 @@ const Profile = () => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setUser({ ...user, [name]: value });
+        if (name === 'name') {
+            setUpdatedName(value); // Update the temporary state for name change
+            console.log(value);
+        } else {
+            setUser({ ...user, [name]: value });
+        }
     }
 
     const handleLogin = async event => {
@@ -63,7 +70,7 @@ const Profile = () => {
 
     const handleUpdateUserProfile = event => {
         event.preventDefault()
-        const userNewName = event.target.name.value
+        const userNewName = updatedName || user.name
         const userNewNickName = event.target.nickName.value
         const userNewEmail = event.target.email.value
         const userNewEmailConfirm = event.target.userNewEmailConfirm.value
@@ -114,7 +121,6 @@ const Profile = () => {
                     {user &&
                         <div>
                             <h2>{user.name}, Edit your profile</h2>
-                            <p>{user.email}</p>
                         </div>
                     }
                     <p className='pb-4'>Keep your personal details private. Information you add here is visible to any who can view your profile.
@@ -123,21 +129,44 @@ const Profile = () => {
                         <form action="" onSubmit={handleUpdateUserProfile} >
                             <div div='user-avatar' className="flex flex-col">
                                 <p className='grow'>Avatar:</p>
+
                                 <div className='flex flex-row  items-center my-4'>
-                                    <img className="h-20 w-20  mr-2 rounded-full border-2 hover:border-red border-solid transition duration-150 bg-gray-200 hover:bg-red ease-in-out  motion-reduce:transition-none" src={user.avatar} alt={user.avatar} />
+                                    <img className=" h-28 w-28  mr-2 rounded-full  border-solid transition duration-150 bg-gray-200 " src={user.avatar} alt={user.avatar} />
+                                    <div className="grid grid-flow-row">
 
-
-                                    <label htmlFor='avatar'>
+                                        <label htmlFor='avatar' >
+                                            <input
+                                                onChange={handleAvatarChange}
+                                                type='file'
+                                                id='avatar'
+                                                accept='image/*'
+                                                className='
+                                                    max-w-fit
+                                                    h-11    
+                                                    text-sm
+                                                    pl-0
+                                                    font-normal
+                                                    file:h-11
+                                                    file:font-normal 
+                                                    file:mr-4
+                                                    file:py-2
+                                                    file:px-4
+                                                    file:rounded-full
+                                                    file:border-0
+                                                    file:text-xs
+                                                    transition-all ease-in-out duration-300 
+                                                    file:text-white
+                                                    file:uppercase
+                                                    file:bg-lime-300 
+                                                    file:hover:drop-shadow-lg
+                                                    file:hover:bg-lime-200
+                                                    file:active:drop-shadow-none
+                                                    active:bg-gray-100
+                                                    '/>
+                                        </label>
                                         <Button type="button" className={'max-w-fit place-self-middle'}>Change</Button>
-                                        <input
-                                            type='file'
-                                            id='avatar'
-                                            accept='image/*'
-                                            onChange={handleAvatarChange}
-                                            style={{ display: 'none' }}
-                                        />
-                                    </label>
 
+                                    </div>
 
                                 </div>
                             </ div>
@@ -148,7 +177,7 @@ const Profile = () => {
                                     <input type="text"
                                         name="name"
                                         placeholder="Your Name" autoComplete="off"
-                                        value={user.name}
+                                        value={updatedName || user.name}
                                         onChange={handleChange}
                                     />
                                 </div>

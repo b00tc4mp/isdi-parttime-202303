@@ -20,7 +20,5 @@ export default email => {
                 .then(body => {
                     throw new Error(body.error,);
                 });
-
-
         });
 }
