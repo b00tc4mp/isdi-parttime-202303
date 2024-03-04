@@ -1,0 +1,58 @@
+[
+    {
+        "id": "post-1",
+        "author": "user-1",
+        "image": "Anibal Estrella Duis lobortis massa imperdiet quam. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Ut leo. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.",
+        "text": "https://picsum.photos/1500?random=2",
+        "date": "2023-06-13T12:54:13.321Z",
+        "likes": []
+    },
+    {
+        "id": "post-3",
+        "author": "user-1",
+        "image": "Anibal Estrella Duis lobortis massa imperdiet quam. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Ut leo. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.",
+        "text": "https://picsum.photos/1500?random=3",
+        "date": "2023-06-13T12:56:26.830Z",
+        "likes": []
+    },
+    {
+        "id": "post-4",
+        "author": "user-1",
+        "image": "Anibal Estrella Duis lobortis massa imperdiet quam. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Ut leo. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.",
+        "text": "https://picsum.photos/1500?random=2",
+        "date": "2023-06-13T13:32:19.404Z",
+        "likes": []
+    },
+    {
+        "id": "post-5",
+        "author": "user-1",
+        "image": "Anibal Estrella Duis lobortis massa imperdiet quam. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Ut leo. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.",
+        "text": "https://picsum.photos/1500?random=2",
+        "date": "2023-06-18T17:23:32.201Z",
+        "likes": []
+    },
+    {
+        "id": "post-6",
+        "author": "user-1",
+        "image": "Mauris sollicitudin fermentum libero. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Aenean imperdiet.",
+        "text": "https://picsum.photos/1500?random=1",
+        "date": "2023-06-18T18:30:17.563Z",
+        "likes": []
+    },
+    {
+        "id": "post-7",
+        "author": "user-1",
+        "image": "Mauris sollicitudin fermentum libero. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Aenean imperdiet.",
+        "text": "https://picsum.photos/1500?random=1",
+        "date": "2023-06-18T18:32:22.635Z",
+        "likes": []
+    },
+    {
+        "id": "post-8",
+        "author": "user-1",
+        "image": "Mauris sollicitudin fermentum libero. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Aenean imperdiet.",
+        "text": "https://picsum.photos/1500?random=1",
+        "date": "2023-06-19T07:45:21.614Z",
+        "likes": []
+    }
+]
