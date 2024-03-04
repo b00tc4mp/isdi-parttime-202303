@@ -11,7 +11,7 @@ function HeaderWelcome({ handleClick, user }) {
         <div className="grid gap-x-20  md:grid-cols-2 pt-4 md:h-[calc(100vh_-_8rem)] ">
             {/* <div className="grid p-4 grid-cols-2 gap-x-20 h-screen"> */}
             <div className='flex flex-col justify-end '>
-                <h2 className='  '>
+                <h2 className='mt-4 md:mt-4 '>
                     {isUserLoggedIn() ? (<> Hi {user && user.name}!! </>) : (<> Hi! </>)}
                     Review events and keep them forever
                 </h2>

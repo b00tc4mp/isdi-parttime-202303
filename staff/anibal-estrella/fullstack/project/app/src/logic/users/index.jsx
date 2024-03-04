@@ -9,7 +9,9 @@ import isUserLoggedIn from './isUserLoggedIn'
 import updateUserProfile from './updateUserProfile'
 import logOutUser from './logOutUser'
 import context from './context'
+import retrieveUserGeolocation from './retrieveUserGeolocation'
 
 export {
+    retrieveUserGeolocation,
     retrieveUserEmail, retrieveUser, loginUser, registerUser, updateUserProfile, getUserId, isCurrentUser, logOutUser, isUserLoggedIn, context
 }

@@ -170,7 +170,7 @@ const Profile = () => {
 
                                 </div>
                             </ div>
-                            <div className='grid gap-2 grid-cols-2 [&>h3]:col-span-2 [&>h3]:mt-4'>
+                            <div className='sm:grid gap-2 grid-cols-2 [&>h3]:col-span-2 [&>h3]:mt-4'>
                                 <h3 >Name:</h3>
                                 <div>
                                     <label htmlFor="Name">Edit Name:</label>
@@ -243,9 +243,11 @@ const Profile = () => {
                                         onChange={handleChange}
                                         autoComplete="off" />
                                 </div>
-                                <Button type="button" className={'button-cancel max-w-fit hover:button-cancel-hover'} onClick={handleCancel}>Cancel</Button>
-                                <Button type="submit" className={'max-w-fit '}>Save profile</Button>
+                                <div className="grid grid-flow-col w-full  col-span-2 place-content-center gap-2">
+                                    <Button type="button" className={'button-cancel max-w-fit hover:button-cancel-hover'} onClick={handleCancel}>Cancel</Button>
+                                    <Button type="submit" className={'max-w-fit '}>Save profile</Button>
 
+                                </div>
                             </div>
                         </form>
                     }

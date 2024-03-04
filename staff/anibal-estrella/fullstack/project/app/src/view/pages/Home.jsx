@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom';
 
 import { useAppContext } from '../hooks'
 import { EventCard, DraggableSlider, HeaderWelcome } from '../components'
@@ -9,9 +8,8 @@ export default ({ city }) => {
     console.debug('// Home  -> Render');
     const [user, setUser] = useState()
     const items = Array(10).fill(0).map((_, index) => index + 1) //temporary for the cards slider
-    const { alert, freeze, unfreeze, navigate } = useAppContext(); // Access the context using your custom hook
-    const [showMenuLayer, setShowMenuLayer] = useState(false)
-    // const location = useLocation();
+    const { alert, confirm, freeze, unfreeze, navigate } = useAppContext(); // Access the context using custom hook
+    // const [showMenuLayer, setShowMenuLayer] = useState(false)
 
     useEffect(() => {
         try {
@@ -30,7 +28,9 @@ export default ({ city }) => {
     }, [])
 
     return <section id="home" className="px-3 [&>section]:pt-4">
+
         < HeaderWelcome city={city} user={user} isUserLoggedIn={isUserLoggedIn} />
+
         <section id='Events'>
             <h3>Events in <span>your area: {city}</span></h3>
             <DraggableSlider>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { isUserLoggedIn } from './../../logic/users/'
 import { useAppContext } from '../hooks'
 import { Button } from '../library'
 
@@ -43,30 +44,27 @@ const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen, user }) => {
         // Handle form submission here
         console.log(formData);
     }
+    return <section id="create" className='p-4'>
 
-    return (
-        <section id="create" className=" px-3 pt-4">
+        <div>
+            {isUserLoggedIn() ? (<h2>{user?.name}, What do you want to do?</h2>) : (<> </>)}
+        </div>
 
-            <div>
-                {user && <h2>{user.name}, What do you want to do?</h2>
-                }
+        <div className='grid gap-2 pt-4 md:grid-cols-2 mb-4'>
+            <div className='flex flex-col rounded-2xl p-4  bg-pattern-02 bg-gray-300 hover:bg-gray-200 duration-300 bg-center h-60 '>
+                <h3 className=' text-4xl'>Create an event review</h3>
+                <p>Fill up the fields, create event, text review, images, audio, video, score...</p>
+                <Button onClick={handleCreate} className={' mt-auto max-w-fit'}>Create Review</Button>
             </div>
-
-            <div className='grid grid-cols-2  gap-2 pt-4  h-72 '>
-                <div className='flex flex-col rounded-2xl p-4  bg-pattern-02 bg-gray-300 hover:bg-gray-200 duration-300 bg-center'>
-                    <h3 className=' text-4xl'>Create an event review</h3>
-                    <p>Fill up the fields, create event, text review, images, audio, video, score...</p>
-                    <Button onClick={handleCreate} className={' mt-auto max-w-fit'}>Create Review</Button>
-                </div>
-                <div className='flex flex-col rounded-2xl p-4  bg-pattern-02 bg-gray-300 hover:bg-gray-200 duration-300 bg-right'>
-                    <h3 className=' text-4xl'>Create just an event</h3>
-                    <p>Fill up the fields, date, place, poster, line up artists...</p>
-                    <Button onClick={handleCreate} className={'mt-auto max-w-fit'}>Create Event</Button>
-                </div>
+            <div className='flex flex-col rounded-2xl p-4  bg-pattern-02 bg-gray-300 hover:bg-gray-200 duration-300 bg-right h-60'>
+                <h3 className=' text-4xl'>Create just an event</h3>
+                <p>Fill up the fields, date, place, poster, line up artists...</p>
+                <Button onClick={handleCreate} className={'mt-auto max-w-fit'}>Create Event</Button>
             </div>
+        </div>
 
-        </section>
-    )
+    </section>
+
 };
 
 export default Create;

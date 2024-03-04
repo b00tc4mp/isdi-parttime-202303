@@ -8,7 +8,7 @@ const Login = ({ city, ipGeoLocation }) => {
     console.debug('// Login/Register  -> Render');
     const [showPasswordLayer, setShowPasswordLayer] = useState(null);
     const [email, setEmail] = useState("");
-    const { alert, freeze, unfreeze, navigate } = useAppContext()
+    const { alert, confirm, freeze, unfreeze, navigate } = useAppContext()
 
     function handleLoginEmail(event) {
         event.preventDefault()
