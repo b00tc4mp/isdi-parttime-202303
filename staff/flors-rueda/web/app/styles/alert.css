@@ -1,0 +1,75 @@
+.alert {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+    z-index: 1;
+}
+
+.alert__left--reaction {
+    height: 5rem;
+    width: 5rem;
+} 
+
+.alert__right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.alert__right--title {
+    padding-top: 1rem;
+    margin-bottom: 0;
+}
+
+.alert__right--close {
+    align-self: flex-end;
+
+    padding-right: 1rem;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+
+.success, .success h2{
+    fill: var(--color-success-100);
+    background-color: var(--color-success-300);
+    color: var(--color-success-100);
+    border-color: var(--color-success-300);
+}
+
+.alert__right--message {
+    text-align: justify;
+    padding-right: 1rem;
+}
+
+.danger, .danger h2{
+    fill: var(--color-danger-100);
+    background-color: var(--color-danger-300);
+    color: var(--color-danger-100);
+    border-color: var(--color-danger-300);
+}
+
+.warning, .warning h2{
+    fill: var(--color-warning-100);
+    background-color: var(--color-warning-300);
+    color: var(--color-warning-100);
+    border-color: var(--color-warning-300);
+}
+
+@media (min-width: 768px) {
+    .alert__right--close:hover {
+        text-decoration-style: dashed;
+    }
+    
+    .alert {
+        gap: 0.05rem;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,117 @@
+[name=username],
+[name=mail] {
+    text-transform: lowercase
+}
+
+.invalid-input {
+    border: solid 0.05em var(--color-danger-100) !important;
+    box-shadow: 0 0 0.25em var(--color-danger-100);
+}
+
+input {
+    width: 80%;
+    background-color: var(--color-surface-300);
+    font-weight: 700;
+    border: solid 0.05em var(--color-surface-300);
+    padding: 0.6em 1.2em;
+    border-radius: 0.6em;
+    outline: none;
+    transition: background-color 0.2s, border 0.2s, box-shadow 0.2s;
+    color: var(--color-terciary-100);
+}
+
+::-webkit-input-placeholder {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-secondary-100);
+}
+
+input:focus {
+    border: solid 0.05em var(--color-primary-100) !important;
+    box-shadow: 0 0 0.25em var(--color-primary-100);
+}
+
+::-webkit-file-upload-button {
+    display: none;
+}
+
+input[type="file"],
+input[type="file"]:hover,
+input[type="file"]:focus {
+    min-width: auto;
+    border: none;
+}
+
+.input__file {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
+    align-items: center;
+    width: 80%;
+    background-color: var(--color-surface-300);
+    font-weight: 700;
+    border: solid 0.05em var(--color-surface-300);
+    padding: 0.15em 0.95em;
+    border-radius: 0.6em;
+    outline: none;
+    transition: background-color 0.2s, border 0.2s, box-shadow 0.2s;
+    color: var(--color-dark100);
+}
+
+.input__file:focus,
+.input__file:active {
+    border: solid 0.05em var(--color-primary-100);
+    box-shadow: 0 0 0.25em var(--color-primary-100);
+}
+
+.input__file-delete {
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    padding: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    border: 0.15em solid var(--color-primary-100);
+}
+
+textarea {
+    width: 100%;
+    height: 5em;
+    padding: 0.75rem 1rem;
+    border: solid 0.05em var(--color-surface-200);
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    background-color: var(--color-surface-200);
+    font-size: 16px;
+    font-weight: 400;
+    resize: none;
+}
+
+textarea:focus, textarea:active {
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    border: solid 0.05em var(--color-primary-100);
+    box-shadow: 0 0 0.25em var(--color-primary-100);
+}
+
+@media (min-width: 768px) {
+    input {
+        font-size: 0.75em;
+        font-weight: 700;
+    }
+
+    input:hover {
+        border: solid 0.05em var(--color-primary-100);
+        box-shadow: 0 0 0.25em var(--color-primary-100);
+    }
+
+    input[type="file"]:hover,
+    input[type="file"]:focus {
+        border: none;
+        box-shadow: none;
+        cursor: pointer;
+        color: var(--color-primary100);
+    }
+}

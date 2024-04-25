@@ -1,0 +1,102 @@
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
+  padding-top: 11rem;
+}
+
+.user-card {
+  width: 75%;
+  background-color: var(--color-surface-100);
+  border-radius: 1.5rem;
+  text-align: center;
+  box-shadow: var(--color-surface-200) 0 .5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: -15rem;
+}
+
+.user-card__border {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.user-view__change {
+  height: 4.5rem;
+  width: 4.5rem;
+  display: flex;
+  align-self: flex-end;
+  margin-right: 20%;
+  flex-direction: column;
+  gap: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-surface-300);
+  border-radius: .5rem;
+  transform: translate(50%, -50%);
+  -webkit-tap-highlight-color: var(--color-primary-transparence);
+  border: 0.01rem solid var(--color-secondary-300);
+  box-shadow: var(--color-surface-400) 0 .5rem 1.5rem;
+  z-index: 1;
+}
+
+.user-view__icon {
+  height: 2.5rem;
+  width: 2.5rem;
+  fill: var(--color-primary-300);
+}
+
+.user-view__name {
+  font-size: 0.75em;
+  padding-top: 0.15rem;
+  line-height: 0.75em;
+}
+
+.user-card__avatar,
+.user-card__avatar-image {
+  border-radius: 50%;
+  overflow: hidden;
+  height: 8rem;
+  width: 8rem;
+  background-image: url('../../../public/tile.png');
+  background-repeat: repeat;
+  position: relative;
+  z-index: 1;
+}
+
+.user-card__name {
+  color: var(--color-primary-300);
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.user-card__username {
+  color: var(--color-secondary-100);
+  font-size: 0.85em;
+  font-weight: 200;
+}
+
+.user-card__data {
+  display: flex;
+  width: 100%;
+  padding-bottom: 0.5rem;
+  flex-direction: row;
+  align-items: end;
+  justify-content: center;
+}
+
+.user-card__footer {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}

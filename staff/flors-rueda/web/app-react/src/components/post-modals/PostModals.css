@@ -1,0 +1,117 @@
+.post-modal,
+.post-delete-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.post-delete-modal {
+    z-index: 5;
+    color: var(--color-danger-100);
+    width: 85%;
+}
+
+.post-modal__content,
+.post-delete-modal__content {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    background-color: var(--color-surface-400);
+    border: 0.01rem solid var(--color-primary-600);
+    border-radius: 1rem;
+    text-align: justify;
+}
+
+.post-delete-modal__content {
+    background-color: var(--color-surface-100);
+    border: 0.01rem solid var(--color-danger-100); 
+}
+
+.post-modal__header {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 0.2rem;
+}
+
+.post-delete-modal__header h2{
+    padding: 1rem 1rem 0.2rem;
+    color: var(--color-danger-100);
+}
+
+.post-modal__title {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.post-modal__cancel {
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    padding: 0;
+    border: 0.15em solid var(--color-primary300)
+}
+
+.post-modal__body,
+.post-delete-modal__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1rem;
+}
+
+.post-modal__form,
+.post-delete-modal__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 1em;
+}
+
+.post-modal__selected-image {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    height: 5rem;
+    width: 5rem;
+    align-self: center;
+}
+
+.post-modal__form-submit {
+    border: 0.01em solid var(--color-success-100);
+    background-color: var(--color-success-300);
+    color: var(--color-success-100);
+}
+
+.post-modal__form-delete,
+.post-delete-modal__delete {
+    border: 0.01em solid var(--color-danger-100);
+    background-color: var(--color-danger-300);
+    color: var(--color-danger-100);
+}
+
+@media (min-width: 768px) {
+    .post-modal__form-submit:hover  {
+        background-color: var(--color-success-100) !important;
+    }
+
+    .post-modal__form-delete:hover,
+    .post-delete-modal__delete:hover {
+        background-color: var(--color-danger-100) !important;
+    }
+
+}
