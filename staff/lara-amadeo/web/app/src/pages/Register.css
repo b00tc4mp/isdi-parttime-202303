@@ -1,0 +1,18 @@
+.registration{
+    background-color:#F8FAFB;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.already-account-container{
+    display: flex;
+}
+
+.already-account{
+    color: #3B4257;
+    font-family: "Inter";
+    font-weight: 400;
+    font-size: 16px;
+}

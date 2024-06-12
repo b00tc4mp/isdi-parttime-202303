@@ -1,0 +1,23 @@
+.image-preview-container-buy-post{
+    width: 80px;
+    height: 80px;
+    position: relative;
+    display: flex;
+}
+
+.buy-post-information{
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+}
+
+.buy-post-data-n-image{
+    display: flex;
+    gap: 16px
+}
+
+.data-item-container{
+    display: flex;
+    flex-direction: column;
+    
+}

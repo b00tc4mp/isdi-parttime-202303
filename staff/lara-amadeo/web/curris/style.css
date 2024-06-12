@@ -1,0 +1,48 @@
+.container1{
+    width:200px;
+    height: 200px;
+    background-color: lightblue;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .child1{
+      width:80px;
+    height: 80px;
+    background-color: blue;
+    color: white;
+  }
+  .child2{
+     width:80px;
+    height: 80px;
+    background-color: green;
+    color: white;
+
+  }
+
+  .container2{
+    width:200px;
+    height: 200px;
+    background-color: lightpink;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+  }
+
+  
+  .child3{
+      width:80px;
+    height: 80px;
+    background-color: lightseagreen;
+    color: white;
+
+  }
+  .child4{
+     width:80px;
+    height: 80px;
+    background-color: red;
+    color: white;
+  }
