@@ -1,0 +1,22 @@
+[
+    {
+        "id": "post-1",
+        "author": "user-3",
+        "image": "new image",
+        "text": "new hello world",
+        "date": "05/06/2023, 12:43:45",
+        "likes": [],
+        "hidden": false
+    },
+    {
+        "id": "post-3",
+        "author": "user-1",
+        "image": "new image",
+        "text": "new hello world",
+        "date": "07/06/2023, 14:51:10",
+        "likes": [
+            "user-4"
+        ],
+        "hidden": true
+    }
+]
