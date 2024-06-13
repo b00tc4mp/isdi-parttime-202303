@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pasapalabra</title>
+    <link rel="stylesheet" href="pasapalabra.css" />
+    <script src="pasapalabra.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  </head>
+  <body>
+    <main>
+      <header id="header">
+        <h1>Bienvenido al Pasapalabra</h1>
+        <button
+          id="button-start"
+          class="button-start"
+          type="reset"
+          onclick="StartGame()"
+        >
+          Pulse para Comenzar!
+        </button>
+      </header>
+      <section class="letters">
+        <ul>
+          <li id="a">A</li>
+          <li id="b">B</li>
+          <li id="c">C</li>
+          <li id="d">D</li>
+          <li id="e" >E</li>
+          <li id="f">F</li>
+          <li id="g">G</li>
+          <li id="h">H</li>
+          <li id="i">I</li>
+          <li id="j">J</li>
+          <li id="k">K</li>
+          <li id="l">L</li>
+          <li id="m">M</li>
+          <li id="n">N</li>
+        </ul>
+        <ul>
+          <li id="ñ">Ñ</li>
+          <li id="o">O</li>
+          <li id="p">P</li>
+          <li id="q">Q</li>
+          <li id="r">R</li>
+          <li id="s">S</li>
+          <li id="t">T</li>
+          <li id="u">U</li>
+          <li id="v">V</li>
+          <li id="w">W</li>
+          <li id="x">X</li>
+          <li id="y">Y</li>
+          <li id="z">Z</li>
+        </ul>
+      </section>
+      <section class="disabled" id="container">
+        <section  class="section1">
+          <label for="answer" id="questions">Preguntas </label>
+          <input
+            id="answer"
+            type="text"
+            placeholder="escriba aqui su respuesta"
+            onkeypress=" runScript(event)" 
+            minlength="1"
+            maxlength="20"
+           
+          
+            
+          />
+          <div class="button-div">
+            <button id="accept" onclick="verifyAnswer()" class="button-question" type="reset">Verificar Respuesta</button>
+            <button id="pasapalabra" class="button-question" type="reset" onclick="pasapalabra()"  >Pasapalabra</button>
+          </div>
+        </section>
+        <section class="section">
+          <div id="temporizador">150</div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

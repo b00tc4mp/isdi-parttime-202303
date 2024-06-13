@@ -1,0 +1,54 @@
+.usuario {
+  width: 100%;
+  min-height: 50px;
+  background-color: black;
+  color: aliceblue;
+  text-align: center;
+  padding: 10px;
+}
+
+.contenedor {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.formulario {
+  padding: 20px;
+  background: lightgray;
+}
+
+.tabla {
+  color: red;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.filtrar {
+  margin-top: 25px;
+  text-align: center;
+  min-height: 30px;
+  color: aqua;
+}
+.botonactivo {
+  background-color: gray;
+}
+
+.button {
+  background-color: gray;
+}
+
+form,
+p,
+label {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.footer {
+  margin-top: 65px;
+  height: 50px;
+  background-color: rgb(240, 255, 251);
+  text-align: center;
+}

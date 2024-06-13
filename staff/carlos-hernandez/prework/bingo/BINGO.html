@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Juego Bingo</title>
+    <link rel="stylesheet" href="BINGO.css" />
+    <script src="BINGO.js"></script>
+  </head>
+  <body>
+    <div class="contenedor">
+      <div class="usuario">
+        <p id="numeroBingo" style="font-size: 50px" style="color: white">
+          BINGO TIME!!!!
+        </p>
+        <button class="boton" onclick="principal()" id="botonusuario">
+          ¡introduzca su nombre!
+        </button>
+
+        <p id="nombrePersona"></p>
+      </div>
+      <div class="contador">
+        <label class="numeroBombo" id="numeroBombo">0</label><br />
+
+        <button onclick="a()">jajajajajaja</button>
+      </div>
+      <div class="tarjeta">
+        <table class="table" id="tabla">
+          <tr class="primerafila">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+        <button
+          class="boton"
+          id="numero"
+          onclick="llenarBingoNumeros(),llenartabla()"
+        >
+          NUEVA TARJETA
+        </button>
+        <button
+          id="nuevoNumero"
+          class="boton"
+          onclick="compararBingoConTarjeta()"
+        >
+          NUEVO NUMERO
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
