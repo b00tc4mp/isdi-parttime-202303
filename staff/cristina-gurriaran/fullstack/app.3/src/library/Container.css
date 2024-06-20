@@ -1,0 +1,16 @@
+.Container {
+    background-color: var(--pink);
+    width: fit-content;
+    height: fit-content;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.Container--row {
+    flex-direction: row;
+}

@@ -1,0 +1,36 @@
+[
+    {
+        "id": "post-1",
+        "author": "user-1",
+        "image": "https://b2581825.smushcdn.com/2581825/wp-content/uploads/2020/04/23595073_1689113034433739_1346042720501628928_n-800x800.jpg?lossy=1&strip=1&webp=1",
+        "location": "PRAGUE, CZECH REPUBLIC",
+        "title": "Hotel Opera",
+        "text": "A hot-pink confection of Bohemian Neo-Renaissance style.",
+        "date": "2023-06-19T16:54:20.957Z",
+        "likes": [
+            "user-1"
+        ]
+    },
+    {
+        "id": "post-2",
+        "author": "user-1",
+        "image": "https://b2581825.smushcdn.com/2581825/wp-content/uploads/2020/04/iceland-lighthouse-yellow-800x800.jpg?lossy=1&strip=1&webp=1",
+        "location": "qweqwe",
+        "title": "qweqwe",
+        "text": "qweqwe",
+        "date": "2023-06-20T01:31:27.875Z",
+        "likes": []
+    },
+    {
+        "id": "post-3",
+        "author": "user-1",
+        "image": "https://b2581825.smushcdn.com/2581825/wp-content/uploads/2021/02/hotel-belvedere-800x800.jpg?lossy=1&strip=1&webp=1",
+        "location": "asdasd",
+        "title": "asdasdasd",
+        "text": "asdasdasdasd",
+        "date": "2023-06-20T01:32:12.618Z",
+        "likes": [
+            "user-1"
+        ]
+    }
+]
