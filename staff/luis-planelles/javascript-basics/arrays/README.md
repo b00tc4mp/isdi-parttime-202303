@@ -1,0 +1,1 @@
+This is a repository to create a logic functions replicant of the Javascript originals methods, with no using methods, only simple logic of the lenguage. The aim of this is learn how to the machine thinks.
