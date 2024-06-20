@@ -1,0 +1,1 @@
+module.exports = (req, res) => res.send('Welcome to Alex MayBe Web API!!!')
