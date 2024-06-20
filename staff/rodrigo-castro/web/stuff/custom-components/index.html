@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Component {
+            constructor(templateOrElement) {
+                if(typeof templateOrElement === 'string'){
+                    const parser = new DOMParser
+    
+                    this.container = parser.parseFromString(templateOrElement, 'text/html').body.children[0]
+                } else this.container = templateOrElement
+            }
+
+            add(...components) {
+                components.forEach(component => this.container.appendChild(component.container))
+                
+            }
+        }
+
+        class HelloWorld extends Component {
+            constructor() {
+                super(`<h1>Hello World!</h1>`)
+            }
+        }
+
+        class Hello extends Component {
+            constructor(name) {
+                super(`<h1>Hello ${name || 'World'}!</h1>`)
+            }
+        }
+
+        class List extends Component {
+            constructor(...elements){
+                super(`<ul></ul>`)
+
+                elements.forEach(element => {
+                    const item = new Item(element)
+
+                    // this.container.append(item.container)
+                    this.add(item)
+                })
+            }
+        }
+
+        class Item extends Component {
+            constructor(element) {
+                super(`<li>
+                    <h2><a href="https://google.com/search?q=${element}" target="_blank">${element}</a></h2>
+                    <button>alert</button>
+                    </li>`)
+
+                    this.container.querySelector('button').onclick = function() {
+                    alert(element)
+                    }
+            }
+        }
+
+        const helloWorld = new HelloWorld()
+        const helloRodri = new Hello('Rodri')
+        const fruitList = new List('banana', 'orange', 'mango', 'lemon')
+        const carList = new List('Tesla', 'Ferrari', 'Peugeout')
+
+        const body = new Component(document.body)
+
+        body.add(helloWorld, helloRodri, fruitList, carList)
+        // document.body.append(helloWorld.container, helloRodri.container, fruitList.container, carList.container)
+
+    </script>
+</body>
+</html>
