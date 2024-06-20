@@ -1,0 +1,23 @@
+/* .posts{
+    max-width: 440px;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+} */
+
+/* .feed{
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+} */
+
+/* @media (max-width: 798px){
+    .feed {padding-left: 16px; padding-right: 16px; margin-top: 84px;}
+ } */
