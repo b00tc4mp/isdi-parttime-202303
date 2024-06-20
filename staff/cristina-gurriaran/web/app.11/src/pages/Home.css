@@ -1,0 +1,45 @@
+  .home-header, .home-footer {
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 4rem;
+  }
+  
+  .home-header {
+    top: 0;
+  }
+  
+  .home-footer {
+    bottom: 1rem;
+    background-color: white;
+  }
+  
+  .home-header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    width: fit-content;
+    height: fit-content;   
+    border-radius: 6px;
+    padding: 0; 
+    background-color: var(--lightbasecolor);
+  }
+  
+  
+  .home-header-avatar {
+    width: 3rem;
+    border-radius: 1rem;
+  }
+  
+  .profile-link {
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+  
+  }
+

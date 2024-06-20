@@ -1,0 +1,139 @@
+/* html, body {
+  height: 100%;
+
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  background-color: coral;
+} */
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--text);
+    overflow-x: hidden;
+    background: var(--lightbasecolor)
+
+}
+/* library */
+
+
+:root {
+  --lightbasecolor: #f8f3e4;
+  --text: #231f20;
+  --pink: #fad0c3;
+  --white: #fff;
+  --red: #ee3020;
+  --burgundy: #63252a;
+
+}
+
+:root.dark {
+  --lightbasecolor: rgb(26, 25, 25);
+  --darkbasecolor: rgb(104, 103, 101);
+  --color: white;
+  
+}
+
+.page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.container {
+  position: absolute;
+  top: 20%;
+  background-color: var(--pink);
+  width: fit-content;
+  height: fit-content;
+  padding: 40px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.title {
+  font-family: sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text);
+}
+
+
+h2 {
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: lighter;
+  color: var(--text);
+}
+
+
+a {
+  color: var(--red);
+  font-weight: bold;
+}
+
+.form { 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 25rem;
+  gap:2rem;
+  padding: 2rem ;
+  margin: 2rem;
+}
+
+.input {
+  padding: 8px 5px;
+  border-radius: .5rem;
+  border: 1px solid var(--white);
+  background-color: var(--white);
+  font-size: 14px;
+  width: 100%;
+}
+
+
+.button {
+  background-color: var(--red);
+  color: var(--white);
+  cursor: pointer;
+  padding: 1rem 2.5rem;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 50px;
+  border: 0.1rem solid var(--red);
+  width: 100%;
+}
+
+.update {
+  border: 0.2rem solid var(--red);
+  color: var(--red);
+  background-color: transparent;
+}
+
+
+/* @media (max-width: 700px) {
+  .title, .profile-link {
+      font-size: 14px;
+  }
+
+  .h2, .input, button {
+      font-size: 12px;
+  }
+  
+} */
+
