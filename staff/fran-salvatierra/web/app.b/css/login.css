@@ -1,0 +1,141 @@
+
+.s-login {
+    width: 100%;
+    height: 100%;
+    min-height: 786px;
+    background-color: transparent;
+    position: relative;
+    display: table;
+    background: #000000;
+}
+
+.s-login .shadow-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .4;
+    
+    background: -moz-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+    background: -webkit-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#cc000000', GradientType=0);
+}
+
+.s-login .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .6;
+    background-color: #000000;
+}
+
+.login-content {
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    padding-bottom: 15.6rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-content h3 {
+    font-family: "montserrat-medium", sans-serif;
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: .3rem;
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 1.2rem;
+    margin-left: 6px;
+}
+
+.login-content h1 {
+    font-family: "montserrat-medium", sans-serif;
+    font-size: 6.3rem;
+    line-height: 1.333;
+    margin-top: 0;
+    color: #FFFFFF;
+}
+
+.login-content__main {
+    padding-top: 8rem;
+    padding-left: 8rem;
+    padding-right: 5rem;
+    position: relative;
+}
+
+.login-content__buttons {
+    padding-top: 6rem;
+    text-align: left;
+}
+
+.login-content__buttons .button {
+    width: 215px;
+    border-color: #FFFFFF;
+    color: #FFFFFF;
+    margin: 1.5rem 1.5rem 0 0;
+    letter-spacing: .25rem;
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.login-content__buttons .button:last-child {
+    margin-right: 0;
+}
+
+.login-content__buttons .button:hover, 
+.login-content__buttons .button:focus {
+    background: #FFFFFF !important;
+    color: #000000;
+}
+
+.login-container {
+    width: 80%;
+    height: 20%;
+}
+
+.off {
+    display: none;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form__link {
+    padding: 0% 10% 0% 20%;
+}
+
+.login-form-button--stroke {
+    background: transparent !important;
+    border: 0.2rem solid #FFFFFF;
+    color: #FFFFFF;
+}
+
+.login-form-button--stroke:hover {
+    border: 0.2rem solid #000000;
+    color: #FFFFFF;
+}
+
+.login-form-button:hover, .login-form-button:focus {
+    background: #FFFFFF !important;
+    color: #000000;
+}
+
+.form__input {
+    height: 40px;
+    padding-left: 20px;
+    border-radius: 8px;
+    box-shadow: 
+        inset 2px 2px 4px var(--col-2),
+		inset -2px -2px 4px var(--white);;
+}
+
+

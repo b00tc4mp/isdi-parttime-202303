@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <header class="s-header">
+        <div class="header-logo">
+            <a href="" class="site-logo"><p>Logo</p></a>
+        </div>
+
+        <a href="" class="header-menu-toggle">
+            <span class="header-menu-text">p</span>
+            <span class="header-menu-icon"></span>
+        </a>
+    
+        <nav class="header-nav _on">
+            <a href="" class="header-nav__close"><span>Close</span></a>
+            <div class="header-nav__content _on">
+                <h3>My Profile</h3>
+                <ul class="header-nav__list">
+                    <li class="profile-panel">Settings</li>
+                    <li class="profile-logout">Log Out</li>
+                </ul>
+            </div>
+        </nav>
+        
+        
+    </header>
+<!-- register -->
+    <section class="s-register target-section off" id="register">
+        <div class="overlay"></div>
+        <div class="shadow-overlay"></div>
+        <div class="register-content">
+            <div class="row register-content__main">
+                <h3>Welcome to your Register Page</h3>
+                <div class="register-container">
+                    <h1>Here is the point where, <br> you can start your journey.</h1>
+                    <form class="register-form" action="">
+                        <input type="text" name="name" placeholder="Name" class="register-form__input">
+                        <input type="text" name="email" placeholder="Email" class="register-form__input">
+                        <input type="password" name="password" placeholder="Password" class="register-form__input">
+                        <input type="password" name="confirm-password" placeholder="Confirm Password" class="register-form__input">
+                        <a href="" class="register-form__link">I already have an account</a>
+                        <button class="register-form-button register-form-button--stroke">REGISTER</button>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- login -->
+    <section class="s-login target-section _off" id="login">
+        <div class="overlay"></div>
+        <div class="shadow-overlay"></div>
+        <div class="login-content">
+            <div class="row login-content__main">
+                <h3>Welcome to the Login Page</h3>
+                <div class="login-container">
+                    <h1>Here is the point where, <br> you can keep writting your history.</h1><br>
+                    <form class="login-form" action="">
+                        <input type="text" name="email" placeholder="Email" class="form__input">
+                        <input type="password" name="password" placeholder="Password" class="form__input"> <br>
+                        <a href="" class="login-form__link">I don't have an account</a>
+                        <button class="login-form-button login-form-button--stroke">ENTRAR</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- home -->
+    <section class="s-home target-section off" id="home">
+        <div class="overlay"></div>
+        <div class="shadow-overlay"></div>
+        <div class="home-content">
+            <div class="row home-content__main">
+                <h3>Welcome to your Home Page</h3>
+                <h1>Here is your private site,<br> and where you can customize your settings.</h1>
+
+                <div class="home-content__buttons">
+                    <a href="" class="profile-panel button button--stroke profile-panel__button">Change your Profile</a>
+                    <a href="" class="profile-logout button button--stroke profile-logout__button">Log out</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="js/sidebar.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/logic.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
