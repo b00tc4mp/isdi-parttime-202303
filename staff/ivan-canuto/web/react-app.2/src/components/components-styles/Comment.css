@@ -1,0 +1,13 @@
+.comment {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.comment-author {
+  font-weight: bold;
+}
+
+.delete-comment_icon {
+  cursor: pointer;
+}
