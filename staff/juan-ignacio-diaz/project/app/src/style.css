@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root {
+    --primary: rgb(57, 162, 34);
+    --secondary: rgb(12, 91, 91);
+  }
+}
+
+html , body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  padding: 0;
+}
+
+:root {
+  --basecolor:rgb(191, 217, 205);
+  --basehighlight: rgb(99, 195, 25);
+  --homebgcolor: rgb(241, 241, 247);
+  --namecolor: rgb(25, 36, 30);
+}
+
+:root.dark {
+  --basecolor: rgb(53, 206, 89);
+  --basebgcolor: rgb(92, 142, 53);
+  --homebgcolor: rgb(56, 59, 58);
+  --namecolor: rgb(77, 153, 111);
+}
+
+.page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+
+.form {
+ min-width: 60vw;
+ gap: 1rem;
+ display: flex;
+ flex-direction: column;
+}
+
+
+
+.input, .button {
+  font-style: normal;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border: 2px;
+  border-radius: .75rem;
+  padding: .5rem .6rem;
+}
+
+.imput-highlight {
+  background-color: var(--basehighlight)
+}
+
+.button {
+  text-align: center;
+  font-size: large;
+}
+
+@media (min-width: 750px){
+  .button {
+      cursor: pointer;
+  }
+  .button:hover {
+      background-color: rgb(76, 154, 237);
+  }
+}
+
+.goto {
+  font-style: normal;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.name {
+  font-style: italic;
+  font-size: medium;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--namecolor);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 1;
+}
