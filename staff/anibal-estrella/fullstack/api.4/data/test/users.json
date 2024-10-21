@@ -1,0 +1,10 @@
+[
+    {
+        "id": "user-1",
+        "name": "Anibal Estrella",
+        "email": "anibales@gmail.com",
+        "password": "234234234",
+        "avatar": "hola avatar",
+        "favs": []
+    }
+]
