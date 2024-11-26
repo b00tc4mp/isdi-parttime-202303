@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>saraApp</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   
+
+
+    <div class="register off">
+
+        <!--TODO implement register page-->
+ 
+        <!---->
+        <h1>Register</h1>
+            <form class="register-form">
+                <input class="register-input" type='text' name='name' placeholder='name'>
+                <input class="register-input" type='text' name='email' placeholder='email'>
+                <input class="register-input" type='text' name='password' placeholder='password'>
+                <button class="register-button" type="submit">Register</button>
+            </form>
+
+            <p class="register-text-goToLogin"><a href=""> Go to login</a></p>
+            
+    </div>
+    
+
+
+    <!--TODO implement login page-->
+
+    <div class="login" >
+        <h1>Login</h1>
+    
+        <form class="login-form">
+            <input class="login-input" type='text' name='email' placeholder='email'>
+            <input class="login-input" type='text' name='password' placeholder='password'>
+            <button class="login-button" type="submit">Enter</button>
+        </form>
+        <p class="login-text-goToRegister"> <a href=""> Go to register</a></p>
+            
+        
+    </div>
+    
+
+    <!--TODO implement home page-->
+    <div class="home off">
+        <header class="home-header">
+
+           <div class="home-menu">
+                <img class="home-header-avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAflBMVEX////8/Pybm5twcHDr6+v09PT5+fnu7u729vZ1dXVmZmbPz8/o6Ojk5ORXV1dhYWG0tLTa2tpra2uoqKiSkpKampp+fn5PT0/AwMDd3d3MzMyGhoajo6M2NjbV1dWKiopGRkaxsbFAQEBKSkoiIiIkJCQ0NDQaGhosLCwSEhJ6Ca0zAAAIgklEQVR4nO2d62KbOgyAMXcIYK7G3CHsbDvv/4KHpM2atdCQxJZNDt+vrU2RFduyLGRZUXZ2dnZ2dnZ2dnb+T6ATH/9CgpvDliV1XkTNNy3MgmbEDcZ+YgxcotLCvPr1prGtYnDyPsdOV4e0nKBD3Tl4+hEZCssW3b4nsSJaYUwy6n/pK+RPvYpxRwtDRMuYgE7qkbq03v97zftHdFqTk5LbG6tTi80ydUnY3hyF9mEgcVpuTMepudTB9cFa93H9oGKHbsjqTA1tcT545vo/Mb2kj9vt6Og5v5L725r9Q3QOjeGAUTcVurs7po/bVTNswK6iQ+w+NtymPzlgrWXfJLYYSZAYj04nNPX/GMrdjQV5thMOMSnYtIULZa6uXCCW8bLgwKItXAh7ysDcm+FIn38KF5Ke0ZdPj4OMK6OZBcwmUNSrrB7FDjPFPrun+bkqWyeijKWCk70J6jucPgBQHTBVcFp38AOOH0cGdnPwQotD1o98AppzcLZKidbFKC95PDZkPfIfxosTPg/ONDl8VKQSTg0xtJrPg++kZG9lLkS9DJspK+Bo84ZcgnhqR3iuW1rG8eFrQErbPL1f+g69ET5OccJ3G1A7PJ++gmTkLMDgOc1XYGEua/01VOM6DW6RaNxtne6I7ERPA4g3hCIDxaEDINzXuM+ERSwCMoDqTph72roRiBjsQYiZwayBHI6K097lJh4GimuGgSkmotHGQCuVxW/38h0IpSmULJIKiRCbAdAgRQrl7RvO4wdg7pTBdwMzD5o8NjhpgYAXGUiJVSipSEkdEROxOcBJbUVMRKsBDKGgBtytmexbDimvp9DDFCmZBicTKW4Nr6GTQWqYVlCyPghCSA0HAQGpvoUcN6ULJ+sd8wgaWygw+C7YakBnvhWALxd+AyrOgN9ARdAaggRMrmmPoOKMAPz9xetrCD5KwTUsXn4eetAagudlGA3oEuzBhUz+cAT9UlsMn+aWl5B+KY3hZL2BuL/e/ltaTaBkfcisKkgN4WPCSEkwpIYiwokRqFPTgO5GL0IBjal3hDelSMnBwhhICQMYSX9LrTo4WSJePiGFAoZORtDF94KVgznD0U8oSdcgk1dq8BdJigq4Ml0TgvkZLmBs9hofA+1KW1F5tBYBGqYqEVVBgxKQTZslLu2riEHOfNBYWOoeUjMAZ8ruBJ6AKtkeWJunhTJos3Q196/XzIQeRSxz7i9MIqFdqCgV78wvlKZizyFGvENurZisvSsyzplRsfDDXfaRY/7etPWV4OBTOXJcj62f4s+RTvtvjokgGmDIchkj4OaA1wLCM3McXE4rVgn/Sm0es+ZzqsXXBgmG6Bmj6jg0xahS8Xb0gh6zT3IzU5jd50q8nnHu4Cn6JOqkzDzeL6ZHoJCSQL40WAFSvN9M14zktyfDSngFUqIgYbbht+vRl0zB86luV2Vk+4zULaRT8EShdUysn145cs3BDzwSP/3dT8M97uStn2io/XN7qenrCcdanoV+hsO/3RM1Oqc/JP8cZJyBf0CKiccnItTlEbNrDB+m73/o08dCK6joRplqQy1TVMHwgDEsEtzJtswvgShxzzre0dxiwKREG1Fwwph0VE/b19uvxc6faNVJPzmKQq3GKquAnJeO75Q8/w5RJ+jW1o2WCdNX+7F7C3DMafn+s7bqx9qXq4TgSs6jz2mODrUu+n2qyI6s0Dk2RJJgzCOcNTmkeMyduiw83bKMM5alewWttXzEafvng9vkrbt0qlaOi3GsEVJVhGjTv12neq+4v2H13rhcTKJHJQ2HZGIIaRlZf/12Z2dnZ2dnZ2dnZ2fnfwJij2iVLnBuimBN/0i3ojJMapUh9UDLwvosR4R6RplpQX889jl2NXbELs5PTw2c+mCLUhKZ+qAdm17LLhduMscuaOr2zdEJLfBoo6m3WZDH6Uecmp+lsWga54Ha6oBaeqXqxh3VL6rxk3R5uB52rluXQBk2beJMIxMyEPgeksxibeAfPUZlijsqKJHApxVOeabUnq7vcwI1EviOyJimP+F11yU6XbdyrD3BvobpZUde1X1R9SM1hAfh0Skt8wePMxg27U9HyCTwFk+DCeeU8dqBIoLluc72dBkvrpiaVTtxM0sW/d7wUjyw6kak+CQupXtJa5a4YuMBIKXMU7nSdd/xuoDN8dnkN+tZzQozbBhkGKG0kS+Z9R2kRMenj1/qxJXMxFyDpnWjem75L5wnH8AdnTjPGIkiTqVPVDI693EV/YBV5jZP7MfvePVlu+10AZS6j6moY8FnjFdjp9ojmeG2U22iB08YpLp/Opmds4E5eMHS7q9fkTxhoQRQ3H0BHRVcyeBuDnfeZ1tAXXTEjjC/y9rEWzGjV3TrS+8jRQ02ZGUumOPa84FIaX/Ie/DoG/zVd5aaIkppPg9af99kGm9RQWX9HdAt3mxq+SFe03S724a/PYedZivGaanJeoBzBdGKAhZghfT4oN52wct4U/7oZ/ybNwwYUCU7eaG6NxaCEkseebqF0X/biee7sTZO9n0nFjyLPsFgNd+c0UUKAavvzIsbOhiSFRR5iGJcNCWT6xps1CO94lyDfxEsqCIxS9B3t9AB33DEC2t51c+E3GfKGmQsOp5I21z4aZ5wKZYt7pZ2xkRL28TBMV5gkE54zsJgTAXWXGaKqc6XN/a0jYW5l1kopV66ouvZMuPgzk5Eyqe+owg8ZzYLNVE3G4H6jNnNvYky0m3U91lFnZlfbc2iid0ig2N91RDoogMYqDtjU9r4ZUzpgnt2cF7GlCqKPpd/Qivp05/WY2szUy7c4GvfZchXs4kSVUBDuFF9fQU6eatCmsKJTv2sIbLTjYfz/yb9chUdsruX0jDrPh+pQ0b1Uhqm1ZdDg2Yo7NooHtAXiIvu7Ozs7Ozs7OzsbIn/AIM4YTuTqw56AAAAAElFTkSuQmCC" alt="">
+
+                <button class="home-menu-myprofile-button"><a href="" class="myProfile">My Profile</a></button>
+              
+            </div>
+           
+        <h3 class=" home-header-logout" name="logout"><a href="" class="logout">Logout</a></h3>
+
+        </header>
+
+        <div class="profile-edit off">
+            <div>
+                <h3><a href="" class=" updateAvatar">Update Avatar</a></h3>
+                    <form class="profile-edit-avatar-form off">
+                        <input class="input" type="url" name="avatar-url" placeholder="insert url">
+                        <button class="button" type="submit">Uptate</button>
+                    </form> 
+
+                <h3><a href="" class=" updatePassword">Update password</a></h3>
+                    <div class="profile-edit-password off">
+                        <form class="profile-edit-password-form">
+                            <input type="text" name='password'placeholder='Enter your   password'>
+                            <input type="text" name='new-password'placeholder='Enter new    password'>
+                            <input type="text"  name='confirm-new-password'placeholder='Confirm new  password'>
+                            <button   class="profile-edit-password-form-button"     type='submit'>Confirm</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <footer class="home-footer"></footer>
+        </div>
+        
+    <script src="scripts/validators.js"></script>
+    <script src="scripts/data.js"></script>
+    <script src="scripts/logic.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

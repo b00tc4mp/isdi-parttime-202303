@@ -1,0 +1,13 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem;
+}
+
+.Container--row {
+  flex-direction: row;
+  ;
+}

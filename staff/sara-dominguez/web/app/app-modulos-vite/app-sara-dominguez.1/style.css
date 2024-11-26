@@ -1,0 +1,74 @@
+html, body {
+    height: 100%;
+}
+
+body {
+background-color: rgb(209, 32, 68);
+margin: 0px;
+width: 100%;
+
+}
+
+
+:root {
+    --basecolor: white; 
+    --basebcolor: black;     
+}
+.register, .login {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content:baseline;
+    text-align: center;
+    padding: 3rem;
+    color: var(--basebcolor);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+    
+}
+
+
+.register-form, .login-form{
+    display: flex;
+    flex-direction: column;
+    min-width: 60%;
+    gap: 0.5rem;
+    border: 0.2rem black;
+   
+}
+
+.register-input, .login-input {
+    border-radius: 12%;
+    background-color: var(--basebcolor);
+    color: var(--basecolor);
+}
+
+.register-button, .login-button {
+    border-radius: 15%;
+    width: 70px;
+    margin: 1em;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 0.9rem;
+    background-color: var(--basebcolor);
+    color: var(--basecolor);
+   
+}
+
+.register-button-goToLogin, .login-button-goToRegister {
+    border-radius: 15%;
+    background-color:lightyellow;   
+
+}
+
+@media {
+    .register-button:hover {
+        background-color: rgb(248, 241, 241);
+        color: var(--basebcolor);
+    }
+}
+
+.off {
+    display: none; 
+}
+
