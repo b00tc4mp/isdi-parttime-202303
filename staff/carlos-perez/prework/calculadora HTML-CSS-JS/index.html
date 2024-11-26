@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" type="text/css" href="normalize.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="script.js"></script>
+
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="calculator">
+        <div class="calculator-screen">
+            <p class="calculator-screen-previous" id="previous"></p>
+            <p class="calculator-screen-line" id="screen"></p>
+        </div>
+        <div class="calculator-buttons">
+            <button class="button-darker" onclick="addToRegister()">M+</button>
+            <button class="button-darker" onclick="deleteRegister()">M-</button>
+            <button class="button-darker" onclick="useRegister()">Mem</button>
+            <button class="button-darker" onclick="generateRandom()">Rand</button>
+            <button class="button-darker" onclick="clearScreen()">AC</button>
+            <button class="button-darker" onclick="signChange()">+/-</button>
+            <button class="button-darker" onclick="percentage()">%</button>
+            <button class="calculator-button-operation" onclick="toScreen('/')">/</button>
+            <button onclick="toScreen('7')">7</button>
+            <button onclick="toScreen('8')">8</button>
+            <button onclick="toScreen('9')">9</button>
+            <button class="calculator-button-operation" onclick="toScreen('*')">X</button>
+            <button onclick="toScreen('4')">4</button>
+            <button onclick="toScreen('5')">5</button>
+            <button onclick="toScreen('6')">6</button>
+            <button class="calculator-button-operation" onclick="toScreen('-')">-</button>
+            <button onclick="toScreen('1')">1</button>
+            <button onclick="toScreen('2')">2</button>
+            <button onclick="toScreen('3')">3</button>
+            <button class="calculator-button-operation" onclick="toScreen('+')">+</button>
+            <button class="calculator-button-double" onclick="toScreen('0')">0</button>
+            <button onclick="toScreen('.')">.</button>
+            <button class="calculator-button-operation button-equal" onclick="calculate()">=</button>
+        </div>
+
+    </div>
+</div>
+</body>
+
+</html>
