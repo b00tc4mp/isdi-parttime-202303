@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora HTML CSS</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1 class="title">Calculadora HTML CSS</h1>
+
+    <div class="big-box">
+      <div class="number-container">
+        <p id="number-container">0</p>
+      </div>
+
+      <div class="buttons">
+        <button id="botonOn" class="first-columns" onclick="pressAC()">
+          AC
+        </button>
+        <button class="first-columns" onclick="pressSignChanger()">+/-</button>
+        <button class="first-columns" onclick="pressPercent()">%</button>
+        <button class="final-column" onclick="division()">÷</button>
+        <button class="first-columns number" onclick="pressNumbers(7)">
+          7
+        </button>
+        <button class="first-columns number" onclick="pressNumbers(8)">
+          8
+        </button>
+        <button class="first-columns number" onclick="pressNumbers(9)">
+          9
+        </button>
+        <button class="final-column" onclick="multiplication()">x</button>
+        <button class="first-columns number" onclick="pressNumbers(4)">
+          4
+        </button>
+        <button class="first-columns number" onclick="pressNumbers(5)">
+          5
+        </button>
+        <button class="first-columns number" onclick="pressNumbers(6)">
+          6
+        </button>
+        <button class="final-column" onclick="subtraction()">-</button>
+        <button class="first-columns number" onclick="pressNumbers(1)">
+          1
+        </button>
+        <button class="first-columns number" onclick="pressNumbers(2)">
+          2
+        </button>
+        <button class="first-columns number" onclick="pressNumbers(3)">
+          3
+        </button>
+        <button class="final-column" onclick="sum()">+</button>
+        <button class="first-columns number zero" onclick="pressNumbers(0)">
+          0
+        </button>
+        <button class="first-columns" onclick="pressPoint('.')">,</button>
+        <button class="equal final-column" onclick="pressEqual()">=</button>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
