@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,800;0,900;1,400;1,600;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>App</title>
+</head>
+
+<body>
+
+
+    <section class="home off">
+        <header class="home-header">
+            <h1 class="home-header-tittle">Home</h1>
+                <div class="home-header-left-items">
+                    <img class="home-header-left-items-config-icon" src="https://www.iconpacks.net/icons/2/free-settings-icon-3110-thumb.png" alt="">
+                    <button class="home-header-left-items-log-out-button button">Log out</button>
+                </div>
+            <div class="home-header-user">
+                <img class="home-header-user-avatar" src=""
+                    alt="default avatar">
+                <h2 class="home-header-user-welcome-msj"></h2>
+            </div>
+            <nav class="home-menu">
+                <ul>
+                    <li><a href="" class="home-menu-change-pass-anchor">change password</a></li>
+                    <li><a href="" class="home-menu-avatar-anchor">Avatar</a></li>
+                    <li><a href="" class="home-menu-option3">option 3</a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+        <div class="change-password-menu menu-page off">
+            <h3>UPDATE PASSWORD</h3>
+            <p>To change current password, provide a new one</p>
+            <form class="form">
+                <label for="old-password">Old password: </label>
+                <input type="text" class="old-password form-item" name="old-password" placeholder="Enter old password"
+                    autocomplete="current-password">
+                <label for="new-password">New password:</label>
+                <input type="password" class="new-password form-item" name="new-password" placeholder="Enter new password"
+                    id="new-password" autocomplete="current-password">
+                <label for="new-password-repetition">Repeat new password:</label>
+                <input type="password" class="new-password-repetition form-item" name="new-password-repetition"
+                    placeholder="Enter again new password" id="new-password-repetition" autocomplete="current-password">
+                <p class="fail-password-match-advise red"></p>
+                <div class="form-buttons">
+                    <button class="cancel-change-password">Cancel</button>
+                    <button type="submit" class="change-password">Change password</button>
+                </div>
+            </form>
+        </div>
+        <div class="home-update-avatar-menu menu-page off">
+            <h3>UPDATE AVATAR</h3>
+            <p>To update avatar, please provide a link that contains an image .png or .jpeg</p>
+            <form class="form">
+                <label for="url">Avatar's URL: </label>
+                <input type="url" class="avatar-url-input form-item" name="url" placeholder="Enter url">
+                <div class="form-buttons">
+                    <p class="fail-warning red"></p>
+                    <button class="form-avatar-cancel-button">Cancel</button>
+                    <button type="submit" class="form-avatar-submit-button">Update avatar</button>
+                </div>
+            </form>
+        </div>
+        <p class="success-password-change-advise green off">Changes succesfully done</p>
+        <p class="success-avatar-warning green off">Avatar uploaded succesfully</p>
+        <section class="home-posts-content ">
+            <!--INPLEMENT ME-->
+        </section>
+        
+    </section>
+    
+    <section class="home-add-post-modal off">
+        <form class="form">
+            <label for="url">Create post:</label>
+            <input type="url" class="form-post-url-input form-item" name="url" placeholder="Enter an image by typing a url">
+            <textarea name="text" cols="30" rows="5" placeholder="What do yo want to say ??"></textarea>
+            <div class="form-buttons">
+                <button type="button" class="form-post-cancel-button">Cancel   </button>
+                <button type="submit" class="form-post-submit-button">Update post</button>
+                <p class="fail-warning red"></p>
+            </div>
+        </form>
+    </section>
+
+    <section class="home-edit-post-modal off">
+        <form class="home-edit-post-form form">
+            <label for="url">Eddit post:</label>
+            <input type="url" class="form-post-url-input form-item" name="url" placeholder="Enter url">
+            <input type="hidden" class="home-edit-hidden-input" name="postId">
+            <textarea name="text" cols="30" rows="5"></textarea>
+            <div class="form-buttons">
+                <button type="button" class="home-edit-form-post-cancel-button">Cancel</button>
+                <button type="submit" class="home-edit-form-post-submit-button">Save</button>
+                <p class="fail-warning red"></p>
+            </div>
+        </form>
+    </section>
+
+
+
+    <footer class="footer off">
+        <button class="footer-button button"> + </button>
+    </footer>
+
+
+    <script type="module" src="src/main.js"></script>
+</body>
+
+</html>
