@@ -1,0 +1,83 @@
+
+article.single.post {
+    width: 100%;
+    max-width: 920px;
+    flex-direction: row;
+    box-sizing: border-box;
+    margin: 30px;
+  }
+
+  .post-image-container {
+    width: 65%;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+
+  .post-image-container img {
+    width: 100%;
+  }
+
+  .post-info-container {
+    width: 35%;
+    padding: 5px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form.new-comment-form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    align-items: center;
+  }
+
+  input[name="comment"] {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 5px 5px;
+    padding: 10px 15px;
+    text-align: left;
+  }
+
+  button[name="post-comment"] {
+    position: absolute;
+    margin: 0 !important;
+    right: 10px;
+    padding: 4px 8px;
+    line-height: 1;
+    border-radius: 7px;
+  }
+  
+  .post-info-container .title-and-interactions {
+    margin-top: auto;
+  }
+
+  .single-comment-container {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  .single-comment-container .user-comment {
+    margin-left: 2px;
+  }
+
+  .single-comment-container .post-author {
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+
+  .single-comment-container .comment {
+    font-size: 14px;
+  }
+  
+  .material-symbols-outlined.close {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    cursor: pointer;
+  }

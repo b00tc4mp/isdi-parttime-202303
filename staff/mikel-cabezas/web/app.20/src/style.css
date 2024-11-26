@@ -1,0 +1,338 @@
+/* ___ GENERAL ______ */
+
+:root {
+  --main-background: #859895;
+  --container-bg: #e0dcda;
+  --main-button: #705D55;
+  --main-headings: #262c30;
+  --main-text: #262c30;
+  --main-link: #705D55;
+  --overlay-black: #00000021;
+  --overlay-black-plus: #111214;
+  --overlay-black-less: #1f2024;
+  --overlay-black-solid: #18191c;
+  --white: #e0dcda;
+  --dark: #262c30;
+  --red: #c1574c;
+}
+:root.dark {
+  --main-background: #1a1d20;
+  --container-bg: #262c30;
+  --main-button: #705D55;
+  --main-headings: #e0dcda;
+  --main-text: #e0dcda;
+
+}
+html[data-theme="dark"] .container {
+  background-color: var(--dark);
+}
+
+html {
+  min-height: 100vh;
+  display: flex;
+}
+
+body {
+  background: var(--main-background);
+  color: var(--white);
+  font-family: 'acumin-pro', sans-serif;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+main {
+  width: calc(100% - 300px);
+  margin-left: 300px;
+}
+.main-content {
+  min-height: 100vh;
+}
+section.login, section.register {
+  min-height: 100vh;
+}
+body.block-scroll {
+  overflow: hidden;
+}
+
+form label {
+  color: var(--main-text);
+}
+
+.hidden, .off {
+  display: none !important;
+}
+
+.section {
+  width: 100%;
+  height: 100%;
+  /* overflow: hidden; */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}
+
+
+
+
+.container {
+  background-color: var(--container-bg);
+  padding: 30px;
+  max-width: 460px;
+  max-width: 260px;
+  width: 100%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+button {
+  background: var(--main-button);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: solid 2px var(--main-button);
+  margin: auto;
+  margin-top: 0px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: linear .2s;
+}
+
+
+button.button--update-info__profile,
+button.button--update-info__password,
+button.button--update-info__save-info,
+button.button--update-info__save-password,
+button.button--update-info__cancel-info,
+button.button--update-info__cancel-password, 
+button.button--create-post_cancel,
+button.button--create-post_save,
+button.button--edit-post,
+button.button--edit-post_cancel,
+button.button--edit-post_save {
+  width: 100%;
+}
+
+.overlay {
+  background: #16181be8;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 11;
+}
+
+input[type="file"] {
+  margin: 10px 0 20px 5px;
+  color: var(--white);
+}
+/* ______ END GENERAL ___ */
+
+
+
+
+/* ___ FONTS ______ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'soleto', sans-serif;
+  text-align: center;
+  color: var(--main-headings);
+}
+
+h1 {
+  font-size: 32px;
+  margin-top: 0;
+  font-weight: 100;
+  margin-bottom: 10px;
+}
+a {
+  color: var(--main-button);
+  text-decoration: none;
+}
+/* ______ END FONTS ___ */
+
+
+
+
+/* ___ FORM ______ */
+
+form {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--container-bg);
+}
+
+.message {
+  /* margin-top: 10px; */
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+.message.success {
+  color: #49b056;
+}
+
+.message.error {
+  color: #f38686;
+}
+
+
+
+input:not([name="file"]) {
+  background-color: #fff;
+  color: var(--main-text);
+  margin: 5px 5px 10px;
+  padding: 8px 15px;
+  min-width: 220px;
+  border: solid 2px var(--main-button);
+  border-radius: 10px;
+  text-align: center;
+  transition: linear .2s;
+}
+
+.overlay input[type="file"] {
+  margin: 10px 0 20px 5px;
+  color: var(--white);
+}
+
+input::placeholder {
+  color: var(--main-background);
+}
+input:focus {
+  border: solid 2px #28bed8;
+  box-shadow: 0 0 3px #28bed87e;
+  outline: none;
+  transition: linear .2s;
+}
+button.submit {
+  background: var(--main-button);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: solid 2px var(--main-button);
+  max-width: 255px;
+  margin: auto;
+  width: 100%;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.container .login, .container .register {
+  font-size: 12px
+}
+
+.register-link p, .login-link p {
+  margin: 0;
+  color: var(--dark);
+}
+
+.register-link, .login-link {
+  margin-top: 25px;
+}
+input:disabled {
+  background-color: var(--container-bg)
+}
+
+
+.password {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password > i.uil {
+  margin: 5px 0 12px;
+  position: absolute;
+  right: 10px;
+  opacity: .7;
+  font-size: 1.3rem;
+  color: var(--dark);
+}
+
+/* ______ END FORM ___ */
+
+
+/* ___ DARK THEME ______ */
+
+
+/* 
+
+
+
+html[data-theme="dark"] h1, 
+html[data-theme="dark"] h2, 
+html[data-theme="dark"] h3, 
+html[data-theme="dark"] h4, 
+html[data-theme="dark"] h5, 
+html[data-theme="dark"] h6, 
+html[data-theme="dark"] p, 
+html[data-theme="dark"] span, 
+html[data-theme="dark"] time {
+  color: var(--white) !important;
+}
+
+html[data-theme="dark"] input::placeholder {
+  color: var(--white);
+}
+
+html[data-theme="dark"] i.uil {
+  color: var(--white) !important;
+}
+
+html[data-theme="dark"] textarea, html[data-theme="dark"]  input:not([name="file"]) {
+  background: rgb(59,59,59);
+  color: var(--white);
+}
+
+html[data-theme="dark"] form label {
+  color: var(--white);
+}
+
+html[data-theme="dark"] .create-post form,
+html[data-theme="dark"] .edit-post form {
+  background: var(--dark);
+
+}
+
+html[data-theme="dark"] .all-users-liked-container {
+  background: var(--dark);
+
+}
+
+html[data-theme="dark"] article {
+  background: var(--dark);
+}
+
+html[data-theme="dark"] button.button--update-info__cancel-info, 
+html[data-theme="dark"] button.button--update-info__cancel-password, 
+html[data-theme="dark"] button.button--create-post_cancel,
+html[data-theme="dark"] button.button--edit-post_cancel {
+  background: transparent;
+  border: solid 2px var(--main-button);
+  color: var(--white);
+}
+
+html[data-theme="dark"] button[type="cancel"]:hover {
+  background: var(--main-button);
+  color: var(--white);
+
+}
+
+html[data-theme="dark"] .post-author {
+  color: var(--white);
+} 
+html[data-theme="dark"] input:focus {
+  border: solid 2px #826d65;
+  box-shadow: 0 0 3px #705d55a8;
+  outline: none;
+  transition: linear .2s;
+} */
+/* END DARK THEME */
