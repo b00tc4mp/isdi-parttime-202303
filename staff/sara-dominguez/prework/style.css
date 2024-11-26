@@ -1,0 +1,256 @@
+body {
+  background-color: #222;
+  display: flex;
+  align-items: end;
+  gap: 10px;
+}
+
+div {
+  color:#222
+}
+.building-skyscraper {
+  width: 100px;
+  height: 600px;
+  background-color: gray;
+}
+
+ 
+.building-skyscraper-floor {
+  height: 60px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.building-skyscraper-ground-floor {
+  align-items: end;
+}
+.building-skyscraper-window {
+  height: 28px;
+  width: 23px;
+  background-color: skyblue;
+  border: 0.1px solid black; 
+
+}
+.building-skyscraper-door {
+  height: 40px;
+  width: 30px;
+  background-color: lightgrey;
+  border: 0.1px solid black;
+}
+
+.isdi-building {
+  width: 75px;
+  height: 550px;
+  background-color: #222;
+ 
+  box-sizing: border-box;
+ justify-content: end;
+}
+
+.isdi-building-top {
+  width: 0px;
+  height: 0px;
+  border-bottom: 150px solid rgb(149, 31, 217);
+  border-right: 75px solid transparent;
+  
+
+  
+
+}
+.isdi-building-middle {
+  width: 75px;
+  height: 210px;
+  background-color: rgb(149, 31, 217);
+  display: flex;
+ justify-content: space-around;
+  align-items: top;
+ 
+  
+}
+
+.isdi-building-middle-window {
+  height: 200px;
+  width: 20px;
+  background-color: skyblue;
+  border: 1px solid black;
+}
+
+.isdi-building-middle-name {
+  width: 75px;
+  height: 70px;
+  background-color: rgb(149, 31, 217);
+  align-items: end;
+  font-weight: bold;
+}
+
+.text {
+  font-size: 14px;
+  font-family:'Roboto', sans-serif;
+  text-align: center;
+  
+
+}
+.isdi-building-bottom {
+  width: 75px;
+  height: 122px;
+  background-color:rgb(149, 31, 217);
+  align-items: end;
+
+}
+
+.isdi-building-bottom-door {
+  width: 20px;
+  height: 35px;
+  background-color: beige;
+}
+
+
+
+.car {
+  width: 50px;
+  height: 40px;
+  
+  
+}
+.car-top {
+  
+  height: 15px;
+  box-sizing:border-box;
+  display: flex;
+  align-items: end;
+ 
+
+}
+.car-mid {
+  height: 15px;
+  border-radius: 6px 6px 0px 0px;
+  box-sizing: border-box;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+}
+.car-bottom {
+  
+  height: 10px;
+  /*border: 1px solid blue*/
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+ 
+
+}
+.car-mirrow {
+  width: 12px;
+  height: 10px;
+  border-radius:2px 2px 2px 2px ;
+  /*border: 1px solid yellow;*/
+  background-color: red;
+  
+
+}
+.car-window {
+  width: 105px;
+  height: 15px;
+  border-radius:10px 10px 0px 0px ;
+  box-sizing: border-box;
+  background-color: skyblue;
+}
+.car-light {
+  width: 9px;
+  height: 9px;
+  background-color: rgb(245, 245, 116);
+  border-radius: 50%;
+}
+.car-wheel {
+  width: 5px;
+  height: 7px;
+  background-color: whitesmoke;
+}
+
+
+.space-plane-moon {
+  width: 250px;
+  height: 1000px;
+  background-color: #222;
+  align-items: center;
+
+
+
+  
+}
+.plane {
+  width: 150px;
+  height: 40px;
+
+  background-color: #222;
+  box-sizing: border-box;
+  
+
+}
+.plane-cabin {
+  width: 120px;
+  height: 15px;
+  background-color: white;
+  border-radius: 0px 90px 15px 15px;
+  display: flex;
+}
+
+.plane-cabin-fuselage {
+  width: 13px;
+  height: 8px;
+  background-color: red;
+}
+
+.plane-cabin-door {
+  width: 5px;
+  height: 10px;
+  background-color: red;
+  border: 0.1px solid black;
+  
+}
+
+.plane-tail {
+  width: 25px;
+  height: 10px;
+  background-color: red;
+  border-radius: 0% 105% 0% 0%;
+}
+
+.plane-passenger-windows {
+  width: 90px;
+  height: 8px;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  gap: 1px;
+
+}
+.plane-passenger-window {
+  width: 2px;
+  height: 2px;
+  background-color: skyblue;
+  border: 0.5px solid black;
+  
+}
+
+.plane-pilot-window {
+  width: 10px;
+  height: 8px;
+  background-color: skyblue;
+  border-radius: 0% 150% 0% 0%;
+
+}
+
+
+.full-moon {
+  width: 75px;
+  height: 70px;
+  background-color: ghostwhite;
+  border-radius: 50%;
+}
+
