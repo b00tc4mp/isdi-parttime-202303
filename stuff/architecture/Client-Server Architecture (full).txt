@@ -1,0 +1,14 @@
+title Client-Server Architecture
+
+actor User
+note right of Client: App (React)
+User->Client:
+Client->client-logic:
+note right of Server: API (JSON)
+client-logic->Server:xhr (HTTTP)
+Server->server-logic:
+server-logic->DB:
+DB->server-logic:
+server-logic->Server:
+Server->client-logic:
+client-logic->Client:
