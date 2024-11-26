@@ -1,0 +1,17 @@
+let myName = 'Rodrigo Castro';
+//console.log('My name has ' + myName.length + ' letters.');
+let position = myName.indexOf(' ') + 1;
+console.log('My last name starts at position ' + position);
+console.log('My name is ' + myName.substring(0, position));
+console.log('My last name is ' + myName.substring(position));
+let lastName = myName.substring(position);
+console.log(myName + ', ' + lastName);
+lastName = 'Mr. '.concat(lastName);
+console.log(lastName);
+position = lastName.indexOf(' ') + 1;
+let lastNameUpper = lastName.substring(position);
+console.log(lastNameUpper.toUpperCase());
+let punto7 = myName + ' is awesome.';
+console.log(punto7);
+let punto8 = myName[0] + '.' + lastNameUpper[0];
+console.log(punto8);

@@ -1,0 +1,259 @@
+
+@keyframes move-background {
+    from {
+          -webkit-transform: translate3d(0px, 0px, 0px);
+      }
+      to { 
+          -webkit-transform: translate3d(1000px, 0px, 0px);
+      }
+  }
+  @-webkit-keyframes move-background {
+    from {
+          -webkit-transform: translate3d(0px, 0px, 0px);
+      }
+      to { 
+          -webkit-transform: translate3d(1000px, 0px, 0px);
+      }
+  }
+  
+  @-moz-keyframes move-background {    
+      from {
+          -webkit-transform: translate3d(0px, 0px, 0px);
+      }
+      to { 
+          -webkit-transform: translate3d(1000px, 0px, 0px);
+      }
+  }
+  
+      @-webkit-keyframes move-background {
+      from {
+          -webkit-transform: translate3d(0px, 0px, 0px);
+      }
+      to { 
+          -webkit-transform: translate3d(1000px, 0px, 0px);
+      }
+  }
+  
+  .background-container{
+      position: fixed;
+      top: 0;
+      left:0;
+      bottom: 0;
+      right: 0;
+  }
+  
+  .stars {
+   background: black url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
+   position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: block;
+        z-index: 0;
+  }
+  
+  .twinkling{
+      width:10000px;
+      height: 100%;
+      background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png") repeat;
+      background-size: 1000px 1000px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 2;
+      
+      -moz-animation:move-background 70s linear infinite;
+    -ms-animation:move-background 70s linear infinite;
+    -o-animation:move-background 70s linear infinite;
+    -webkit-animation:move-background 70s linear infinite;
+    animation:move-background 70s linear infinite;
+      
+  }
+  
+  .clouds{
+      width:10000px;
+      height: 100%;
+      background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/clouds_repeat.png") repeat;
+      background-size: 1000px 1000px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 3;
+  
+     -moz-animation:move-background 150s linear infinite;
+    -ms-animation:move-background 150s linear infinite;
+    -o-animation:move-background 150s linear infinite;
+    -webkit-animation:move-background 150s linear infinite;
+    animation:move-background 150s linear infinite;
+  }
+  img{
+    height: 70vh;
+    width:70vh;
+    position: absolute;
+    z-index: 3;
+    right: 20px;
+  }
+  
+
+
+
+html {
+    font-family: 'Press Start 2P', cursive;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 100vh;
+    background-color: black;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.game-grid {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: repeat(7, 100px);
+    grid-template-rows: repeat(6, 100px);
+}
+
+.space {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid white;
+    margin: 15px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+    color: rgba(255, 255, 255, 0);
+    font-size: 0px;
+}
+
+.space:hover {
+    box-shadow: 0 0 5px white;
+}
+
+.right-buttons {
+    display: flex;
+    width: 176px;
+    flex-direction: column;
+    align-items: baseline;
+    z-index: 100;
+}
+
+.restart {
+    display: flex;
+    margin: 1rem;
+    color: white;
+}
+
+.restart-button {
+    margin-right: 1rem;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: red;
+    cursor: pointer;
+}
+
+.restart-button:hover {
+    background-color: green;
+}
+
+.exit {
+    display: flex;
+    margin: 1rem;
+    color: white;
+}
+
+.exit-button {
+    margin-right: 1rem;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: red;
+    cursor: pointer;
+}
+
+.exit-button:hover {
+    background-color: green;
+}
+
+.left-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 12rem;
+    z-index: 100;
+}
+
+.turn {
+    margin: 2rem 2rem 1rem;
+    color: white;
+}
+
+.goes-color {
+    margin: 0rem 2rem 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: rgba(240, 248, 255, 0);
+}
+
+.goes-color-red {
+    margin: 0rem 2rem 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: rgba(227, 0, 0, 0.9);
+    transition: 0.3s;
+}
+
+.goes-color-yellow {
+    margin: 0rem 2rem 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: rgba(255, 247, 0, 0.90);
+    transition: 0.3s;
+}
+
+.center-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.yellow-player {
+    background-color: rgba(255, 247, 0, 0.90);
+}
+
+.red-player {
+    background-color: rgba(227, 0, 0, 0.9);
+}
+
+
+
+
+
+
+

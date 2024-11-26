@@ -1,0 +1,29 @@
+*{
+    box-sizing:border-box;
+    margin: 0.4rem 0.2rem;
+}
+
+.text {
+    line-height: 25px;
+}
+
+.block1 {
+    padding: 0.4rem;
+    margin: 0.1rem;
+    display: flex;
+}
+
+.block1:hover {
+    background-color: rgba(226, 226, 226, 0.701);
+    padding: 0.4rem;
+}
+
+.block2 {
+    padding: 0.1rem 1rem;
+    margin: 0.1rem;
+}
+
+.title {
+    font-family: Arial, Helvetica, sans-serif;
+};
+

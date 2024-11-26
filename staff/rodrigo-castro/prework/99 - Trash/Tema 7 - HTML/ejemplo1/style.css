@@ -1,0 +1,49 @@
+*{
+    box-sizing:border-box;
+}
+
+html{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    margin:0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin:0;
+}
+
+main{
+    margin: 1rem;
+    background-color: darkseagreen;
+    border: 5px solid rgba(28, 155, 28, 0.558);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+}
+
+.letters-list li {
+    display: inline-block;
+    border: 1px solid rgb(10, 87, 10);
+    font-size: 20px;
+    width: 40px;
+    text-align: center;
+    line-height: 40px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: lightgreen;
+}
+
+.letters-list .required-letter {
+    border: 1px solid rgb(202, 48, 21);
+}
+
+.main-title{
+    text-align: center;
+}
