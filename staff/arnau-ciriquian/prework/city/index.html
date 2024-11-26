@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Skyline</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="https://thenounproject.com/api/private/icons/1396558/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0&token=gAAAAABkFGbLT5Ku4lYlLr8dTZaDOhb0iw5hN6-0XbH_1b9ugGJqN1c2WcMzpz9UCGAW7Umw0XPJVp_UI_7hqU0LH0qRCnVylw%3D%3D" type="image/x-icon">
+</head>
+<body>
+    <div class="canvas">
+        <div class="sky">
+            <div class="sun"></div>
+        </div>
+        <div class="background-mountains-farthest"></div>
+        <div class="background-mountains-closest"></div>
+        <div class="background-buildings">
+            <div class="bg-b-one">
+                <div class="bg-b-dark"></div>
+                <div class="bg-b-clear"></div>
+            </div>
+            <div class="bg-b-special">
+                <div class="bg-e-dark-side">
+                    <div class="bg-e-dark-top"></div>
+                    <div class="bg-e-dark-mid"></div>
+                    <div class="bg-e-dark-bot"></div>
+                </div>
+                <div class="bg-e-clear-side">
+                    <div class="bg-e-antenna">
+                        <div class="bg-e-antenna-top">
+                            <div class="bg-e-antenna-small"></div>
+                            <div class="bg-e-antenna-big"></div>
+                        </div>
+                        <div class="bg-e-antenna-bot"></div>
+                    </div>
+                    <div class="bg-e-clear-main">
+                        <div class="bg-e-top"></div>
+                        <div class="bg-e-main"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-b-two"></div>
+            <div class="bg-b-three"></div>
+            <div class="bg-b-four"></div>
+            <div class="bg-b-five">
+                <div class="bg-b-five-tall">
+                    <div class="bg-b-five-tall-roof"></div>
+                    <div class="bg-b-five-tall-main">
+                        <div class="bg-b-five-tall-clear"></div>
+                        <div class="bg-b-five-tall-dark"></div>
+                    </div>
+                </div>
+                <div class="bg-b-five-mid"></div>
+                <div class="bg-b-five-short"></div>
+            </div>
+            
+        </div>
+
+
+        <div class="drone">
+            <div class="drone-top">
+                <div class="drone-pilot">
+                    <div class="drone-window"></div>
+                </div>
+                <div class="drone-tail"></div>
+            </div>
+            <div class="drone-bot">
+                <div class="drone-body">
+                </div>
+                <div class="drone-feet"></div>
+            </div>
+            <div class="drone-hover">
+                <div class="drone-hover-mech"></div>
+                <div class="r-c-hovering"></div>
+            </div>
+        </div>
+
+
+
+        <div class="building-empire">
+            <div class="building-emp-floor antenna-top"></div>
+            <div class="building-emp-floor antenna-bot">
+                <div class="building-emp-left emp-clear-side-antenna"></div>
+                <div class="building-emp-right emp-dark-side-antenna"></div>
+            </div>
+            <div class="building-emp-floor thin five">
+                <div class="emp-thin-clear-side-first"></div>
+                <div class="emp-thin-dark-side-first"></div>
+            </div>
+            <div class="building-emp-floor medium">
+                <div class="building-emp-left emp-clear-side">
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                </div>
+                <div class="building-emp-right emp-dark-side">
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                </div>
+            </div>
+            <div class="building-emp-floor thin four">
+                <div class="emp-thin-clear-side-second"></div>
+                <div class="emp-thin-dark-side-second"></div>
+            </div>
+            <div class="building-emp-floor thin three">
+                <div class="emp-thin-clear-side-first"></div>
+                <div class="emp-thin-dark-side-first"></div>
+            </div>
+            <div class="building-emp-floor thick-top">
+                <div class="building-emp-left emp-clear-side">
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-top-special-window-left">
+                        <div class="emp-especial-left-border"></div>
+                    </div>
+                </div>
+                <div class="building-emp-right emp-dark-side">
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-top-special-window-right">
+                        <div class="emp-especial-right-border"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="building-emp-floor thin two">
+                <div class="emp-thin-clear-side-second"></div>
+                <div class="emp-thin-dark-side-second"></div>
+            </div>
+            <div class="building-emp-floor thin one">
+                <div class="emp-thin-clear-side-first"></div>
+                <div class="emp-thin-dark-side-first"></div>
+            </div>
+            <div class="building-emp-floor thick-bot">
+                <div class="building-emp-left emp-special-clear-side">
+                    <div class="emp-window-left emp-special-window-left"></div>
+                    <div class="emp-window-left emp-special-window-left"></div>
+                    <div class="emp-window-left emp-special-window-left"></div>
+                    <div class="emp-window-left emp-special-window-left"></div>
+                    <div class="emp-window-left emp-special-window-left"></div>
+                    <div class="emp-window-left emp-special-window-left"></div>
+                    <div class="emp-mid-special-short-window-left">
+                        <div class="emp-especial-left-short-border"></div>
+                    </div>
+                </div>
+                <div class="building-emp-right emp-special-dark-side">
+                    <div class="emp-window-right emp-special-window-right"></div>
+                    <div class="emp-window-right emp-special-window-right"></div>
+                    <div class="emp-window-right emp-special-window-right"></div>
+                    <div class="emp-window-right emp-special-window-right"></div>
+                    <div class="emp-window-right emp-special-window-right"></div>
+                    <div class="emp-window-right emp-special-window-right"></div>
+                    <div class="emp-mid-special-short-window-right">
+                        <div class="emp-especial-right-short-border"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="building-emp-floor thick-bot">
+                <div class="building-emp-left emp-clear-side">
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-mid-special-window-left">
+                        <div class="emp-especial-left-border"></div>
+                    </div>
+                </div>
+                <div class="building-emp-right emp-dark-side">
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-mid-special-window-right">
+                        <div class="emp-especial-right-border"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="building-emp-floor thick-bot">
+                <div class="building-emp-left emp-special-clear-side">
+                    <div class="emp-window-left emp-special-window-left"></div>
+                    <div class="emp-window-left emp-special-window-left"></div>
+                    <div class="emp-window-left emp-special-window-left"></div>
+                    <div class="emp-window-left emp-special-window-left"></div>
+                    <div class="emp-window-left emp-special-window-left"></div>
+                    <div class="emp-window-left emp-special-window-left"></div>
+                </div>
+                <div class="building-emp-right emp-special-dark-side">
+                    <div class="emp-window-right emp-special-window-right"></div>
+                    <div class="emp-window-right emp-special-window-right"></div>
+                    <div class="emp-window-right emp-special-window-right"></div>
+                    <div class="emp-window-right emp-special-window-right"></div>
+                    <div class="emp-window-right emp-special-window-right"></div>
+                    <div class="emp-window-right emp-special-window-right"></div>
+                </div>
+            </div>
+            <div class="building-emp-floor thick-bot">
+                <div class="building-emp-left emp-clear-side">
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                    <div class="emp-window-left"></div>
+                </div>
+                <div class="building-emp-right emp-dark-side">
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                    <div class="emp-window-right"></div>
+                </div>
+            </div>
+        </div>
+        <div class="building-residential">
+            <div class="building-res-roof res-roof-antenna">
+                <div class="res-antenna">
+                    <div class="res-antenna-box">
+                        <div class="res-antenna-box-top"></div>
+                        <div class="res-antenna-box-bot"></div>
+                    </div>
+                    <div class="res-antenna-box">
+                        <div class="res-antenna-box-top"></div>
+                        <div class="res-antenna-box-bot"></div>
+                    </div>
+                    <div class="res-antenna-box">
+                        <div class="res-antenna-box-top"></div>
+                        <div class="res-antenna-box-bot"></div>
+                    </div>
+                    <div class="res-antenna-box">
+                        <div class="res-antenna-box-top"></div>
+                        <div class="res-antenna-box-bot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="building-res-roof">
+                <div class="roof-clear-side"></div>
+                <div class="roof-dark-side"></div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-clear-side"></div>
+                <div class="floor-dark-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                </div>
+                <div class="window-wall-dark-side"></div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-clear-side"></div>
+                <div class="floor-dark-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                </div>
+                <div class="window-wall-dark-side"></div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-clear-side"></div>
+                <div class="floor-dark-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                </div>
+                <div class="window-wall-dark-side"></div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-clear-side"></div>
+                <div class="floor-dark-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                </div>
+                <div class="window-wall-dark-side"></div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-clear-side"></div>
+                <div class="floor-dark-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                </div>
+                <div class="window-wall-dark-side"></div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-clear-side"></div>
+                <div class="floor-dark-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                </div>
+                <div class="window-wall-dark-side"></div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-clear-side"></div>
+                <div class="floor-dark-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-door"></div>
+                    <div class="window-wall-door"></div>
+                    <div class="window-wall-door"></div>
+                    <div class="window-wall-door"></div>
+                </div>
+                <div class="window-wall-dark-side"></div>
+            </div>
+        </div>
+        <div class="building-residential-tall">
+            <div class="building-res-tall-roof-green">
+                <div class="res-tall-plants"></div>
+                <div class="res-tall-plants"></div>
+            </div>
+            <div class="building-res-roof">
+                <div class="roof-dark-side"></div>
+                <div class="roof-clear-side"></div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-dark-side"></div>
+                <div class="floor-clear-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-dark-side"></div>
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>   
+                </div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-dark-side"></div>
+                <div class="floor-clear-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-dark-side"></div>
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                </div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-dark-side"></div>
+                <div class="floor-clear-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-dark-side"></div>
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>   
+                </div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-dark-side"></div>
+                <div class="floor-clear-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-dark-side"></div>
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                </div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-dark-side"></div>
+                <div class="floor-clear-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-dark-side"></div>
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>   
+                </div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-dark-side"></div>
+                <div class="floor-clear-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-dark-side"></div>
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                </div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-dark-side"></div>
+                <div class="floor-clear-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-dark-side"></div>
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                </div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-dark-side"></div>
+                <div class="floor-clear-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-dark-side"></div>
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                </div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-dark-side"></div>
+                <div class="floor-clear-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-dark-side"></div>
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                </div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-dark-side"></div>
+                <div class="floor-clear-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-dark-side"></div>
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                    <div class="window-wall-window"></div>
+                </div>
+            </div>
+            <div class="building-res-floor">
+                <div class="floor-dark-side"></div>
+                <div class="floor-clear-side"></div>
+            </div>
+            <div class="building-res-floor window-wall">
+                <div class="window-wall-dark-side"></div>
+                <div class="window-wall-clear-side">
+                    <div class="window-wall-door"></div>
+                    <div class="window-wall-door"></div>
+                    <div class="window-wall-door"></div>
+                    <div class="window-wall-door"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="street-back">
+            <div class="tree-one">
+                <div class="foliage-one-back"></div>
+                <div class="trunk-one-back"></div>
+            </div>
+            <div class="tree-two">
+                <div class="foliage-two-back"></div>
+                <div class="trunk-two-back"></div>
+            </div>
+            <div class="tree-four">
+                <div class="foliage-four-back"></div>
+                <div class="trunk-four-back"></div>
+            </div>
+            <div class="tree-six">
+                <div class="foliage-six-back"></div>
+                <div class="trunk-six-back"></div>
+            </div>
+            <div class="tree-two">
+                <div class="foliage-two-back"></div>
+                <div class="trunk-two-back"></div>
+            </div>
+            <div class="tree-three">
+                <div class="foliage-three-back"></div>
+                <div class="trunk-three-back"></div>
+            </div>
+            <div class="tree-six">
+                <div class="foliage-six-back"></div>
+                <div class="trunk-six-back"></div>
+            </div>
+            <div class="tree-five">
+                <div class="foliage-five-back"></div>
+                <div class="trunk-five-back"></div>
+            </div>
+            <div class="tree-one">
+                <div class="foliage-one-back"></div>
+                <div class="trunk-one-back"></div>
+            </div>
+            <div class="tree-six">
+                <div class="foliage-six-back"></div>
+                <div class="trunk-six-back"></div>
+            </div>
+            <div class="tree-two">
+                <div class="foliage-two-back"></div>
+                <div class="trunk-two-back"></div>
+            </div>
+            <div class="tree-two">
+                <div class="foliage-two-back"></div>
+                <div class="trunk-two-back"></div>
+            </div>
+            <div class="tree-four">
+                <div class="foliage-four-back"></div>
+                <div class="trunk-four-back"></div>
+            </div>
+            <div class="tree-five">
+                <div class="foliage-five-back"></div>
+                <div class="trunk-five-back"></div>
+            </div>
+            <div class="tree-one">
+                <div class="foliage-one-back"></div>
+                <div class="trunk-one-back"></div>
+            </div>
+            <div class="tree-six">
+                <div class="foliage-six-back"></div>
+                <div class="trunk-six-back"></div>
+            </div>
+            <div class="tree-five">
+                <div class="foliage-five-back"></div>
+                <div class="trunk-five-back"></div>
+            </div>
+            <div class="tree-one">
+                <div class="foliage-one-back"></div>
+                <div class="trunk-one-back"></div>
+            </div>
+            <div class="tree-six">
+                <div class="foliage-six-back"></div>
+                <div class="trunk-six-back"></div>
+            </div>
+            <div class="tree-two">
+                <div class="foliage-two-back"></div>
+                <div class="trunk-two-back"></div>
+            </div>
+            <div class="tree-two">
+                <div class="foliage-two-back"></div>
+                <div class="trunk-two-back"></div>
+            </div>
+            <div class="tree-four">
+                <div class="foliage-four-back"></div>
+                <div class="trunk-four-back"></div>
+            </div>
+            <div class="tree-five">
+                <div class="foliage-five-back"></div>
+                <div class="trunk-five-back"></div>
+            </div>
+            <div class="tree-one">
+                <div class="foliage-one-back"></div>
+                <div class="trunk-one-back"></div>
+            </div>
+            <div class="tree-six">
+                <div class="foliage-six-back"></div>
+                <div class="trunk-six-back"></div>
+            </div>
+            <div class="tree-two">
+                <div class="foliage-two-back"></div>
+                <div class="trunk-two-back"></div>
+            </div>
+        </div>
+        <div class="street-front-left">
+            <div class="tree-one">
+                <div class="foliage-one foliage-one-front-left"></div>
+                <div class="trunk-one trunk-one-front-left"></div>
+            </div>
+            <div class="tree-two">
+                <div class="foliage-two foliage-two-front-left"></div>
+                <div class="trunk-two trunk-two-front-left"></div>
+            </div>
+            <div class="tree-six">
+                <div class="foliage-six foliage-six-front-left"></div>
+                <div class="trunk-six trunk-six-front-left"></div>
+            </div>
+            <div class="tree-four">
+                <div class="foliage-four foliage-four-front-left"></div>
+                <div class="trunk-four trunk-four-front-left"></div>
+            </div>
+            <div class="tree-three">
+                <div class="foliage-three foliage-three-front-left"></div>
+                <div class="trunk-three trunk-three-front-left"></div>
+            </div>
+            <div class="tree-six">
+                <div class="foliage-six foliage-six-front-left"></div>
+                <div class="trunk-six trunk-six-front-left"></div>
+            </div>
+            <div class="tree-two">
+                <div class="foliage-two foliage-two-front-left"></div>
+                <div class="trunk-two trunk-two-front-left"></div>
+            </div>
+            <div class="tree-five">
+                <div class="foliage-five foliage-five-front-left"></div>
+                <div class="trunk-five trunk-five-front-left"></div>
+            </div>
+        </div>
+        <div class="street-front-right">
+            <div class="tree-two">
+                <div class="foliage-two foliage-two-front-right"></div>
+                <div class="trunk-two trunk-two-front-right"></div>
+            </div>
+            <div class="tree-four">
+                <div class="foliage-four foliage-four-front-right"></div>
+                <div class="trunk-four trunk-four-front-right"></div>
+            </div>
+            <div class="tree-three">
+                <div class="foliage-three foliage-three-front-right"></div>
+                <div class="trunk-three trunk-three-front-right"></div>
+            </div>
+            <div class="tree-two">
+                <div class="foliage-two foliage-two-front-right"></div>
+                <div class="trunk-two trunk-two-front-right"></div>
+            </div>
+            <div class="tree-six">
+                <div class="foliage-six foliage-six-front-right"></div>
+                <div class="trunk-six trunk-six-front-right"></div>
+            </div>
+            <div class="tree-one">
+                <div class="foliage-one foliage-one-front-right"></div>
+                <div class="trunk-one trunk-one-front-right"></div>
+            </div>
+            <div class="tree-five">
+                <div class="foliage-five foliage-five-front-right"></div>
+                <div class="trunk-five trunk-five-front-right"></div>
+            </div>
+            <div class="tree-four">
+                <div class="foliage-four foliage-four-front-right"></div>
+                <div class="trunk-four trunk-four-front-right"></div>
+            </div>
+        </div>
+        <div class="street-front-middle">
+            <div class="tree-one">
+                <div class="foliage-one foliage-one-front-midle"></div>
+                <div class="trunk-one trunk-one-front-middle"></div>
+            </div>
+            <div class="tree-two">
+                <div class="foliage-two foliage-two-front-middle"></div>
+                <div class="trunk-two trunk-two-front-middle"></div>
+            </div>
+            <div class="tree-three">
+                <div class="foliage-three foliage-three-front-middle"></div>
+                <div class="trunk-three trunk-three-front-middle"></div>
+            </div>
+            <div class="tree-four">
+                <div class="foliage-four foliage-four-front-middle"></div>
+                <div class="trunk-four trunk-four-front-middle"></div>
+            </div>
+            <div class="tree-one">
+                <div class="foliage-one foliage-one-front-midle"></div>
+                <div class="trunk-one trunk-one-front-middle"></div>
+            </div>
+            <div class="tree-five">
+                <div class="foliage-five foliage-five-front-middle"></div>
+                <div class="trunk-five trunk-five-front-middle"></div>
+            </div>
+            <div class="tree-six">
+                <div class="foliage-six foliage-six-front-middle"></div>
+                <div class="trunk-six trunk-six-front-middle"></div>
+            </div>
+        </div>
+        <div class="red-car-path">
+            <div class="red-car">
+                <div class="r-c-top">
+                    <div class="r-c-window-back"></div>
+                    <div class="r-c-window-front"></div>
+                </div>
+                <div class="r-c-bot">
+                    <div class="r-c-lights-front"></div>
+                    <div class="r-c-lights-back"></div>
+                </div>
+                <div class="r-c-hovering"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

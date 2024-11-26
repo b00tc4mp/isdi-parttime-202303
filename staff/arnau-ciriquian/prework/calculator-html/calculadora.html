@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Calculadora - Arnau Ciriquian</title>
+        <link rel="stylesheet" type="text/css" href="calculadora.css" />
+    </head>
+    <body>
+        <div class="main">
+            <div id="globalCounter">
+                <div id="memoryBox">
+                    <p id="memory"></p>
+                </div>
+                <div>
+                    <p id="counter">0</p>
+                </div>
+            </div>
+            <div class="buttons">
+                <div>
+                    <button class="buttonStyle" id="AC" onclick="resetCounter()">AC</button>
+                </div>
+            </div>
+            <div class="buttons">
+                <div>
+                    <button class="buttonStyle" onclick="addValue(1)">1</button>
+                </div>
+                <div>
+                    <button class="buttonStyle" onclick="addValue(2)">2</button>
+                </div>
+                <div>
+                    <button class="buttonStyle" onclick="addValue(3)">3</button>
+                </div>
+                <div>
+                    <button class="buttonStyle" onclick="getOperator('+')">+</button>
+                </div>
+            </div>
+            <div class="buttons">
+                <div>
+                    <button class="buttonStyle" onclick="addValue(4)">4</button>
+                </div>
+                <div>
+                    <button class="buttonStyle" onclick="addValue(5)">5</button>
+                </div>
+                <div>
+                    <button class="buttonStyle" onclick="addValue(6)">6</button>
+                </div>
+                <div>
+                    <button class="buttonStyle" onclick="getOperator('-')">-</button>
+                </div>
+            </div>
+            <div class="buttons">
+                <div>
+                    <button class="buttonStyle" onclick="addValue(7)">7</button>
+                </div>
+                <div>
+                    <button class="buttonStyle" onclick="addValue(8)">8</button>
+                </div>
+                <div>
+                    <button class="buttonStyle" onclick="addValue(9)">9</button>
+                </div>
+                <div>
+                    <button class="buttonStyle" onclick="getOperator('*')">x</button>
+                </div>
+            </div>
+            <div class="buttons">
+                <div>
+                    <button class="buttonStyle" onclick="addValue(0)">0</button>
+                </div>
+                <div>
+                    <button class="buttonStyle" onclick="addComma('.')">.</button>
+                </div>
+                <div>
+                    <button class="buttonStyle" onclick="getResult()">=</button>
+                </div>
+                <div>
+                    <button class="buttonStyle" onclick="getOperator('/')">/</button>
+                </div>
+            </div>
+            
+        </div>
+        <script type="text/javascript" src="calculadora.js"></script>
+    </body>
+</html>
