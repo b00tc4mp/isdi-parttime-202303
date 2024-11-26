@@ -1,0 +1,87 @@
+/* ___ GENERAL ______ */
+
+body {
+    background: #132f46;
+    background: #091d30;
+    color: #fff;
+    font-family: 'acumin-pro', sans-serif;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+.section {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+
+.container {
+    background-color: #1f3a50;
+    background-color: #132f46;
+    padding: 30px;
+    max-width: 460px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+/* ______ END GENERAL ___ */
+
+
+
+
+/* ___ FONTS ______ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'soleto', sans-serif;
+}
+
+h1 {
+    font-size: 40px;
+    margin-top: 0;
+    font-weight: 100;
+}
+/* ______ END FONTS ___ */
+
+
+
+
+/* ___ FORM ______ */
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+        background-color: rgba(43,47,49, 0.7);
+    background-color: rgb(35 46 56 / 70%);
+    margin: 5px;
+    padding: 8px 15px;
+    min-width: 220px;
+    border: solid 2px #078197;
+    border-radius: 10px;
+    text-align: center;
+}
+button.submit {
+    background: #078197;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: solid 2px #078197;
+    max-width: 255px;
+    margin: auto;
+    width: 100%;
+    margin-top: 5px;
+}
+/* ______ END FORM ___ */
+
