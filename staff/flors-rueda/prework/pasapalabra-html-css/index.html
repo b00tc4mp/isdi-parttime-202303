@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <title>pasalapabra</title>
+</head>
+<body>
+    <p>made by <a href="https://github.com/rucev">rucev</a></p>
+    <div class="mainContainer">
+        <h1>PASAPALABRA</h1>
+        <div class="lettersContainer">
+            <div class="lettersGrid">
+                <div class="a letterCircle">A</div>
+                <div class="b letterCircle">B</div>
+                <div class="c letterCircle">C</div>
+                <div class="d letterCircle">D</div>
+                <div class="e letterCircle">E</div>
+                <div class="f letterCircle">F</div>
+                <div class="g letterCircle">G</div>
+                <div class="h letterCircle">H</div>
+                <div class="i letterCircle">I</div>
+                <div class="j letterCircle">J</div>
+                <div class="k letterCircle">K</div>
+                <div class="l letterCircle">L</div>
+                <div class="m letterCircle">M</div>
+                <div class="n letterCircle">N</div>
+                <div class="ñ letterCircle">Ñ</div>
+                <div class="o letterCircle">O</div>
+                <div class="p letterCircle">P</div>
+                <div class="q letterCircle">Q</div>
+                <div class="r letterCircle">R</div>
+                <div class="s letterCircle">S</div>
+                <div class="t letterCircle">T</div>
+                <div class="u letterCircle">U</div>
+                <div class="v letterCircle">V</div>
+                <div class="w letterCircle">W</div>
+                <div class="x letterCircle">X</div>
+                <div class="y letterCircle">Y</div>
+                <div class="z letterCircle">Z</div>
+            </div>
+        </div>
+        <div class="userInterfaceContainer">
+            <form class="userInterfaceGrid">
+                <div class="scoreboard scoreboardGrid">
+                    <div class="time">250</div>
+                    <div class="score">0</div>
+                </div>
+                <div class="questionArea questionGrid">
+                    <div class="information">
+                        Envia la respuesta de cada pregunta pulsando el botón enviar y pasa con el de pasapalabra.
+                    </div>
+                    <div class="inputBar">
+                        <input class="name" maxlength="10" onkeypress="return event.keyCode !== 13;" type="text" placeholder="escribe tu nombre" value="" />
+                        <input class="answer hidden" onkeypress="return event.keyCode !== 13;" type="text" placeholder="escribe la respuesta" value="" />
+                    </div>
+                </div>
+                <div class="exit">
+                    <button class="button quit hidden">
+                        Salir
+                    </button>  
+                </div>
+                <div class="button1">
+                    <button class="button pass hidden">
+                        Pasapalabra
+                    </button>
+                    <button class="button next hidden">
+                        Seguir jugando
+                    </button>
+                    <button class="button restart hidden">
+                        Volver
+                    </button>
+                    <button class="button start" role="button">
+                        Empezar
+                    </button>
+                </div>
+                <div class="button2">
+                    <button class="sendAnswer hidden">
+                        Enviar
+                    </button>
+                    <button class="button rank">
+                        Ranking
+                    </button>
+                </div>
+            </form>
+        </div>     
+    </div>
+</body>
+<script type="module" src="./scripts/main.js" defer></script>
+</html>

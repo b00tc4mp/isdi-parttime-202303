@@ -1,0 +1,96 @@
+@import "./grid.css";
+@import "./letters.css";
+@import "./buttons.css";
+@import "./question.css";
+@import "./scoreboard.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Sono:wght@300;400;500;600;700;800&display=swap');
+
+
+:root{
+    --blue400: #000d72;
+    --blue300: #1e2a82;
+    --blue200: #3744a9;
+    --blue100: #4164ae;
+    --orange400: #942300;
+    --orange300: #ff3c00;
+    --orange200: #ff7b00;
+    --orange100: #f49a24;
+    --blank500: #232323;
+    --blank400: #414141;
+    --blank300: #808080;
+    --blank200: #dedede;
+    --blank100: #f8f8ff;
+    --green300: #0a4100;
+    --green200: #287a19;
+    --green100: #67cf55;
+    --red300: #4e0505;
+    --red200: #890000;
+    --red100: #cf5047;
+}
+
+
+body {
+    margin-top: 4%;
+    background: var(--blank100);
+    font-family: 'Sono', sans-serif;
+}
+
+.information {
+    font-family: 'Sono', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--blue400);
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.hidden {
+	display: none;
+}
+
+h1{
+    text-shadow: var(--blue400) 2px 0 1px;
+    color: var(--blue200);
+    font-size: calc(3.5vw + 3.5vh);
+    font-weight: 800;
+}
+
+p {
+    font-family: 'Sono', sans-serif;
+    font-size: calc(0.55vw + 0.55vh);
+    font-weight: 600;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    color: var(--blue100);
+    text-align: center;
+}
+
+a, a:active {
+    font-weight: 600;
+    color: var(--blue100);
+}
+
+a:hover {
+    font-weight: 600;
+    color: var(--orange300);
+}
+
+@media (min-width: 768px) {
+    h1{
+        font-size: calc(4vw + 4vh);
+    }
+    .information {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 350px) {
+    h1{
+        font-size: calc(3vw + 3vh);
+    }
+    .information {
+        font-size: 0.65rem;
+        font-family: 'Sono', sans-serif;
+    }
+}

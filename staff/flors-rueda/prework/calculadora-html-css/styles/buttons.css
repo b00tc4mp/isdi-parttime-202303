@@ -1,0 +1,110 @@
+button {
+  box-shadow: black 0.05rem 0.1rem 0.2rem;
+  font-family: "Exo 2", sans-serif;
+  box-sizing: border-box;
+  border: 0.05rem solid;
+  color: ghostwhite;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1rem;
+  height: 100%;
+  width: 100%;
+  outline: 0;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+}
+
+.numberButton {
+  background: coral;
+  border: coral;
+  border-radius: 50%;
+  font-size: 2rem;
+  font-weight: 800;
+  padding: 0.5rem;
+}
+
+.numberButton:hover,
+.numberButton:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: coral;
+}
+
+.numberButton:active {
+  opacity: 0.5;
+}
+
+.valueButton {
+  background: tomato;
+  border: tomato;
+  border-radius: 40%;
+  font-weight: 800;
+  padding: 0.5rem;
+}
+
+.symbolValue {
+  font-size: 2rem;
+}
+
+.coma {
+  font-size: 3rem;
+  padding-bottom: 1rem;
+}
+
+.valueButton:hover,
+.valueButton:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: tomato;
+}
+
+.valueButton:active {
+  opacity: 0.5;
+}
+
+.clearButton {
+  background: darkslategrey;
+  border: darkslategrey;
+  border-radius: 10%;
+  color: ghostwhite;
+  font-size: 2rem;
+  font-weight: 500;
+  padding: 0.5rem;
+}
+
+.clearButton:hover,
+.clearButton:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: darkslategrey;
+}
+
+.clearButton:active {
+  opacity: 0.5;
+}
+
+.operatorsButton {
+  background: orangered;
+  border: orangered;
+  border-radius: 4%;
+  color: ghostwhite;
+  font-size: 2rem;
+  font-weight: 900;
+  padding: 0.5rem;
+}
+
+.operatorsButton:hover,
+.operatorsButton:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: orangered;
+}
+
+.operatorsButton:active {
+  opacity: 0.5;
+}
